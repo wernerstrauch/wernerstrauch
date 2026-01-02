@@ -117,6 +117,42 @@ const {
   imagePosition = "left",
 } = Astro.props;
 
+// Resolve image if it's a string (from YAML)
+const assetsImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+const srcImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/images/**/*.{png,jpg,jpeg,webp}",
+);
+const allImages = { ...assetsImages, ...srcImages };
+
+let resolvedImage: ImageMetadata | string | undefined;
+if (typeof image === "string") {
+  if (image.startsWith("/src/assets/") || image.startsWith("/src/images/")) {
+    if (allImages[image]) {
+      resolvedImage = (await allImages[image]()).default;
+    } else {
+      resolvedImage = image;
+    }
+  } else if (image.startsWith("http")) {
+    resolvedImage = image;
+  } else if (image.startsWith("/")) {
+    resolvedImage = image;
+  } else {
+    const imagesPath = `/src/images/${image}`;
+    const assetsPath = `/src/assets/${image}`;
+    if (allImages[imagesPath]) {
+      resolvedImage = (await allImages[imagesPath]()).default;
+    } else if (allImages[assetsPath]) {
+      resolvedImage = (await allImages[assetsPath]()).default;
+    }
+  }
+} else {
+  resolvedImage = image;
+}
+
+const isPublicImage = typeof resolvedImage === "string";
+
 // Determine if dark variant for button styling
 const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
 
