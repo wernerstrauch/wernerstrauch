@@ -1,0 +1,197 @@
+{
+  "topic": "AR-Shopping im E-Commerce 2026",
+  "platform": "instagram",
+  "template": "mixed",
+  "colorMode": "dark",
+  "slides": [
+    {
+      "index": 0,
+      "type": "hook",
+      "title": "AR-SHOPPING IST DIE ZUKUNFT",
+      "subtitle": "So veränderst du dein E-Commerce 2026",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 1,
+      "type": "stat",
+      "title": "77 MRD $",
+      "subtitle": "Aktueller Marktwert für Augmented Reality",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 2,
+      "type": "stat",
+      "title": "5 BIO $",
+      "subtitle": "Prognostizierte Wertschöpfung bis 2030",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 3,
+      "type": "image-left",
+      "title": "AR-SHOPPING ERLEBEN",
+      "subtitle": "Produkte virtuell im eigenen Raum visualisieren",
+      "imagePath": "/Users/werner.strauch/Projekte/werner-strauch/carousel/output/2026-01-01_ar-shopping-im-e-commerce-2026/images/ar-shopping-hero.png",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 4,
+      "type": "question",
+      "title": "WAS WÄRE WENN DEINE KUNDEN PRODUKTE VOR DEM KAUF ERLEBEN KÖNNTEN?",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 5,
+      "type": "quote",
+      "title": "Verbraucher wollen mit Produkten interagieren, bevor sie kaufen",
+      "quoteAuthor": "McKinsey Studie",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 6,
+      "type": "chapter",
+      "title": "6 AR-TRENDS FÜR 2026",
+      "subtitle": "Die wichtigsten Entwicklungen",
+      "chapterNumber": 1,
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 7,
+      "type": "listicle-item",
+      "title": "SOCIAL MEDIA FILTER",
+      "subtitle": "Snapchat & Instagram als AR-Spielwiese",
+      "number": 1,
+      "accentText": "01",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 8,
+      "type": "listicle-item",
+      "title": "VIRTUELLE ANPROBE",
+      "subtitle": "Mode & Beauty direkt am Körper testen",
+      "number": 2,
+      "accentText": "02",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 9,
+      "type": "image-right",
+      "title": "MODE VIRTUELL TESTEN",
+      "subtitle": "AR-Spiegel zeigen Kleidung direkt am Körper",
+      "imagePath": "/Users/werner.strauch/Projekte/werner-strauch/carousel/output/2026-01-01_ar-shopping-im-e-commerce-2026/images/ar-try-on-fashion.png",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 10,
+      "type": "listicle-item",
+      "title": "VIRTUELLER SHOWROOM",
+      "subtitle": "Möbel ins eigene Wohnzimmer projizieren",
+      "number": 3,
+      "accentText": "03",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 11,
+      "type": "image-top",
+      "title": "MÖBEL IM RAUM",
+      "subtitle": "AR-App platziert Produkte in deinem Zuhause",
+      "imagePath": "/Users/werner.strauch/Projekte/werner-strauch/carousel/output/2026-01-01_ar-shopping-im-e-commerce-2026/images/ar-furniture-room.png",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 12,
+      "type": "listicle-item",
+      "title": "BESSERE AR-HARDWARE",
+      "subtitle": "LiDAR & ToF machen AR zugänglicher",
+      "number": 4,
+      "accentText": "04",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 13,
+      "type": "listicle-item",
+      "title": "AR-SPIEGEL IM STORE",
+      "subtitle": "Make-up testen ohne aufzutragen",
+      "number": 5,
+      "accentText": "05",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 14,
+      "type": "phone-mockup",
+      "title": "BEAUTY TECH",
+      "subtitle": "Virtuelles Make-up in Echtzeit",
+      "imagePath": "/Users/werner.strauch/Projekte/werner-strauch/carousel/output/2026-01-01_ar-shopping-im-e-commerce-2026/images/ar-makeup-mirror.png",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 15,
+      "type": "listicle-item",
+      "title": "GAMIFICATION",
+      "subtitle": "Shopping zum Erlebnis machen",
+      "number": 6,
+      "accentText": "06",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 16,
+      "type": "image-left",
+      "title": "SMART GLASSES",
+      "subtitle": "Die Zukunft des Shoppings ist zum Greifen nah",
+      "imagePath": "/Users/werner.strauch/Projekte/werner-strauch/carousel/output/2026-01-01_ar-shopping-im-e-commerce-2026/images/ar-glasses-shopping.png",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 17,
+      "type": "comparison",
+      "title": "DER UNTERSCHIED",
+      "leftLabel": "VORHER",
+      "rightLabel": "NACHHER",
+      "leftContent": "Produkt nur auf Bildern sehen",
+      "rightContent": "Produkt virtuell im Raum erleben",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 18,
+      "type": "highlight",
+      "title": "40% HÖHERE CONVERSION",
+      "subtitle": "Gunner Kennels mit Shopify AR",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 19,
+      "type": "tip",
+      "title": "STARTE MIT SHOPIFY AR",
+      "subtitle": "3D-Modelle direkt in deinen Produktseiten integrieren",
+      "showSwipeArrow": true,
+      "colorMode": "dark"
+    },
+    {
+      "index": 20,
+      "type": "cta",
+      "title": "WERNER STRAUCH.",
+      "subtitle": "Der Stille Stratege",
+      "accentText": "@wernerstrauch",
+      "showSwipeArrow": false,
+      "colorMode": "dark"
+    }
+  ]
+}

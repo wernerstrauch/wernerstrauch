@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Banner - Werner Strauch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'deep-navy': '#0a1628',
+            'navy-90': '#121f33',
+            'navy-60': '#1a2d47',
+            'high-white': '#f8f9fa',
+            'electric-lime': '#c8ff00',
+            'lime-60': 'rgba(200, 255, 0, 0.6)',
+            'lime-20': 'rgba(200, 255, 0, 0.2)',
+            'lime-10': 'rgba(200, 255, 0, 0.1)',
+          },
+          fontFamily: {
+            'display': ['"Bebas Neue"', 'sans-serif'],
+            'heading': ['"Syne"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* LinkedIn Banner: 1584 x 396 px */
+    .banner-container {
+      width: 1584px;
+      height: 396px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle grid pattern */
+    .grid-pattern {
+      background-image:
+        linear-gradient(rgba(200, 255, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 255, 0, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Noise texture overlay */
+    .noise-overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 0.4;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Gradient glow effect */
+    .lime-glow {
+      background: radial-gradient(ellipse 600px 300px at 85% 50%, rgba(200, 255, 0, 0.08) 0%, transparent 70%);
+    }
+
+    /* Architectural line */
+    .arch-line {
+      position: absolute;
+      background: linear-gradient(90deg, transparent 0%, rgba(200, 255, 0, 0.4) 20%, rgba(200, 255, 0, 0.4) 80%, transparent 100%);
+    }
+
+    /* Typography polish */
+    .text-outline {
+      -webkit-text-stroke: 1px rgba(200, 255, 0, 0.3);
+      color: transparent;
+    }
+
+    /* Stagger animation for export preview */
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeSlideIn 0.6s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .delay-4 { animation-delay: 0.4s; opacity: 0; }
+  </style>
+</head>
+<body class="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-8">
+
+  <!-- Banner Preview -->
+  <div id="banner" class="banner-container relative shadow-2xl overflow-hidden">
+
+    <!-- AI Generated Background -->
+    <img src="./assets/banner-bg.png" alt="" class="absolute inset-0 w-full h-full object-cover" />
+
+    <!-- Subtle overlay for text contrast -->
+    <div class="absolute inset-0 bg-gradient-to-r from-deep-navy/40 via-transparent to-transparent"></div>
+
+    <!-- Noise texture -->
+    <div class="noise-overlay pointer-events-none"></div>
+
+    <!-- Left accent bar -->
+    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] h-[120px] bg-electric-lime"></div>
+
+    <!-- Main content -->
+    <div class="relative z-10 h-full flex items-center px-16">
+
+      <!-- Left side: Visual elements -->
+      <div class="flex-1 flex items-center gap-8">
+        <!-- Geometric system visualization -->
+        <div class="relative w-[280px] h-[280px]">
+          <!-- Outer ring -->
+          <div class="absolute inset-0 rounded-full border-2 border-lime-20 animate-pulse" style="animation-duration: 4s;"></div>
+          <!-- Middle ring -->
+          <div class="absolute inset-6 rounded-full border border-lime-10"></div>
+          <!-- Inner ring with glow -->
+          <div class="absolute inset-12 rounded-full border border-electric-lime/40 bg-electric-lime/5"></div>
+          <!-- Center dot -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-electric-lime shadow-[0_0_20px_rgba(200,255,0,0.6)]"></div>
+
+          <!-- Connecting lines (system nodes) -->
+          <div class="absolute top-[25%] left-[20%] w-2 h-2 rounded-full bg-electric-lime/60"></div>
+          <div class="absolute top-[70%] left-[25%] w-2 h-2 rounded-full bg-electric-lime/60"></div>
+          <div class="absolute top-[40%] left-[75%] w-2 h-2 rounded-full bg-electric-lime/60"></div>
+          <div class="absolute top-[80%] left-[70%] w-1.5 h-1.5 rounded-full bg-electric-lime/40"></div>
+          <div class="absolute top-[15%] left-[60%] w-1.5 h-1.5 rounded-full bg-electric-lime/40"></div>
+
+          <!-- Cross lines -->
+          <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-lime-20 to-transparent"></div>
+          <div class="absolute top-0 left-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-lime-20 to-transparent"></div>
+        </div>
+
+        <!-- Vertical metrics bar -->
+        <div class="flex flex-col gap-3">
+          <div class="animate-in delay-1 border-l-2 border-electric-lime pl-4">
+            <div class="font-display text-electric-lime text-3xl leading-none">3×</div>
+            <div class="font-heading text-high-white/50 text-xs mt-1">über 1 Mio. € skaliert</div>
+          </div>
+          <div class="animate-in delay-2 border-l-2 border-lime-60 pl-4">
+            <div class="font-display text-high-white/80 text-2xl leading-none">15+</div>
+            <div class="font-heading text-high-white/40 text-xs mt-1">Jahre E-Commerce</div>
+          </div>
+          <div class="animate-in delay-3 border-l-2 border-lime-20 pl-4">
+            <div class="font-display text-high-white/60 text-2xl leading-none">D2C</div>
+            <div class="font-heading text-high-white/30 text-xs mt-1">& B2B Fokus</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Main headline (rechtsbündig) -->
+      <div class="text-right">
+        <!-- Small tagline -->
+        <div class="animate-in delay-1 flex items-center justify-end gap-3 mb-4">
+          <span class="font-heading text-lime-60 text-sm tracking-[0.3em] uppercase">E-Commerce Strategie</span>
+          <div class="w-8 h-[2px] bg-electric-lime"></div>
+        </div>
+
+        <!-- Main headline -->
+        <h1 class="animate-in delay-2 font-display text-high-white text-[76px] leading-[0.85] tracking-wide mb-2">
+          DER STILLE<br>
+          <span class="text-electric-lime">STRATEGE</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="animate-in delay-3 font-heading text-high-white/60 text-lg mt-5 max-w-md ml-auto leading-relaxed">
+          Profit-Klarheit durch System-Design.
+        </p>
+        <p class="animate-in delay-4 font-heading text-high-white/40 text-sm mt-2">
+          Für Inhaber, die Substanz über Show stellen.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Bottom accent -->
+    <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-electric-lime/30 to-transparent"></div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="mt-8 flex gap-4">
+    <button
+      onclick="downloadBanner()"
+      class="px-6 py-3 bg-electric-lime text-deep-navy font-heading font-bold rounded hover:bg-lime-300 transition-colors"
+    >
+      Download PNG (1584×396)
+    </button>
+    <button
+      onclick="downloadBanner(2)"
+      class="px-6 py-3 border border-electric-lime/50 text-electric-lime font-heading rounded hover:bg-electric-lime/10 transition-colors"
+    >
+      Download @2x (3168×792)
+    </button>
+  </div>
+
+  <p class="mt-4 text-gray-500 text-sm font-heading">
+    LinkedIn Banner Dimensions: 1584 × 396 px
+  </p>
+
+  <script>
+    async function downloadBanner(scale = 1) {
+      const banner = document.getElementById('banner');
+
+      // Remove animations for clean export
+      banner.querySelectorAll('.animate-in').forEach(el => {
+        el.style.opacity = '1';
+        el.style.animation = 'none';
+      });
+
+      const canvas = await html2canvas(banner, {
+        scale: scale,
+        useCORS: true,
+        backgroundColor: '#0a1628',
+        logging: false
+      });
+
+      const link = document.createElement('a');
+      link.download = `linkedin-banner-werner-strauch${scale > 1 ? '@2x' : ''}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>

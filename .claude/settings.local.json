@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run generate:*)",
+      "Bash(file:*)",
+      "Bash(unzip:*)",
+      "Bash(open:*)",
+      "Bash(mkdir:*)",
+      "Skill(frontend-design)",
+      "Skill(frontend-design:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm tsx:*)",
+      "Bash(code:*)",
+      "Bash(chmod:*)",
+      "Bash(/Users/werner.strauch/.local/bin/claude-wrapper:*)",
+      "Bash(cat:*)",
+      "Skill(superpowers:brainstorm)",
+      "Skill(superpowers:brainstorm:*)",
+      "Bash(pnpm run build:*)"
+    ]
+  }
+}

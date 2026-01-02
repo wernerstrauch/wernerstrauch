@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-01-01T18:30:31.204Z",
+  "outputDir": "/Users/werner.strauch/Projekte/werner-strauch/carousel/output/2026-01-01_ar-shopping-im-e-commerce-2026/images",
+  "totalImages": 6,
+  "skippedImages": 2,
+  "newlyGenerated": 4,
+  "images": [
+    {
+      "name": "ar-shopping-hero",
+      "filename": "ar-shopping-hero.png",
+      "prompt": "Person using smartphone AR app to visualize furniture in living room, holographic 3D sofa floating in space, modern minimalist interior, electric lime green accent lighting, futuristic UI overlay, photorealistic, cinematic lighting, 4k",
+      "parameters": {
+        "model": "fal-ai/nano-banana-pro",
+        "aspect_ratio": "3:4",
+        "num_images": 1,
+        "output_format": "png",
+        "resolution": "1K"
+      },
+      "generatedAt": "previously generated"
+    },
+    {
+      "name": "ar-try-on-fashion",
+      "filename": "ar-try-on-fashion.png",
+      "prompt": "Woman using AR mirror to try on virtual clothes, holographic dress overlay on reflection, sleek retail store, neon lime accents, futuristic shopping experience, photorealistic, soft studio lighting",
+      "parameters": {
+        "model": "fal-ai/nano-banana-pro",
+        "aspect_ratio": "3:4",
+        "num_images": 1,
+        "output_format": "png",
+        "resolution": "1K"
+      },
+      "generatedAt": "previously generated"
+    },
+    {
+      "name": "ar-makeup-mirror",
+      "filename": "ar-makeup-mirror.png",
+      "prompt": "AR smart mirror showing virtual makeup try-on, digital cosmetics overlay on face, beauty store setting, lime green UI elements, futuristic beauty tech, photorealistic close-up",
+      "parameters": {
+        "model": "fal-ai/nano-banana-pro",
+        "aspect_ratio": "3:4",
+        "num_images": 1,
+        "output_format": "png",
+        "resolution": "1K"
+      },
+      "generatedAt": "2026-01-01T18:29:25.505Z",
+      "sourceUrl": "https://v3b.fal.media/files/b/0a88ac7e/NdhQEkG5BtdMnElCruE_Q.png"
+    },
+    {
+      "name": "ar-furniture-room",
+      "filename": "ar-furniture-room.png",
+      "prompt": "Smartphone screen showing AR furniture placement app, virtual sofa in real living room, measurement lines and lime green UI overlays, photorealistic product visualization",
+      "parameters": {
+        "model": "fal-ai/nano-banana-pro",
+        "aspect_ratio": "3:4",
+        "num_images": 1,
+        "output_format": "png",
+        "resolution": "1K"
+      },
+      "generatedAt": "2026-01-01T18:29:44.250Z",
+      "sourceUrl": "https://v3b.fal.media/files/b/0a88ac80/VO0h230JMnBXyl1gDWa6U.png"
+    },
+    {
+      "name": "ar-glasses-shopping",
+      "filename": "ar-glasses-shopping.png",
+      "prompt": "Person wearing AR smart glasses in shopping mall, holographic product information floating, lime green digital displays, futuristic retail, cyberpunk aesthetic",
+      "parameters": {
+        "model": "fal-ai/nano-banana-pro",
+        "aspect_ratio": "3:4",
+        "num_images": 1,
+        "output_format": "png",
+        "resolution": "1K"
+      },
+      "generatedAt": "2026-01-01T18:30:10.052Z",
+      "sourceUrl": "https://v3b.fal.media/files/b/0a88ac82/k0SYwTVxjV24_lrUJUBI_.png"
+    },
+    {
+      "name": "ar-product-scan",
+      "filename": "ar-product-scan.png",
+      "prompt": "Hand holding smartphone scanning product with AR, 3D holographic product details appearing, lime green accent glow, dark background, tech visualization",
+      "parameters": {
+        "model": "fal-ai/nano-banana-pro",
+        "aspect_ratio": "3:4",
+        "num_images": 1,
+        "output_format": "png",
+        "resolution": "1K"
+      },
+      "generatedAt": "2026-01-01T18:30:31.204Z",
+      "sourceUrl": "https://v3b.fal.media/files/b/0a88ac85/fAhwkjo0qNqsGCOLPVhdW.png"
+    }
+  ]
+}
