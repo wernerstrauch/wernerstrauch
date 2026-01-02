@@ -1,7 +1,3 @@
-# Skip devDependencies (Playwright) in production build
-[phases.install]
-cmds = ["npm ci --omit=dev"]
-
-# Skip Playwright browser download
+# Skip Playwright browser download in production
 [variables]
 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
