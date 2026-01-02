@@ -184,9 +184,11 @@ const pages = defineCollection({
               trailCount: z.number().optional(),
               colors: z.array(z.string()).optional(),
               // ConcentricShapes props
-              position: z.enum(["left", "right", "center"]).optional(),
-              size: z.enum(["sm", "md", "lg"]).optional(),
+              position: z.enum(["left", "right", "center", "bottom-right", "bottom-left", "top-right", "top-left"]).optional(),
+              size: z.enum(["sm", "md", "lg", "xl", "2xl"]).optional(),
               animate: z.boolean().optional(),
+              hideOnMobile: z.boolean().optional(),
+              shape: z.string().optional(),
             }),
           )
           .optional(),

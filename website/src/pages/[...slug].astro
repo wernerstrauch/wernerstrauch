@@ -22,6 +22,10 @@ import GlowBackground from "@components/backgrounds/GlowBackground.astro";
 import GlowBackgroundAnimated from "@components/backgrounds/GlowBackgroundAnimated.astro";
 import ConcentricShapes from "@components/backgrounds/ConcentricShapes.astro";
 import LightGradientBackground from "@components/backgrounds/LightGradientBackground.astro";
+import SignetBackground from "@components/backgrounds/SignetBackground.astro";
+import RisingBarsBackground from "@components/backgrounds/RisingBarsBackground.astro";
+import BlueprintGridBackground from "@components/backgrounds/BlueprintGridBackground.astro";
+import FloatingOrbsBackground from "@components/backgrounds/FloatingOrbsBackground.astro";
 
 // Section Components
 import Hero from "@components/sections/Hero.astro";
@@ -65,6 +69,7 @@ import CaseStudies from "@components/sections/CaseStudies.astro";
 import AboutSection from "@components/sections/AboutSection.astro";
 import CtaCentered from "@components/sections/CtaCentered.astro";
 import Quote from "@components/sections/Quote.astro";
+import ServicesShowcase from "@components/sections/ServicesShowcase.astro";
 
 // Static Paths for Pre-Rendering
 export async function getStaticPaths() {
@@ -166,6 +171,7 @@ const componentMap: Record<string, any> = {
   AboutSection,
   CtaCentered,
   Quote,
+  ServicesShowcase,
 };
 
 // Background Mapping
@@ -180,6 +186,10 @@ const backgroundMap: Record<string, any> = {
   GlowBackgroundAnimated,
   ConcentricShapes,
   LightGradientBackground,
+  SignetBackground,
+  RisingBarsBackground,
+  BlueprintGridBackground,
+  FloatingOrbsBackground,
 };
 ---
 

@@ -1,0 +1,252 @@
+---
+/**
+ * BlueprintGridBackground
+ *
+ * Technisches Raster mit diagonalen Kreuzlinien und Ankerpunkten.
+ * Symbolisiert Struktur, Planung und fundierte Entscheidungen.
+ * Perfekt für Prinzipien/Werte-Sections.
+ * Animation startet beim Scrollen ins Viewport.
+ */
+
+interface Props {
+  color?: string;
+  opacity?: number;
+  gridSize?: number;
+  showDots?: boolean;
+  animate?: boolean;
+}
+
+const {
+  color = "#ffffff",
+  opacity = 0.04,
+  gridSize = 40,
+  showDots = true,
+  animate = true,
+} = Astro.props;
+
+// Generate unique ID for pattern
+const uniqueId = Math.random().toString(36).substring(2, 9);
+---
+
+<div class="blueprint-grid-container" data-animate={animate ? "true" : "false"}>
+  <svg
+    class="blueprint-grid-svg"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <defs>
+      {/* Diagonal lines pattern - crossing lines */}
+      <pattern
+        id={`blueprint-pattern-${uniqueId}`}
+        width={gridSize}
+        height={gridSize}
+        patternUnits="userSpaceOnUse"
+      >
+        {/* Diagonal line top-left to bottom-right */}
+        <line
+          x1="0"
+          y1="0"
+          x2={gridSize}
+          y2={gridSize}
+          stroke={color}
+          stroke-width="0.5"
+          class="blueprint-line blueprint-line--diagonal-1"
+        />
+        {/* Diagonal line top-right to bottom-left */}
+        <line
+          x1={gridSize}
+          y1="0"
+          x2="0"
+          y2={gridSize}
+          stroke={color}
+          stroke-width="0.5"
+          class="blueprint-line blueprint-line--diagonal-2"
+        />
+        {/* Center intersection dot */}
+        {showDots && (
+          <circle
+            cx={gridSize / 2}
+            cy={gridSize / 2}
+            r="1.5"
+            fill={color}
+            class="blueprint-dot"
+          />
+        )}
+        {/* Corner dots (quarters visible) */}
+        {showDots && (
+          <>
+            <circle cx="0" cy="0" r="1" fill={color} class="blueprint-dot blueprint-dot--corner" />
+            <circle cx={gridSize} cy="0" r="1" fill={color} class="blueprint-dot blueprint-dot--corner" />
+            <circle cx="0" cy={gridSize} r="1" fill={color} class="blueprint-dot blueprint-dot--corner" />
+            <circle cx={gridSize} cy={gridSize} r="1" fill={color} class="blueprint-dot blueprint-dot--corner" />
+          </>
+        )}
+      </pattern>
+
+      {/* Mask for fade effect at edges */}
+      <linearGradient id={`blueprint-fade-h-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="white" stop-opacity="0" />
+        <stop offset="15%" stop-color="white" stop-opacity="1" />
+        <stop offset="85%" stop-color="white" stop-opacity="1" />
+        <stop offset="100%" stop-color="white" stop-opacity="0" />
+      </linearGradient>
+
+      <linearGradient id={`blueprint-fade-v-${uniqueId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="white" stop-opacity="0.3" />
+        <stop offset="30%" stop-color="white" stop-opacity="1" />
+        <stop offset="70%" stop-color="white" stop-opacity="1" />
+        <stop offset="100%" stop-color="white" stop-opacity="0.3" />
+      </linearGradient>
+
+      <mask id={`blueprint-mask-${uniqueId}`}>
+        <rect width="100%" height="100%" fill={`url(#blueprint-fade-h-${uniqueId})`} />
+        <rect width="100%" height="100%" fill={`url(#blueprint-fade-v-${uniqueId})`} style="mix-blend-mode: multiply;" />
+      </mask>
+    </defs>
+
+    {/* Main pattern rect */}
+    <rect
+      width="100%"
+      height="100%"
+      fill={`url(#blueprint-pattern-${uniqueId})`}
+      style={`opacity: ${opacity};`}
+      mask={`url(#blueprint-mask-${uniqueId})`}
+      class="blueprint-pattern-rect"
+    />
+  </svg>
+
+  {/* Accent lines - horizontal rules at top and bottom */}
+  <div class="blueprint-accent blueprint-accent--top" style={`background: ${color}; opacity: ${opacity * 1.5};`}></div>
+  <div class="blueprint-accent blueprint-accent--bottom" style={`background: ${color}; opacity: ${opacity * 1.5};`}></div>
+</div>
+
+<script>
+  function initBlueprintGrid(): void {
+    const containers = document.querySelectorAll<HTMLDivElement>('.blueprint-grid-container[data-animate="true"]');
+
+    if (!containers.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("blueprint-grid--visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -30px 0px",
+      }
+    );
+
+    containers.forEach((container) => {
+      observer.observe(container);
+    });
+  }
+
+  initBlueprintGrid();
+  document.addEventListener("astro:after-swap", initBlueprintGrid);
+</script>
+
+<style>
+  .blueprint-grid-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .blueprint-grid-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Pattern starts invisible */
+  .blueprint-pattern-rect {
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* When visible, fade in */
+  .blueprint-grid--visible .blueprint-pattern-rect {
+    opacity: 1;
+  }
+
+  /* Lines draw animation via stroke-dasharray */
+  .blueprint-line {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+    transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .blueprint-grid--visible .blueprint-line {
+    stroke-dashoffset: 0;
+  }
+
+  .blueprint-line--diagonal-1 {
+    transition-delay: 0s;
+  }
+
+  .blueprint-line--diagonal-2 {
+    transition-delay: 0.3s;
+  }
+
+  /* Dots fade in */
+  .blueprint-dot {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .blueprint-grid--visible .blueprint-dot {
+    opacity: 1;
+    transition-delay: 0.8s;
+  }
+
+  .blueprint-dot--corner {
+    transition-delay: 1s;
+  }
+
+  /* Accent lines */
+  .blueprint-accent {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+  }
+
+  .blueprint-accent--top {
+    top: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .blueprint-accent--bottom {
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s;
+  }
+
+  .blueprint-grid--visible .blueprint-accent--top,
+  .blueprint-grid--visible .blueprint-accent--bottom {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blueprint-pattern-rect,
+    .blueprint-line,
+    .blueprint-dot,
+    .blueprint-accent {
+      transition: none !important;
+      opacity: 1;
+      stroke-dashoffset: 0;
+      transform: scaleX(1);
+    }
+  }
+</style>

@@ -6,6 +6,7 @@ interface Props {
   size?: "sm" | "md" | "lg";
   animate?: boolean;
   shape?: "circles" | "squares" | "diamonds" | "hexagons" | "rounded-squares";
+  hideOnMobile?: boolean;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   size = "lg",
   animate = true,
   shape = "circles",
+  hideOnMobile = false,
 } = Astro.props;
 
 // Size configurations
@@ -35,7 +37,7 @@ const positions = {
 ---
 
 <div
-  class:list={["concentric-shapes-container pointer-events-none absolute", animate && "animate", `shape-${shape}`]}
+  class:list={["concentric-shapes-container pointer-events-none absolute", animate && "animate", `shape-${shape}`, hideOnMobile && "hide-on-mobile"]}
   style={positions[position]}
   data-color={color}
   data-shape={shape}
@@ -85,12 +87,12 @@ const positions = {
   />
 </div>
 
-<style>
+<style is:global>
   .concentric-shapes-container {
     z-index: 0;
   }
 
-  .concentric-ring {
+  .concentric-shapes-container .concentric-ring {
     border-width: 1px;
     border-style: solid;
     top: 50%;
@@ -98,7 +100,7 @@ const positions = {
     transform: translate(-50%, -50%);
   }
 
-  .concentric-glow {
+  .concentric-shapes-container .concentric-glow {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -108,45 +110,45 @@ const positions = {
   /* ========================================
      Shape: Circles (default)
      ======================================== */
-  .shape-circles .concentric-ring {
+  .concentric-shapes-container.shape-circles .concentric-ring {
     border-radius: 50%;
   }
 
-  .shape-circles .concentric-glow {
+  .concentric-shapes-container.shape-circles .concentric-glow {
     border-radius: 50%;
   }
 
   /* ========================================
      Shape: Squares
      ======================================== */
-  .shape-squares .concentric-ring {
+  .concentric-shapes-container.shape-squares .concentric-ring {
     border-radius: 0;
   }
 
-  .shape-squares .concentric-glow {
+  .concentric-shapes-container.shape-squares .concentric-glow {
     border-radius: 0;
   }
 
   /* ========================================
      Shape: Diamonds (rotated squares)
      ======================================== */
-  .shape-diamonds .concentric-ring {
+  .concentric-shapes-container.shape-diamonds .concentric-ring {
     border-radius: 0;
   }
 
-  .shape-diamonds .ring-outer {
+  .concentric-shapes-container.shape-diamonds .ring-outer {
     transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  .shape-diamonds .ring-middle {
+  .concentric-shapes-container.shape-diamonds .ring-middle {
     transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  .shape-diamonds .ring-inner {
+  .concentric-shapes-container.shape-diamonds .ring-inner {
     transform: translate(-50%, -50%) rotate(45deg);
   }
 
-  .shape-diamonds .concentric-glow {
+  .concentric-shapes-container.shape-diamonds .concentric-glow {
     border-radius: 0;
     transform: translate(-50%, -50%) rotate(45deg);
   }
@@ -154,14 +156,14 @@ const positions = {
   /* ========================================
      Shape: Hexagons
      ======================================== */
-  .shape-hexagons .concentric-ring {
+  .concentric-shapes-container.shape-hexagons .concentric-ring {
     border-radius: 0;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     border: none;
     background: transparent;
   }
 
-  .shape-hexagons .concentric-ring::before {
+  .concentric-shapes-container.shape-hexagons .concentric-ring::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -176,37 +178,37 @@ const positions = {
     padding: 1px;
   }
 
-  .shape-hexagons .concentric-glow {
+  .concentric-shapes-container.shape-hexagons .concentric-glow {
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   }
 
   /* ========================================
      Shape: Rounded Squares
      ======================================== */
-  .shape-rounded-squares .concentric-ring {
+  .concentric-shapes-container.shape-rounded-squares .concentric-ring {
     border-radius: 20%;
   }
 
-  .shape-rounded-squares .concentric-glow {
+  .concentric-shapes-container.shape-rounded-squares .concentric-glow {
     border-radius: 20%;
   }
 
   /* Subtle animation */
-  .animate .ring-outer {
+  .concentric-shapes-container.animate .ring-outer {
     animation: pulse-outer 8s ease-in-out infinite;
   }
 
-  .animate .ring-middle {
+  .concentric-shapes-container.animate .ring-middle {
     animation: pulse-middle 8s ease-in-out infinite;
     animation-delay: 0.5s;
   }
 
-  .animate .ring-inner {
+  .concentric-shapes-container.animate .ring-inner {
     animation: pulse-inner 8s ease-in-out infinite;
     animation-delay: 1s;
   }
 
-  .animate .concentric-glow {
+  .concentric-shapes-container.animate .concentric-glow {
     animation: glow-pulse 4s ease-in-out infinite;
   }
 
@@ -255,21 +257,21 @@ const positions = {
   }
 
   /* Diamond-specific animations (with rotation) */
-  .shape-diamonds.animate .ring-outer {
+  .concentric-shapes-container.shape-diamonds.animate .ring-outer {
     animation: pulse-outer-diamond 8s ease-in-out infinite;
   }
 
-  .shape-diamonds.animate .ring-middle {
+  .concentric-shapes-container.shape-diamonds.animate .ring-middle {
     animation: pulse-middle-diamond 8s ease-in-out infinite;
     animation-delay: 0.5s;
   }
 
-  .shape-diamonds.animate .ring-inner {
+  .concentric-shapes-container.shape-diamonds.animate .ring-inner {
     animation: pulse-inner-diamond 8s ease-in-out infinite;
     animation-delay: 1s;
   }
 
-  .shape-diamonds.animate .concentric-glow {
+  .concentric-shapes-container.shape-diamonds.animate .concentric-glow {
     animation: glow-pulse-diamond 4s ease-in-out infinite;
   }
 
@@ -319,19 +321,26 @@ const positions = {
 
   /* Reduce motion support */
   @media (prefers-reduced-motion: reduce) {
-    .animate .ring-outer,
-    .animate .ring-middle,
-    .animate .ring-inner,
-    .animate .concentric-glow {
+    .concentric-shapes-container.animate .ring-outer,
+    .concentric-shapes-container.animate .ring-middle,
+    .concentric-shapes-container.animate .ring-inner,
+    .concentric-shapes-container.animate .concentric-glow {
       animation: none;
+    }
+  }
+
+  /* Hide on mobile */
+  @media (max-width: 1024px) {
+    .concentric-shapes-container.hide-on-mobile {
+      display: none !important;
     }
   }
 
   /* Responsive - smaller on mobile */
   @media (max-width: 768px) {
-    .concentric-ring,
-    .concentric-glow {
-      transform: translate(-50%, -50%) scale(0.6);
+    .concentric-shapes-container .concentric-ring,
+    .concentric-shapes-container .concentric-glow {
+      transform: translate(-50%, -50%) scale(0.5);
     }
   }
 </style>

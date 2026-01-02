@@ -1,0 +1,169 @@
+---
+/**
+ * RisingBarsBackground
+ *
+ * Abstrakte aufsteigende Balken - symbolisiert Wachstum und Erfolg.
+ * Perfekt für Stats/Zahlen-Sections.
+ * Animation startet erst beim Scrollen ins Viewport (IntersectionObserver).
+ */
+
+interface Props {
+  color?: string;
+  opacity?: number;
+  barCount?: number;
+  position?: "left" | "right";
+  animate?: boolean;
+}
+
+const {
+  color = "#ffffff",
+  opacity = 0.04,
+  barCount = 5,
+  position = "right",
+  animate = true,
+} = Astro.props;
+
+// Generate bar configurations with varying heights
+const generateBars = (count: number, side: "left" | "right") => {
+  const bars = [];
+  // Position bars more to the edge
+  const baseX = side === "left" ? 8 : 65;
+  const spreadX = 6;
+
+  for (let i = 0; i < count; i++) {
+    // Staggered heights - middle bars taller
+    const heightVariation = Math.sin((i / (count - 1)) * Math.PI);
+    const height = 25 + heightVariation * 45 + (i % 2) * 8;
+
+    bars.push({
+      x: baseX + i * spreadX,
+      height,
+      width: 1.5 + (i % 2) * 0.5,
+      delay: i * 0.12,
+      barOpacity: 0.5 + heightVariation * 0.5,
+    });
+  }
+  return bars;
+};
+
+const bars = generateBars(barCount, position);
+
+// Generate unique ID for gradient
+const uniqueId = Math.random().toString(36).substring(2, 9);
+---
+
+<div class="rising-bars-container" data-animate={animate ? "true" : "false"}>
+  <svg
+    class="rising-bars-svg"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <defs>
+      {/* Gradient for bars - fades upward */}
+      <linearGradient id={`bar-gradient-${uniqueId}`} x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color={color} stop-opacity="0" />
+        <stop offset="40%" stop-color={color} stop-opacity="0.4" />
+        <stop offset="100%" stop-color={color} stop-opacity="0.8" />
+      </linearGradient>
+    </defs>
+
+    {/* Bars */}
+    {bars.map((bar) => (
+      <rect
+        class="rising-bar"
+        x={bar.x}
+        y={100 - bar.height}
+        width={bar.width}
+        height={bar.height}
+        fill={`url(#bar-gradient-${uniqueId})`}
+        style={`
+          --bar-delay: ${bar.delay}s;
+          --bar-opacity: ${bar.barOpacity * opacity};
+        `}
+      />
+    ))}
+  </svg>
+</div>
+
+<script>
+  function initRisingBars(): void {
+    const containers = document.querySelectorAll<HTMLDivElement>('.rising-bars-container[data-animate="true"]');
+
+    if (!containers.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("rising-bars--visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    containers.forEach((container) => {
+      observer.observe(container);
+    });
+  }
+
+  initRisingBars();
+  document.addEventListener("astro:after-swap", initRisingBars);
+</script>
+
+<style>
+  .rising-bars-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .rising-bars-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Bars start invisible and scaled to 0 */
+  .rising-bar {
+    opacity: 0;
+    transform-origin: bottom;
+    transform: scaleY(0);
+    transition: none;
+  }
+
+  /* When container becomes visible, animate bars */
+  .rising-bars--visible .rising-bar {
+    animation: bar-rise 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: var(--bar-delay, 0s);
+  }
+
+  @keyframes bar-rise {
+    0% {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    70% {
+      transform: scaleY(1.02);
+    }
+    100% {
+      transform: scaleY(1);
+      opacity: var(--bar-opacity, 0.04);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rising-bar {
+      animation: none !important;
+      transform: scaleY(1);
+      opacity: var(--bar-opacity, 0.04);
+    }
+  }
+</style>

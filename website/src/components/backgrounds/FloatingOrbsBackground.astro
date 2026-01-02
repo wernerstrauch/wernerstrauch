@@ -1,0 +1,203 @@
+---
+/**
+ * FloatingOrbsBackground
+ *
+ * Weiche, schwebende Lichtpunkte die sanft pulsieren.
+ * Organisch und atmosphärisch - passt zu LightGradientBackground.
+ * Symbolisiert: Fokuspunkte, Klarheit, Leitsterne.
+ * Perfekt für Prinzipien/Werte-Sections.
+ */
+
+interface Props {
+  color?: string;
+  opacity?: number;
+  orbCount?: number;
+  position?: "left" | "right" | "scattered";
+  animate?: boolean;
+}
+
+const {
+  color = "#ffffff",
+  opacity = 0.06,
+  orbCount = 4,
+  position = "scattered",
+  animate = true,
+} = Astro.props;
+
+// Generate orb configurations based on position
+const generateOrbs = (count: number, pos: "left" | "right" | "scattered") => {
+  const orbs = [];
+
+  for (let i = 0; i < count; i++) {
+    let cx: number, cy: number;
+
+    if (pos === "left") {
+      cx = 10 + (i % 2) * 15 + Math.random() * 10;
+      cy = 20 + (i * 20) + Math.random() * 10;
+    } else if (pos === "right") {
+      cx = 75 + (i % 2) * 10 + Math.random() * 10;
+      cy = 15 + (i * 22) + Math.random() * 10;
+    } else {
+      // scattered - distribute across the canvas
+      const row = Math.floor(i / 2);
+      const col = i % 2;
+      cx = 15 + col * 55 + Math.random() * 20;
+      cy = 20 + row * 35 + Math.random() * 15;
+    }
+
+    // Varying sizes - some larger, some smaller
+    const sizeVariation = [0.8, 1.2, 0.6, 1.0, 0.9, 1.3];
+    const baseSize = 8 + (i % 3) * 4;
+    const size = baseSize * (sizeVariation[i % sizeVariation.length] || 1);
+
+    // Staggered animation delays
+    const delay = i * 0.4;
+
+    orbs.push({
+      cx: Math.min(Math.max(cx, 10), 90),
+      cy: Math.min(Math.max(cy, 10), 90),
+      r: size,
+      delay,
+      orbOpacity: 0.4 + (i % 3) * 0.2,
+    });
+  }
+
+  return orbs;
+};
+
+const orbs = generateOrbs(orbCount, position);
+const uniqueId = Math.random().toString(36).substring(2, 9);
+---
+
+<div class="floating-orbs-container" data-animate={animate ? "true" : "false"}>
+  <svg
+    class="floating-orbs-svg"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+  >
+    <defs>
+      {/* Radial gradient for soft glow effect */}
+      {orbs.map((orb, i) => (
+        <radialGradient id={`orb-gradient-${uniqueId}-${i}`} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color={color} stop-opacity="0.8" />
+          <stop offset="40%" stop-color={color} stop-opacity="0.3" />
+          <stop offset="100%" stop-color={color} stop-opacity="0" />
+        </radialGradient>
+      ))}
+
+      {/* Blur filter for extra softness */}
+      <filter id={`orb-blur-${uniqueId}`} x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" />
+      </filter>
+    </defs>
+
+    {/* Render orbs */}
+    {orbs.map((orb, i) => (
+      <circle
+        class="floating-orb"
+        cx={orb.cx}
+        cy={orb.cy}
+        r={orb.r}
+        fill={`url(#orb-gradient-${uniqueId}-${i})`}
+        filter={`url(#orb-blur-${uniqueId})`}
+        style={`
+          --orb-delay: ${orb.delay}s;
+          --orb-opacity: ${orb.orbOpacity * opacity};
+          --orb-duration: ${6 + (i % 3) * 2}s;
+        `}
+      />
+    ))}
+  </svg>
+</div>
+
+<script>
+  function initFloatingOrbs(): void {
+    const containers = document.querySelectorAll<HTMLDivElement>('.floating-orbs-container[data-animate="true"]');
+
+    if (!containers.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("floating-orbs--visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px",
+      }
+    );
+
+    containers.forEach((container) => {
+      observer.observe(container);
+    });
+  }
+
+  initFloatingOrbs();
+  document.addEventListener("astro:after-swap", initFloatingOrbs);
+</script>
+
+<style>
+  .floating-orbs-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .floating-orbs-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Orbs start invisible */
+  .floating-orb {
+    opacity: 0;
+    transform-origin: center;
+    transform: scale(0.5);
+  }
+
+  /* When visible, fade in with scale and start pulsing */
+  .floating-orbs--visible .floating-orb {
+    animation:
+      orb-appear 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+      orb-pulse var(--orb-duration, 6s) ease-in-out infinite;
+    animation-delay: var(--orb-delay, 0s), calc(var(--orb-delay, 0s) + 1.5s);
+  }
+
+  @keyframes orb-appear {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: var(--orb-opacity, 0.06);
+      transform: scale(1);
+    }
+  }
+
+  @keyframes orb-pulse {
+    0%, 100% {
+      opacity: var(--orb-opacity, 0.06);
+      transform: scale(1);
+    }
+    50% {
+      opacity: calc(var(--orb-opacity, 0.06) * 1.3);
+      transform: scale(1.08);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating-orb {
+      animation: none !important;
+      opacity: var(--orb-opacity, 0.06);
+      transform: scale(1);
+    }
+  }
+</style>

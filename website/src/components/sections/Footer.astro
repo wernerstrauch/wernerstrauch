@@ -27,78 +27,351 @@ const footerNavigation = {
 };
 ---
 
-<footer class="bg-foreground text-white">
-  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-      {/* Brand */}
-      <div class="space-y-4">
-        <a href={lang === "en" ? "/en" : "/"} class="flex items-center gap-2 font-bold text-xl">
-          <span class="text-primary">WS</span>
-          <span>Werner Strauch</span>
+<footer class="footer-section">
+  {/* Top Accent Line */}
+  <div class="footer-accent-line" aria-hidden="true"></div>
+
+  {/* Corner Accents */}
+  <div class="footer-corner footer-corner--top-left" aria-hidden="true"></div>
+  <div class="footer-corner footer-corner--top-right" aria-hidden="true"></div>
+
+  {/* Background Signet - Full version in white with transparency */}
+  <svg
+    class="footer-signet"
+    viewBox="0 0 554.95 221.32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M80.8,24.67C71.59,9.26,56.1,0,39.51,0H0l117.4,196.64c9.2,15.41,24.7,24.67,41.29,24.67h72.54l-22.14-8.24c-13.18-4.9-24.52-14.58-32.22-27.48L80.8,24.67Z"
+      fill="currentColor"
+    />
+    <path
+      d="M198.07,0h-72.54l22.14,8.24c13.18,4.9,24.52,14.58,32.22,27.48l96.07,160.92c9.2,15.41,24.7,24.67,41.29,24.67h39.51L239.35,24.67C230.15,9.26,214.66,0,198.07,0Z"
+      fill="currentColor"
+    />
+    <path
+      d="M554.95,0h-66.2c-20.16,0-38.6,12.72-47.62,32.86l-33.17,74.08c-7.41,16.55-20.4,29.13-36.12,34.98l-15.09,5.62h66.2c20.16,0,38.6-12.72,47.62-32.86l33.17-74.08c7.41-16.55,20.4-29.13,36.12-34.98l15.09-5.62Z"
+      fill="currentColor"
+    />
+  </svg>
+
+  <div class="footer-container mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+    {/* Main Grid */}
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      {/* Brand Column */}
+      <div class="lg:col-span-5">
+        {/* Logo */}
+        <a
+          href={lang === "en" ? "/en" : "/"}
+          class="footer-logo group inline-block"
+          aria-label="Home"
+        >
+          <img
+            src="/werner-strauch-logo-weiss.svg"
+            alt="Werner Strauch"
+            class="h-8 w-auto lg:h-10"
+          />
         </a>
-        <p class="text-sm text-white/60 max-w-xs">
+
+        {/* Description */}
+        <p class="footer-description mt-6 max-w-sm text-base leading-relaxed">
           {siteConfig.description}
         </p>
+
         {/* Social Links */}
-        <div class="flex gap-4">
+        <div class="mt-8 flex gap-4">
           {siteConfig.socials.map((social) => (
             <a
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/60 hover:text-primary transition-colors"
+              class="footer-social group"
               aria-label={social.name}
             >
-              <Icon name={social.icon} class="h-5 w-5" />
+              <Icon name={social.icon} class="footer-social-icon h-5 w-5" />
             </a>
           ))}
         </div>
       </div>
 
-      {/* Navigation */}
-      <div class="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+      {/* Navigation Columns */}
+      <div class="grid grid-cols-2 gap-8 sm:gap-12 lg:col-span-7 lg:grid-cols-3">
+        {/* Main Navigation */}
         <div>
-          <h3 class="text-sm font-semibold text-white/40 uppercase tracking-wider">
+          <h4 class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
             Navigation
-          </h3>
+          </h4>
           <ul class="mt-4 space-y-3">
             {footerNavigation.main.map((item) => (
               <li>
                 <a
                   href={item.href}
-                  class="text-sm text-white/80 hover:text-white transition-colors"
+                  class="footer-nav-link group inline-flex items-center gap-2 text-sm transition-all duration-300"
                 >
-                  {item.name}
+                  <span class="footer-nav-indicator" aria-hidden="true"></span>
+                  <span>{item.name}</span>
                 </a>
               </li>
             ))}
           </ul>
         </div>
+
+        {/* Legal Navigation */}
         <div>
-          <h3 class="text-sm font-semibold text-white/40 uppercase tracking-wider">
+          <h4 class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
             Legal
-          </h3>
+          </h4>
           <ul class="mt-4 space-y-3">
             {footerNavigation.legal.map((item) => (
               <li>
                 <a
                   href={item.href}
-                  class="text-sm text-white/80 hover:text-white transition-colors"
+                  class="footer-nav-link group inline-flex items-center gap-2 text-sm transition-all duration-300"
                 >
-                  {item.name}
+                  <span class="footer-nav-indicator" aria-hidden="true"></span>
+                  <span>{item.name}</span>
                 </a>
               </li>
             ))}
           </ul>
         </div>
+
+        {/* Contact Column */}
+        <div class="col-span-2 sm:col-span-1">
+          <h4 class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
+            {lang === "en" ? "Contact" : "Kontakt"}
+          </h4>
+          <div class="mt-4 space-y-3">
+            <a
+              href="mailto:kontakt@wernerstrauch.de"
+              class="footer-email group inline-flex items-center gap-2 text-sm transition-all duration-300"
+            >
+              <Icon name="heroicons:envelope-16-solid" class="h-4 w-4" />
+              <span>kontakt@wernerstrauch.de</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
-    {/* Copyright */}
-    <div class="mt-12 border-t border-white/10 pt-8">
-      <p class="text-sm text-white/40 text-center">
+    {/* Bottom Bar */}
+    <div class="footer-bottom mt-16 flex flex-col items-center justify-between gap-6 border-t pt-8 sm:flex-row">
+      <p class="footer-copyright text-sm">
         © {new Date().getFullYear()} {siteConfig.author}. {t.footer.copyright}.
       </p>
+
+      {/* Back to Top */}
+      <a href="#" class="footer-back-to-top group inline-flex items-center gap-2 text-sm">
+        <span>{lang === "en" ? "Back to top" : "Nach oben"}</span>
+        <Icon name="heroicons:arrow-up-16-solid" class="h-4 w-4 transition-transform group-hover:-translate-y-1" />
+      </a>
     </div>
   </div>
 </footer>
+
+<style>
+  /* ========================================
+     Footer - Industrial Refined Style
+     Navy + Lime, Clean Lines
+     ======================================== */
+
+  .footer-section {
+    position: relative;
+    background: #0a1628;
+    overflow: hidden;
+  }
+
+  /* ========================================
+     Top Accent Line
+     ======================================== */
+  .footer-accent-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #c8ff00 20%,
+      #c8ff00 80%,
+      transparent 100%
+    );
+    opacity: 0.6;
+  }
+
+  /* ========================================
+     Corner Accents
+     ======================================== */
+  .footer-corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    z-index: 10;
+  }
+
+  .footer-corner--top-left {
+    top: 0;
+    left: 24px;
+    border-top: 2px solid #c8ff00;
+    border-left: 2px solid #c8ff00;
+  }
+
+  .footer-corner--top-right {
+    top: 0;
+    right: 24px;
+    border-top: 2px solid #c8ff00;
+    border-right: 2px solid #c8ff00;
+  }
+
+  /* ========================================
+     Background Signet - Full version in white
+     Aspect ratio: 554.95 x 221.32 ≈ 2.5:1
+     ======================================== */
+  .footer-signet {
+    position: absolute;
+    right: -40px;
+    bottom: -20px;
+    width: 400px;
+    height: 160px;
+    color: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .footer-signet {
+      width: 550px;
+      height: 220px;
+      right: 20px;
+      bottom: -30px;
+      color: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  /* ========================================
+     Logo
+     ======================================== */
+  .footer-logo {
+    position: relative;
+    transition: opacity 0.3s ease;
+  }
+
+  .footer-logo::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #c8ff00;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .footer-logo:hover::after {
+    width: 100%;
+  }
+
+  .footer-logo:hover {
+    opacity: 0.9;
+  }
+
+  /* ========================================
+     Description
+     ======================================== */
+  .footer-description {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* ========================================
+     Social Links
+     ======================================== */
+  .footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .footer-social:hover {
+    border-color: #c8ff00;
+    background: rgba(200, 255, 0, 0.1);
+  }
+
+  .footer-social-icon {
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease;
+  }
+
+  .footer-social:hover .footer-social-icon {
+    color: #c8ff00;
+  }
+
+  /* ========================================
+     Navigation
+     ======================================== */
+  .footer-nav-label {
+    color: #c8ff00;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-nav-link {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .footer-nav-link:hover {
+    color: #ffffff;
+    padding-left: 0.5rem;
+  }
+
+  .footer-nav-indicator {
+    width: 0;
+    height: 1px;
+    background: #c8ff00;
+    transition: width 0.3s ease;
+  }
+
+  .footer-nav-link:hover .footer-nav-indicator {
+    width: 12px;
+  }
+
+  /* ========================================
+     Email Link
+     ======================================== */
+  .footer-email {
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .footer-email:hover {
+    color: #c8ff00;
+  }
+
+  /* ========================================
+     Bottom Bar
+     ======================================== */
+  .footer-bottom {
+    border-color: rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-copyright {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .footer-back-to-top {
+    color: #c8ff00;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-back-to-top:hover {
+    opacity: 0.8;
+  }
+</style>

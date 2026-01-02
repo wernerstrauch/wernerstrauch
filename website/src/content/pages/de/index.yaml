@@ -120,6 +120,20 @@ sections:
       variant: dark
       padding: lg
       containerSize: 2xl
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: RisingBarsBackground
+        color: "#ffffff"
+        opacity: 0.03
+        barCount: 5
+        position: right
+        animate: true
     content:
       badge: "Ergebnisse statt Versprechen"
       badgeIcon: "heroicons:chart-bar-16-solid"
@@ -177,6 +191,14 @@ sections:
         size: lg
         shape: diamonds
         animate: true
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: right
+        size: md
+        shape: squares
+        animate: true
+        hideOnMobile: true
     content:
       badge: "Die unbequeme Wahrheit"
       badgeIcon: "heroicons:exclamation-triangle-16-solid"
@@ -202,47 +224,62 @@ sections:
           title: "Gefangen im eigenen System"
           description: "Sie verstehen Ihre eigene Infrastruktur nicht mehr. Bei jeder Kleinigkeit sind Sie auf externe Hilfe angewiesen – und zahlen dafür einen hohen Preis."
 
-  # Services Feature Showcase
+  # Services Showcase (Cube.nl Style)
   - id: services
     enabled: true
     order: 7
-    component: FeatureShowcase
+    component: ServicesShowcase
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.05
+        gridSize: 60
+        glowLines: 3
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.10
+        position: right
+        size: lg
+        shape: circles
+        animate: true
     content:
-      imagePosition: right
+      badge: "Leistungen"
+      headline: "Wie kann ich <em>helfen</em>?"
+      defaultHeadline: "Welche Leistung passt zu Ihnen?"
       items:
         - icon: "heroicons:magnifying-glass-circle-16-solid"
           title: "E-Commerce Audit"
-          description: "Systematische Analyse Ihres Shops, Ihrer Prozesse und Systeme. Sie bekommen einen klaren Report mit priorisierten Handlungsempfehlungen – keine 100-Seiten-Decks, sondern Substanz."
-          linkText: "Mehr zum Audit"
+          description: "Systematische Analyse Ihres Shops, Ihrer Prozesse und Systeme. Klarer Report mit priorisierten Handlungsempfehlungen."
           linkHref: "/leistungen/ecommerce-audit"
-          canvasId: "tech-stack-canvas"
         - icon: "heroicons:circle-stack-16-solid"
           title: "ERP-Auswahl & Evaluierung"
-          description: "Neutrale, herstellerunabhängige Beratung bei der Wahl des richtigen ERP-Systems. Von der Anforderungsanalyse bis zur Entscheidungsvorlage – objektiv und ohne versteckte Provisionen."
-          linkText: "Mehr zur ERP-Beratung"
+          description: "Neutrale, herstellerunabhängige Beratung bei der Wahl des richtigen ERP-Systems – objektiv und ohne Provisionen."
           linkHref: "/leistungen/erp-beratung"
-          canvasId: "shopify-canvas"
         - icon: "heroicons:arrows-right-left-16-solid"
           title: "Shopify-Architektur & Migration"
-          description: "Strategische Planung und Begleitung von Shopify-Projekten. Fokus auf skalierbare Strukturen, saubere Datenübernahme und durchdachte Integrationen – für einen reibungslosen Go-Live."
-          linkText: "Mehr zur Migration"
+          description: "Strategische Planung und Begleitung von Shopify-Projekten. Skalierbare Strukturen, saubere Datenübernahme."
           linkHref: "/leistungen/shopify-migration"
-          canvasId: "app-development-canvas"
         - icon: "heroicons:cog-8-tooth-16-solid"
           title: "Prozessoptimierung"
-          description: "Analyse und Optimierung Ihrer operativen Abläufe – von Bestellabwicklung über Fulfillment bis Kundenservice. Weniger manuelle Arbeit, mehr Zeit für Wachstum."
-          linkText: "Mehr zur Prozessoptimierung"
+          description: "Analyse und Optimierung Ihrer operativen Abläufe – von Bestellabwicklung über Fulfillment bis Kundenservice."
           linkHref: "/leistungen/prozessoptimierung"
-          canvasId: "marketing-orbit-canvas"
         - icon: "heroicons:chat-bubble-left-right-16-solid"
           title: "Strategisches Sparring"
-          description: "Regelmäßiger Austausch auf Augenhöhe zu technischen und strategischen E-Commerce-Fragen. Ihr externer CTO auf Abruf – für fundierte Entscheidungen ohne internen Overhead."
-          linkText: "Mehr zum Sparring"
+          description: "Regelmäßiger Austausch auf Augenhöhe zu technischen und strategischen E-Commerce-Fragen. Ihr externer CTO auf Abruf."
           linkHref: "/leistungen/sparring"
-          canvasId: "marketing-canvas"
 
   # Principles
   - id: principles
@@ -252,7 +289,16 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: FloatingOrbsBackground
+        color: "#ffffff"
+        opacity: 0.05
+        orbCount: 4
+        position: scattered
+        animate: true
     content:
+      badge: "Mein Versprechen"
+      badgeIcon: "heroicons:shield-check-16-solid"
       headline: "Meine <em>Prinzipien</em>"
       intro: "So arbeite ich – und so nicht."
       principles:
@@ -300,6 +346,14 @@ sections:
         size: lg
         shape: rounded-squares
         animate: true
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: left
+        size: md
+        shape: diamonds
+        animate: true
+        hideOnMobile: true
     content:
       badge: "Zusammenarbeit"
       badgeIcon: "heroicons:arrow-path-16-solid"
@@ -356,6 +410,29 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.05
+        gridSize: 60
+        glowLines: 3
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.10
+        position: right
+        size: lg
+        shape: hexagons
+        animate: true
     content:
       badge: "FAQs"
       badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
@@ -381,15 +458,27 @@ sections:
     wrapper:
       variant: dark
       padding: xl
-    background:
-      type: GridBackground
-      color: "#c8ff00"
-      glowColor: "#c8ff00"
-      opacity: 0.06
-      gridSize: 60
-      glowLines: 4
-      vignette: true
-      vignetteColor: "#0a1628"
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.10
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.05
+        gridSize: 60
+        glowLines: 3
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: SignetBackground
+        opacity: 0.08
+        position: bottom-right
+        size: md
+        animate: false
     content:
       headline: "Bereit für <em>Klarheit</em>?"
       description: "Lassen Sie uns in 30 Minuten herausfinden, wo Sie stehen und was der nächste sinnvolle Schritt ist."

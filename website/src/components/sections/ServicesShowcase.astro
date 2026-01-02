@@ -1,0 +1,569 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ServiceItem {
+  icon?: string;
+  title: string;
+  description: string;
+  linkText?: string;
+  linkHref?: string;
+  image?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  headline?: string;
+  defaultHeadline?: string;
+  items?: ServiceItem[];
+}
+
+const {
+  sectionVariant = "dark",
+  badge,
+  headline,
+  defaultHeadline = "Welche Leistung passt zu Ihnen?",
+  items = [],
+} = Astro.props;
+
+// Process headline: replace <em> tags with lime-colored spans
+const highlightStyle = `color: #c8ff00;`;
+const processedHeadline = headline?.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+) ?? "";
+---
+
+<div class="services-showcase" data-variant={sectionVariant}>
+  <Container class="relative">
+    {/* Header */}
+    {(badge || headline) && (
+      <div class="mb-12 text-center lg:mb-16 lg:text-left">
+        {badge && (
+          <p class="services-eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+            {badge}
+          </p>
+        )}
+        {headline && (
+          <h2
+            class="services-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+            style="transition-delay: 100ms;"
+            set:html={processedHeadline}
+          />
+        )}
+      </div>
+    )}
+
+    {/* Main Grid */}
+    <div class="services-grid grid gap-8 lg:grid-cols-12 lg:gap-10">
+      {/* Image Preview - Left Side (hidden on mobile) */}
+      <div class="hidden lg:col-span-6 xl:col-span-7 lg:block">
+        <div class="services-image-container relative h-full min-h-[36rem] overflow-hidden">
+          {/* Default State Overlay */}
+          <div class="services-default-overlay" data-default-overlay>
+            <h3 class="services-default-headline">
+              {defaultHeadline}
+            </h3>
+          </div>
+
+          {/* Service Images */}
+          {items.map((item, index) => (
+            <div
+              class="services-image"
+              data-service-image={index}
+            >
+              {item.image ? (
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="services-image-placeholder">
+                  <Icon
+                    name={item.icon || "heroicons:cube-16-solid"}
+                    class="services-image-placeholder-icon"
+                  />
+                  <span class="services-image-placeholder-text">{item.title}</span>
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Corner Accents */}
+          <div class="services-corner services-corner--top-left" aria-hidden="true"></div>
+          <div class="services-corner services-corner--bottom-right" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      {/* Service List - Right Side */}
+      <div class="col-span-full lg:col-span-6 xl:col-span-5 xl:pl-10">
+        <ul class="services-list" data-services-list>
+          {items.map((item, index) => (
+            <li>
+              <a
+                href={item.linkHref || "#"}
+                class="services-item group"
+                data-service-index={index}
+              >
+                {/* Number Badge */}
+                <span class="services-item-number">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                {/* Content */}
+                <div class="services-item-content">
+                  <div class="services-item-header">
+                    <h3 class="services-item-title">{item.title}</h3>
+                    <span class="services-item-arrow">
+                      <Icon
+                        name="heroicons:arrow-up-right-16-solid"
+                        class="h-5 w-5"
+                      />
+                    </span>
+                  </div>
+                  <p class="services-item-description">{item.description}</p>
+                </div>
+
+                {/* Active Indicator Line */}
+                <div class="services-item-indicator" aria-hidden="true"></div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import "@scripts/animations";
+
+  function initServicesShowcase(): void {
+    const showcases = document.querySelectorAll<HTMLDivElement>(".services-showcase");
+
+    showcases.forEach((showcase) => {
+      const items = showcase.querySelectorAll<HTMLAnchorElement>(".services-item");
+      const images = showcase.querySelectorAll<HTMLDivElement>("[data-service-image]");
+      const defaultOverlay = showcase.querySelector<HTMLDivElement>("[data-default-overlay]");
+
+      let activeIndex: number | null = null;
+
+      function showImage(index: number): void {
+        // Hide default overlay
+        if (defaultOverlay) {
+          defaultOverlay.style.opacity = "0";
+        }
+
+        // Show/hide images
+        images.forEach((img, i) => {
+          if (i === index) {
+            img.style.opacity = "1";
+            img.style.transform = "scale(1)";
+          } else {
+            img.style.opacity = "0";
+            img.style.transform = "scale(1.05)";
+          }
+        });
+
+        activeIndex = index;
+      }
+
+      function resetToDefault(): void {
+        // Show default overlay
+        if (defaultOverlay) {
+          defaultOverlay.style.opacity = "1";
+        }
+
+        // Hide all images
+        images.forEach((img) => {
+          img.style.opacity = "0";
+          img.style.transform = "scale(1.05)";
+        });
+
+        activeIndex = null;
+      }
+
+      // Set initial state
+      images.forEach((img) => {
+        img.style.opacity = "0";
+        img.style.transform = "scale(1.05)";
+        img.style.transition = "opacity 0.4s ease, transform 0.5s ease";
+      });
+
+      if (defaultOverlay) {
+        defaultOverlay.style.transition = "opacity 0.4s ease";
+      }
+
+      // Event listeners
+      items.forEach((item, index) => {
+        item.addEventListener("mouseenter", () => {
+          showImage(index);
+        });
+      });
+
+      // Reset on mouse leave from list
+      const list = showcase.querySelector<HTMLUListElement>("[data-services-list]");
+      if (list) {
+        list.addEventListener("mouseleave", () => {
+          resetToDefault();
+        });
+      }
+    });
+  }
+
+  initServicesShowcase();
+  document.addEventListener("astro:after-swap", initServicesShowcase);
+</script>
+
+<style>
+  /* ========================================
+     ServicesShowcase - Editorial Grid Style
+     Navy + Lime, Industrial Refined
+     ======================================== */
+
+  /* ========================================
+     Header
+     ======================================== */
+  .services-eyebrow {
+    color: #c8ff00;
+    letter-spacing: 0.1em;
+  }
+
+  .services-headline {
+    color: #ffffff;
+  }
+
+  /* ========================================
+     Image Container
+     ======================================== */
+  .services-image-container {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+  }
+
+  /* ========================================
+     Default Overlay
+     ======================================== */
+  .services-default-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    background: linear-gradient(
+      to top,
+      rgba(10, 22, 40, 0.95) 0%,
+      rgba(10, 22, 40, 0.6) 50%,
+      transparent 100%
+    );
+  }
+
+  .services-default-headline {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.2;
+    max-width: 80%;
+  }
+
+  /* ========================================
+     Service Images
+     ======================================== */
+  .services-image {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .services-image img {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .services-image-placeholder {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, rgba(200, 255, 0, 0.05) 0%, rgba(10, 22, 40, 0.8) 100%);
+  }
+
+  .services-image-placeholder-icon {
+    width: 4rem;
+    height: 4rem;
+    color: rgba(200, 255, 0, 0.3);
+  }
+
+  .services-image-placeholder-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  /* ========================================
+     Corner Accents
+     ======================================== */
+  .services-corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    opacity: 0.4;
+    z-index: 20;
+    transition: opacity 0.3s ease;
+  }
+
+  .services-image-container:hover .services-corner {
+    opacity: 0.8;
+  }
+
+  .services-corner--top-left {
+    top: 0;
+    left: 0;
+    border-top: 2px solid #c8ff00;
+    border-left: 2px solid #c8ff00;
+  }
+
+  .services-corner--bottom-right {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid #c8ff00;
+    border-right: 2px solid #c8ff00;
+  }
+
+  /* ========================================
+     Service List
+     ======================================== */
+  .services-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .services-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .services-list li:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* ========================================
+     Service Item
+     ======================================== */
+  .services-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .services-item:hover {
+    padding-left: 0.5rem;
+  }
+
+  /* ========================================
+     Number Badge
+     ======================================== */
+  .services-item-number {
+    flex-shrink: 0;
+    width: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255, 255, 255, 0.3);
+    padding-top: 0.25rem;
+    transition: color 0.3s ease;
+  }
+
+  .services-item:hover .services-item-number {
+    color: #c8ff00;
+  }
+
+  /* ========================================
+     Item Content
+     ======================================== */
+  .services-item-content {
+    flex: 1;
+  }
+
+  .services-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .services-item-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+  }
+
+  @media (min-width: 1024px) {
+    .services-item-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .services-item:hover .services-item-title {
+    color: #ffffff;
+  }
+
+  .services-item-arrow {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #0a1628;
+    background: #c8ff00;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .services-item:hover .services-item-arrow {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .services-item-description {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 90%;
+    transition: color 0.3s ease;
+  }
+
+  .services-item:hover .services-item-description {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ========================================
+     Active Indicator Line
+     ======================================== */
+  .services-item-indicator {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: #c8ff00;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .services-item:hover .services-item-indicator {
+    width: 100%;
+  }
+
+  /* ========================================
+     Light/White Variant Override
+     ======================================== */
+  .services-showcase[data-variant="light"],
+  .services-showcase[data-variant="white"] {
+    --accent: var(--primary);
+  }
+
+  .services-showcase[data-variant="light"] .services-eyebrow,
+  .services-showcase[data-variant="white"] .services-eyebrow {
+    color: var(--primary);
+  }
+
+  .services-showcase[data-variant="light"] .services-headline,
+  .services-showcase[data-variant="white"] .services-headline {
+    color: #1c1c1e;
+  }
+
+  .services-showcase[data-variant="light"] .services-image-container,
+  .services-showcase[data-variant="white"] .services-image-container {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .services-showcase[data-variant="light"] .services-default-overlay,
+  .services-showcase[data-variant="white"] .services-default-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(28, 28, 30, 0.95) 0%,
+      rgba(28, 28, 30, 0.6) 50%,
+      transparent 100%
+    );
+  }
+
+  .services-showcase[data-variant="light"] .services-corner,
+  .services-showcase[data-variant="white"] .services-corner {
+    border-color: var(--primary);
+  }
+
+  .services-showcase[data-variant="light"] .services-list li,
+  .services-showcase[data-variant="white"] .services-list li {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .services-showcase[data-variant="light"] .services-item-number,
+  .services-showcase[data-variant="white"] .services-item-number {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .services-showcase[data-variant="light"] .services-item:hover .services-item-number,
+  .services-showcase[data-variant="white"] .services-item:hover .services-item-number {
+    color: var(--primary);
+  }
+
+  .services-showcase[data-variant="light"] .services-item-title,
+  .services-showcase[data-variant="white"] .services-item-title {
+    color: rgba(28, 28, 30, 0.7);
+  }
+
+  .services-showcase[data-variant="light"] .services-item:hover .services-item-title,
+  .services-showcase[data-variant="white"] .services-item:hover .services-item-title {
+    color: #1c1c1e;
+  }
+
+  .services-showcase[data-variant="light"] .services-item-arrow,
+  .services-showcase[data-variant="white"] .services-item-arrow {
+    background: var(--primary);
+    color: white;
+  }
+
+  .services-showcase[data-variant="light"] .services-item-description,
+  .services-showcase[data-variant="white"] .services-item-description {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .services-showcase[data-variant="light"] .services-item:hover .services-item-description,
+  .services-showcase[data-variant="white"] .services-item:hover .services-item-description {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .services-showcase[data-variant="light"] .services-item-indicator,
+  .services-showcase[data-variant="white"] .services-item-indicator {
+    background: var(--primary);
+  }
+
+  .services-showcase[data-variant="light"] .services-image-placeholder-icon,
+  .services-showcase[data-variant="white"] .services-image-placeholder-icon {
+    color: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  .services-showcase[data-variant="light"] .services-image-placeholder-text,
+  .services-showcase[data-variant="white"] .services-image-placeholder-text {
+    color: rgba(0, 0, 0, 0.5);
+  }
+</style>

@@ -8,164 +8,366 @@ interface Props {
   sectionVariant?: SectionVariant;
   headline?: string;
   description?: string;
-  ctas?: Array<{
-    text?: string;
-    icon?: string;
-    href?: string;
-    variant?: "primary" | "secondary" | "secondary-dark" | "tertiary" | "white";
-    size?: "lg" | "md" | "sm";
-    dataOpenFunnel?: boolean;
-    dataOpenApplication?: boolean;
-  }>;
+  buttonText?: string;
+  buttonHref?: string;
+  emailLabel?: string;
+  email?: string;
 }
 
 const {
-  sectionVariant = "white",
-  headline = "Bereit für mehr <em>Wachstum?</em>",
-  description = "Lass uns gemeinsam herausfinden, wo dein Shop das größte Potenzial hat. Im kostenlosen Erstgespräch analysieren wir deine Situation und zeigen dir konkrete nächste Schritte.",
-  ctas = [
-    {
-      text: "Kostenloses Erstgespräch",
-      icon: "heroicons:calendar-days-16-solid",
-      variant: "white",
-      size: "lg",
-      dataOpenFunnel: true,
-    },
-    {
-      text: "Mehr erfahren",
-      icon: "heroicons:arrow-right-16-solid",
-      href: "/ueber-uns",
-      variant: "secondary-dark",
-      size: "lg",
-    },
-  ],
+  sectionVariant = "dark",
+  headline = "Bereit für <em>Klarheit</em>?",
+  description = "Lassen Sie uns in 30 Minuten herausfinden, wo Sie stehen und was der nächste sinnvolle Schritt ist.",
+  buttonText = "Erstgespräch vereinbaren",
+  buttonHref = "/kontakt",
+  emailLabel = "Lieber erstmal schreiben?",
+  email = "kontakt@wernerstrauch.de",
 } = Astro.props;
 
-// Process headline: replace <em> tags with styled spans using CSS variable
-const highlightStyle = `color: var(--section-accent);`;
+// Process headline: replace <em> tags with lime-colored spans
+const highlightStyle = `color: #c8ff00;`;
 const processedHeadline = headline.replace(
   /<em>(.*?)<\/em>/g,
   `<span style="${highlightStyle}">$1</span>`,
 );
-
-// Generate unique ID for gradient
-const gradientId = `cta-gradient-${Math.random().toString(36).substring(2, 11)}`;
 ---
 
-<Container class="ctacentered-section" data-variant={sectionVariant}>
-  <div
-    class="ctacentered-card relative isolate overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-24"
-  >
-    {/* Headline */}
-    <h2
-      class="ctacentered-headline scale-up text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl"
-      style="transition-delay: 100ms;"
-      set:html={processedHeadline}
-    />
+<div class="cta-section" data-variant={sectionVariant}>
+  <Container class="relative max-w-[900px]">
+    <div class="cta-card group relative overflow-hidden">
+      {/* Diagonal Accent Line - Signature Element */}
+      <div class="cta-accent-line" aria-hidden="true"></div>
 
-    {/* Description */}
-    <p
-      class="ctacentered-description fade-up mx-auto mt-6 max-w-xl text-lg/8 text-pretty"
-      style="transition-delay: 150ms;"
-    >
-      {description}
-    </p>
+      {/* Corner Accents */}
+      <div class="cta-corner cta-corner--top-left" aria-hidden="true"></div>
+      <div class="cta-corner cta-corner--bottom-right" aria-hidden="true"></div>
 
-    {/* CTAs */}
-    <div
-      class="fade-up mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5"
-      style="transition-delay: 200ms;"
-    >
-      {
-        ctas.map((cta) => (
-          <Button
-            href={cta.href}
-            variant={cta.variant}
-            size={cta.size}
-            data-open-funnel={cta.dataOpenFunnel}
-            data-open-application={cta.dataOpenApplication}
+      {/* Hover Glow Effect */}
+      <div class="cta-glow" aria-hidden="true"></div>
+
+      {/* Content */}
+      <div class="cta-content relative z-10 px-8 py-16 text-center sm:px-16 sm:py-20">
+        {/* Headline */}
+        <h2
+          class="cta-headline scale-up text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+
+        {/* Description */}
+        <p
+          class="cta-description fade-up mx-auto mt-6 max-w-xl text-lg leading-relaxed"
+          style="transition-delay: 150ms;"
+        >
+          {description}
+        </p>
+
+        {/* CTA Button */}
+        <div
+          class="fade-up mt-10"
+          style="transition-delay: 200ms;"
+        >
+          <a
+            href={buttonHref}
+            class="cta-button group/btn inline-flex items-center gap-3 border px-8 py-4 text-base font-bold uppercase tracking-wider transition-all duration-300"
           >
-            {cta.icon && <Icon name={cta.icon} class="h-4 w-4" />}
-            <span>{cta.text}</span>
-          </Button>
-        ))
-      }
-    </div>
+            <Icon name="heroicons:calendar-days-16-solid" class="cta-button-icon h-5 w-5 transition-transform duration-300 group-hover/btn:scale-110" />
+            <span>{buttonText}</span>
+            <Icon name="heroicons:arrow-right-16-solid" class="cta-button-arrow h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+          </a>
+        </div>
 
-    {/* Background Glow Effect */}
-    <svg
-      viewBox="0 0 1024 1024"
-      aria-hidden="true"
-      class="ctacentered-glow absolute top-1/2 left-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]"
-    >
-      <circle
-        r="512"
-        cx="512"
-        cy="512"
-        fill={`url(#${gradientId})`}
-        fill-opacity="0.7"></circle>
-      <defs>
-        <radialGradient id={gradientId}>
-          <stop class="ctacentered-glow-start"></stop>
-          <stop offset="1" class="ctacentered-glow-end"></stop>
-        </radialGradient>
-      </defs>
-    </svg>
-  </div>
-</Container>
+        {/* Email Alternative */}
+        {email && (
+          <div
+            class="fade-up mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3"
+            style="transition-delay: 250ms;"
+          >
+            <span class="cta-email-label text-sm">
+              {emailLabel}
+            </span>
+            <a
+              href={`mailto:${email}`}
+              class="cta-email-link inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-3"
+            >
+              <Icon name="heroicons:envelope-16-solid" class="h-4 w-4" />
+              <span>{email}</span>
+            </a>
+          </div>
+        )}
+      </div>
+
+      {/* Bottom Accent Bar */}
+      <div class="cta-bottom-bar" aria-hidden="true"></div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import "@scripts/animations";
+
+  function initCtaHoverEffect(): void {
+    const cards = document.querySelectorAll<HTMLDivElement>(".cta-card");
+
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (event: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const glowElement = card.querySelector(".cta-glow") as HTMLElement;
+        if (glowElement) {
+          glowElement.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(200, 255, 0, 0.08), transparent 40%)`;
+          glowElement.style.opacity = "1";
+        }
+      });
+
+      card.addEventListener("mouseleave", () => {
+        const glowElement = card.querySelector(".cta-glow") as HTMLElement;
+        if (glowElement) {
+          glowElement.style.opacity = "0";
+        }
+      });
+    });
+  }
+
+  initCtaHoverEffect();
+  document.addEventListener("astro:after-swap", initCtaHoverEffect);
+</script>
 
 <style>
   /* ========================================
-     Uses --section-* variables set by data-section-theme
-     attribute on parent Section component
+     CTA Section - Industrial Refined Style
+     Navy + Lime, Clean Lines, No Border-Radius
      ======================================== */
+
+  .cta-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+  }
 
   /* ========================================
-     Card styles
+     Diagonal Accent Line - Signature Element
      ======================================== */
-  .ctacentered-card {
-    background: var(--primary);
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  .cta-accent-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #c8ff00 20%,
+      #c8ff00 80%,
+      transparent 100%
+    );
+    opacity: 0.8;
   }
 
-  /* Dark/primary variants get ring instead of shadow */
-  [data-variant="dark"] .ctacentered-card,
-  [data-variant="primary"] .ctacentered-card {
-    box-shadow: none;
+  /* ========================================
+     Corner Accents
+     ======================================== */
+  .cta-corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
   }
 
-  [data-variant="dark"] .ctacentered-card::after,
-  [data-variant="primary"] .ctacentered-card::after {
-    content: "";
-    pointer-events: none;
+  .cta-card:hover .cta-corner {
+    opacity: 0.8;
+  }
+
+  .cta-corner--top-left {
+    top: 0;
+    left: 0;
+    border-top: 2px solid #c8ff00;
+    border-left: 2px solid #c8ff00;
+  }
+
+  .cta-corner--bottom-right {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid #c8ff00;
+    border-right: 2px solid #c8ff00;
+  }
+
+  /* ========================================
+     Hover Glow Effect
+     ======================================== */
+  .cta-glow {
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, white 10%, transparent);
-  }
-
-  [data-variant="primary"] .ctacentered-card {
-    background: #1c1c1e;
-  }
-
-  /* ========================================
-     Headline styles
-     ======================================== */
-  .ctacentered-headline {
-    color: var(--primary-foreground);
-  }
-
-  .ctacentered-description {
-    color: color-mix(in srgb, var(--primary-foreground) 80%, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
   }
 
   /* ========================================
-     Glow effect
+     Headline
      ======================================== */
-  .ctacentered-glow-start {
-    stop-color: var(--section-accent);
+  .cta-headline {
+    color: #ffffff;
   }
 
-  .ctacentered-glow-end {
-    stop-color: color-mix(in srgb, var(--section-accent) 70%, var(--primary));
+  /* ========================================
+     Description
+     ======================================== */
+  .cta-description {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ========================================
+     CTA Button - Industrial Style
+     ======================================== */
+  .cta-button {
+    background: #c8ff00;
+    border-color: #c8ff00;
+    color: #0a1628;
+  }
+
+  .cta-button:hover {
+    background: transparent;
+    border-color: #c8ff00;
+    color: #c8ff00;
+    box-shadow: 0 0 30px rgba(200, 255, 0, 0.2);
+  }
+
+  .cta-button-icon {
+    color: #0a1628;
+  }
+
+  .cta-button:hover .cta-button-icon {
+    color: #c8ff00;
+  }
+
+  .cta-button-arrow {
+    color: #0a1628;
+  }
+
+  .cta-button:hover .cta-button-arrow {
+    color: #c8ff00;
+  }
+
+  /* ========================================
+     Email Alternative
+     ======================================== */
+  .cta-email-label {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .cta-email-link {
+    color: #c8ff00;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cta-email-link:hover {
+    opacity: 0.8;
+  }
+
+  /* ========================================
+     Bottom Accent Bar
+     ======================================== */
+  .cta-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #c8ff00;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cta-card:hover .cta-bottom-bar {
+    width: 60%;
+  }
+
+  /* ========================================
+     Light/White Variant Override
+     ======================================== */
+  .cta-section[data-variant="light"] .cta-card,
+  .cta-section[data-variant="white"] .cta-card {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .cta-section[data-variant="light"] .cta-accent-line,
+  .cta-section[data-variant="white"] .cta-accent-line {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--primary) 20%,
+      var(--primary) 80%,
+      transparent 100%
+    );
+  }
+
+  .cta-section[data-variant="light"] .cta-corner,
+  .cta-section[data-variant="white"] .cta-corner {
+    border-color: var(--primary);
+  }
+
+  .cta-section[data-variant="light"] .cta-headline,
+  .cta-section[data-variant="white"] .cta-headline {
+    color: #1c1c1e;
+  }
+
+  .cta-section[data-variant="light"] .cta-headline :global(span),
+  .cta-section[data-variant="white"] .cta-headline :global(span) {
+    color: var(--primary) !important;
+  }
+
+  .cta-section[data-variant="light"] .cta-description,
+  .cta-section[data-variant="white"] .cta-description {
+    color: rgb(75 85 99);
+  }
+
+  .cta-section[data-variant="light"] .cta-button,
+  .cta-section[data-variant="white"] .cta-button {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .cta-section[data-variant="light"] .cta-button:hover,
+  .cta-section[data-variant="white"] .cta-button:hover {
+    background: transparent;
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+
+  .cta-section[data-variant="light"] .cta-button-icon,
+  .cta-section[data-variant="white"] .cta-button-icon,
+  .cta-section[data-variant="light"] .cta-button-arrow,
+  .cta-section[data-variant="white"] .cta-button-arrow {
+    color: white;
+  }
+
+  .cta-section[data-variant="light"] .cta-button:hover .cta-button-icon,
+  .cta-section[data-variant="white"] .cta-button:hover .cta-button-icon,
+  .cta-section[data-variant="light"] .cta-button:hover .cta-button-arrow,
+  .cta-section[data-variant="white"] .cta-button:hover .cta-button-arrow {
+    color: var(--primary);
+  }
+
+  .cta-section[data-variant="light"] .cta-email-label,
+  .cta-section[data-variant="white"] .cta-email-label {
+    color: rgb(107 114 128);
+  }
+
+  .cta-section[data-variant="light"] .cta-email-link,
+  .cta-section[data-variant="white"] .cta-email-link {
+    color: var(--primary);
+  }
+
+  .cta-section[data-variant="light"] .cta-bottom-bar,
+  .cta-section[data-variant="white"] .cta-bottom-bar {
+    background: var(--primary);
   }
 </style>
