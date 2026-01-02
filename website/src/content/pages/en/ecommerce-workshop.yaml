@@ -1,0 +1,350 @@
+# E-Commerce Workshop Page
+# Intensive Workshops for E-Commerce Teams
+
+lang: en
+pageId: ecommerce-workshop
+slug: ecommerce-workshop
+
+meta:
+  title: "E-Commerce Workshop | Strategy, Processes & Growth | Werner Strauch"
+  description: "E-Commerce Workshop for your team: Develop strategy, optimize processes, plan growth. Flexible format from half day to 2 days. On-site or remote."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: Hero with HeroSplit
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "E-Commerce Workshop"
+      badgeIcon: "heroicons:academic-cap-solid"
+      headline: "E-Commerce <em>Workshop</em> for <mark>Your Team</mark>"
+      subheadline: "Strategy, processes and growth – distilled together in an intensive workshop. With a clear roadmap and concrete action items."
+      image: "/src/images/ecommerce-workshop.png"
+      imageAlt: "E-Commerce Workshop - Team Session"
+      primaryCta: "Request Workshop"
+      secondaryCta: "View Process"
+      secondaryCtaHref: "#process"
+
+  # ========================================
+  # Section 2: Stats (Workshop Facts)
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 2
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Workshop Facts"
+      headline: "Flexibly Tailored to <em>Your Needs</em>"
+      stats:
+        - value: "½–2"
+          label: "Days"
+          description: "depending on scope"
+        - value: "2–10"
+          label: "Participants"
+          description: "for productive sessions"
+        - value: "100"
+          suffix: "%"
+          label: "Focused"
+          description: "on your challenges"
+        - value: "from 2,500"
+          prefix: "€"
+          label: "Investment"
+          description: "plus VAT"
+
+  # ========================================
+  # Section 3: BentoGrid (Workshop Focus Areas)
+  # ========================================
+  - id: focus-areas
+    enabled: true
+    order: 3
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Workshop Focus Areas"
+      headline: "Four Modules for <em>Sustainable Success</em>"
+      description: "Depending on your challenges, we compose the workshop from these focus areas – or combine all four for a comprehensive strategy day."
+      cards:
+        - title: "Strategy & Positioning"
+          description: "Where does your e-commerce stand today? Where should it go? Together we analyze your business model, competitive position and develop a clear strategy."
+          icon: "heroicons:map"
+          large: true
+          features:
+            - "Current State Analysis & Benchmarking"
+            - "Competitive Positioning"
+            - "Goal Definition & KPIs"
+            - "Strategic Decision-Making"
+        - title: "Processes & Operations"
+          description: "From order receipt to returns: We analyze your workflows, identify bottlenecks and develop optimization measures."
+          icon: "heroicons:cog-6-tooth"
+          features:
+            - "Process Mapping"
+            - "Automation Potential"
+            - "Fulfillment Analysis"
+        - title: "Growth & Marketing"
+          description: "Which channels work? Where is untapped potential? We analyze your customer journey and develop growth levers."
+          icon: "heroicons:arrow-trending-up"
+          features:
+            - "Customer Journey Mapping"
+            - "Channel Performance"
+            - "Conversion Analysis"
+        - title: "Scaling & Systems"
+          description: "Is your technology architecture ready for growth? We evaluate your system landscape and develop a roadmap for the future."
+          icon: "heroicons:cpu-chip"
+          large: true
+          features:
+            - "System Audit"
+            - "Architecture Evaluation"
+            - "Integration Check"
+            - "Technology Roadmap"
+
+  # ========================================
+  # Section 4: Process (Workshop Flow)
+  # ========================================
+  - id: process
+    enabled: true
+    order: 4
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "left"
+        size: "md"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "The Process"
+      headline: "How a <em>Workshop</em> Works"
+      description: "From preparation to follow-up – a structured process for maximum value."
+      steps:
+        - number: "01"
+          icon: "heroicons:clipboard-document-list"
+          title: "Preparation"
+          description: "You fill out a questionnaire, I analyze your data and systems in advance. This way we don't start from scratch on workshop day."
+          details:
+            - "Questionnaire"
+            - "Data Analysis"
+            - "Agenda Alignment"
+        - number: "02"
+          icon: "heroicons:presentation-chart-bar"
+          title: "Workshop Day"
+          description: "Intensive working session with your team. Analysis, discussion, strategy development and concrete action planning."
+          details:
+            - "Current State Analysis"
+            - "Strategy Session"
+            - "Roadmap Development"
+        - number: "03"
+          icon: "heroicons:document-text"
+          title: "Documentation"
+          description: "Within one week, you receive comprehensive documentation of all results, decisions and action items."
+          details:
+            - "Results Report"
+            - "Action Plan"
+            - "Prioritized Roadmap"
+        - number: "04"
+          icon: "heroicons:arrow-path"
+          title: "Follow-up"
+          description: "Optional: After 4-6 weeks, a review call on implementation. What was achieved? Where are the sticking points? What's next?"
+          details:
+            - "Review Call"
+            - "Progress Check"
+            - "Adjustments"
+
+  # ========================================
+  # Section 5: ProblemSolution (Before-After)
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 5
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "The Difference"
+      headline: "From <em>Day-to-Day</em> to Strategy"
+      description: "A workshop creates the space that daily business doesn't offer – for focused work on your business, not just in it."
+      problemsTitle: "Without Workshop"
+      solutionsTitle: "After the Workshop"
+      problems:
+        - icon: "heroicons:question-mark-circle"
+          text: "Unclear priorities and many open issues"
+        - icon: "heroicons:users"
+          text: "Different ideas within the team"
+        - icon: "heroicons:clock"
+          text: "No time for strategic thinking"
+        - icon: "heroicons:document-text"
+          text: "Decisions without common basis"
+        - icon: "heroicons:arrows-pointing-out"
+          text: "Silo thinking between departments"
+      solutions:
+        - icon: "heroicons:check-circle"
+          text: "Clear roadmap with prioritized measures"
+        - icon: "heroicons:user-group"
+          text: "Shared understanding and team alignment"
+        - icon: "heroicons:calendar"
+          text: "Focused time for the important topics"
+        - icon: "heroicons:document-check"
+          text: "Well-founded decision bases"
+        - icon: "heroicons:puzzle-piece"
+          text: "Cross-departmental collaboration"
+
+  # ========================================
+  # Section 6: ContentSplitImage (For Whom?)
+  # ========================================
+  - id: target-audience
+    enabled: true
+    order: 6
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "For Whom?"
+      headline: "The Workshop is <em>Ideal For</em>"
+      image: "/src/images/ecommerce-workshop-team.png"
+      imageAlt: "Team Workshop Session"
+      imagePosition: "left"
+      content:
+        - type: "lead"
+          content: "From high-growth startups to established brands – the workshop is for everyone who wants to strategically develop their e-commerce."
+        - type: "features"
+          items:
+            - icon: "heroicons:rocket-launch"
+              title: "Growing Online Retailers"
+              description: "You've found product-market fit and now want to scale – but structures aren't keeping up."
+            - icon: "heroicons:building-storefront"
+              title: "D2C Brands & Manufacturers"
+              description: "You're building out direct sales and need a clear e-commerce strategy."
+            - icon: "heroicons:arrow-path"
+              title: "Companies in Transition"
+              description: "Before shop relaunch, ERP migration or realignment – the workshop creates clarity. For ongoing support, <a href='/ecommerce-consulting'>E-Commerce Consulting</a> is available."
+            - icon: "heroicons:user-group"
+              title: "Leadership Teams"
+              description: "Management, e-commerce leadership, marketing, operations – all at one table."
+        - type: "button"
+          text: "Request Workshop"
+          variant: "primary"
+
+  # ========================================
+  # Section 7: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 7
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "FAQ"
+      headline: "Questions About the <em>Workshop</em>"
+      description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
+      faqs:
+        - question: "How long does a workshop take?"
+          answer: "Depending on the scope, between half a day (3-4 hours) and two full days. A classic strategy workshop takes one day. In the preliminary discussion, we clarify which format makes sense for your goals."
+        - question: "How many participants are ideal?"
+          answer: "Between 2 and 10 people. With fewer, perspective diversity is often missing; with more, moderation becomes more difficult. Ideally, decision-makers from different areas participate: management, e-commerce, marketing, operations."
+        - question: "On-site or remote?"
+          answer: "Both are possible. On-site workshops enable more intensive collaboration and spontaneous whiteboard sessions. Remote workshops are more flexible and save travel time. Often a hybrid approach makes sense: strategy sessions on-site, follow-ups remote."
+        - question: "What do I need to prepare?"
+          answer: "I'll send you a questionnaire in advance and a list of access/data I need for preparation (analytics, shop backend, etc.). The better the preparation, the more productive the workshop day."
+        - question: "What does a workshop cost?"
+          answer: "A half-day workshop starts at €2,500, a full-day workshop at €3,500, a two-day intensive at €6,000 – each plus VAT and travel costs if applicable. Preparation, execution and documentation are included in the price."
+        - question: "What do I get at the end?"
+          answer: "Comprehensive documentation of all results: analysis insights, strategic decisions, prioritized measures and a roadmap with timeline. Not a slide graveyard, but a working document you can use directly."
+        - question: "Can the workshop also be part of a longer consulting engagement?"
+          answer: "Absolutely. Many of my clients start with a workshop as a kick-off for longer-term collaboration. The workshop creates the strategic foundation, <a href='/ecommerce-sparring'>E-Commerce Sparring</a> ensures continuous support, and <a href='/implementation-support'>Implementation Support</a> ensures quality in implementation."
+
+  # ========================================
+  # Section 8: CTA
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 8
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Ready for <em>Your Workshop</em>?"
+      description: "Let's clarify in a short call which format makes sense for your goals. Non-binding and free of charge."
+      buttonText: "Request Workshop"
+      emailLabel: "Prefer to write first?"
+      email: "contact@wernerstrauch.com"

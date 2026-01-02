@@ -1,0 +1,103 @@
+# Legal Notice Page (Impressum)
+# Information according to German TMG law
+
+lang: en
+pageId: impressum
+slug: legal-notice
+
+meta:
+  title: "Legal Notice | Werner Strauch"
+  description: "Legal notice and information according to § 5 TMG for the website of Werner Strauch, E-Commerce Consultant."
+
+settings:
+  status: published
+  priority: 0.3
+  headerVariant: dark
+
+sections:
+  - id: legal-content
+    enabled: true
+    order: 1
+    component: LegalPage
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.04
+        gridSize: 80
+        glowLines: 2
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      pageTitle: "<em>Legal Notice</em>"
+      pageSubtitle: "Information according to § 5 TMG"
+      lastUpdated: "January 2025"
+      sections:
+        - title: "Information according to § 5 TMG"
+          content: |
+            **Headquarters:**
+            digitalsprung GmbH
+            Gladbacher Str. 31A
+            52525 Heinsberg
+            North Rhine-Westphalia
+            Germany
+
+            **Branch Office:**
+            digitalsprung GmbH
+            Carl-Zeiss-Straße 4
+            75217 Birkenfeld
+            Baden-Württemberg
+            Germany
+
+            *We serve clients throughout the German-speaking region*
+
+            **Commercial Register:** HRB 27543
+            **Registered Office:** Heinsberg
+            **Registration Court:** Amtsgericht Aachen (District Court Aachen)
+
+            **Represented by Managing Director:**
+            Christian Schmelzle
+
+        - title: "Contact"
+          content: |
+            Phone: +49 2435-94989-50
+            Fax: +49 2435-94989-59
+            Email: [info@digitalsprung.de](mailto:info@digitalsprung.de)
+
+        - title: "VAT ID"
+          content: |
+            VAT Identification Number according to §27 a German VAT Act:
+
+            DE314927955
+
+        - title: "Dispute Resolution"
+          content: |
+            The European Commission provides a platform for online dispute resolution (OS):
+            [https://ec.europa.eu/consumers/odr](https://ec.europa.eu/consumers/odr)
+
+            You can find our email address in the legal notice above.
+
+            We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.
+
+        - title: "Liability for Content"
+          content: |
+            As a service provider, we are responsible for our own content on these pages in accordance with general laws pursuant to § 7 Paragraph 1 TMG. However, according to §§ 8 to 10 TMG, we are not obligated as a service provider to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.
+
+            Obligations to remove or block the use of information under general laws remain unaffected. However, liability in this regard is only possible from the point in time at which we become aware of a specific legal violation. Upon becoming aware of corresponding legal violations, we will remove this content immediately.
+
+        - title: "Liability for Links"
+          content: |
+            Our offer contains links to external websites of third parties, over whose content we have no influence. Therefore, we cannot assume any liability for this third-party content. The respective provider or operator of the pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at the time of linking.
+
+            However, permanent content control of the linked pages is not reasonable without concrete evidence of a legal violation. Upon becoming aware of legal violations, we will remove such links immediately.
+
+        - title: "Copyright"
+          content: |
+            The content and works created by the site operators on these pages are subject to German copyright law. Reproduction, editing, distribution, and any kind of exploitation outside the limits of copyright require the written consent of the respective author or creator. Downloads and copies of this page are only permitted for private, non-commercial use.
+
+            Insofar as the content on this page was not created by the operator, the copyrights of third parties are respected. In particular, third-party content is identified as such. Should you nevertheless become aware of a copyright infringement, please notify us accordingly. Upon becoming aware of legal violations, we will remove such content immediately.
+
+            *Source: eRecht24*

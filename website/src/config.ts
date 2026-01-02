@@ -160,7 +160,7 @@ export const MEGA_MENU_EN: MegaMenuCategory[] = [
         links: [
           {
             label: "E-Commerce Project Management",
-            href: "/ecommerce-project-management",
+            href: "/project-management",
             icon: "heroicons:clipboard-document-check",
             description: "Leading projects to success on time",
           },

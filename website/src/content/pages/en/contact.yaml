@@ -36,8 +36,8 @@ sections:
       contactInfo:
         - icon: "heroicons:envelope"
           label: "Email"
-          value: "kontakt@wernerstrauch.de"
-          href: "mailto:kontakt@wernerstrauch.de"
+          value: "contact@wernerstrauch.com"
+          href: "mailto:contact@wernerstrauch.com"
         - icon: "heroicons:map-pin"
           label: "Location"
           value: "Remote / DACH Region"
@@ -98,7 +98,7 @@ sections:
           placeholder: "Briefly describe your request or project..."
           rows: 5
           gridCol: "full"
-      privacyText: 'I agree to the <a href="/en/privacy" class="privacy-link">Privacy Policy</a> and consent to the processing of my data for contact purposes.'
+      privacyText: 'I agree to the <a href="/privacy-policy" class="privacy-link">Privacy Policy</a> and consent to the processing of my data for contact purposes.'
       submitButtonText: "Send message"
       successTitle: "Thank you!"
       successMessage: "I have received your message and will get back to you within 24-48 hours."

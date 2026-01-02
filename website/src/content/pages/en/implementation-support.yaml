@@ -1,0 +1,413 @@
+# E-Commerce Implementation Support Page
+# Sparring Partner & QA for Shop Migration, ERP Implementation, System Integration
+
+lang: en
+pageId: umsetzungsbegleitung
+slug: implementation-support
+
+meta:
+  title: "E-Commerce Implementation Support | Sparring Partner & QA | Werner Strauch"
+  description: "Professional implementation support for e-commerce projects: Sparring partner, QA, vendor management. For shop migration, ERP implementation or system integration. 2-8 days/month."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: Hero with HeroSplit
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "Implementation Support"
+      badgeIcon: "heroicons:shield-check-16-solid"
+      headline: "<mark>E-Commerce</mark> <em>Implementation Support</em>"
+      subheadline: "Your sparring partner for complex e-commerce projects. I accompany shop migrations, ERP implementations and system integrations – as a critical thinker, not a decision-maker."
+      image: "/src/images/umsetzungsbegleitung-hero.png"
+      imageAlt: "E-Commerce Implementation Support - Sparring Partner"
+      primaryCta: "Schedule Initial Call"
+      primaryCtaHref: "/contact"
+      secondaryCta: "Understand My Role"
+      secondaryCtaHref: "#my-role"
+
+  # ========================================
+  # Section 2: ContentSplitImage (My Role)
+  # ========================================
+  - id: my-role
+    enabled: true
+    order: 2
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "left"
+        size: "md"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "My Role"
+      headline: "Advisory, Not <em>Deciding</em>"
+      image: "/src/images/umsetzungsbegleitung-beratung.png"
+      imageAlt: "Consulting and sparring on e-commerce projects"
+      imagePosition: "right"
+      content:
+        - type: "lead"
+          content: "I'm not a project manager who makes decisions. I'm the sparring partner who asks the right questions and uncovers blind spots."
+        - type: "text"
+          content: "<p>For complex e-commerce projects, you need someone who thinks independently – without their own agenda. Someone who questions technical concepts, puts vendor proposals in context and translates business requirements into developer language.</p>"
+        - type: "text"
+          content: "<p>If you need more than support – actual management and decision-making authority – <a href='/project-management'>Project Management</a> or <a href='/interim-management'>Interim Management</a> is the right choice.</p>"
+        - type: "features"
+          items:
+            - icon: "heroicons:chat-bubble-left-right"
+              title: "Sparring Partner"
+              description: "I question concepts, run through scenarios and bring new perspectives."
+            - icon: "heroicons:clipboard-document-check"
+              title: "Quality Assurance"
+              description: "I review deliverables, test critical functions and secure sign-offs."
+            - icon: "heroicons:users"
+              title: "Vendor Management"
+              description: "I accompany coordination with vendors and keep agencies on track."
+            - icon: "heroicons:language"
+              title: "Translator"
+              description: "I translate between business and tech – in both directions."
+
+  # ========================================
+  # Section 3: ProblemSolution
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 3
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "The Difference"
+      headline: "Projects <em>with Support</em>"
+      description: "E-commerce projects rarely fail because of technology – but because of communication, expectations and lack of oversight."
+      problemsTitle: "Without Support"
+      solutionsTitle: "With Support"
+      problems:
+        - icon: "heroicons:question-mark-circle"
+          text: "Nobody critically questions vendor proposals"
+        - icon: "heroicons:document-text"
+          text: "Specifications are interpreted differently"
+        - icon: "heroicons:exclamation-triangle"
+          text: "Problems are recognized too late"
+        - icon: "heroicons:banknotes"
+          text: "Budget and timeline run out of control"
+        - icon: "heroicons:arrows-pointing-out"
+          text: "Business and IT talk past each other"
+      solutions:
+        - icon: "heroicons:eye"
+          text: "Independent review of all concepts and proposals"
+        - icon: "heroicons:document-check"
+          text: "Clear specifications with unified understanding"
+        - icon: "heroicons:shield-check"
+          text: "Early QA and regular reviews"
+        - icon: "heroicons:chart-bar"
+          text: "Transparent progress monitoring"
+        - icon: "heroicons:arrows-right-left"
+          text: "Translation between all parties"
+
+  # ========================================
+  # Section 4: BentoGrid (Use Cases)
+  # ========================================
+  - id: use-cases
+    enabled: true
+    order: 4
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "Use Cases"
+      headline: "Where I <em>Support</em> You"
+      description: "Implementation support makes sense for complex projects where external vendors are involved and a lot is at stake."
+      cards:
+        - title: "Shop Migration"
+          description: "Changing shop systems is one of the riskiest moments in e-commerce. I accompany the process from requirements to go-live."
+          icon: "heroicons:arrow-path"
+          large: true
+          features:
+            - "Requirements Review"
+            - "Data Migration Control"
+            - "UAT Support"
+            - "Go-Live Assurance"
+        - title: "ERP Implementation"
+          description: "ERP projects are complex and lengthy. I ensure that e-commerce requirements don't get lost."
+          icon: "heroicons:circle-stack"
+          features:
+            - "Process Mapping"
+            - "Interface Review"
+            - "Test Support"
+        - title: "System Integration"
+          description: "PIM, OMS, WMS, marketing automation – I accompany the integration of new systems into your existing landscape."
+          icon: "heroicons:puzzle-piece"
+          features:
+            - "Architecture Review"
+            - "API Specification"
+            - "Integration Testing"
+        - title: "Agency Management"
+          description: "When multiple vendors need to work together, I keep everyone on track and ensure quality."
+          icon: "heroicons:user-group"
+          features:
+            - "Vendor Coordination"
+            - "Deliverable Review"
+            - "Escalation Management"
+        - title: "Relaunch & Redesign"
+          description: "For shop relaunches, I accompany UX reviews, performance checks and technical implementation."
+          icon: "heroicons:sparkles"
+          large: true
+          features:
+            - "UX Review"
+            - "Performance Audit"
+            - "SEO Migration"
+            - "Launch Coordination"
+
+  # ========================================
+  # Section 5: Process (Flow)
+  # ========================================
+  - id: process
+    enabled: true
+    order: 5
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "left"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "The Process"
+      headline: "How <em>Support</em> Works"
+      description: "Structured and flexible – from project start to successful sign-off."
+      steps:
+        - number: "01"
+          icon: "heroicons:rocket-launch"
+          title: "Kick-off & Onboarding"
+          description: "I familiarize myself with your project: Goals, stakeholders, timeline, critical paths. Together we define my role and focus topics."
+          details:
+            - "Project Briefing"
+            - "Stakeholder Mapping"
+            - "Focus Definition"
+        - number: "02"
+          icon: "heroicons:chat-bubble-left-right"
+          title: "Ongoing Support"
+          description: "I attend regular meetings, review deliverables, answer questions and am your sparring partner for all important decisions."
+          details:
+            - "Weekly Check-ins"
+            - "Deliverable Reviews"
+            - "Ad-hoc Sparring"
+        - number: "03"
+          icon: "heroicons:clipboard-document-check"
+          title: "Reviews & QA"
+          description: "At important milestones, I thoroughly review results: Concepts, prototypes, test cases, staging environments."
+          details:
+            - "Milestone Reviews"
+            - "Test Support"
+            - "Quality Assurance"
+        - number: "04"
+          icon: "heroicons:check-badge"
+          title: "Sign-off & Handover"
+          description: "I accompany the final sign-off, document open items and ensure a clean transition to operations."
+          details:
+            - "Sign-off Support"
+            - "Punch List"
+            - "Handover Documentation"
+
+  # ========================================
+  # Section 6: Stats
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 6
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "In Numbers"
+      headline: "Flexible <em>Support</em>"
+      stats:
+        - value: "2–8"
+          label: "Days per Month"
+          description: "depending on project phase"
+        - value: "1,500"
+          prefix: "from"
+          suffix: "€"
+          label: "per Month"
+          description: "plus VAT"
+        - value: "3–12"
+          label: "Months"
+          description: "typical project duration"
+        - value: "100"
+          suffix: "%"
+          label: "Independent"
+          description: "no vendor ties"
+
+  # ========================================
+  # Section 7: Quote
+  # ========================================
+  - id: quote
+    enabled: true
+    order: 7
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "My job is not to make decisions – but to ensure the right questions are asked before decisions are made."
+      author: "Werner Strauch"
+      role: "E-Commerce Consultant"
+
+  # ========================================
+  # Section 8: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 8
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "FAQ"
+      headline: "Questions About <em>Implementation Support</em>"
+      description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
+      faqs:
+        - question: "What distinguishes you from a project manager?"
+          answer: "A project manager is part of the project and makes operational decisions. I deliberately take a step back: I question, review and advise – but you make the decisions. This allows me to remain critical without getting into conflicts of interest."
+        - question: "How much time should I plan for?"
+          answer: "Effort varies by project phase: During peak times (kick-off, go-live), it can be 6-8 days per month, during quieter phases 2-3 days. We define a framework together that fits your project."
+        - question: "Do you also work with our agency?"
+          answer: "Yes, that's the normal case. I'm not a competitor to your agency, but your representative on the client side. Good agencies appreciate this – because clear requirements and quick decisions help them too."
+        - question: "From what project size does support make sense?"
+          answer: "As a rule of thumb: For projects from €50,000 in volume or from 3 months duration, independent support is worthwhile. For smaller projects, a one-time <a href='/ecommerce-audit'>Audit</a> or <a href='/ecommerce-sparring'>Sparring</a> often makes more sense."
+        - question: "Can I book you only for certain phases?"
+          answer: "Absolutely. Some clients book me only for the concept phase, others only for go-live assurance. We can flexibly focus the support on critical phases."
+        - question: "What does implementation support cost?"
+          answer: "Monthly support starts at €1,500 for 2 days per month and goes up to €4,000 for 8 days per month. For longer projects, package prices are also possible. In the initial call, we clarify what scope makes sense for your project."
+        - question: "How quickly can you start?"
+          answer: "Usually I can start within 1-2 weeks. For urgent projects, we'll find shorter-term solutions as well. Just reach out to me."
+        - question: "What happens if there are conflicts with the vendor?"
+          answer: "I moderate and mediate – but I'm clearly on your side. In real conflicts, I help to document them, define escalation paths and, if necessary, evaluate alternatives."
+
+  # ========================================
+  # Section 9: CTA
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 9
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Project in Planning?"
+      description: "Let's discuss how I can support your e-commerce project. 30 minutes – non-binding and free of charge."
+      buttonText: "Schedule Initial Call"
+      buttonHref: "/contact"
+      emailLabel: "Prefer to write first?"
+      email: "contact@wernerstrauch.com"

@@ -1,0 +1,176 @@
+# Privacy Policy Page
+# GDPR-compliant privacy policy
+
+lang: en
+pageId: datenschutz
+slug: privacy-policy
+
+meta:
+  title: "Privacy Policy | digitalsprung GmbH"
+  description: "Privacy policy of the digitalsprung GmbH website. Information on the collection and processing of personal data."
+
+settings:
+  status: published
+  priority: 0.3
+  headerVariant: dark
+
+sections:
+  - id: legal-content
+    enabled: true
+    order: 1
+    component: LegalPage
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.04
+        gridSize: 80
+        glowLines: 2
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      pageTitle: "<em>Privacy</em> Policy"
+      pageSubtitle: "Information on how we handle your data"
+      lastUpdated: "November 2025"
+      sections:
+        - title: "1. Privacy at a Glance"
+          content: |
+            The following notes provide a simple overview of what happens to your personal data when you visit this website. Personal data is any data that can be used to personally identify you. Detailed information on the subject of data protection can be found in our privacy policy listed below this text.
+
+        - title: "2. Data Controller"
+          content: |
+            The data controller for data processing on this website is:
+
+            **digitalsprung GmbH**
+            Gladbacher Str. 31A
+            52525 Heinsberg
+
+            Phone: +49 2435-94989-50
+            Email: [info@digitalsprung.de](mailto:info@digitalsprung.de)
+
+            The responsible body is the natural or legal person who, alone or together with others, decides on the purposes and means of processing personal data.
+
+        - title: "3. Data Collection on This Website"
+          content: |
+            ### Cookies
+
+            Our website uses cookies. These are small text files that your web browser stores on your device. Cookies help us make our offer more user-friendly and effective.
+
+            Some cookies are "session cookies". Such cookies are automatically deleted after your browser session ends. Other cookies remain on your device until you delete them yourself or automatic deletion occurs through your web browser. Such cookies help us recognize you when you return to our website.
+
+            With a modern web browser, you can monitor, restrict, or prevent the setting of cookies. Many web browsers can be configured to automatically delete cookies when the program is closed. Disabling cookies may result in limited functionality of our website.
+
+            The setting of cookies that are necessary for carrying out electronic communication processes or for providing certain functions you desire is based on Art. 6 Para. 1 lit. f GDPR. As the operator of this website, we have a legitimate interest in storing cookies for the technically error-free and smooth provision of our services.
+
+            ### Server Log Files
+
+            The provider of this website automatically collects and stores information in so-called server log files, which your browser automatically transmits to us. These are:
+
+            - Browser type and browser version
+            - Operating system used
+            - Referrer URL
+            - Host name of the accessing computer
+            - Time of the server request
+            - IP address
+
+            This data is not merged with other data sources. The collection of this data is based on Art. 6 Para. 1 lit. f GDPR. The website operator has a legitimate interest in the technically error-free presentation and optimization of their website – for this purpose, the server log files must be recorded.
+
+            ### Contact Form
+
+            If you send us inquiries via the contact form, your details from the inquiry form, including the contact data you provided there, will be stored by us for the purpose of processing the inquiry and for follow-up questions. We will not share this data without your consent.
+
+            The processing of this data is based on Art. 6 Para. 1 lit. b GDPR if your inquiry is related to the fulfillment of a contract or is necessary for the implementation of pre-contractual measures. In all other cases, the processing is based on our legitimate interest in the effective processing of inquiries addressed to us (Art. 6 Para. 1 lit. f GDPR) or on your consent (Art. 6 Para. 1 lit. a GDPR).
+
+            The data you enter in the contact form will remain with us until you request us to delete it, revoke your consent to storage, or the purpose for data storage no longer applies. Mandatory statutory provisions – in particular retention periods – remain unaffected.
+
+            ### Inquiry by Email or Phone
+
+            If you contact us by email or phone, your inquiry including all resulting personal data (name, inquiry) will be stored and processed by us for the purpose of processing your request. We will not share this data without your consent.
+
+        - title: "4. Analytics Tools and Advertising"
+          content: |
+            ### Google Analytics
+
+            This website uses functions of the web analytics service Google Analytics. The provider is Google Ireland Limited ("Google"), Gordon House, Barrow Street, Dublin 4, Ireland.
+
+            Google Analytics enables the website operator to analyze the behavior of website visitors. The website operator receives various usage data, such as page views, duration of visit, operating systems used, and origin of the user. This data is summarized in a profile assigned to the user.
+
+            Google Analytics uses technologies that enable the recognition of the user for the purpose of analyzing user behavior (e.g., cookies or device fingerprinting). The information collected by Google about the use of this website is usually transmitted to a Google server in the USA and stored there.
+
+            The use of this service is based on your consent according to Art. 6 Para. 1 lit. a GDPR and § 25 Para. 1 TTDSG. Consent can be revoked at any time.
+
+            Data transfer to the USA is based on the EU Commission's standard contractual clauses. Details can be found here: [https://privacy.google.com/businesses/controllerterms/mccs/](https://privacy.google.com/businesses/controllerterms/mccs/)
+
+            ### IP Anonymization
+
+            We have activated the IP anonymization function on this website. This means that your IP address is shortened by Google within member states of the European Union or in other contracting states of the Agreement on the European Economic Area before being transmitted to the USA. Only in exceptional cases will the full IP address be transmitted to a Google server in the USA and shortened there.
+
+            ### Browser Plugin
+
+            You can prevent the collection and processing of your data by Google by downloading and installing the browser plugin available at the following link: [https://tools.google.com/dlpage/gaoptout?hl=en](https://tools.google.com/dlpage/gaoptout?hl=en)
+
+            More information about how Google Analytics handles user data can be found in Google's privacy policy: [https://support.google.com/analytics/answer/6004245?hl=en](https://support.google.com/analytics/answer/6004245?hl=en)
+
+            ### Revocation via Cookie Settings
+
+            You can revoke your consent at any time by accessing the cookie settings on our website and changing your preferences there. The link to the cookie settings can be found in the footer of our website.
+
+            ### Data Processing Agreement
+
+            We have concluded a data processing agreement with Google and fully implement the strict requirements of the German data protection authorities when using Google Analytics.
+
+        - title: "5. Hosting"
+          content: |
+            We host the content of our website with the following provider:
+
+            ### External Hosting
+
+            This website is hosted externally. The personal data collected on this website is stored on the host's servers. This may include IP addresses, contact requests, meta and communication data, contract data, contact details, names, website access, and other data generated via a website.
+
+            External hosting is carried out for the purpose of fulfilling contracts with our potential and existing customers (Art. 6 Para. 1 lit. b GDPR) and in the interest of a secure, fast, and efficient provision of our online offer by a professional provider (Art. 6 Para. 1 lit. f GDPR).
+
+        - title: "6. Your Rights"
+          content: |
+            You have the right to receive free information about the origin, recipient, and purpose of your stored personal data at any time. You also have the right to request the correction or deletion of this data. If you have given consent to data processing, you can revoke this consent at any time for the future. You also have the right, under certain circumstances, to request the restriction of the processing of your personal data. Furthermore, you have the right to lodge a complaint with the competent supervisory authority.
+
+            You can contact us at any time about this and other questions on the subject of data protection.
+
+            ### Revocation of Your Consent
+
+            Many data processing operations are only possible with your express consent. You can revoke consent you have already given at any time. The legality of the data processing carried out until the revocation remains unaffected by the revocation.
+
+            ### Right to Data Portability
+
+            You have the right to have data that we process automatically on the basis of your consent or in fulfillment of a contract handed over to you or to a third party in a common, machine-readable format. If you request the direct transfer of the data to another controller, this will only be done to the extent that it is technically feasible.
+
+            ### Access, Correction, and Deletion
+
+            Within the framework of the applicable legal provisions, you have the right at any time to free information about your stored personal data, its origin and recipient, and the purpose of data processing and, if applicable, a right to correction or deletion of this data. You can contact us at any time about this and other questions on the subject of personal data.
+
+            ### Right to Restriction of Processing
+
+            You have the right to request the restriction of the processing of your personal data. You can contact us at any time for this purpose. The right to restriction of processing exists in the following cases:
+
+            - If you dispute the accuracy of your personal data stored by us
+            - If the processing of your personal data was unlawful
+            - If you reject the deletion of your personal data and instead request the restriction of use
+            - If your personal data is no longer necessary for the purposes for which it was collected
+
+            ### Right to Lodge a Complaint with the Supervisory Authority
+
+            In the event of violations of the GDPR, data subjects have the right to lodge a complaint with a supervisory authority, in particular in the member state of their habitual residence, their place of work, or the place of the alleged violation. The right to lodge a complaint exists without prejudice to other administrative or judicial remedies.
+
+        - title: "7. SSL/TLS Encryption"
+          content: |
+            For security reasons and to protect the transmission of confidential content, such as inquiries that you send to us as the site operator, this site uses SSL or TLS encryption. You can recognize an encrypted connection by the fact that the address line of the browser changes from "http://" to "https://" and by the lock symbol in your browser line.
+
+            When SSL or TLS encryption is activated, the data you transmit to us cannot be read by third parties.
+
+        - title: "8. Currency and Changes to This Privacy Policy"
+          content: |
+            This privacy policy is currently valid and has the status: November 2025.
+
+            Due to the further development of our website and offers or due to changed legal or official requirements, it may become necessary to change this privacy policy. The current privacy policy can be retrieved and printed at any time on this website.

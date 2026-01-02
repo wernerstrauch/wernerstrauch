@@ -1,0 +1,235 @@
+# About Me Page
+# Werner Strauch - E-Commerce Consultant & Strategist
+
+lang: en
+pageId: about
+slug: about
+
+meta:
+  title: "About Me | Werner Strauch – E-Commerce Consultant & Strategist"
+  description: "20+ years of e-commerce experience. 7 years as managing director. Leading teams of up to 20 people. Business graduate with technical depth and strategic consulting expertise."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # Hero Section
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.06
+        gridSize: 60
+        glowLines: 4
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "About Me"
+      badgeIcon: "heroicons:user-16-solid"
+      headline: "I Speak Code and <em><mark>Strategy</mark></em>"
+      subheadline: "Started as a developer, now managing director and consultant. 20 years in e-commerce have taught me: The best solutions emerge when technology and business speak the same language."
+      image: "/src/images/werner-strauch-konferenz.jpg"
+      imageAlt: "Werner Strauch at a Conference"
+      primaryCta: "Get in Touch"
+      primaryCtaHref: "/contact"
+      secondaryCta: "My Services"
+      secondaryCtaHref: "/services"
+
+  # Story Section
+  - id: story
+    enabled: true
+    order: 2
+    component: AboutStory
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "My Journey"
+      badgeIcon: "heroicons:academic-cap-16-solid"
+      heading: "From Developer to <em>Strategist</em>"
+      paragraphs:
+        - "<p>My career began where technology and business meet: in code. Over 20 years of experience implementing web projects has given me a deep understanding of what needs to work under the hood for e-commerce systems to scale.</p>"
+        - "<p>As a managing director, I've learned over the last <strong>7 years</strong> what it means to make strategic decisions and lead a company. In a previous role, I led a <strong>20-person team</strong> – today I lead a <strong>15-person agency team</strong> at digitalsprung.</p>"
+        - "<p>In parallel, I worked 7 years in online marketing in the financial industry – a school in performance, conversion, and data-driven decisions. This combination of <strong>technical depth, leadership experience, and strategic vision</strong> shapes my consulting today.</p>"
+        - "<p>As a business graduate specializing in business informatics, I connect all worlds: I understand developers' language, know the challenges of team leadership, and the requirements of executive management. This makes me a translator between IT, team, and business.</p>"
+      valuesTitle: "What Drives Me"
+      values:
+        - icon: "heroicons:light-bulb"
+          title: "Creating Clarity"
+          description: "Making complex systems understandable and maintaining overview – even when it gets technical."
+        - icon: "heroicons:arrow-trending-up"
+          title: "Achieving Impact"
+          description: "No theory without practice. Every recommendation must deliver measurable results."
+        - icon: "heroicons:users"
+          title: "Developing Teams"
+          description: "Enabling people to work independently and grow beyond themselves."
+        - icon: "heroicons:hand-raised"
+          title: "Empower, Not Bind"
+          description: "My goal is your independence. I build systems that you can control yourself."
+
+  # Expertise Section
+  - id: expertise
+    enabled: true
+    order: 3
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Results, Not Promises"
+      badgeIcon: "heroicons:chart-bar-16-solid"
+      headline: "What I <em>Bring</em>"
+      stats:
+        - value: "200"
+          suffix: "+"
+          label: "E-Commerce Projects"
+          description: "delivered"
+          icon: "heroicons:shopping-cart"
+        - value: "20"
+          suffix: "+"
+          label: "Years Experience"
+          description: "in e-commerce"
+          icon: "heroicons:calendar"
+        - value: "7"
+          label: "Years"
+          description: "as Managing Director"
+          icon: "heroicons:briefcase"
+        - value: "15"
+          suffix: "+"
+          label: "Years"
+          description: "online marketing"
+          icon: "heroicons:chart-bar"
+
+  # Shop Expertise Section
+  - id: shop-expertise
+    enabled: true
+    order: 4
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Hands-on Expertise"
+      headline: "From Practice, <em>For Practice</em>"
+      image: "/src/images/werner-strauch-shop-experte.jpg"
+      imageAlt: "Werner Strauch - E-Commerce & Shop Expert"
+      imagePosition: "left"
+      content:
+        - type: "lead"
+          content: "I know e-commerce not just from PowerPoint presentations – I've built, migrated, and scaled shops myself."
+        - type: "text"
+          content: "<p>From the first line of code to strategic management: My journey through the e-commerce world now gives me the ability to speak at eye level with developers, project managers, and executives.</p>"
+        - type: "text"
+          content: "<p>This practical experience flows into every consultation – whether selecting the right shop system, optimizing processes, or strategically realigning your online business.</p>"
+
+  # Qualifications
+  - id: qualifications
+    enabled: true
+    order: 5
+    component: Credentials
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Qualifications"
+      badgeIcon: "heroicons:academic-cap-16-solid"
+      headline: "Solid <em>Foundation</em>"
+      tagline: "Academic background and official certifications"
+      credentials:
+        - title: "Business Graduate (Diplom-Betriebswirt FH)"
+          subtitle: "Specialization in Business Informatics"
+          icon: "heroicons:academic-cap"
+          institution: "Pforzheim University"
+          period: "2004 – 2010"
+          highlight: true
+          highlights:
+            - "Business & IT Integration"
+            - "Process Management"
+            - "System Architecture"
+            - "Project Management"
+
+  # Skills/Expertise Grid
+  - id: skills
+    enabled: true
+    order: 6
+    component: SkillsShowcase
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "lg"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Expertise"
+      badgeIcon: "heroicons:academic-cap-16-solid"
+      headline: "My <em>Core Competencies</em>"
+      skills:
+        - icon: "heroicons:shopping-cart"
+          title: "E-Commerce Strategy"
+          description: "Shop architecture, platform selection, migration planning, and technical scaling for sustainable growth."
+        - icon: "heroicons:briefcase"
+          title: "Management & Leadership"
+          description: "7 years of experience in corporate management. Building and leading teams of up to 20 people."
+        - icon: "heroicons:circle-stack"
+          title: "ERP & Processes"
+          description: "System selection, integration, and optimization of inventory management, fulfillment, and logistics."
+        - icon: "heroicons:code-bracket"
+          title: "Technical Architecture"
+          description: "API design, microservices, cloud infrastructure, and scalable system landscapes."
+
+  # CTA
+  - id: cta
+    enabled: true
+    order: 7
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    background:
+      type: GridBackground
+      color: "#c8ff00"
+      glowColor: "#c8ff00"
+      opacity: 0.06
+      gridSize: 60
+      glowLines: 4
+      vignette: true
+      vignetteColor: "#0a1628"
+    content:
+      headline: "Let's <em>Talk</em>"
+      description: "Do you have an e-commerce project that needs strategic support? I look forward to the exchange."
+      buttonText: "Get in Touch"
+      buttonHref: "/contact"
+      emailLabel: "Or directly via email"
+      email: "contact@wernerstrauch.com"
