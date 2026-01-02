@@ -207,6 +207,8 @@ sections:
           content: "Ein Berater empfiehlt. Ein Interim Manager setzt um. Der entscheidende Unterschied liegt in der operativen Verantwortung."
         - type: "text"
           content: "<p>Als Interim Manager übernehme ich nicht nur die Analyse und Strategie-Entwicklung, sondern auch die Führung Ihres Teams und die Verantwortung für Ergebnisse. Ich treffe Entscheidungen, führe Mitarbeiter, steuere Dienstleister und trage die Konsequenzen – wie ein interner Manager, nur auf Zeit.</p>"
+        - type: "text"
+          content: "<p>Wenn Sie keine volle operative Verantwortung abgeben möchten, bieten sich die <a href='/ecommerce-beratung'>E-Commerce Beratung</a> oder <a href='/projektleitung'>Projektleitung</a> an – mit weniger Tiefe, aber auch weniger Commitment.</p>"
         - type: "features"
           items:
             - icon: "heroicons:document-text"
