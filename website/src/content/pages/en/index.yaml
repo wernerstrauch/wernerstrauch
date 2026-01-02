@@ -15,278 +15,499 @@ sections:
   - id: hero
     enabled: true
     order: 1
-    component: HeroSimple
+    component: HeroWithPortrait
     wrapper:
       variant: dark
-      padding: xl
-    background:
-      type: GridBackground
-      color: "#c8ff00"
-      glowColor: "#c8ff00"
-      opacity: 0.08
-      gridSize: 60
-      glowLines: 6
-      vignette: true
-      vignetteColor: "#0a1628"
+      padding: none
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.15
+        gridSize: 60
+        glowLines: 6
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.15
+        position: right
+        size: lg
+        animate: true
     content:
-      headline: "E-commerce systems that <em>scale</em> – without slowing you down"
-      subheadline: "I support online retailers and D2C brands in strategically positioning their technical infrastructure – from ERP selection to Shopify architecture to process optimization."
-      primaryCta: "Schedule a call"
-      primaryCtaHref: "/en/contact"
-      secondaryCta: "Explore services"
-      secondaryCtaHref: "#services"
+      headline: "Your <mark>E-Commerce</mark> Consultant.<br/>For measurable <em>Results</em>."
+      subheadline: "I help online retailers and D2C brands strategically position their technical infrastructure – from ERP selection to Shopify architecture to process optimization."
+      primaryCta: "Schedule a Call"
+      primaryCtaHref: "/contact"
+      secondaryCta: "All Services"
+      secondaryCtaHref: "/services"
+      image: "/src/images/ecommerce-berater-werner-strauch.png"
+      imageAlt: "Werner Strauch - E-Commerce Consultant"
+      imageScale: 0.9
+
+  # About / Intro Section
+  - id: intro
+    enabled: true
+    order: 3
+    component: AboutStory
+    wrapper:
+      variant: dark
+      padding: sm
+      containerSize: 4xl
+      container: true
+    content:
+      badge: "Your Partner"
+      badgeIcon: "heroicons:user-16-solid"
+      heading: "Strategic <em>E-Commerce Consulting</em> for Sustainable Growth"
+      paragraphs:
+        - "<p>As a <strong>graduate in Business Administration with focus on Business Informatics</strong> and over <strong>20 years of experience</strong> implementing web projects, I understand both sides: the technical challenges and the strategic requirements of growing online retailers.</p>"
+        - "<p>With <strong>7 years as Managing Director</strong>, I bring the perspective that's crucial for sound e-commerce decisions. My service portfolio covers the entire e-commerce lifecycle – from strategic analysis to technology consulting to implementation support.</p>"
+        - "<p>Whether ERP selection, Shopify migration or process optimization – I guide you through all challenges with solid expertise and a pragmatic approach. Your success is my benchmark.</p>"
+      valuesTitle: "My Service Areas"
+      values:
+        - icon: "heroicons:magnifying-glass-circle"
+          title: "Analysis & Strategy"
+          description: "E-commerce audit, strategy development and technology consulting – the foundation for informed decisions."
+          href: "/ecommerce-audit"
+          linkText: "More about E-Commerce Audit"
+        - icon: "heroicons:chat-bubble-left-right"
+          title: "Consulting & Sparring"
+          description: "Strategic guidance, regular sparring and focused workshops for clear decisions."
+          href: "/ecommerce-consulting"
+          linkText: "More about E-Commerce Consulting"
+        - icon: "heroicons:clipboard-document-check"
+          title: "Implementation & Leadership"
+          description: "Project management, implementation support and interim management – from concept to working solution."
+          href: "/project-management"
+          linkText: "More about Project Management"
+
+  # Trust Bar - Client Logos
+  - id: trust-bar
+    enabled: true
+    order: 2
+    component: TrustBar
+    wrapper:
+      variant: dark
+      padding: xs
+    content:
+      headline: "Experience from projects for leading brands"
+      logos:
+        - name: "LGI"
+          src: "/src/images/logos/logo-7.png"
+        - name: "bugatti"
+          src: "/src/images/logos/logo-10.svg"
+        - name: "entrada Matten"
+          src: "/src/images/logos/logo-1.svg"
+        - name: "Kaldewei"
+          src: "/src/images/logos/logo-2.svg"
+        - name: "Naturtreu"
+          src: "/src/images/logos/logo-4.png"
+        - name: "Naturtreu"
+          src: "/src/images/logos/logo-5.png"
+        - name: "bedrop"
+          src: "/src/images/logos/logo-6.png"
+        - name: "bluhm systeme"
+          src: "/src/images/logos/logo-8.svg"
+        - name: "xautomotive"
+          src: "/src/images/logos/logo-9.svg"
 
   # Trust Stats
   - id: trust-stats
     enabled: true
-    order: 2
+    order: 5
     component: Stats
     wrapper:
       variant: dark
       padding: lg
+      containerSize: 2xl
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: RisingBarsBackground
+        color: "#ffffff"
+        opacity: 0.03
+        barCount: 5
+        position: right
+        animate: true
     content:
-      badge: "Results over promises"
+      badge: "Results, not promises"
       badgeIcon: "heroicons:chart-bar-16-solid"
-      headline: "Numbers that <em>speak</em>"
+      headline: "What I <em>bring</em>"
       stats:
-        - value: "XX"
+        - value: "200"
           suffix: "+"
-          label: "E-Commerce projects"
+          label: "E-Commerce Projects"
           description: "delivered"
           icon: "heroicons:shopping-cart"
-        - value: "XX"
-          label: "Years of experience"
+        - value: "20"
+          suffix: "+"
+          label: "Years Experience"
           description: "in e-commerce"
           icon: "heroicons:calendar"
-        - value: "XX"
+        - value: "7"
+          label: "Years"
+          description: "Managing Director"
+          icon: "heroicons:briefcase"
+        - value: "15"
           suffix: "+"
-          label: "Shopify migrations"
-          description: "successfully completed"
-          icon: "heroicons:arrow-path"
+          label: "Years"
+          description: "Online Marketing"
+          icon: "heroicons:chart-bar"
 
   # Problem Agitation
   - id: problems
     enabled: true
-    order: 3
+    order: 6
     component: ProblemGrid
     wrapper:
       variant: dark
       padding: lg
+      containerSize: 2xl
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.10
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.06
+        gridSize: 60
+        glowLines: 4
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: left
+        size: lg
+        shape: diamonds
+        animate: true
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: right
+        size: md
+        shape: squares
+        animate: true
+        hideOnMobile: true
     content:
-      headline: "Does this sound <em>familiar</em>?"
+      badge: "The uncomfortable truth"
+      badgeIcon: "heroicons:exclamation-triangle-16-solid"
+      headline: "Why most e-commerce businesses stay far below their <em>potential</em>"
+      subheadline: "You know your online business could achieve more. Much more. But between overwhelmed teams, sluggish agencies and legacy systems, you're wasting potential every day – while competitors stay one step ahead."
       problems:
-        - icon: "heroicons:bolt-slash"
-          title: "Your shop is holding you back"
-          description: "Technology can't keep up with your growth. Every change takes forever or costs a fortune."
         - icon: "heroicons:puzzle-piece"
-          title: "ERP chaos"
-          description: "Orders, inventory, accounting – nothing communicates properly. You manage more than you sell."
-        - icon: "heroicons:hand-raised"
-          title: "Agency dependency"
-          description: "You no longer understand your own system and rely on external help for every little thing."
-        - icon: "heroicons:question-mark-circle"
-          title: "Decision paralysis"
-          description: "Shopify or Shopware? JTL or Xentral? You don't know which system truly fits your needs."
+          title: "System chaos slows growth"
+          description: "Your shop, ERP and fulfillment don't speak the same language. Every order means manual work, error sources and lost time. You're managing more than you're selling."
+        - icon: "heroicons:user-group"
+          title: "Your team is overwhelmed"
+          description: "From Shopify to ERP to marketing, your team is supposed to be an expert in everything. The result: mediocrity across the board and gut decisions instead of data-driven ones."
+        - icon: "heroicons:clock"
+          title: "Agency slow and unfocused"
+          description: "Your agency has dozens of other clients and no focus on your business. Sluggish communication, delayed implementation and missing results are the consequence."
+        - icon: "heroicons:banknotes"
+          title: "Mistakes burn your money"
+          description: "Every wrong system decision, every botched migration, every process break costs thousands of euros. Add the opportunity costs of missed growth."
+        - icon: "heroicons:arrow-trending-down"
+          title: "Rising costs, shrinking margins"
+          description: "Your operating costs are rising, but efficiency isn't. More and more budget for maintenance and patchwork, instead of real growth."
+        - icon: "heroicons:lock-closed"
+          title: "Trapped in your own system"
+          description: "You no longer understand your own infrastructure. For every little thing you depend on external help – and pay a high price for it."
 
-  # Services
+  # Services Showcase
   - id: services
     enabled: true
-    order: 4
-    component: ServicesAccordion
+    order: 7
+    component: ServicesShowcase
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.05
+        gridSize: 60
+        glowLines: 3
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.10
+        position: right
+        size: lg
+        shape: circles
+        animate: true
     content:
-      headline: "How I <em>support</em> you"
-      services:
-        - id: audit
+      badge: "Services"
+      headline: "How can I <em>help</em>?"
+      defaultHeadline: "Which service fits your needs?"
+      items:
+        - icon: "heroicons:magnifying-glass-circle-16-solid"
           title: "E-Commerce Audit"
-          description: "Systematic analysis of your shop, processes, and systems. You receive a clear report with prioritized recommendations."
-          deliverables:
-            - "Shop performance analysis"
-            - "Process mapping"
-            - "Tech stack assessment"
-            - "Prioritized roadmap"
-          idealFor: "Companies that want to know where they really stand"
-        - id: erp_selection
+          description: "Systematic analysis of your shop, processes and systems. Clear report with prioritized recommendations."
+          linkHref: "/ecommerce-audit"
+        - icon: "heroicons:map-16-solid"
+          title: "E-Commerce Strategy"
+          description: "Your masterplan for sustainable growth. Strategy document with roadmap, business case and KPI framework."
+          linkHref: "/ecommerce-strategy"
+        - icon: "heroicons:circle-stack-16-solid"
           title: "ERP Selection & Evaluation"
-          description: "Neutral, vendor-independent consulting for choosing the right ERP system. From requirements analysis to decision proposal."
-          deliverables:
-            - "Requirements catalog"
-            - "Market overview & longlist"
-            - "Shortlist with scoring matrix"
-            - "Decision recommendation"
-          idealFor: "Companies before ERP implementation or switch"
-        - id: shopify_architecture
+          description: "Neutral, vendor-independent consulting for choosing the right ERP system – objective and without commissions."
+          linkHref: "/technology-consulting"
+        - icon: "heroicons:arrows-right-left-16-solid"
           title: "Shopify Architecture & Migration"
-          description: "Strategic planning and guidance for Shopify projects. Focus on scalable structures, clean data migration, and thoughtful integrations."
-          deliverables:
-            - "Architecture concept"
-            - "Migration planning"
-            - "Integration design"
-            - "Go-live support"
-          idealFor: "Brands migrating to Shopify or rebuilding their shop"
-        - id: process_optimization
+          description: "Strategic planning and support for Shopify projects. Scalable structures, clean data migration."
+          linkHref: "/technology-consulting"
+        - icon: "heroicons:cog-8-tooth-16-solid"
           title: "Process Optimization"
           description: "Analysis and optimization of your operational workflows – from order processing to fulfillment to customer service."
-          deliverables:
-            - "Process analysis (AS-IS)"
-            - "Optimized target state (TO-BE)"
-            - "Automation opportunities"
-            - "Implementation support"
-          idealFor: "Growing companies with inefficient workflows"
-        - id: sparring
+          linkHref: "/implementation-support"
+        - icon: "heroicons:chat-bubble-left-right-16-solid"
           title: "Strategic Sparring"
-          description: "Regular exchange on technical and strategic e-commerce topics. Your external CTO on demand."
-          deliverables:
-            - "Monthly calls"
-            - "Prioritization support"
-            - "Vendor evaluations"
-            - "Second opinion on decisions"
-          idealFor: "Founders and e-commerce leads without a technical sparring partner"
+          description: "Regular exchange at eye level on technical and strategic e-commerce questions. Your external CTO on demand."
+          linkHref: "/ecommerce-sparring"
 
   # Principles
   - id: principles
     enabled: true
-    order: 5
+    order: 8
     component: Principles
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: DiagonalLinesBackground
+        color: "#ffffff"
+        opacity: 0.12
+        lineCount: 7
+        animate: true
     content:
+      badge: "My Promise"
+      badgeIcon: "heroicons:shield-check-16-solid"
       headline: "My <em>Principles</em>"
-      intro: "How I work – and how I don't."
+      intro: "This is how I work – and how I don't."
       principles:
-        - title: "Straight talk, not agency speak"
+        - title: "Straight talk, no agency speak"
           description: "I tell it like it is – even when it's uncomfortable. No buzzwords, no hidden upsells."
-          contrast: "Instead of diplomatic platitudes, you get honest assessments."
-        - title: "Empowerment over dependency"
-          description: "My goal is for you to eventually not need me anymore. I build systems you understand and can control yourself."
+          contrast: "Instead of diplomatic phrases, you get honest assessments."
+        - title: "Empowerment, not dependency"
+          description: "My goal is for you to eventually not need me anymore. I build systems that you understand and can control yourself."
           contrast: "Instead of lock-in, you get knowledge transfer and documentation."
-        - title: "Tech with business sense"
-          description: "I don't think in features, but in impact. Every technical decision is measured by its business value."
+        - title: "Technology with business sense"
+          description: "I don't think in features, I think in impact. Every technical decision is measured by its business value."
           contrast: "Instead of over-engineering, you get the smartest solution, not the most complicated one."
         - title: "Vendor-neutral"
-          description: "I'm not beholden to any vendor. My recommendations are based on your requirements – not on commissions."
+          description: "I'm not committed to any vendor. My recommendations are based on your requirements – not on commissions."
           contrast: "Instead of a sales pitch, you get objective evaluation."
 
   # Process
   - id: process
     enabled: true
-    order: 6
+    order: 9
     component: Process
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.10
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.06
+        gridSize: 60
+        glowLines: 4
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: right
+        size: lg
+        shape: rounded-squares
+        animate: true
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: left
+        size: md
+        shape: diamonds
+        animate: true
+        hideOnMobile: true
     content:
       badge: "Collaboration"
       badgeIcon: "heroicons:arrow-path-16-solid"
-      headline: "How a <em>collaboration</em> works"
-      description: "Structured, transparent, and on equal footing."
+      headline: "How a <em>Collaboration</em> works"
+      description: "Structured, transparent and at eye level."
       steps:
         - number: "01"
           icon: "heroicons:chat-bubble-left-right"
-          title: "Initial call"
-          description: "We discuss your situation, goals, and challenges. I listen and ask the right questions."
+          title: "Initial Call"
+          description: "We discuss your situation, goals and challenges. I listen and ask the right questions."
           details:
-            - "30-45 min."
+            - "30-45 min"
             - "Clarity on if and how I can help"
         - number: "02"
           icon: "heroicons:magnifying-glass"
           title: "Analysis"
-          description: "Depending on the engagement, I examine your shop, processes, systems, and KPIs in detail. Structured and documented."
+          description: "Depending on the project, I examine your shop, processes, systems and KPIs in detail. Structured and documented."
           details:
             - "1-2 weeks"
-            - "Solid picture of the current state"
+            - "Solid picture of the starting point"
         - number: "03"
           icon: "heroicons:light-bulb"
           title: "Strategy & Recommendation"
-          description: "You receive a clear recommendation with options, priorities, and next steps. No 100-page decks, just substance."
+          description: "You receive a clear recommendation with options, priorities and next steps. No 100-page decks, just substance."
           details:
             - "Presentation + document"
-            - "Decision foundation"
+            - "Decision basis"
         - number: "04"
           icon: "heroicons:rocket-launch"
           title: "Support (optional)"
-          description: "If needed, I accompany the implementation, manage partners, or serve as a sparring partner."
+          description: "If needed, I accompany the implementation, coordinate partners or serve as a sparring partner."
           details:
             - "As needed"
             - "Clean execution"
 
-  # Case Studies
-  - id: case-studies
+  # Quote
+  - id: quote
     enabled: true
-    order: 7
-    component: CaseStudies
+    order: 4
+    component: Quote
     wrapper:
       variant: dark
-      padding: lg
+      padding: md
     content:
-      headline: "Selected <em>Projects</em>"
-      cases:
-        - title: "Audit uncovers bottlenecks"
-          context: "Fashion brand with 2M revenue"
-          challenge: "Unclear performance issues, high return rate, slow order processing"
-          approach: "Systematic audit of shop, fulfillment, and customer service"
-          result: "3 critical process gaps identified, roadmap with quick wins created"
-        - title: "ERP selection without wrong decisions"
-          context: "Home & Living retailer before system change"
-          challenge: "Decision between JTL, Xentral, and Billbee unclear"
-          approach: "Requirements analysis, market comparison, demo support, decision matrix"
-          result: "Well-founded decision for JTL, implementation without surprises"
-        - title: "Shopify migration without data loss"
-          context: "Beauty brand migrating from Shopware"
-          challenge: "Complex product data, preserve SEO rankings, ongoing operations"
-          approach: "Architecture planning, data mapping, staged migration"
-          result: "Go-live without downtime, SEO traffic stable, team independently capable"
+      quote: "E-commerce is not a technology problem. It's a decision problem. The right technology follows the right strategy – not the other way around."
+      author: "Werner Strauch"
+      role: "E-Commerce Consultant"
 
-  # About
-  - id: about
+  # Content Editorial - E-Commerce Expertise
+  - id: content-expertise
     enabled: true
-    order: 8
-    component: AboutSection
+    order: 12
+    component: ContentEditorial
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
-      headline: "About <em>me</em>"
-      name: "Werner Strauch"
-      role: "E-Commerce Consultant & CTO"
-      bio: "Since 2019, I've been supporting e-commerce brands with shop migrations, ERP integrations, and technical scaling. As co-founder and CTO of digitalsprung, I've led XX+ projects from concept to go-live."
-      approach: "My drive: Building systems that work – and that you understand. I believe in clarity over complexity, empowerment over dependency."
-      expertise:
-        - "Shopify & Shopify Plus"
-        - "JTL Wawi & WMS"
-        - "ERP systems (Xentral, Billbee, etc.)"
-        - "E-Commerce processes"
-        - "Integrations & APIs"
-        - "UX/UI with conversion focus"
-      background:
-        company: "digitalsprung GmbH"
-        role: "Co-Founder & CTO"
-        since: "2019"
-        focus: "Shopify migrations, JTL integration, e-commerce architecture"
+      eyebrow: "Expertise"
+      headline: "E-Commerce <em>Consulting</em> with System"
+      leadParagraph: "Between technology hype and day-to-day business, growing online retailers need a clear head. Someone who asks the right questions – and understands the answers."
+      pullQuote: "The best technology is the one your team understands and your business moves forward."
+      pullQuoteAuthor: "Werner Strauch"
+      showDropCap: true
+      showSectionNumbers: false
+      leftColumn:
+        - type: text
+          content: "As an <strong>independent e-commerce consultant</strong>, I guide companies through the decisions that determine their growth: Which ERP system really fits? How do I migrate cleanly to Shopify? Where are the hidden inefficiencies in my processes?"
+        - type: text
+          content: "My approach is always vendor-neutral. I don't receive commissions from software vendors. My recommendations are based solely on your requirements – not on hidden interests."
+        - type: headline
+          content: "What sets me apart from agencies"
+        - type: text
+          content: "Agencies have a business model based on volume. The more projects, the more hours, the better. My model is different: I work intensively with few clients. Quality over quantity."
+        - type: highlight
+          content: "My goal is to make myself redundant – not to lead you into dependency."
+        - type: text
+          content: "That means: knowledge transfer instead of black box. Documentation instead of proprietary knowledge. Systems that your team understands and can control themselves."
+      rightColumn:
+        - type: headline
+          content: "Who I work with"
+        - type: text
+          content: "My clients are <strong>online retailers and D2C brands in the DACH region</strong>, typically generating between €500,000 and €50 million in annual revenue."
+        - type: bullets
+          content:
+            - "Facing an <a href='/technology-consulting'>ERP change</a> or system consolidation"
+            - "Want to <a href='/technology-consulting'>migrate to Shopify</a> from WooCommerce, Magento or a legacy system"
+            - "Need to professionalize their <a href='/implementation-support'>operational processes</a>"
+            - "Looking for a neutral <a href='/ecommerce-sparring'>sparring partner</a> for technical decisions"
+        - type: headline
+          content: "My experience"
+        - type: text
+          content: "Over 20 years in web project implementation. 7 years as Managing Director of a digital agency. 200+ e-commerce projects supported – from startups to mid-sized hidden champions."
 
   # FAQ
   - id: faq
     enabled: true
-    order: 9
+    order: 13
     component: Faq
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.05
+        gridSize: 60
+        glowLines: 3
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.10
+        position: right
+        size: lg
+        shape: hexagons
+        animate: true
     content:
       badge: "FAQs"
       badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
       headline: "Frequently Asked <em>Questions</em>"
-      description: 'Still have questions? <a href="/en/contact" class="text-primary hover:text-primary-light font-medium underline transition-colors">Contact me</a> for a no-obligation conversation.'
+      description: 'Still have questions? <a href="/contact" class="text-primary hover:text-primary-light font-medium underline transition-colors">Contact me</a> for a non-binding conversation.'
       faqs:
-        - question: "Who is your consulting for?"
-          answer: "For e-commerce companies in the DACH region with annual revenue between 500k and 50M that face technical or strategic decisions – whether ERP change, shop migration, or process optimization."
+        - question: "Who is your consulting suitable for?"
+          answer: "For e-commerce companies in the DACH region generating between €500k and €50 million in annual revenue, facing technical or strategic decisions – whether ERP change, shop migration or process optimization."
         - question: "Are you an agency?"
-          answer: "No. I consult independently and vendor-neutrally. If needed, I can tap into my network or support implementation through digitalsprung – but only if it makes sense for you."
+          answer: "No. I consult independently and vendor-neutral. If needed, I can draw on my network or support implementation through digitalsprung – but only if it makes sense for you."
         - question: "What does a collaboration cost?"
-          answer: "That depends on the scope. Audits are calculated on a project basis, strategic sparring is available as a monthly retainer model. In the initial call, we clarify what works for you and you'll receive a transparent quote."
+          answer: "That depends on the scope. An audit is calculated project-based, strategic sparring is available as a monthly retainer model. In the initial call, we clarify what fits you and you'll receive a transparent offer."
         - question: "How quickly can you start?"
           answer: "Usually within 1-2 weeks. For urgent matters, we'll find a solution."
         - question: "Do you work remotely?"
@@ -295,24 +516,36 @@ sections:
   # CTA Final
   - id: cta-final
     enabled: true
-    order: 10
+    order: 14
     component: CtaCentered
     wrapper:
       variant: dark
       padding: xl
-    background:
-      type: GridBackground
-      color: "#c8ff00"
-      glowColor: "#c8ff00"
-      opacity: 0.06
-      gridSize: 60
-      glowLines: 4
-      vignette: true
-      vignetteColor: "#0a1628"
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.10
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.05
+        gridSize: 60
+        glowLines: 3
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: SignetBackground
+        opacity: 0.08
+        position: bottom-right
+        size: md
+        animate: false
     content:
-      headline: "Ready for <em>clarity</em>?"
+      headline: "Ready for <em>Clarity</em>?"
       description: "Let's find out in 30 minutes where you stand and what the next sensible step is."
-      buttonText: "Schedule a call"
-      buttonHref: "/en/contact"
+      buttonText: "Schedule a Call"
+      buttonHref: "/contact"
       emailLabel: "Prefer to write first?"
-      email: "kontakt@wernerstrauch.de"
+      email: "contact@wernerstrauch.com"
