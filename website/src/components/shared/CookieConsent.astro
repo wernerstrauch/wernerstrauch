@@ -46,30 +46,30 @@ const { lang = "de" } = Astro.props;
 <style is:global>
   /* Custom dark theme for vanilla-cookieconsent - override default styles */
   #cc-main {
-    /* Primary colors - matching site's zinc/violet theme */
-    --cc-bg: #09090b !important; /* zinc-950 */
+    /* Primary colors - matching site's navy/lime theme */
+    --cc-bg: #0a1628 !important; /* navy */
     --cc-primary-color: #e4e4e7 !important; /* zinc-200 */
     --cc-secondary-color: #a1a1aa !important; /* zinc-400 */
 
-    /* Button colors - WCAG AA compliant contrast */
-    --cc-btn-primary-bg: #7c3aed !important; /* violet-600 */
-    --cc-btn-primary-color: #ffffff !important;
+    /* Button colors - Lime theme */
+    --cc-btn-primary-bg: #c8ff00 !important; /* lime */
+    --cc-btn-primary-color: #0a1628 !important; /* navy text */
     --cc-btn-primary-border-color: transparent !important;
-    --cc-btn-primary-hover-bg: #8b5cf6 !important;
-    --cc-btn-primary-hover-color: #ffffff !important;
+    --cc-btn-primary-hover-bg: #d4ff33 !important; /* lighter lime */
+    --cc-btn-primary-hover-color: #0a1628 !important;
     --cc-btn-primary-hover-border-color: transparent !important;
 
-    --cc-btn-secondary-bg: #18181b !important; /* zinc-900 */
+    --cc-btn-secondary-bg: #0a1628 !important; /* navy */
     --cc-btn-secondary-color: #ffffff !important;
-    --cc-btn-secondary-border-color: rgba(139, 92, 246, 0.35) !important;
-    --cc-btn-secondary-hover-bg: #27272a !important;
+    --cc-btn-secondary-border-color: rgba(200, 255, 0, 0.35) !important;
+    --cc-btn-secondary-hover-bg: #112240 !important;
     --cc-btn-secondary-hover-color: #ffffff !important;
-    --cc-btn-secondary-hover-border-color: rgba(139, 92, 246, 0.5) !important;
+    --cc-btn-secondary-hover-border-color: rgba(200, 255, 0, 0.5) !important;
 
     /* Toggle colors */
-    --cc-toggle-on-bg: #8b5cf6 !important; /* violet-500 */
-    --cc-toggle-off-bg: #27272a !important; /* zinc-800 */
-    --cc-toggle-readonly-bg: #3f3f46 !important; /* zinc-700 */
+    --cc-toggle-on-bg: #c8ff00 !important; /* lime */
+    --cc-toggle-off-bg: #1e3a5f !important; /* dark navy */
+    --cc-toggle-readonly-bg: #2d4a6f !important;
 
     /* Cookie category block */
     --cc-cookie-category-block-bg: rgba(255, 255, 255, 0.02) !important;
@@ -79,11 +79,11 @@ const { lang = "de" } = Astro.props;
       231,
       0.1
     ) !important;
-    --cc-cookie-category-block-hover-bg: rgba(139, 92, 246, 0.05) !important;
+    --cc-cookie-category-block-hover-bg: rgba(200, 255, 0, 0.05) !important;
     --cc-cookie-category-block-hover-border-color: rgba(
-      139,
-      92,
-      246,
+      200,
+      255,
+      0,
       0.2
     ) !important;
 
@@ -102,8 +102,8 @@ const { lang = "de" } = Astro.props;
     --cc-overlay-bg: rgba(0, 0, 0, 0.3) !important;
 
     /* Webkit scrollbar */
-    --cc-webkit-scrollbar-bg: #18181b !important; /* zinc-900 */
-    --cc-webkit-scrollbar-hover-bg: #27272a !important; /* zinc-800 */
+    --cc-webkit-scrollbar-bg: #0a1628 !important; /* navy */
+    --cc-webkit-scrollbar-hover-bg: #112240 !important;
 
     /* Modal border radius */
     --cc-modal-border-radius: 1rem !important;
@@ -114,11 +114,11 @@ const { lang = "de" } = Astro.props;
     border: none !important;
     background: linear-gradient(
       135deg,
-      rgba(9, 9, 11, 0.98) 0%,
-      rgba(24, 24, 27, 0.95) 100%
+      rgba(10, 22, 40, 0.98) 0%,
+      rgba(17, 34, 64, 0.95) 100%
     ) !important;
     box-shadow:
-      inset 0 0 80px 0 rgba(139, 92, 246, 0.03),
+      inset 0 0 80px 0 rgba(200, 255, 0, 0.02),
       0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
     backdrop-filter: blur(20px) !important;
   }
@@ -140,18 +140,18 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .cm__footer a {
-    color: #8b5cf6 !important;
+    color: #c8ff00 !important;
     text-decoration: none !important;
     transition: color 0.2s !important;
   }
 
   #cc-main .cm__footer a:hover {
-    color: #a78bfa !important;
+    color: #d4ff33 !important;
   }
 
   /* Primary Button - matching site's button style with glow */
   #cc-main .cm__btn {
-    border-radius: 9999px !important;
+    border-radius: 0 !important;
     font-weight: 600 !important;
     padding: 0.75rem 1.5rem !important;
     transition: all 0.2s ease !important;
@@ -159,47 +159,43 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .cm__btn--primary {
-    background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%) !important;
+    background: #c8ff00 !important;
     box-shadow:
       inset 0px 1px 0px 0px rgba(255, 255, 255, 0.15),
-      inset 0px 0px 12px 0px rgba(255, 255, 255, 0.1),
-      inset 0px -8px 32px 0px rgba(30, 13, 73, 0.5),
       0px 0px 0px 1px rgba(0, 0, 0, 0.2),
       0px 1px 3px 0px rgba(0, 0, 0, 0.4),
-      0px 4px 25px 1px rgba(139, 92, 246, 0.4) !important;
+      0px 4px 25px 1px rgba(200, 255, 0, 0.3) !important;
     border: none !important;
-    color: #ffffff !important;
+    color: #0a1628 !important;
   }
 
   #cc-main .cm__btn--primary:hover {
-    background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%) !important;
+    background: #d4ff33 !important;
     box-shadow:
       inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2),
-      inset 0px 0px 12px 0px rgba(255, 255, 255, 0.12),
-      inset 0px -8px 32px 0px rgba(30, 13, 73, 0.5),
       0px 0px 0px 1px rgba(0, 0, 0, 0.2),
       0px 1px 3px 0px rgba(0, 0, 0, 0.4),
-      0px 4px 35px 3px rgba(139, 92, 246, 0.5) !important;
+      0px 4px 35px 3px rgba(200, 255, 0, 0.4) !important;
     transform: translateY(-1px) !important;
   }
 
   /* Secondary Button - higher contrast for WCAG AA */
   #cc-main .cm__btn--secondary {
-    background: #18181b !important;
-    border: 1px solid rgba(139, 92, 246, 0.35) !important;
+    background: #0a1628 !important;
+    border: 1px solid rgba(200, 255, 0, 0.35) !important;
     color: #ffffff !important;
     box-shadow:
       inset -0.5px 0.5px 1px 0px rgba(203, 213, 225, 0.08),
-      inset 0 0 40px 0 rgba(139, 92, 246, 0.03) !important;
+      inset 0 0 40px 0 rgba(200, 255, 0, 0.03) !important;
   }
 
   #cc-main .cm__btn--secondary:hover {
-    background: #27272a !important;
-    border-color: rgba(139, 92, 246, 0.5) !important;
+    background: #112240 !important;
+    border-color: rgba(200, 255, 0, 0.5) !important;
     color: #ffffff !important;
     box-shadow:
       inset -0.5px 0.5px 1px 0px rgba(203, 213, 225, 0.1),
-      inset 0 0 40px 0 rgba(139, 92, 246, 0.06) !important;
+      inset 0 0 40px 0 rgba(200, 255, 0, 0.06) !important;
   }
 
   /* Preferences Modal */
@@ -207,14 +203,14 @@ const { lang = "de" } = Astro.props;
     border: none !important;
     background: linear-gradient(
       135deg,
-      rgba(9, 9, 11, 0.98) 0%,
-      rgba(24, 24, 27, 0.95) 100%
+      rgba(10, 22, 40, 0.98) 0%,
+      rgba(17, 34, 64, 0.95) 100%
     ) !important;
     box-shadow:
-      inset 0 0 80px 0 rgba(139, 92, 246, 0.03),
+      inset 0 0 80px 0 rgba(200, 255, 0, 0.02),
       0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
     backdrop-filter: blur(20px) !important;
-    border-radius: 1rem !important;
+    border-radius: 0 !important;
     max-width: 680px !important;
   }
 
@@ -248,7 +244,7 @@ const { lang = "de" } = Astro.props;
 
   #cc-main .pm__close-btn:hover {
     color: #f4f4f5 !important;
-    background: rgba(139, 92, 246, 0.15) !important;
+    background: rgba(200, 255, 0, 0.15) !important;
   }
 
   #cc-main .pm__body {
@@ -285,16 +281,16 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .pm__section-desc a {
-    color: #8b5cf6 !important;
+    color: #c8ff00 !important;
     text-decoration: underline !important;
-    text-decoration-color: rgba(139, 92, 246, 0.3) !important;
+    text-decoration-color: rgba(200, 255, 0, 0.3) !important;
     text-underline-offset: 3px !important;
     transition: all 0.2s !important;
   }
 
   #cc-main .pm__section-desc a:hover {
-    color: #a78bfa !important;
-    text-decoration-color: rgba(167, 139, 250, 0.5) !important;
+    color: #d4ff33 !important;
+    text-decoration-color: rgba(200, 255, 0, 0.5) !important;
   }
 
   /* Toggle sections container */
@@ -314,13 +310,13 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .pm__section--toggle:hover {
-    border-color: rgba(139, 92, 246, 0.15) !important;
-    background: rgba(139, 92, 246, 0.03) !important;
+    border-color: rgba(200, 255, 0, 0.15) !important;
+    background: rgba(200, 255, 0, 0.03) !important;
   }
 
   #cc-main .pm__section--toggle.is-expanded {
-    border-color: rgba(139, 92, 246, 0.2) !important;
-    background: rgba(139, 92, 246, 0.05) !important;
+    border-color: rgba(200, 255, 0, 0.2) !important;
+    background: rgba(200, 255, 0, 0.05) !important;
   }
 
   #cc-main .pm__section--toggle .pm__section-title-wrapper {
