@@ -46,7 +46,7 @@ sections:
       primaryCta: "Kontakt aufnehmen"
       primaryCtaHref: "/kontakt"
       secondaryCta: "Meine Leistungen"
-      secondaryCtaHref: "/ecommerce-beratung"
+      secondaryCtaHref: "/leistungen"
 
   # Story Section
   - id: story

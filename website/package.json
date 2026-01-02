@@ -12,11 +12,14 @@
     "preview": "astro preview",
     "preview:de": "SITE_LANG=de astro preview",
     "preview:en": "SITE_LANG=en astro preview",
+    "start:de": "HOST=0.0.0.0 PORT=3000 node dist/server/entry.mjs",
+    "start:en": "HOST=0.0.0.0 PORT=3000 node dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.15.3",
     "@astrojs/mdx": "^4.3.13",
+    "@astrojs/node": "^9.5.1",
     "@astrojs/sitemap": "^3.6.0",
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.64",

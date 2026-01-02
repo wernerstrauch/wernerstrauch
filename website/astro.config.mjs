@@ -4,18 +4,34 @@ import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
+import node from '@astrojs/node';
 
-// Determine site URL based on SITE_LANG environment variable
-const siteLang = process.env.SITE_LANG || 'de';
-const siteUrls = {
-  de: 'https://wernerstrauch.de',
-  en: 'https://wernerstrauch.com',
+// Domain configuration per language
+const DOMAIN_CONFIG = {
+  de: {
+    siteUrl: 'https://wernerstrauch.de',
+    lang: 'de',
+  },
+  en: {
+    siteUrl: 'https://wernerstrauch.com',
+    lang: 'en',
+  },
 };
-const siteUrl = siteUrls[siteLang] || siteUrls.de;
+
+// Determine site language from environment variable
+const siteLang = process.env.SITE_LANG || 'de';
+const config = DOMAIN_CONFIG[siteLang] || DOMAIN_CONFIG.de;
+
+console.log(`\n🌐 Building for: ${config.siteUrl} (${siteLang.toUpperCase()})\n`);
 
 // https://astro.build/config
 export default defineConfig({
-  site: siteUrl,
+  site: config.siteUrl,
+  output: 'server',
+  trailingSlash: 'never',
+  adapter: node({
+    mode: 'standalone',
+  }),
   vite: {
     plugins: [tailwindcss()],
     define: {

@@ -454,10 +454,10 @@ sections:
           content: "Meine Kunden sind <strong>Online-Händler und D2C-Marken im DACH-Raum</strong>, die typischerweise zwischen 500.000 € und 50 Mio. € Jahresumsatz machen."
         - type: bullets
           content:
-            - "Vor einem ERP-Wechsel oder einer System-Konsolidierung stehen"
+            - "Vor einem <a href='/technologieberatung'>ERP-Wechsel</a> oder einer System-Konsolidierung stehen"
             - "Von WooCommerce, Magento oder einem Legacy-System zu <a href='/technologieberatung'>Shopify migrieren</a> wollen"
-            - "Ihre operativen Prozesse professionalisieren müssen"
-            - "Einen neutralen Sparringspartner für technische Entscheidungen suchen"
+            - "Ihre <a href='/umsetzungsbegleitung'>operativen Prozesse</a> professionalisieren müssen"
+            - "Einen neutralen <a href='/ecommerce-sparring'>Sparringspartner</a> für technische Entscheidungen suchen"
         - type: headline
           content: "Meine Erfahrung"
         - type: text
