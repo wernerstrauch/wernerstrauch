@@ -290,11 +290,10 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
-      - type: FloatingOrbsBackground
+      - type: DiagonalLinesBackground
         color: "#ffffff"
-        opacity: 0.05
-        orbCount: 4
-        position: scattered
+        opacity: 0.12
+        lineCount: 7
         animate: true
     content:
       badge: "Mein Versprechen"
@@ -401,6 +400,59 @@ sections:
       quote: "E-Commerce ist kein Technologie-Problem. Es ist ein Entscheidungs-Problem. Die richtige Technik folgt der richtigen Strategie – nicht umgekehrt."
       author: "Werner Strauch"
       role: "E-Commerce Berater"
+
+  # Content Editorial - E-Commerce Expertise
+  - id: content-expertise
+    enabled: true
+    order: 12
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      eyebrow: "Expertise"
+      headline: "E-Commerce <em>Beratung</em> mit System"
+      leadParagraph: "Zwischen Technologie-Hype und Tagesgeschäft brauchen wachsende Online-Händler einen klaren Kopf. Jemanden, der die richtigen Fragen stellt – und die Antworten versteht."
+      pullQuote: "Die beste Technologie ist die, die Ihr Team versteht und Ihr Business voranbringt."
+      pullQuoteAuthor: "Werner Strauch"
+      showDropCap: true
+      showSectionNumbers: false
+      leftColumn:
+        - type: text
+          content: "Als <strong>unabhängiger E-Commerce-Berater</strong> begleite ich Unternehmen bei den Entscheidungen, die ihr Wachstum bestimmen: Welches ERP-System passt wirklich? Wie migriere ich sauber zu Shopify? Wo liegen die versteckten Ineffizienzen in meinen Prozessen?"
+        - type: text
+          content: "Mein Ansatz ist dabei immer herstellerneutral. Ich bekomme keine Provisionen von Software-Anbietern. Meine Empfehlungen basieren ausschließlich auf Ihren Anforderungen – nicht auf versteckten Interessen."
+        - type: headline
+          content: "Was mich von Agenturen unterscheidet"
+        - type: text
+          content: "Agenturen haben ein Geschäftsmodell, das auf Volumen basiert. Je mehr Projekte, je mehr Stunden, desto besser. Mein Modell ist anders: Ich arbeite mit wenigen Kunden intensiv zusammen. Qualität vor Quantität."
+        - type: highlight
+          content: "Mein Ziel ist es, mich selbst überflüssig zu machen – nicht, Sie in eine Abhängigkeit zu führen."
+        - type: text
+          content: "Das bedeutet: Wissenstransfer statt Black Box. Dokumentation statt Herrschaftswissen. Systeme, die Ihr Team versteht und selbst steuern kann."
+      rightColumn:
+        - type: headline
+          content: "Für wen ich arbeite"
+        - type: text
+          content: "Meine Kunden sind <strong>Online-Händler und D2C-Marken im DACH-Raum</strong>, die typischerweise zwischen 500.000 € und 50 Mio. € Jahresumsatz machen."
+        - type: bullets
+          content:
+            - "Vor einem ERP-Wechsel oder einer System-Konsolidierung stehen"
+            - "Von WooCommerce, Magento oder einem Legacy-System zu <a href='/leistungen/shopify-migration'>Shopify migrieren</a> wollen"
+            - "Ihre operativen Prozesse professionalisieren müssen"
+            - "Einen neutralen Sparringspartner für technische Entscheidungen suchen"
+        - type: headline
+          content: "Meine Erfahrung"
+        - type: text
+          content: "Über 20 Jahre in der Umsetzung von Webprojekten. 7 Jahre als Geschäftsführer einer Digitalagentur. 200+ E-Commerce-Projekte begleitet – von Startups bis zu mittelständischen Hidden Champions."
 
   # FAQ
   - id: faq

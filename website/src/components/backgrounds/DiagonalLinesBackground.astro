@@ -1,0 +1,237 @@
+---
+/**
+ * DiagonalLinesBackground
+ *
+ * Geometrische diagonale Linien - passt zur Linien-Ästhetik
+ * von GridBackground und ConcentricShapes.
+ * Symbolisiert: Richtung, Bewegung, Fortschritt.
+ * Perfekt für Prinzipien/Werte-Sections.
+ */
+
+interface Props {
+  color?: string;
+  opacity?: number;
+  lineCount?: number;
+  direction?: "left" | "right";
+  animate?: boolean;
+}
+
+const {
+  color = "#ffffff",
+  opacity = 0.04,
+  lineCount = 5,
+  direction = "right",
+  animate = true,
+} = Astro.props;
+
+// Generate line configurations
+const generateLines = (count: number) => {
+  const lines = [];
+  const spacing = 100 / (count + 1);
+
+  for (let i = 0; i < count; i++) {
+    // Stagger the start positions
+    const startX = spacing * (i + 1);
+    // Varying line widths for visual interest
+    const widths = [0.5, 0.8, 0.5, 1.0, 0.6];
+    const width = widths[i % widths.length];
+    // Varying opacities
+    const lineOpacity = 0.6 + (i % 3) * 0.15;
+    // Staggered delays
+    const delay = i * 0.15;
+
+    lines.push({
+      startX,
+      width,
+      lineOpacity,
+      delay,
+    });
+  }
+
+  return lines;
+};
+
+const lines = generateLines(lineCount);
+const uniqueId = Math.random().toString(36).substring(2, 9);
+
+// Direction determines the angle
+const angle = direction === "right" ? 25 : -25;
+---
+
+<div class="diagonal-lines-container" data-animate={animate ? "true" : "false"}>
+  <svg
+    class="diagonal-lines-svg"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <defs>
+      {/* Gradient for line fade effect */}
+      <linearGradient id={`line-gradient-${uniqueId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color={color} stop-opacity="0" />
+        <stop offset="20%" stop-color={color} stop-opacity="0.8" />
+        <stop offset="80%" stop-color={color} stop-opacity="0.8" />
+        <stop offset="100%" stop-color={color} stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    <g style={`transform: skewX(${angle}deg); transform-origin: center;`}>
+      {lines.map((line) => (
+        <line
+          class="diagonal-line"
+          x1={line.startX}
+          y1="-20"
+          x2={line.startX}
+          y2="120"
+          stroke={`url(#line-gradient-${uniqueId})`}
+          stroke-width={line.width}
+          style={`
+            --line-delay: ${line.delay}s;
+            --line-opacity: ${line.lineOpacity * opacity};
+          `}
+        />
+      ))}
+    </g>
+  </svg>
+
+  {/* Subtle accent dots at intersections */}
+  <div class="diagonal-accents" style={`--accent-color: ${color}; --accent-opacity: ${opacity * 1.5};`}>
+    <div class="diagonal-accent diagonal-accent--1"></div>
+    <div class="diagonal-accent diagonal-accent--2"></div>
+  </div>
+</div>
+
+<script>
+  function initDiagonalLines(): void {
+    const containers = document.querySelectorAll<HTMLDivElement>('.diagonal-lines-container[data-animate="true"]');
+
+    if (!containers.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("diagonal-lines--visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px",
+      }
+    );
+
+    containers.forEach((container) => {
+      observer.observe(container);
+    });
+  }
+
+  initDiagonalLines();
+  document.addEventListener("astro:after-swap", initDiagonalLines);
+</script>
+
+<style>
+  .diagonal-lines-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .diagonal-lines-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Lines start invisible */
+  .diagonal-line {
+    opacity: 0;
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
+  }
+
+  /* When visible, draw lines */
+  .diagonal-lines--visible .diagonal-line {
+    animation: line-draw 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: var(--line-delay, 0s);
+  }
+
+  @keyframes line-draw {
+    0% {
+      stroke-dashoffset: 150;
+      opacity: 0;
+    }
+    50% {
+      opacity: var(--line-opacity, 0.04);
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: var(--line-opacity, 0.04);
+    }
+  }
+
+  /* Accent dots */
+  .diagonal-accents {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .diagonal-accent {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-color);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .diagonal-accent--1 {
+    top: 25%;
+    right: 20%;
+  }
+
+  .diagonal-accent--2 {
+    bottom: 30%;
+    left: 15%;
+  }
+
+  .diagonal-lines--visible .diagonal-accent {
+    opacity: var(--accent-opacity, 0.06);
+    animation: accent-pulse 4s ease-in-out infinite;
+  }
+
+  .diagonal-accent--1 {
+    animation-delay: 1s;
+  }
+
+  .diagonal-accent--2 {
+    animation-delay: 2.5s;
+  }
+
+  @keyframes accent-pulse {
+    0%, 100% {
+      opacity: var(--accent-opacity, 0.06);
+      transform: scale(1);
+    }
+    50% {
+      opacity: calc(var(--accent-opacity, 0.06) * 1.5);
+      transform: scale(1.2);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .diagonal-line {
+      animation: none !important;
+      stroke-dashoffset: 0;
+      opacity: var(--line-opacity, 0.04);
+    }
+    .diagonal-accent {
+      animation: none !important;
+      opacity: var(--accent-opacity, 0.06);
+    }
+  }
+</style>
