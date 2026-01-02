@@ -49,6 +49,7 @@ sections:
       image: "/src/images/ecommerce-workshop.png"
       imageAlt: "E-Commerce Workshop - Team-Session"
       primaryCta: "Workshop anfragen"
+      primaryCtaHref: "/kontakt"
       secondaryCta: "Ablauf ansehen"
       secondaryCtaHref: "#ablauf"
 
