@@ -39,7 +39,7 @@ sections:
     content:
       badge: "Über mich"
       badgeIcon: "heroicons:user-16-solid"
-      headline: "Ich spreche <em>Code</em> und <em>Strategie</em>"
+      headline: "Ich spreche Code und <em><mark>Strategie</mark></em>"
       subheadline: "Angefangen als Entwickler, heute Geschäftsführer und Berater. 20 Jahre E-Commerce haben mir gezeigt: Die besten Lösungen entstehen, wenn Technik und Business dieselbe Sprache sprechen."
       image: "/src/images/werner-strauch-konferenz.jpg"
       imageAlt: "Werner Strauch auf einer Konferenz"
@@ -91,12 +91,12 @@ sections:
     content:
       badge: "Ergebnisse statt Versprechen"
       badgeIcon: "heroicons:chart-bar-16-solid"
-      headline: "Zahlen, die <em>überzeugen</em>"
+      headline: "Was ich <em>mitbringe</em>"
       stats:
         - value: "200"
           suffix: "+"
           label: "E-Commerce-Projekte"
-          description: "begleitet"
+          description: "umgesetzt"
           icon: "heroicons:shopping-cart"
         - value: "20"
           suffix: "+"
@@ -107,10 +107,11 @@ sections:
           label: "Jahre"
           description: "Geschäftsführung"
           icon: "heroicons:briefcase"
-        - value: "20"
-          label: "Personen"
-          description: "größtes geführtes Team"
-          icon: "heroicons:users"
+        - value: "15"
+          suffix: "+"
+          label: "Jahre"
+          description: "Online-Marketing"
+          icon: "heroicons:chart-bar"
 
   # Shop Expertise Section
   - id: shop-expertise
@@ -138,22 +139,27 @@ sections:
   - id: qualifications
     enabled: true
     order: 5
-    component: ContentSection
+    component: Credentials
     wrapper:
       variant: dark
       padding: lg
     content:
+      badge: "Qualifikationen"
+      badgeIcon: "heroicons:academic-cap-16-solid"
       headline: "Fundierte <em>Ausbildung</em>"
       tagline: "Akademische Grundlage und offizielle Zertifizierungen"
-      content:
-        - type: "headline"
-          content: "Diplom-Betriebswirt (FH)"
-        - type: "text"
-          content: "Schwerpunkt Wirtschaftsinformatik – Hochschule Pforzheim | 2004 – 2010"
-        - type: "headline"
-          content: "BAFA-zertifizierter Berater"
-        - type: "text"
-          content: "Förderfähige Unternehmensberatung – Bundesamt für Wirtschaft und Ausfuhrkontrolle"
+      credentials:
+        - title: "Diplom-Betriebswirt (FH)"
+          subtitle: "Schwerpunkt Wirtschaftsinformatik"
+          icon: "heroicons:academic-cap"
+          institution: "Hochschule Pforzheim"
+          period: "2004 – 2010"
+          highlight: true
+          highlights:
+            - "Business & IT Integration"
+            - "Prozessmanagement"
+            - "Systemarchitektur"
+            - "Projektmanagement"
 
   # Skills/Expertise Grid
   - id: skills

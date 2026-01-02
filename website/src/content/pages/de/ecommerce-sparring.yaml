@@ -44,7 +44,7 @@ sections:
     content:
       badge: "E-Commerce Sparring"
       badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
-      headline: "Ihr <em>Sparringspartner</em> für E-Commerce"
+      headline: "Ihr <em>Sparringspartner</em> für <mark>E-Commerce</mark>"
       subheadline: "Regelmäßiger Austausch auf Augenhöhe. Gemeinsam Herausforderungen reflektieren, Ideen testen und bessere Entscheidungen treffen – mit einem erfahrenen Partner an Ihrer Seite."
       image: "/src/images/ecommerce-sparring-hero.png"
       imageAlt: "E-Commerce Sparring - Strategischer Austausch"

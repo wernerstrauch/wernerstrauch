@@ -44,7 +44,7 @@ sections:
     content:
       badge: "Technologieberatung"
       badgeIcon: "heroicons:cpu-chip-16-solid"
-      headline: "Die richtige <em>Technologie</em> für Ihren E-Commerce"
+      headline: "Die <mark>richtige</mark> <em>Technologie</em> für Ihren E-Commerce"
       subheadline: "Shopsysteme, ERP, PIM, CRM – die Auswahl ist komplex. Ich helfe Ihnen, die passende Technologie-Architektur zu finden und Systeme sinnvoll zu integrieren."
       image: "/src/images/technologieberatung-hero.png"
       imageAlt: "Technologieberatung - Systemarchitektur und Integration"

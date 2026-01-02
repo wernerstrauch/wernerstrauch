@@ -95,8 +95,8 @@ const techByCategory = Object.entries(categories).map(([key, category]) => ({
   <div class="stagger-children grid gap-6 md:grid-cols-3">
     {
       techByCategory.map((category) => (
-        <div class="tech-category-grid__card group rounded-2xl border p-6 transition-all duration-300">
-          <div class="tech-category-grid__icon-box mb-4 flex h-12 w-12 items-center justify-center rounded-xl border">
+        <div class="tech-category-grid__card group border p-6 transition-all duration-300">
+          <div class="tech-category-grid__icon-box mb-4 flex h-12 w-12 items-center justify-center border">
             <Icon
               name={category.icon}
               class="tech-category-grid__icon h-6 w-6"
@@ -112,7 +112,7 @@ const techByCategory = Object.entries(categories).map(([key, category]) => ({
             {category.technologies.map((tech: TechnologyEntry) => (
               <a
                 href={`/technologien/${tech.data.slug}`}
-                class="tech-category-grid__tag rounded-lg border px-3 py-1.5 text-sm transition-colors"
+                class="tech-category-grid__tag border px-3 py-1.5 text-sm transition-colors"
               >
                 {tech.data.name}
               </a>

@@ -44,7 +44,7 @@ sections:
     content:
       badge: "E-Commerce Strategie"
       badgeIcon: "heroicons:map-16-solid"
-      headline: "E-Commerce <em>Strategie</em> für nachhaltiges Wachstum"
+      headline: "E-Commerce <em>Strategie</em> für <mark>nachhaltiges</mark> Wachstum"
       subheadline: "Eine klare Strategie ist das Fundament für jeden erfolgreichen Online-Handel. Gemeinsam entwickeln wir Ihre Roadmap – von der Zielgruppenanalyse bis zum messbaren Erfolg."
       image: "/src/images/ecommerce-strategie-hero.png"
       imageAlt: "E-Commerce Strategie - Strategische Planung"
@@ -364,6 +364,10 @@ sections:
           content: |
             <p>Bei all den Trends gilt: Eine gute Strategie bedeutet nicht, alles zu machen. Sie bedeutet, bewusst zu entscheiden, was zu Ihrem Geschäft passt – und was nicht. Nicht jeder Trend ist für jedes Unternehmen relevant.</p>
             <p>Eine fundierte E-Commerce Strategie hilft Ihnen, die richtigen Schwerpunkte zu setzen und Ihre Ressourcen dort einzusetzen, wo sie den größten Hebel haben. Gemeinsam finden wir heraus, welche Entwicklungen für Sie relevant sind.</p>
+        - title: "Strategie auf Basis einer Analyse"
+          content: |
+            <p>Eine fundierte Strategie basiert auf klaren Daten. Wenn Sie noch keine Bestandsaufnahme gemacht haben, kann ein <a href="/ecommerce-audit">E-Commerce Audit</a> die Grundlage für strategische Entscheidungen liefern.</p>
+            <p>Für die detaillierte Planung Ihrer Technologie-Landschaft bietet sich die <a href="/technologieberatung">Technologieberatung</a> an – von der Systemauswahl bis zur Architektur-Planung.</p>
 
   # ========================================
   # Section 9: FAQ
@@ -410,7 +414,7 @@ sections:
         - question: "Was bekomme ich als Ergebnis?"
           answer: "Ein umfassendes Strategiedokument mit: Executive Summary, Markt- und Wettbewerbsanalyse, Strategische Positionierung, Kanalstrategie, Technologie-Roadmap, Business Case mit Finanzmodell, priorisiertem Maßnahmenplan und KPI-Framework. Kein PowerPoint-Grab, sondern ein Arbeitsdokument."
         - question: "Begleiten Sie auch die Umsetzung?"
-          answer: "Ja, auf Wunsch. Manche Kunden nutzen die Strategie als Grundlage für die eigene Umsetzung. Andere möchten eine kontinuierliche Begleitung bei der Implementierung – als Sparringspartner, Projekt-Coach oder in einer Interim-Rolle. Beides ist möglich."
+          answer: "Ja, auf Wunsch. Manche Kunden nutzen die Strategie als Grundlage für die eigene Umsetzung. Andere möchten eine kontinuierliche Begleitung bei der Implementierung – als <a href='/ecommerce-sparring'>Sparringspartner</a>, <a href='/umsetzungsbegleitung'>Umsetzungsbegleiter</a> oder in einer <a href='/interim-management'>Interim-Rolle</a>. Beides ist möglich."
         - question: "Wie läuft das Erstgespräch ab?"
           answer: "Das Erstgespräch ist kostenlos und dauert ca. 30 Minuten. Wir besprechen Ihre aktuelle Situation, Ihre Ziele und Herausforderungen. Ich gebe erste Einschätzungen und wir klären, ob eine Zusammenarbeit sinnvoll ist. Unverbindlich und ohne versteckte Kosten."
         - question: "Können Sie auch bei der Technologie-Auswahl helfen?"

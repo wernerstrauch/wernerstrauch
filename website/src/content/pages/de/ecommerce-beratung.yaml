@@ -44,7 +44,7 @@ sections:
     content:
       badge: "E-Commerce Beratung"
       badgeIcon: "heroicons:light-bulb-16-solid"
-      headline: "Ganzheitliche E-Commerce <em>Beratung</em>"
+      headline: "<mark>Ganzheitliche</mark> E-Commerce <em>Beratung</em>"
       subheadline: "Strategie, Prozesse und Technologie – ich betrachte Ihren Online-Handel aus allen Perspektiven. Gemeinsam entwickeln wir Lösungen, die Ihr Geschäft nachhaltig voranbringen."
       image: "/src/images/ecommerce-beratung-hero.png"
       imageAlt: "E-Commerce Beratung - Strategische Analyse"

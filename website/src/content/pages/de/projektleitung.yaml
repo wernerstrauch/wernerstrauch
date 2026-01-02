@@ -44,7 +44,7 @@ sections:
     content:
       badge: "E-Commerce Projektleitung"
       badgeIcon: "heroicons:clipboard-document-check-16-solid"
-      headline: "E-Commerce Projekte <em>erfolgreich</em> umsetzen"
+      headline: "<mark>E-Commerce</mark> Projekte <em>erfolgreich</em> umsetzen"
       subheadline: "Shop-Relaunch, System-Migration oder ERP-Einführung – komplexe E-Commerce-Projekte brauchen erfahrene Steuerung. Als externer Projektleiter bringe ich Struktur, Erfahrung und den objektiven Blick von außen."
       image: "/src/images/projektleitung-hero.png"
       imageAlt: "E-Commerce Projektleitung - Projektsteuerung"

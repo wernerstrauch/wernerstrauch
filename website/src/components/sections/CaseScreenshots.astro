@@ -98,7 +98,7 @@ const uniqueId = `case-screenshots-${Math.random().toString(36).substring(2, 11)
               {items.map((item, index) => (
                 <div
                   class:list={[
-                    "case-screenshots__mobile-card overflow-hidden rounded-2xl",
+                    "case-screenshots__mobile-card overflow-hidden",
                     index === 0 ? "is-active relative" : "absolute inset-0",
                   ]}
                   data-index={index}
@@ -359,7 +359,7 @@ const uniqueId = `case-screenshots-${Math.random().toString(36).substring(2, 11)
 
             {/* Phone Card - Right Side */}
             <div class="case-screenshots__phone-area relative lg:sticky lg:top-24 lg:w-1/2">
-              <div class="case-screenshots__card overflow-hidden rounded-3xl">
+              <div class="case-screenshots__card overflow-hidden">
                 <div class="flex items-center justify-center py-8">
                   <div class="case-screenshots__phone">
                     {/* Fixed Status Bar - stays in place */}

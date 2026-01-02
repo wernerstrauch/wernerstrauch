@@ -199,16 +199,16 @@ const gridCols =
     {
       testimonials.map((testimonial) => (
         <div
-          class="testimonials__card group relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+          class="testimonials__card group relative overflow-hidden border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
           data-variant={sectionVariant}
         >
           {/* Spotlight glow effect */}
-          <div class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300" />
+          <div class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300" />
 
           {/* Rotating border glow effect */}
           <div class="border-glow" />
 
-          <div class="testimonials__card-inner relative z-30 h-full w-full overflow-hidden rounded-2xl">
+          <div class="testimonials__card-inner relative z-30 h-full w-full overflow-hidden">
             <div class="flex h-full flex-col p-6 lg:p-8">
               {/* Metric Badge */}
               {testimonial.metric && (
@@ -444,7 +444,6 @@ const gridCols =
     position: absolute;
     inset: 0;
     z-index: 20;
-    border-radius: 1rem;
     overflow: hidden;
   }
 
@@ -475,7 +474,6 @@ const gridCols =
     position: absolute;
     inset: 1.5px;
     background: var(--section-card-bg);
-    border-radius: calc(1rem - 1.5px);
   }
 
   @keyframes spinGlow {

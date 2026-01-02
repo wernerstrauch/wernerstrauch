@@ -15,11 +15,6 @@ export const SOCIALS = [
     href: "https://www.linkedin.com/in/werner-strauch-42520b15b/",
     icon: "simple-icons:linkedin",
   },
-  {
-    name: "GitHub",
-    href: "https://github.com/wernerstrauch",
-    icon: "simple-icons:github",
-  },
 ];
 
 // Client logos for trust bar
@@ -86,7 +81,7 @@ export const MEGA_MENU_DE: MegaMenuCategory[] = [
         links: [
           {
             label: "E-Commerce Projektleitung",
-            href: "/ecommerce-projektleitung",
+            href: "/projektleitung",
             icon: "heroicons:clipboard-document-check",
             description: "Projekte termingerecht zum Erfolg führen",
           },
@@ -217,11 +212,6 @@ export const SITE: SiteConfig = {
       name: "LinkedIn",
       href: "https://www.linkedin.com/in/werner-strauch-42520b15b/",
       icon: "simple-icons:linkedin",
-    },
-    {
-      name: "GitHub",
-      href: "https://github.com/wernerstrauch",
-      icon: "simple-icons:github",
     },
   ],
 };

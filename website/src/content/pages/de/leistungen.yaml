@@ -1,0 +1,503 @@
+# Leistungen Übersichtsseite
+# Strukturierte Darstellung aller E-Commerce-Leistungen
+
+lang: de
+pageId: leistungen
+slug: leistungen
+
+meta:
+  title: "E-Commerce Leistungen | Beratung, Strategie & Umsetzung | Werner Strauch"
+  description: "E-Commerce Leistungen von der Analyse bis zur Umsetzung: Audit, Strategie, Beratung, Workshops, Sparring, Projektleitung und Interim Management. Unabhängige Expertise."
+
+settings:
+  status: published
+  priority: 0.9
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: HeroSplit
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.08
+        glowLines: 6
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "right"
+        size: "lg"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Leistungen"
+      badgeIcon: "heroicons:briefcase-16-solid"
+      headline: "<mark>E-Commerce</mark> <em>Leistungen</em> für jede Phase"
+      subheadline: "Von der strategischen Analyse über Technologieberatung bis zur Umsetzungsbegleitung – ich unterstütze Sie genau dort, wo Sie Hilfe brauchen. Modular, unabhängig und auf Augenhöhe."
+      image: "/src/images/leistungen-hero.png"
+      imageAlt: "E-Commerce Leistungen - Übersicht"
+      primaryCta: "Erstgespräch vereinbaren"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Leistungen entdecken"
+      secondaryCtaHref: "#kernleistungen"
+
+  # ========================================
+  # Section 2: Intro / Positionierung
+  # ========================================
+  - id: intro
+    enabled: true
+    order: 2
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "left"
+    content:
+      badge: "Mein Ansatz"
+      headline: "Ein Partner für den <em>gesamten E-Commerce-Lebenszyklus</em>"
+      image: "/src/images/leistungen-ansatz.png"
+      imageAlt: "Modularer E-Commerce Beratungsansatz"
+      imagePosition: "left"
+      content:
+        - type: "lead"
+          content: "Nicht jedes Problem braucht die gleiche Lösung. Mein Leistungsspektrum ist modular aufgebaut – Sie wählen, was Sie brauchen."
+        - type: "text"
+          content: "<p>Ob einmaliges Audit, langfristiges Sparring oder intensive Projektbegleitung: Ich passe mich Ihrer Situation an. Alle Leistungen sind unabhängig buchbar oder lassen sich kombinieren – ohne versteckte Provisionen oder Verkaufsinteressen.</p>"
+        - type: "features"
+          items:
+            - icon: "heroicons:puzzle-piece"
+              title: "Modular"
+              description: "Einzelne Leistungen oder maßgeschneiderte Kombinationen"
+            - icon: "heroicons:scale"
+              title: "Unabhängig"
+              description: "Keine Provisionen, keine Vendor-Bindung"
+            - icon: "heroicons:arrow-path"
+              title: "Flexibel"
+              description: "Von einmaligen Projekten bis zur laufenden Begleitung"
+
+  # ========================================
+  # Section 3: Kernleistungen (ServicesShowcase)
+  # ========================================
+  - id: kernleistungen
+    enabled: true
+    order: 3
+    component: ServicesShowcase
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "left"
+        size: "lg"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Kernleistungen"
+      headline: "Wie kann ich <em>helfen</em>?"
+      defaultHeadline: "Wählen Sie Ihren Bedarf"
+      items:
+        - icon: "heroicons:magnifying-glass-circle-16-solid"
+          title: "E-Commerce Audit"
+          description: "Systematische Analyse Ihres Shops mit 500+ Prüfpunkten. Klarer Report mit priorisierten Handlungsempfehlungen und Quick-Wins."
+          linkText: "Mehr erfahren"
+          linkHref: "/ecommerce-audit"
+          image: "/src/images/ecommerce-audit-hero.png"
+        - icon: "heroicons:map-16-solid"
+          title: "E-Commerce Strategie"
+          description: "Ihr Masterplan für nachhaltiges Wachstum. Strategiedokument mit Roadmap, Business Case und KPI-Framework."
+          linkText: "Mehr erfahren"
+          linkHref: "/ecommerce-strategie"
+          image: "/src/images/ecommerce-strategie-hero.png"
+        - icon: "heroicons:light-bulb-16-solid"
+          title: "E-Commerce Beratung"
+          description: "Ganzheitliche Beratung: Strategie, Prozesse, Technologie und Markt – aus allen Perspektiven betrachtet."
+          linkText: "Mehr erfahren"
+          linkHref: "/ecommerce-beratung"
+          image: "/src/images/ecommerce-beratung-hero.png"
+        - icon: "heroicons:cpu-chip-16-solid"
+          title: "Technologieberatung"
+          description: "Neutrale Systemauswahl: ERP, PIM, Shop-System. Objektiv und ohne Provisionen – ich stehe auf Ihrer Seite."
+          linkText: "Mehr erfahren"
+          linkHref: "/technologieberatung"
+          image: "/src/images/technologieberatung-hero.png"
+        - icon: "heroicons:chat-bubble-left-right-16-solid"
+          title: "E-Commerce Sparring"
+          description: "Regelmäßiger Austausch auf Augenhöhe. Ihr externer Sparringspartner im Retainer-Modell für bessere Entscheidungen."
+          linkText: "Mehr erfahren"
+          linkHref: "/ecommerce-sparring"
+          image: "/src/images/ecommerce-sparring-hero.png"
+
+  # ========================================
+  # Section 4: Erster CTA
+  # ========================================
+  - id: cta-1
+    enabled: true
+    order: 4
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      headline: "Nicht sicher, <em>was passt</em>?"
+      description: "In einem kostenlosen 30-Minuten-Gespräch klären wir gemeinsam, welche Leistung für Ihre Situation sinnvoll ist."
+      buttonText: "Erstgespräch vereinbaren"
+      buttonHref: "/kontakt"
+
+  # ========================================
+  # Section 5: Wissensvermittlung (Workshop & Sparring)
+  # ========================================
+  - id: wissensvermittlung
+    enabled: true
+    order: 5
+    component: ServiceCards
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.06
+        position: "right"
+        size: "md"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      headline: "Wissen <em>transferieren</em>"
+      description: "Ihr Team stärken – mit intensiven Workshops oder laufendem Sparring. Zwei Wege, die sich auch kombinieren lassen."
+      ctaText: "Kontakt aufnehmen"
+      ctaHref: "/kontakt"
+      ctaIcon: "heroicons:arrow-right-16-solid"
+      cards:
+        - title: "E-Commerce Workshop"
+          description: "Intensive Teamworkshops zu strategischen E-Commerce-Themen. Ein halber bis zwei Tage fokussierter Wissenstransfer mit konkreten Ergebnissen."
+          linkText: "Workshop anfragen"
+          linkHref: "/ecommerce-workshop"
+          cardVariant: "lime"
+          image: "/src/images/ecommerce-workshop-hero.png"
+        - title: "E-Commerce Sparring"
+          description: "Regelmäßiger Austausch im Retainer-Modell. 2-4 Sessions pro Monat plus asynchroner Support – Ihr Sparringspartner für bessere Entscheidungen."
+          linkText: "Sparring anfragen"
+          linkHref: "/ecommerce-sparring"
+          cardVariant: "dark"
+          image: "/src/images/ecommerce-sparring-hero.png"
+
+  # ========================================
+  # Section 6: Quote
+  # ========================================
+  - id: quote
+    enabled: true
+    order: 6
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "Die richtige Leistung hängt nicht vom Budget ab, sondern von der Frage: Was brauchen Sie gerade wirklich?"
+      author: "Werner Strauch"
+      role: "E-Commerce Berater"
+
+  # ========================================
+  # Section 7: Umsetzung & Führung (BentoGrid)
+  # ========================================
+  - id: umsetzung
+    enabled: true
+    order: 7
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "left"
+        size: "lg"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Umsetzung & Führung"
+      badgeIcon: "heroicons:rocket-launch-16-solid"
+      headline: "Vom Plan zur <em>Realität</em>"
+      description: "Wenn Sie Unterstützung bei der Umsetzung brauchen – von der Qualitätssicherung bis zur operativen Führung."
+      cards:
+        - title: "Umsetzungsbegleitung"
+          description: "Qualitätssicherung und Sparring während der Implementierung. Ich achte darauf, dass Ihre Projekte sauber umgesetzt werden – als kritischer Mitdenker ohne eigene Agenda."
+          icon: "heroicons:clipboard-document-check"
+          large: true
+          features:
+            - "Qualitätssicherung & Reviews"
+            - "Vendor-Management"
+            - "Milestone-Kontrolle"
+            - "Ab 1.500 €/Monat"
+        - title: "Projektleitung"
+          description: "Externe Steuerung Ihrer E-Commerce-Projekte. Klare Strukturen, transparente Kommunikation, Ergebnis im Fokus."
+          icon: "heroicons:flag"
+          features:
+            - "Projekt-Steuerung"
+            - "Stakeholder-Management"
+            - "Ab 4.000 €/Monat"
+        - title: "Interim Management"
+          description: "E-Commerce-Führung auf Zeit. Wenn Sie temporär eine erfahrene Führungskraft mit operativer Verantwortung brauchen."
+          icon: "heroicons:briefcase"
+          features:
+            - "Führungsrolle"
+            - "Team-Verantwortung"
+            - "1.150-1.500 €/Tag"
+
+  # ========================================
+  # Section 8: Alle Leistungen im Detail (Accordion)
+  # ========================================
+  - id: alle-leistungen
+    enabled: true
+    order: 8
+    component: ServicesAccordion
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "left"
+    content:
+      headline: "Alle <em>Leistungen</em> im Detail"
+      services:
+        - id: audit
+          title: "E-Commerce Audit"
+          description: "Systematische Analyse Ihres Shops, Ihrer Prozesse und Systeme mit über 500 Prüfpunkten. Klare Schwachstellen-Identifikation und priorisierte Handlungsempfehlungen."
+          deliverables:
+            - "Umfassender Audit-Report (50-100+ Seiten)"
+            - "Priorisierte Handlungsempfehlungen"
+            - "Quick-Win-Identifikation"
+            - "Präsentationsworkshop"
+          idealFor: "Online-Händler, die Klarheit über Optimierungspotenziale suchen – oder vor größeren Investitionen eine Bestandsaufnahme brauchen."
+        - id: strategie
+          title: "E-Commerce Strategie"
+          description: "Entwicklung Ihres Masterplans für nachhaltiges E-Commerce-Wachstum. Von der Positionierung über die Kanalstrategie bis zum Business Case."
+          deliverables:
+            - "Strategiedokument"
+            - "Business Case mit Finanzmodell"
+            - "Priorisierte Roadmap"
+            - "KPI-Framework"
+          idealFor: "Unternehmen vor strategischen Weichenstellungen – Neuausrichtung, Skalierung oder Internationalisierung."
+        - id: beratung
+          title: "E-Commerce Beratung"
+          description: "Ganzheitliche Beratung zu Strategie, Prozessen, Technologie und Markt. Ich betrachte Ihren Online-Handel aus allen Perspektiven."
+          deliverables:
+            - "360-Grad-Analyse"
+            - "Strategische Empfehlungen"
+            - "Prozess-Mapping"
+            - "Begleitende Unterstützung"
+          idealFor: "Händler, die einen erfahrenen Partner für alle E-Commerce-Fragen suchen – punktuell oder dauerhaft."
+        - id: technologie
+          title: "Technologieberatung"
+          description: "Neutrale, herstellerunabhängige Beratung bei der Systemauswahl. Shop-System, ERP, PIM, CRM – objektiv und ohne versteckte Provisionen."
+          deliverables:
+            - "Anforderungsanalyse"
+            - "Marktübersicht & Shortlist"
+            - "Anbieter-Evaluation"
+            - "Entscheidungsvorlage"
+          idealFor: "Unternehmen vor ERP-, PIM- oder Shop-System-Entscheidungen – die eine unabhängige Einschätzung brauchen."
+        - id: workshop
+          title: "E-Commerce Workshop"
+          description: "Intensive Workshops zu strategischen E-Commerce-Themen für Ihr Team. Wissenstransfer, der bleibt – mit konkreten Ergebnissen."
+          deliverables:
+            - "Maßgeschneidertes Workshop-Konzept"
+            - "Interaktive Sessions (1/2-2 Tage)"
+            - "Dokumentation & Handouts"
+            - "Follow-up-Unterstützung"
+          idealFor: "Teams, die Wissen aufbauen und gemeinsam Lösungen entwickeln wollen – von Strategie bis Operations."
+        - id: sparring
+          title: "E-Commerce Sparring"
+          description: "Regelmäßiger Austausch auf Augenhöhe im Retainer-Modell. Ihr Sparringspartner für bessere Entscheidungen – kontinuierlich statt einmalig."
+          deliverables:
+            - "2-4 Sessions pro Monat"
+            - "Asynchroner Support"
+            - "Strategische Begleitung"
+            - "Entscheidungs-Reflexion"
+          idealFor: "Entscheider, die einen erfahrenen Sparringspartner suchen – ohne eigene Agenda, auf Augenhöhe."
+        - id: umsetzung
+          title: "Umsetzungsbegleitung"
+          description: "Qualitätssicherung und Sparring während der Projekt-Implementierung. Ich bin der kritische Mitdenker – nicht der Entscheider."
+          deliverables:
+            - "Regelmäßige Reviews"
+            - "Vendor-Koordination"
+            - "Risiko-Monitoring"
+            - "Eskalations-Management"
+          idealFor: "Unternehmen mit laufenden E-Commerce-Projekten – die einen unabhängigen Qualitäts-Wächter brauchen."
+        - id: projektleitung
+          title: "Projektleitung"
+          description: "Externe Steuerung Ihrer E-Commerce-Projekte. Klare Strukturen, transparente Kommunikation – mit dem Blick von außen."
+          deliverables:
+            - "Projekt-Setup & Planung"
+            - "Stakeholder-Management"
+            - "Status-Reporting"
+            - "Budget- & Timeline-Kontrolle"
+          idealFor: "Komplexe Projekte ohne interne Projektleiter-Kapazität – oder wenn der objektive Blick von außen wichtig ist."
+        - id: interim
+          title: "Interim Management"
+          description: "E-Commerce-Führung auf Zeit in Ihrer Organisation. Operative Verantwortung, Mitarbeiterführung, Entscheidungskompetenz."
+          deliverables:
+            - "Führungsübernahme"
+            - "Team-Entwicklung"
+            - "Strategische Steuerung"
+            - "Übergabe & Dokumentation"
+          idealFor: "Übergangssituationen, Vakanzen oder Transformationsphasen – wenn Sie temporär erfahrene Führung brauchen."
+
+  # ========================================
+  # Section 9: Investment / Preisrahmen
+  # ========================================
+  - id: investment
+    enabled: true
+    order: 9
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+    content:
+      badge: "Investment"
+      badgeIcon: "heroicons:banknotes-16-solid"
+      headline: "Transparente <em>Preisrahmen</em>"
+      stats:
+        - value: "2.500"
+          prefix: "ab "
+          suffix: " €"
+          label: "Einmalige Leistungen"
+          description: "Audit, Workshop, Strategie"
+        - value: "1.500"
+          prefix: "ab "
+          suffix: " €/Monat"
+          label: "Laufende Begleitung"
+          description: "Sparring, Umsetzungsbegleitung"
+        - value: "4.000"
+          prefix: "ab "
+          suffix: " €/Monat"
+          label: "Projektleitung"
+          description: "Externe Projekt-Steuerung"
+        - value: "1.150"
+          prefix: "ab "
+          suffix: " €/Tag"
+          label: "Interim Management"
+          description: "Führung auf Zeit"
+
+  # ========================================
+  # Section 10: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 10
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.06
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Häufige Fragen"
+      headline: "Fragen zu den <em>Leistungen</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
+      faqs:
+        - question: "Welche Leistung passt zu mir?"
+          answer: "Das hängt von Ihrer Situation ab. Bei konkreten Projekten (ERP-Wechsel, Shop-Migration) ist oft eine fokussierte Beratung oder Umsetzungsbegleitung sinnvoll. Für strategische Klarheit empfehle ich ein Audit oder Strategieprojekt. Für laufende Unterstützung gibt es das Sparring-Modell. Im Erstgespräch finden wir gemeinsam heraus, was passt."
+        - question: "Kann ich mehrere Leistungen kombinieren?"
+          answer: "Ja, absolut. Viele Kunden starten mit einem Audit und gehen dann in ein Sparring oder eine Umsetzungsbegleitung über. Die Leistungen sind modular aufgebaut und ergänzen sich. Im Erstgespräch entwickeln wir die passende Kombination."
+        - question: "Was kostet eine Zusammenarbeit?"
+          answer: "Die Kosten variieren je nach Leistung und Umfang. Einmalige Leistungen wie Audits starten bei 2.500 Euro, laufende Begleitung ab 1.500 Euro/Monat. Im Erstgespräch gebe ich eine erste Einschätzung für Ihre konkrete Situation – unverbindlich und kostenlos."
+        - question: "Wie schnell können wir starten?"
+          answer: "In der Regel innerhalb von 1-2 Wochen. Bei dringenden Themen finden wir eine Lösung. Nach dem Erstgespräch erstelle ich ein Angebot, und nach Beauftragung legen wir los."
+        - question: "Arbeiten Sie auch vor Ort?"
+          answer: "Primär remote, aber für Workshops, Kick-offs oder intensive Projektphasen komme ich gerne zu Ihnen. Die meisten Kunden schätzen die Flexibilität von Remote-Sessions – aber manchmal ist ein Vor-Ort-Termin einfach wertvoller."
+        - question: "Wie läuft das Erstgespräch ab?"
+          answer: "Das Erstgespräch ist kostenlos und dauert etwa 30 Minuten. Wir besprechen Ihre aktuelle Situation, Ihre Ziele und Herausforderungen. Ich gebe erste Einschätzungen und wir klären, welche Leistung sinnvoll wäre. Unverbindlich und ohne versteckte Kosten."
+
+  # ========================================
+  # Section 11: Final CTA
+  # ========================================
+  - id: cta-final
+    enabled: true
+    order: 11
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      headline: "Bereit für <em>Klarheit</em>?"
+      description: "Lassen Sie uns in 30 Minuten herausfinden, welche Leistung für Ihre Situation am sinnvollsten ist. Unverbindlich und kostenlos."
+      buttonText: "Erstgespräch vereinbaren"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

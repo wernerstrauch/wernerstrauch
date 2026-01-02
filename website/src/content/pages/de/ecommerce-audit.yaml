@@ -44,7 +44,7 @@ sections:
     content:
       badge: "E-Commerce Audit"
       badgeIcon: "heroicons:magnifying-glass-circle-16-solid"
-      headline: "E-Commerce <em>Audit</em> – Ihr Shop unter der Lupe"
+      headline: "<mark>E-Commerce</mark> <em>Audit</em> – Ihr Shop unter der Lupe"
       subheadline: "Wo verlieren Sie Kunden? Wo bleibt Umsatz liegen? Ein systematisches Audit mit 500+ Prüfpunkten deckt Schwachstellen auf und zeigt konkrete Optimierungspotenziale."
       image: "/src/images/ecommerce-audit-hero.png"
       imageAlt: "E-Commerce Audit - Systematische Shop-Analyse"
@@ -102,6 +102,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.12
@@ -223,6 +234,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.1
@@ -349,6 +371,10 @@ sections:
           content: |
             <p>Ein E-Commerce Audit ist besonders wertvoll vor strategischen Entscheidungen: Vor einem Shop-Relaunch, um die richtigen Prioritäten zu setzen. Vor einer Marketing-Offensive, um Conversion-Lecks zu stopfen. Oder einfach, wenn Sie das Gefühl haben, dass Ihr Shop unter seinen Möglichkeiten bleibt.</p>
             <p>Im Gegensatz zur laufenden Beratung ist ein Audit ein einmaliges Projekt mit klarem Scope und definierten Deliverables. Sie erhalten einen umfassenden Statusbericht und eine priorisierte Roadmap – die Umsetzung liegt dann bei Ihnen oder Ihrer Agentur.</p>
+        - title: "Wie geht es nach dem Audit weiter?"
+          content: |
+            <p>Ein Audit ist der erste Schritt. Auf Basis der Ergebnisse können Sie direkt in die Umsetzung gehen – oder zunächst eine <a href="/ecommerce-strategie">E-Commerce Strategie</a> entwickeln, die alle Maßnahmen priorisiert und in einen größeren Kontext stellt.</p>
+            <p>Für die laufende Begleitung bietet sich das <a href="/ecommerce-sparring">E-Commerce Sparring</a> an, für komplexe Projekte die <a href="/umsetzungsbegleitung">Umsetzungsbegleitung</a> oder <a href="/projektleitung">Projektleitung</a>.</p>
 
   # ========================================
   # Section 8: FAQ
@@ -361,6 +387,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.08

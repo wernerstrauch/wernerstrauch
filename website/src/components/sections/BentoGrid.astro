@@ -101,24 +101,24 @@ const processedHeadline = headline.replace(
     <div class="bento-grid grid gap-6 lg:grid-cols-2">
       {/* Large Card (left) */}
       <div
-        class="bento-card bentogrid-card group relative row-span-2 overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.01]"
+        class="bento-card bentogrid-card group relative row-span-2 overflow-hidden border p-[1.5px] transition-transform duration-300 hover:scale-[1.01]"
         data-variant={sectionVariant}
       >
         {/* Spotlight glow effect */}
         <div
-          class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300"
+          class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300"
         >
         </div>
         {/* Rotating border glow effect */}
         <div class="border-glow"></div>
         <div
-          class="bentogrid-card-inner relative z-30 flex h-full w-full flex-col overflow-hidden rounded-2xl"
+          class="bentogrid-card-inner relative z-30 flex h-full w-full flex-col overflow-hidden"
         >
           <div class="flex flex-1 flex-col p-8 lg:p-10">
             {/* Icon */}
             {
               cards[0].icon && (
-                <div class="bentogrid-icon-wrapper mb-6 flex h-14 w-14 items-center justify-center rounded-xl border">
+                <div class="bentogrid-icon-wrapper mb-6 flex h-14 w-14 items-center justify-center border">
                   <Icon name={cards[0].icon} class="bentogrid-icon h-7 w-7" />
                 </div>
               )
@@ -156,18 +156,18 @@ const processedHeadline = headline.replace(
       {
         cards.slice(1).map((card) => (
           <div
-            class="bento-card bentogrid-card group relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+            class="bento-card bentogrid-card group relative overflow-hidden border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
             data-variant={sectionVariant}
           >
             {/* Spotlight glow effect */}
-            <div class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300" />
+            <div class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300" />
             {/* Rotating border glow effect */}
             <div class="border-glow" />
-            <div class="bentogrid-card-inner relative z-30 h-full w-full overflow-hidden rounded-2xl">
+            <div class="bentogrid-card-inner relative z-30 h-full w-full overflow-hidden">
               <div class="flex h-full flex-col p-8">
                 {/* Icon */}
                 {card.icon && (
-                  <div class="bentogrid-icon-wrapper mb-4 flex h-12 w-12 items-center justify-center rounded-xl border">
+                  <div class="bentogrid-icon-wrapper mb-4 flex h-12 w-12 items-center justify-center border">
                     <Icon name={card.icon} class="bentogrid-icon h-6 w-6" />
                   </div>
                 )}
@@ -337,7 +337,6 @@ const processedHeadline = headline.replace(
     position: absolute;
     inset: 0;
     z-index: 20;
-    border-radius: 1rem;
     overflow: hidden;
     pointer-events: none;
     opacity: 0;
@@ -380,7 +379,6 @@ const processedHeadline = headline.replace(
     content: "";
     position: absolute;
     inset: 3px;
-    border-radius: calc(1rem - 3px);
     background: var(--section-card-bg);
   }
 

@@ -111,7 +111,7 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
           href={altUrl}
           class:list={[
             "flex items-center gap-1 text-sm transition-colors",
-            headerVariant === "dark" ? "text-white/40 hover:text-white/70" : "text-foreground/40 hover:text-foreground/70",
+            headerVariant === "dark" ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground",
           ]}
           title={lang === "de" ? "Switch to English" : "Auf Deutsch wechseln"}
         >
@@ -357,6 +357,28 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
 
   #main-header {
     background-color: transparent;
+  }
+
+  /* Gradient overlay when not scrolled - helps visibility on lighter backgrounds */
+  #main-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 120px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.25) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  #main-header.header-scrolled::before {
+    opacity: 0;
   }
 
   #main-header.header-scrolled {

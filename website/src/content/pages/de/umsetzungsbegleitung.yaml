@@ -44,7 +44,7 @@ sections:
     content:
       badge: "Umsetzungsbegleitung"
       badgeIcon: "heroicons:shield-check-16-solid"
-      headline: "E-Commerce <em>Umsetzungsbegleitung</em>"
+      headline: "<mark>E-Commerce</mark> <em>Umsetzungsbegleitung</em>"
       subheadline: "Ihr Sparringspartner bei komplexen E-Commerce-Projekten. Ich begleite Shop-Migrationen, ERP-Einführungen und Systemintegrationen – als kritischer Mitdenker, nicht als Entscheider."
       image: "/src/images/umsetzungsbegleitung-hero.png"
       imageAlt: "E-Commerce Umsetzungsbegleitung - Sparringspartner"

@@ -28,36 +28,39 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
 );
 
 // Logos aus YAML oder Fallback auf CLIENTS
-let resolvedLogos: { name: string; logo: ImageMetadata | string }[] = [];
+let resolvedLogos: { name: string; logo: ImageMetadata | string; isSvg: boolean }[] = [];
 
 if (logos && logos.length > 0) {
   // Logos aus YAML verwenden
   for (const logo of logos) {
+    const isSvg = logo.src.endsWith(".svg");
     if (logo.src.startsWith("/src/assets/") || logo.src.startsWith("/src/images/")) {
       // Asset-Pfad - dynamisch importieren
       const imageLoader = allImages[logo.src];
       if (imageLoader) {
         const image = await imageLoader();
-        resolvedLogos.push({ name: logo.name, logo: image.default });
+        resolvedLogos.push({ name: logo.name, logo: image.default, isSvg });
       }
     } else {
       // Externer/Public Pfad - als String verwenden
-      resolvedLogos.push({ name: logo.name, logo: logo.src });
+      resolvedLogos.push({ name: logo.name, logo: logo.src, isSvg });
     }
   }
 } else {
   // Fallback auf globale CLIENTS - auch aus /src/images/ laden
   for (const client of CLIENTS) {
+    const logoPath = typeof client.logo === "string" ? client.logo : "";
+    const isSvg = logoPath.endsWith(".svg");
     if (typeof client.logo === "string" && client.logo.startsWith("/src/images/")) {
       const imageLoader = allImages[client.logo];
       if (imageLoader) {
         const image = await imageLoader();
-        resolvedLogos.push({ name: client.name, logo: image.default });
+        resolvedLogos.push({ name: client.name, logo: image.default, isSvg });
       } else {
-        resolvedLogos.push({ name: client.name, logo: client.logo });
+        resolvedLogos.push({ name: client.name, logo: client.logo, isSvg });
       }
     } else {
-      resolvedLogos.push({ name: client.name, logo: client.logo });
+      resolvedLogos.push({ name: client.name, logo: client.logo, isSvg });
     }
   }
 }
@@ -87,13 +90,13 @@ if (logos && logos.length > 0) {
                     <img
                       src={client.logo}
                       alt={client.name}
-                      class="trustbar__logo mx-4 h-8 max-w-[140px] object-contain transition-all duration-300 sm:mx-8 sm:h-10 sm:max-w-[180px]"
+                      class={`mx-4 h-8 max-w-[140px] object-contain transition-all duration-300 sm:mx-8 sm:h-10 sm:max-w-[180px] ${client.isSvg ? "trustbar__logo" : "trustbar__logo--color"}`}
                     />
                   ) : (
                     <Image
                       src={client.logo}
                       alt={client.name}
-                      class="trustbar__logo mx-4 h-8 max-w-[140px] object-contain transition-all duration-300 sm:mx-8 sm:h-10 sm:max-w-[180px]"
+                      class={`mx-4 h-8 max-w-[140px] object-contain transition-all duration-300 sm:mx-8 sm:h-10 sm:max-w-[180px] ${client.isSvg ? "trustbar__logo" : "trustbar__logo--color"}`}
                     />
                   ),
                 )}
@@ -153,5 +156,18 @@ if (logos && logos.length > 0) {
 
   .trustbar[data-variant="primary"] .trustbar__logo:hover {
     opacity: 1;
+  }
+
+  /* Color logos (PNGs) - grayscale filter */
+  .trustbar[data-variant="dark"] .trustbar__logo--color,
+  .trustbar[data-variant="primary"] .trustbar__logo--color {
+    opacity: 0.7;
+    filter: grayscale(100%) brightness(1.2);
+  }
+
+  .trustbar[data-variant="dark"] .trustbar__logo--color:hover,
+  .trustbar[data-variant="primary"] .trustbar__logo--color:hover {
+    opacity: 1;
+    filter: grayscale(0%) brightness(1);
   }
 </style>

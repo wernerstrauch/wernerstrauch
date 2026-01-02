@@ -144,7 +144,7 @@ const filtersJson = JSON.stringify(filters.map((f) => f.value));
               <a
                 href={caseStudy.href || "#"}
                 class:list={[
-                  "case-study-grid__card group flex flex-col overflow-hidden rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl",
+                  "case-study-grid__card group flex flex-col overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl",
                   // Offset every second column on md+ screens
                   index % 3 === 1 && "lg:mt-16",
                   index % 2 === 1 && "md:mt-12 lg:mt-0",
@@ -185,7 +185,7 @@ const filtersJson = JSON.stringify(filters.map((f) => f.value));
         {/* Empty State */}
         {
           cases.length === 0 && (
-            <div class="mt-8 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
+            <div class="mt-8 border-2 border-dashed border-gray-300 p-12 text-center">
               <p class="text-lg text-gray-500">Keine Case Studies vorhanden.</p>
             </div>
           )

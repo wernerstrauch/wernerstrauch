@@ -201,7 +201,7 @@ const processedHeadline = headline
         locationsData.map((location) => (
           <a
             href={`/standorte/${location.slug}`}
-            class="location-card group overflow-hidden rounded-2xl transition-all duration-300 sm:rounded-3xl"
+            class="location-card group overflow-hidden transition-all duration-300"
             data-location-slug={location.slug}
             data-location-parent={location.parent || ""}
             data-location-type={location.type}

@@ -44,7 +44,7 @@ sections:
     content:
       badge: "Interim Management"
       badgeIcon: "heroicons:user-circle-16-solid"
-      headline: "E-Commerce <em>Interim Management</em>"
+      headline: "<mark>E-Commerce</mark> <em>Interim Management</em>"
       subheadline: "Führung auf Zeit mit operativer Verantwortung. Wenn Sie schnell erfahrene Hands-on-Expertise brauchen – als Head of E-Commerce, CDO oder Digital Sales Director."
       image: "/src/images/interim-management-hero.png"
       imageAlt: "E-Commerce Interim Management - Führung auf Zeit"

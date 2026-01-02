@@ -148,7 +148,7 @@ const hasSkills = skills && skills.length > 0;
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {jobs.map((job, index) => (
           <div
-            class="joblistings-card fade-up group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+            class="joblistings-card fade-up group relative overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1"
             style={`transition-delay: ${200 + index * 50}ms;`}
           >
             {/* Department & Type Badges */}
@@ -200,7 +200,7 @@ const hasSkills = skills && skills.length > 0;
             )}
 
             {/* Hover glow effect */}
-            <div class="joblistings-card-glow pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div class="joblistings-card-glow pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </div>
         ))}
       </div>
@@ -234,12 +234,12 @@ const hasSkills = skills && skills.length > 0;
               {departments.map((dept, index) => (
                 <button
                   type="button"
-                  class="joblistings-dept-card group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 hover:-translate-y-1"
+                  class="joblistings-dept-card group relative overflow-hidden p-6 text-left transition-all duration-300 hover:-translate-y-1"
                   style={`transition-delay: ${300 + index * 50}ms;`}
                   data-open-application
                   data-department={dept.title}
                 >
-                  <div class="joblistings-dept-icon mb-4 flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110">
+                  <div class="joblistings-dept-icon mb-4 flex h-12 w-12 items-center justify-center transition-transform group-hover:scale-110">
                     <Icon name={dept.icon} class="h-6 w-6" />
                   </div>
                   <h4 class="joblistings-dept-title mb-2 text-lg font-semibold">
@@ -256,7 +256,7 @@ const hasSkills = skills && skills.length > 0;
                     />
                   </div>
                   {/* Hover glow effect */}
-                  <div class="joblistings-card-glow pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div class="joblistings-card-glow pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </button>
               ))}
             </div>
@@ -269,7 +269,7 @@ const hasSkills = skills && skills.length > 0;
             class="fade-up mx-auto max-w-4xl"
             style="transition-delay: 400ms;"
           >
-            <div class="joblistings-skills-card rounded-2xl p-8">
+            <div class="joblistings-skills-card p-8">
               <h3 class="joblistings-headline mb-6 text-center text-xl font-bold sm:text-2xl">
                 {skillsHeadline}
               </h3>

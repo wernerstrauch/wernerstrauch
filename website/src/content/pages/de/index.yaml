@@ -46,8 +46,8 @@ sections:
       subheadline: "Ich unterstütze Online-Händler und D2C-Marken dabei, ihre technische Infrastruktur strategisch aufzustellen – von der ERP-Auswahl über Shopify-Architektur bis zur Prozessoptimierung."
       primaryCta: "Erstgespräch vereinbaren"
       primaryCtaHref: "/kontakt"
-      secondaryCta: "Leistungen entdecken"
-      secondaryCtaHref: "#services"
+      secondaryCta: "Alle Leistungen"
+      secondaryCtaHref: "/leistungen"
       image: "/src/images/ecommerce-berater-werner-strauch.png"
       imageAlt: "Werner Strauch - E-Commerce Berater"
       imageScale: 0.9
@@ -75,17 +75,17 @@ sections:
         - icon: "heroicons:magnifying-glass-circle"
           title: "Analyse & Strategie"
           description: "E-Commerce Audit, Strategieentwicklung und Technologieberatung – die Grundlage für fundierte Entscheidungen."
-          href: "/leistungen/ecommerce-audit"
+          href: "/ecommerce-audit"
           linkText: "Mehr über E-Commerce Audit"
         - icon: "heroicons:chat-bubble-left-right"
           title: "Beratung & Sparring"
           description: "Strategische Begleitung, regelmäßiges Sparring und fokussierte Workshops für klare Entscheidungen."
-          href: "/leistungen/ecommerce-beratung"
+          href: "/ecommerce-beratung"
           linkText: "Mehr über E-Commerce Beratung"
         - icon: "heroicons:clipboard-document-check"
           title: "Umsetzung & Führung"
           description: "Projektleitung, Umsetzungsbegleitung und Interim Management – vom Konzept zur funktionierenden Lösung."
-          href: "/leistungen/ecommerce-projektleitung"
+          href: "/projektleitung"
           linkText: "Mehr über Projektleitung"
 
   # Trust Bar - Client Logos
@@ -99,10 +99,22 @@ sections:
     content:
       headline: "Erfahrung aus Projekten für führende Marken"
       logos:
-        - name: "entra"
+        - name: "LGI"
+          src: "/src/images/logos/logo-7.png"
+        - name: "entrada Matten"
           src: "/src/images/logos/logo-1.svg"
-        - name: "Kadlwei"
+        - name: "Kaldewei"
           src: "/src/images/logos/logo-2.svg"
+        - name: "Naturtreu"
+          src: "/src/images/logos/logo-4.png" 
+        - name: "Naturtreu"
+          src: "/src/images/logos/logo-5.png" 
+        - name: "bedrop"
+          src: "/src/images/logos/logo-6.png" 
+        - name: "bedrop"
+          src: "/src/images/logos/logo-7.png" 
+        - name: "bluhm systeme"
+          src: "/src/images/logos/logo-8.svg" 
 
   # Trust Stats
   - id: trust-stats
@@ -130,7 +142,7 @@ sections:
     content:
       badge: "Ergebnisse statt Versprechen"
       badgeIcon: "heroicons:chart-bar-16-solid"
-      headline: "Zahlen, die <em>überzeugen</em>"
+      headline: "Was ich <em>mitbringe</em>"
       stats:
         - value: "200"
           suffix: "+"
@@ -256,23 +268,27 @@ sections:
         - icon: "heroicons:magnifying-glass-circle-16-solid"
           title: "E-Commerce Audit"
           description: "Systematische Analyse Ihres Shops, Ihrer Prozesse und Systeme. Klarer Report mit priorisierten Handlungsempfehlungen."
-          linkHref: "/leistungen/ecommerce-audit"
+          linkHref: "/ecommerce-audit"
+        - icon: "heroicons:map-16-solid"
+          title: "E-Commerce Strategie"
+          description: "Ihr Masterplan für nachhaltiges Wachstum. Strategiedokument mit Roadmap, Business Case und KPI-Framework."
+          linkHref: "/ecommerce-strategie"
         - icon: "heroicons:circle-stack-16-solid"
           title: "ERP-Auswahl & Evaluierung"
           description: "Neutrale, herstellerunabhängige Beratung bei der Wahl des richtigen ERP-Systems – objektiv und ohne Provisionen."
-          linkHref: "/leistungen/erp-beratung"
+          linkHref: "/technologieberatung"
         - icon: "heroicons:arrows-right-left-16-solid"
           title: "Shopify-Architektur & Migration"
           description: "Strategische Planung und Begleitung von Shopify-Projekten. Skalierbare Strukturen, saubere Datenübernahme."
-          linkHref: "/leistungen/shopify-migration"
+          linkHref: "/technologieberatung"
         - icon: "heroicons:cog-8-tooth-16-solid"
           title: "Prozessoptimierung"
           description: "Analyse und Optimierung Ihrer operativen Abläufe – von Bestellabwicklung über Fulfillment bis Kundenservice."
-          linkHref: "/leistungen/prozessoptimierung"
+          linkHref: "/umsetzungsbegleitung"
         - icon: "heroicons:chat-bubble-left-right-16-solid"
           title: "Strategisches Sparring"
           description: "Regelmäßiger Austausch auf Augenhöhe zu technischen und strategischen E-Commerce-Fragen. Ihr externer CTO auf Abruf."
-          linkHref: "/leistungen/sparring"
+          linkHref: "/ecommerce-sparring"
 
   # Principles
   - id: principles
@@ -439,7 +455,7 @@ sections:
         - type: bullets
           content:
             - "Vor einem ERP-Wechsel oder einer System-Konsolidierung stehen"
-            - "Von WooCommerce, Magento oder einem Legacy-System zu <a href='/leistungen/shopify-migration'>Shopify migrieren</a> wollen"
+            - "Von WooCommerce, Magento oder einem Legacy-System zu <a href='/technologieberatung'>Shopify migrieren</a> wollen"
             - "Ihre operativen Prozesse professionalisieren müssen"
             - "Einen neutralen Sparringspartner für technische Entscheidungen suchen"
         - type: headline
@@ -489,7 +505,7 @@ sections:
         - question: "Sind Sie eine Agentur?"
           answer: "Nein. Ich berate unabhängig und herstellerneutral. Bei Bedarf kann ich auf mein Netzwerk zurückgreifen oder die Umsetzung über digitalsprung begleiten – aber nur, wenn es für Sie sinnvoll ist."
         - question: "Was kostet eine Zusammenarbeit?"
-          answer: "Das hängt vom Umfang ab. Ein Audit startet bei X.XXX €, strategisches Sparring gibt es als monatliches Retainer-Modell. Im Erstgespräch klären wir, was für Sie passt."
+          answer: "Das hängt vom Umfang ab. Ein Audit wird projektbasiert kalkuliert, strategisches Sparring gibt es als monatliches Retainer-Modell. Im Erstgespräch klären wir, was für Sie passt und Sie erhalten ein transparentes Angebot."
         - question: "Wie schnell können Sie starten?"
           answer: "In der Regel innerhalb von 1-2 Wochen. Bei dringenden Themen finden wir eine Lösung."
         - question: "Arbeiten Sie remote?"

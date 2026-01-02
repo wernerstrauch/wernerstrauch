@@ -144,20 +144,20 @@ const buttonVariant =
     {
       services.map((service) => (
         <div
-          class="services__card group relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+          class="services__card group relative overflow-hidden border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
           data-variant={sectionVariant}
         >
           {/* Spotlight glow effect */}
-          <div class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300" />
+          <div class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300" />
 
           {/* Rotating border glow effect */}
           <div class="border-glow" />
 
-          <div class="services__card-inner relative z-30 h-full w-full overflow-hidden rounded-2xl">
+          <div class="services__card-inner relative z-30 h-full w-full overflow-hidden">
             <div class="flex h-full flex-col p-6 lg:p-8">
               {/* Icon */}
               {service.icon && (
-                <div class="services__card-icon mb-5 flex h-12 w-12 items-center justify-center rounded-xl border transition-all duration-300">
+                <div class="services__card-icon mb-5 flex h-12 w-12 items-center justify-center border transition-all duration-300">
                   <Icon name={service.icon} class="h-6 w-6" />
                 </div>
               )}
@@ -390,7 +390,6 @@ const buttonVariant =
     position: absolute;
     inset: 0;
     z-index: 20;
-    border-radius: 1rem;
     overflow: hidden;
     pointer-events: none;
     opacity: 0;
@@ -433,7 +432,6 @@ const buttonVariant =
     content: "";
     position: absolute;
     inset: 3px;
-    border-radius: calc(1rem - 3px);
     background: var(--section-card-bg);
   }
 

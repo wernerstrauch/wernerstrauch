@@ -57,11 +57,11 @@ technologies = technologies.sort((a, b) => a.data.order - b.data.order);
       technologies.map((tech: TechnologyEntry) => (
         <a
           href={`/technologien/${tech.data.slug}`}
-          class="tech-grid__card group relative overflow-hidden rounded-2xl border p-6 transition-all duration-300"
+          class="tech-grid__card group relative overflow-hidden border p-6 transition-all duration-300"
         >
           <div class="flex items-start gap-4">
             <div
-              class="tech-grid__icon-box flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border transition-colors"
+              class="tech-grid__icon-box flex h-14 w-14 shrink-0 items-center justify-center border transition-colors"
               style={
                 tech.data.color
                   ? `border-color: ${tech.data.color}30; background-color: ${tech.data.color}15;`
