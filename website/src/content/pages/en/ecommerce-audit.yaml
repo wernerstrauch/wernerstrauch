@@ -1,0 +1,451 @@
+# E-Commerce Audit Page
+# Systematic Analysis with 500+ Checkpoints
+
+lang: en
+pageId: ecommerce-audit
+slug: ecommerce-audit
+
+meta:
+  title: "E-Commerce Audit | Systematic Shop Analysis | Werner Strauch"
+  description: "Professional E-Commerce Audit: 500+ checkpoints, 50-100+ page report, prioritized actions. Systematic analysis of shop, SEO, conversion, technology and processes."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: HeroSplit with Badge
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "E-Commerce Audit"
+      badgeIcon: "heroicons:magnifying-glass-circle-16-solid"
+      headline: "<mark>E-Commerce</mark> <em>Audit</em> – Your Shop Under the Microscope"
+      subheadline: "Where are you losing customers? Where is revenue being left on the table? A systematic audit with 500+ checkpoints uncovers weaknesses and reveals concrete optimization potential."
+      image: "/src/images/ecommerce-audit-hero.png"
+      imageAlt: "E-Commerce Audit - Systematic Shop Analysis"
+      primaryCta: "Request Audit"
+      primaryCtaHref: "/contact"
+      secondaryCta: "Audit Areas"
+      secondaryCtaHref: "#audit-areas"
+
+  # ========================================
+  # Section 2: Stats (4 Audit Facts)
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 2
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "Audit Facts"
+      headline: "Numbers That Speak for <em>Clarity</em>"
+      stats:
+        - value: "500"
+          suffix: "+"
+          label: "Checkpoints"
+          description: "systematically analyzed"
+        - value: "2–4"
+          label: "Weeks"
+          description: "for the complete audit"
+        - value: "50–100"
+          suffix: "+"
+          label: "Page Report"
+          description: "with all results"
+        - value: "from 2,500"
+          prefix: "€"
+          label: "Investment"
+          description: "plus VAT"
+
+  # ========================================
+  # Section 3: ProblemSolution (Symptoms vs. Clarity)
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 3
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "The Problem"
+      headline: "When Your Shop <em>Underperforms</em>"
+      description: "You're investing in marketing, but conversion rates don't match. Loading times are okay, but customers still bounce. An audit provides clarity."
+      problemsTitle: "Typical Symptoms"
+      solutionsTitle: "After the Audit"
+      problems:
+        - icon: "heroicons:arrow-trending-down"
+          text: "Conversion rate stagnating or declining"
+        - icon: "heroicons:cursor-arrow-rays"
+          text: "High bounce rate without clear cause"
+        - icon: "heroicons:magnifying-glass"
+          text: "SEO rankings not developing as expected"
+        - icon: "heroicons:exclamation-triangle"
+          text: "Technical issues that nobody can explain"
+        - icon: "heroicons:question-mark-circle"
+          text: "Gut feeling instead of facts for decisions"
+      solutions:
+        - icon: "heroicons:document-chart-bar"
+          text: "Clear analysis of all weaknesses"
+        - icon: "heroicons:list-bullet"
+          text: "Prioritized action list"
+        - icon: "heroicons:chart-bar"
+          text: "Well-founded decision bases"
+        - icon: "heroicons:check-badge"
+          text: "Concrete quick wins identified"
+        - icon: "heroicons:map"
+          text: "Roadmap for sustainable improvement"
+
+  # ========================================
+  # Section 4: BentoGrid (6 Audit Areas)
+  # ========================================
+  - id: audit-areas
+    enabled: true
+    order: 4
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Audit Areas"
+      headline: "Six Perspectives for <em>360° Clarity</em>"
+      description: "A professional e-commerce audit analyzes your shop from all relevant angles – from user experience to technical infrastructure."
+      cards:
+        - title: "Shop & User Experience"
+          description: "How do customers experience your shop? Navigation, product presentation, checkout process – every step of the customer journey is analyzed."
+          icon: "heroicons:shopping-cart"
+          large: true
+          features:
+            - "Navigation & Information Architecture"
+            - "Product Pages & Presentation"
+            - "Checkout Optimization"
+            - "Mobile Experience"
+        - title: "SEO & Visibility"
+          description: "Technical SEO, on-page factors, content structure – how well is your shop optimized for search engines?"
+          icon: "heroicons:magnifying-glass"
+          features:
+            - "Technical SEO"
+            - "On-Page Analysis"
+            - "Content & Keywords"
+        - title: "Conversion & Performance"
+          description: "Where are you losing customers? Which pages underperform? Data-driven analysis of your conversion funnels."
+          icon: "heroicons:arrow-trending-up"
+          features:
+            - "Funnel Analysis"
+            - "A/B Testing Potential"
+            - "Cart Abandonment"
+        - title: "Technology & Performance"
+          description: "Loading times, Core Web Vitals, technical debt – how fit is your technical foundation for growth?"
+          icon: "heroicons:cpu-chip"
+          features:
+            - "Page Speed & Core Web Vitals"
+            - "Code Quality"
+            - "System Architecture"
+        - title: "Security & Compliance"
+          description: "GDPR, Payment Security, SSL – is your shop legally and technically on safe ground?"
+          icon: "heroicons:shield-check"
+          features:
+            - "GDPR Compliance"
+            - "Payment Security"
+            - "Privacy Check"
+        - title: "Processes & Systems"
+          description: "How efficient are your backend processes? Order processing, inventory management, customer communication."
+          icon: "heroicons:cog-6-tooth"
+          large: true
+          features:
+            - "Order Process Analysis"
+            - "System Integrations"
+            - "Automation Potential"
+            - "Fulfillment Check"
+
+  # ========================================
+  # Section 5: Process (Audit Process - 4 Steps)
+  # ========================================
+  - id: process
+    enabled: true
+    order: 5
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "left"
+        size: "md"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "The Process"
+      headline: "How an <em>Audit</em> Works"
+      description: "Structured and transparent – from preparation to presentation of results."
+      steps:
+        - number: "01"
+          icon: "heroicons:clipboard-document-list"
+          title: "Preparation & Briefing"
+          description: "You provide access to analytics, shop backend and relevant systems. In a kick-off call, we clarify focus topics and your goals."
+          details:
+            - "Set up access"
+            - "Kick-off call"
+            - "Define focus"
+        - number: "02"
+          icon: "heroicons:magnifying-glass-circle"
+          title: "Systematic Analysis"
+          description: "I work through all audit areas with over 500 checkpoints. Automated tools and manual review complement each other."
+          details:
+            - "500+ checkpoints"
+            - "Tool analysis"
+            - "Manual review"
+        - number: "03"
+          icon: "heroicons:document-text"
+          title: "Report & Prioritization"
+          description: "You receive a comprehensive report (50-100+ pages) with all findings, prioritized by impact and effort."
+          details:
+            - "Detailed report"
+            - "Prioritized measures"
+            - "Quick wins marked"
+        - number: "04"
+          icon: "heroicons:presentation-chart-bar"
+          title: "Presentation & Handover"
+          description: "In a 60-90 minute presentation, I present the key findings and answer your questions."
+          details:
+            - "Management presentation"
+            - "Q&A session"
+            - "Action recommendations"
+
+  # ========================================
+  # Section 6: ContentSplitImage (Deliverables - Image RIGHT)
+  # ========================================
+  - id: deliverables
+    enabled: true
+    order: 6
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
+    content:
+      badge: "What You Receive"
+      headline: "Your <em>Audit Deliverables</em>"
+      image: "/src/images/ecommerce-audit-deliverables.png"
+      imageAlt: "E-Commerce Audit Report and Analysis"
+      imagePosition: "right"
+      content:
+        - type: "lead"
+          content: "Not a superficial check, but a well-founded analysis with concrete action recommendations – documented and presented."
+        - type: "features"
+          items:
+            - icon: "heroicons:document-text"
+              title: "Comprehensive Audit Report"
+              description: "50-100+ pages with all findings, screenshots and explanations. No copy-paste from tools, but individual analysis."
+            - icon: "heroicons:clipboard-document-check"
+              title: "Prioritized Action List"
+              description: "All optimization measures rated by impact and effort. You immediately know where to start."
+            - icon: "heroicons:bolt"
+              title: "Quick Win Overview"
+              description: "Measures that can be implemented quickly and have immediate impact – separately marked."
+            - icon: "heroicons:presentation-chart-line"
+              title: "Management Presentation"
+              description: "60-90 minute presentation of the key findings – ideal for stakeholders and decision-makers."
+        - type: "button"
+          text: "Request Audit"
+          href: "/contact"
+          variant: "primary"
+
+  # ========================================
+  # Section 7: ContentEditorial (SEO Text)
+  # ========================================
+  - id: editorial
+    enabled: true
+    order: 7
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "Background"
+      headline: "What Makes a Good <em>E-Commerce Audit</em>?"
+      sections:
+        - title: "More Than an Automated Report"
+          content: |
+            <p>Every SEO tool produces an "audit" at the push of a button. But these automated reports only scratch the surface. A professional e-commerce audit goes deeper: it combines technical analysis with business understanding and considers your specific situation.</p>
+            <p>The real work isn't in collecting data – but in interpreting and prioritizing. What does a specific finding mean for <em>your</em> business? How urgent is it? Which measure has the greatest leverage?</p>
+        - title: "The Six Pillars of a Comprehensive Audit"
+          content: |
+            <p><strong>1. Shop & User Experience:</strong> How do real customers experience your shop? Navigation, product presentation, checkout – every touchpoint is examined for conversion killers.</p>
+            <p><strong>2. SEO & Visibility:</strong> Technical SEO, on-page factors, content quality – how well are you found by potential customers?</p>
+            <p><strong>3. Conversion & Performance:</strong> Where in the funnel do you lose customers? Which pages underperform? Data-driven analysis instead of guesswork.</p>
+            <p><strong>4. Technology & Speed:</strong> Loading times, Core Web Vitals, code quality – the technical foundation determines ranking and user experience.</p>
+            <p><strong>5. Security & Compliance:</strong> GDPR, Payment Security, SSL – identify legal and technical risks before they become problems.</p>
+            <p><strong>6. Processes & Systems:</strong> How efficient is the backend? Order processing, integrations, automation – often there's untapped potential here.</p>
+        - title: "When Is an Audit Worthwhile?"
+          content: |
+            <p>An e-commerce audit is particularly valuable before strategic decisions: Before a shop relaunch, to set the right priorities. Before a marketing offensive, to plug conversion leaks. Or simply when you feel your shop is underperforming its potential.</p>
+            <p>Unlike ongoing consulting, an audit is a one-time project with a clear scope and defined deliverables. You receive a comprehensive status report and a prioritized roadmap – the implementation is then up to you or your agency.</p>
+        - title: "What Happens After the Audit?"
+          content: |
+            <p>An audit is the first step. Based on the results, you can go directly into implementation – or first develop an <a href="/ecommerce-strategy">E-Commerce Strategy</a> that prioritizes all measures and puts them in a larger context.</p>
+            <p>For ongoing support, <a href="/ecommerce-sparring">E-Commerce Sparring</a> is available, for complex projects <a href="/implementation-support">Implementation Support</a> or <a href="/project-management">Project Management</a>.</p>
+
+  # ========================================
+  # Section 8: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 8
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "FAQ"
+      headline: "Questions About the <em>Audit</em>"
+      description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
+      faqs:
+        - question: "How long does an e-commerce audit take?"
+          answer: "A comprehensive audit typically takes 2-4 weeks – depending on shop size and complexity. This includes preparation, analysis, report creation and presentation. For urgent cases, an express audit is also possible."
+        - question: "What does an e-commerce audit cost?"
+          answer: "A basic audit covering the key areas starts at €2,500. A comprehensive audit with all six areas ranges between €4,000 and €6,000, depending on shop complexity. In a preliminary discussion, we clarify which scope makes sense for you."
+        - question: "What access do you need?"
+          answer: "For a complete audit, I need access to: Google Analytics / Matomo, Google Search Console, Shop Backend (read-only is sufficient), and possibly other systems depending on focus. All access is removed after project completion."
+        - question: "What distinguishes your audit from automated tools?"
+          answer: "Automated tools deliver raw data – I deliver interpretation and prioritization. My audit combines tool analyses with manual review and business context. You don't just get a list of problems, but a roadmap with clear priorities."
+        - question: "Can you also implement the measures?"
+          answer: "The audit is deliberately designed as a one-time project. Implementation is up to you, your team, or your agency. If desired, I can accompany the implementation as a sparring partner – that's then part of a separate consulting agreement."
+        - question: "Which shop systems do you offer audits for?"
+          answer: "The audit is system-agnostic – whether Shopify, Shopware, WooCommerce, Magento, or a custom solution. The analysis methods are transferable, and technical checks are adapted to your system."
+        - question: "What happens after the audit?"
+          answer: "You receive the report and presentation. With that, you have everything you need for the next steps. Many clients implement the measures themselves. If desired, I offer optional implementation support or a follow-up check after 3-6 months."
+        - question: "Is the audit also useful for small shops?"
+          answer: "Yes – smaller shops often benefit the most, because no processes are established yet and a lot of potential lies dormant. For shops with less complexity, I offer a focused basic audit that covers the most important areas."
+
+  # ========================================
+  # Section 9: CtaCentered
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 9
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Ready for <em>Clarity</em>?"
+      description: "Find out where your shop is leaving potential on the table. In a free preliminary call, we clarify your goals and the right audit scope."
+      buttonText: "Request Audit"
+      buttonHref: "/contact"
+      emailLabel: "Prefer to write first?"
+      email: "contact@wernerstrauch.com"

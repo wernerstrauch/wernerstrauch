@@ -148,6 +148,35 @@ const activeSections = sections
   .filter((s: any) => s.enabled && s.component !== "Footer")
   .sort((a: any, b: any) => a.order - b.order);
 
+// Schema.org Data Extraction
+const pageSlug = page.data.slug;
+const isServicePage = pageSlug && pageSlug in SERVICE_SCHEMAS;
+const isServicesOverview = page.data.pageId === "services" || pageSlug === "leistungen";
+const isHomepage = page.data.pageId === "homepage" || !pageSlug || pageSlug === "index";
+const isAboutPage = page.data.pageId === "about" || pageSlug === "ueber-mich";
+
+// Extract FAQs from FAQ sections
+const faqSection = activeSections.find((s: any) => s.component === "Faq");
+const faqs = faqSection?.content?.faqs?.map((faq: any) => ({
+  question: faq.question,
+  answer: faq.answer.replace(/<[^>]*>/g, ''), // Strip HTML tags for schema
+})) || [];
+
+// Build breadcrumb items
+const breadcrumbItems: { name: string; url: string }[] = [
+  { name: "Startseite", url: "/" },
+];
+
+if (!isHomepage && pageSlug) {
+  // Add parent category for service pages
+  if (isServicePage) {
+    breadcrumbItems.push({ name: "Leistungen", url: "/leistungen" });
+  }
+  // Add current page
+  const pageName = meta.title?.split("|")[0]?.trim() || pageSlug;
+  breadcrumbItems.push({ name: pageName, url: `/${pageSlug}` });
+}
+
 // Component Mapping
 const componentMap: Record<string, any> = {
   Hero,
@@ -225,6 +254,28 @@ const backgroundMap: Record<string, any> = {
   hreflangEntries={hreflangEntries}
   headerVariant={headerVariant}
 >
+  {/* Schema.org Structured Data */}
+  <Fragment slot="schema">
+    {/* Breadcrumbs for non-homepage */}
+    {!isHomepage && breadcrumbItems.length > 1 && (
+      <SchemaOrg type="breadcrumb" items={breadcrumbItems} />
+    )}
+
+    {/* Service schema for individual service pages */}
+    {isServicePage && pageSlug && (
+      <SchemaOrg type="serviceBySlug" slug={pageSlug} />
+    )}
+
+    {/* ProfessionalService schema for services overview */}
+    {isServicesOverview && (
+      <SchemaOrg type="professionalService" />
+    )}
+
+    {/* FAQ schema if page has FAQs */}
+    {faqs.length > 0 && (
+      <SchemaOrg type="faq" faqs={faqs} />
+    )}
+  </Fragment>
   {
     activeSections.map((section: any) => {
       const Component = componentMap[section.component];
