@@ -76,11 +76,11 @@ import LegalPage from "@components/sections/LegalPage.astro";
 import SkillsShowcase from "@components/sections/SkillsShowcase.astro";
 import Credentials from "@components/sections/Credentials.astro";
 
-// Get build language from environment (defaults to building all languages)
-const buildLang = import.meta.env.SITE_LANG as SupportedLanguage | undefined;
-
 // Static Paths for Pre-Rendering
 export async function getStaticPaths() {
+  // Get build language from environment (defaults to building all languages)
+  const buildLang = (import.meta.env.SITE_LANG || undefined) as SupportedLanguage | undefined;
+
   const pages = await getCollection("pages");
 
   // Filter out drafts

@@ -303,6 +303,8 @@ sections:
           content: "Ein externer Projektleiter bringt nicht nur Erfahrung mit – sondern auch den unvoreingenommenen Blick, der internen Kräften oft fehlt."
         - type: "text"
           content: "<p>Interne Projektleiter sind oft in Alltagsaufgaben eingebunden, politisch vorbelastet oder fachlich zu tief im Detail. Ein externer Projektleiter kann sich zu 100% auf das Projekt konzentrieren – und unbequeme Wahrheiten aussprechen, ohne Karriere-Risiken.</p>"
+        - type: "text"
+          content: "<p>Wenn Sie darüber hinaus auch operative Führungsverantwortung für ein Team brauchen, ist das <a href='/interim-management'>Interim Management</a> die passende Lösung.</p>"
         - type: "features"
           items:
             - icon: "heroicons:eye"
@@ -400,7 +402,7 @@ sections:
       description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
       faqs:
         - question: "Ab welcher Projektgröße macht externe Projektleitung Sinn?"
-          answer: "Sobald mehr als drei Parteien beteiligt sind (z.B. internes Team, Agentur, Software-Anbieter) oder das Projektbudget über 50.000 Euro liegt. Bei kleineren Projekten reicht oft ein gelegentliches Sparring. Im Erstgespräch klären wir, was für Ihr Projekt sinnvoll ist."
+          answer: "Sobald mehr als drei Parteien beteiligt sind (z.B. internes Team, Agentur, Software-Anbieter) oder das Projektbudget über 50.000 Euro liegt. Bei kleineren Projekten reicht oft ein gelegentliches <a href='/ecommerce-sparring'>Sparring</a> oder eine <a href='/umsetzungsbegleitung'>Umsetzungsbegleitung</a>. Im Erstgespräch klären wir, was für Ihr Projekt sinnvoll ist."
         - question: "Übernehmen Sie auch die technische Umsetzung?"
           answer: "Nein, ich entwickle nicht selbst. Meine Rolle ist die Steuerung: Ich koordiniere Agentur, Entwickler und interne Teams, prüfe Qualität und halte den Zeitplan. So bleibe ich unabhängig und kann objektiv bewerten."
         - question: "Wie viel Zeit investieren Sie pro Woche?"

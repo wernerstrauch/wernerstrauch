@@ -93,6 +93,8 @@ sections:
           content: "Ich bin kein Projektleiter, der Entscheidungen trifft. Ich bin der Sparringspartner, der die richtigen Fragen stellt und blinde Flecken aufdeckt."
         - type: "text"
           content: "<p>Bei komplexen E-Commerce-Projekten brauchen Sie jemanden, der unabhängig mitdenkt – ohne eigene Agenda. Jemanden, der technische Konzepte hinterfragt, Vendor-Angebote einordnet und Business-Anforderungen in die Sprache der Entwickler übersetzt.</p>"
+        - type: "text"
+          content: "<p>Wenn Sie mehr als Begleitung brauchen – echte Steuerung und Entscheidungsverantwortung – ist die <a href='/projektleitung'>Projektleitung</a> oder das <a href='/interim-management'>Interim Management</a> die richtige Wahl.</p>"
         - type: "features"
           items:
             - icon: "heroicons:chat-bubble-left-right"
@@ -377,7 +379,7 @@ sections:
         - question: "Arbeiten Sie auch mit unserer Agentur zusammen?"
           answer: "Ja, das ist der Normalfall. Ich bin kein Konkurrent Ihrer Agentur, sondern Ihr Vertreter auf Kundenseite. Gute Agenturen schätzen das – weil klare Anforderungen und schnelle Entscheidungen auch ihnen helfen."
         - question: "Ab welcher Projektgröße macht Begleitung Sinn?"
-          answer: "Als Faustregel: Bei Projekten ab 50.000€ Volumen oder ab 3 Monaten Laufzeit lohnt sich eine unabhängige Begleitung. Bei kleineren Projekten ist oft ein einmaliges Audit oder ein Workshop sinnvoller."
+          answer: "Als Faustregel: Bei Projekten ab 50.000€ Volumen oder ab 3 Monaten Laufzeit lohnt sich eine unabhängige Begleitung. Bei kleineren Projekten ist oft ein einmaliges <a href='/ecommerce-audit'>Audit</a> oder ein <a href='/ecommerce-sparring'>Sparring</a> sinnvoller."
         - question: "Kann ich Sie auch nur für bestimmte Phasen buchen?"
           answer: "Absolut. Manche Kunden buchen mich nur für die Konzeptphase, andere nur für Go-Live-Absicherung. Wir können die Begleitung flexibel auf kritische Phasen fokussieren."
         - question: "Was kostet die Umsetzungsbegleitung?"
