@@ -347,5 +347,6 @@ sections:
       headline: "Ready for <em>Your Workshop</em>?"
       description: "Let's clarify in a short call which format makes sense for your goals. Non-binding and free of charge."
       buttonText: "Request Workshop"
+      buttonHref: "/contact"
       emailLabel: "Prefer to write first?"
       email: "contact@wernerstrauch.com"

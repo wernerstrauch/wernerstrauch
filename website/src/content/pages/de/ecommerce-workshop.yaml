@@ -347,5 +347,6 @@ sections:
       headline: "Bereit für <em>Ihren Workshop</em>?"
       description: "Lassen Sie uns in einem kurzen Gespräch klären, welches Format für Ihre Ziele sinnvoll ist. Unverbindlich und kostenlos."
       buttonText: "Workshop anfragen"
+      buttonHref: "/kontakt"
       emailLabel: "Lieber erstmal schreiben?"
       email: "kontakt@wernerstrauch.de"
