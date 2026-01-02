@@ -2,6 +2,8 @@
 import Container from "@components/shared/Container.astro";
 import Eyebrow from "@components/shared/Eyebrow.astro";
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import type { SectionVariant } from "../../types";
 
 interface ServiceItem {
@@ -30,6 +32,44 @@ const {
   defaultHeadline = "Welche Leistung passt zu Ihnen?",
   items = [],
 } = Astro.props;
+
+// Resolve images for all items
+const assetsImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+const srcImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/images/**/*.{png,jpg,jpeg,webp}",
+);
+const allImages = { ...assetsImages, ...srcImages };
+
+async function resolveImage(image?: string): Promise<{ resolved: ImageMetadata | string | undefined; isPublic: boolean }> {
+  if (!image) return { resolved: undefined, isPublic: false };
+
+  if (image.startsWith("/src/assets/") || image.startsWith("/src/images/")) {
+    if (allImages[image]) {
+      return { resolved: (await allImages[image]()).default, isPublic: false };
+    }
+    return { resolved: image, isPublic: true };
+  } else if (image.startsWith("http") || image.startsWith("/")) {
+    return { resolved: image, isPublic: true };
+  } else {
+    const imagesPath = `/src/images/${image}`;
+    const assetsPath = `/src/assets/${image}`;
+    if (allImages[imagesPath]) {
+      return { resolved: (await allImages[imagesPath]()).default, isPublic: false };
+    } else if (allImages[assetsPath]) {
+      return { resolved: (await allImages[assetsPath]()).default, isPublic: false };
+    }
+  }
+  return { resolved: undefined, isPublic: false };
+}
+
+const resolvedItems = await Promise.all(
+  items.map(async (item) => ({
+    ...item,
+    resolvedImage: await resolveImage(item.image),
+  }))
+);
 
 // Process headline: replace <em> tags with lime-colored spans
 const highlightStyle = `color: #c8ff00;`;
