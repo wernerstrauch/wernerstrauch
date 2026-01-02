@@ -101,6 +101,8 @@ sections:
       logos:
         - name: "LGI"
           src: "/src/images/logos/logo-7.png"
+        - name: "bugatti"
+          src: "/src/images/logos/logo-10.svg"
         - name: "entrada Matten"
           src: "/src/images/logos/logo-1.svg"
         - name: "Kaldewei"
@@ -111,10 +113,10 @@ sections:
           src: "/src/images/logos/logo-5.png" 
         - name: "bedrop"
           src: "/src/images/logos/logo-6.png" 
-        - name: "bedrop"
-          src: "/src/images/logos/logo-7.png" 
         - name: "bluhm systeme"
-          src: "/src/images/logos/logo-8.svg" 
+          src: "/src/images/logos/logo-8.svg"  
+        - name: "xautomotive"
+          src: "/src/images/logos/logo-9.svg" 
 
   # Trust Stats
   - id: trust-stats
