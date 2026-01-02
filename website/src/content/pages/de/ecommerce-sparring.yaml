@@ -95,6 +95,8 @@ sections:
           content: "<p>Im Sport ist der Sparringspartner jemand, der Ihnen hilft, besser zu werden – nicht indem er für Sie kämpft, sondern indem er mit Ihnen trainiert. Genau das ist E-Commerce Sparring: Ein regelmäßiger Austausch, bei dem wir gemeinsam Ihre Herausforderungen durchdenken, Ideen testen und Entscheidungen reflektieren.</p>"
         - type: "text"
           content: "<p>Anders als bei einem einmaligen Audit oder Workshop bin ich als Sparringspartner dauerhaft an Ihrer Seite. Ich kenne Ihr Geschäft, Ihre Historie, Ihre Ziele – und kann deshalb schneller und gezielter unterstützen, wenn neue Fragen auftauchen.</p>"
+        - type: "text"
+          content: "<p>Für einen intensiven Start bietet sich ein <a href='/ecommerce-workshop'>E-Commerce Workshop</a> an – danach geht es nahtlos ins Sparring über.</p>"
         - type: "features"
           items:
             - icon: "heroicons:arrows-right-left"
@@ -165,7 +167,7 @@ sections:
             - "Budget-Allokation"
             - "Performance-Review"
         - title: "Team & Organisation"
-          description: "Recruiting, Teamaufbau, Agentur-Steuerung – die menschliche Seite des E-Commerce. Oft unterschätzt, aber erfolgsentscheidend."
+          description: "Recruiting, Teamaufbau, Agentur-Steuerung – die menschliche Seite des E-Commerce. Oft unterschätzt, aber erfolgsentscheidend. Bei größeren Projekten bietet sich die <a href='/projektleitung'>Projektleitung</a> an."
           icon: "heroicons:user-group"
           large: true
           features:

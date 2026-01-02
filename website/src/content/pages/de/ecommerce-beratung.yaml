@@ -155,7 +155,7 @@ sections:
             - "Automatisierung"
             - "Fulfillment-Optimierung"
         - title: "Technologie & Systeme"
-          description: "Shop-System, ERP, PIM, CRM – ich helfe Ihnen, die richtige Technologie-Architektur zu entwickeln und Systeme sinnvoll zu integrieren."
+          description: "Shop-System, ERP, PIM, CRM – ich helfe Ihnen, die richtige Technologie-Architektur zu entwickeln und Systeme sinnvoll zu integrieren. Mehr zur <a href='/technologieberatung'>Technologieberatung</a>."
           icon: "heroicons:cpu-chip"
           features:
             - "Systemauswahl"
@@ -340,7 +340,7 @@ sections:
         - title: "Typische Beratungsanlässe"
           content: |
             <p>Online-Händler suchen Beratung in verschiedenen Situationen: Vor einer Shop-Migration oder ERP-Einführung, bei stagnierendem Wachstum, vor der Internationalisierung, bei der Vorbereitung auf Investoren oder Verkauf, oder einfach, um einen externen Blick auf das eigene Geschäft zu bekommen.</p>
-            <p>Gemeinsam haben diese Anlässe, dass sie strategische Weichenstellungen erfordern – Entscheidungen, die langfristige Auswirkungen haben und deshalb fundiert getroffen werden sollten.</p>
+            <p>Viele Kunden starten mit einem <a href="/ecommerce-audit">E-Commerce Audit</a>, um Klarheit über den Status quo zu bekommen. Für strategische Weichenstellungen empfehle ich eine <a href="/ecommerce-strategie">E-Commerce Strategie</a> – ein Dokument, das alle Entscheidungen in einen größeren Kontext stellt.</p>
 
   # ========================================
   # Section 8: Kompakte Stats

@@ -277,7 +277,7 @@ sections:
               description: "Sie bauen Ihren Direktvertrieb aus und brauchen eine klare E-Commerce-Strategie."
             - icon: "heroicons:arrow-path"
               title: "Unternehmen im Wandel"
-              description: "Vor Shop-Relaunch, ERP-Migration oder Neuausrichtung – der Workshop schafft Klarheit."
+              description: "Vor Shop-Relaunch, ERP-Migration oder Neuausrichtung – der Workshop schafft Klarheit. Für die laufende Begleitung bietet sich die <a href='/ecommerce-beratung'>E-Commerce Beratung</a> an."
             - icon: "heroicons:user-group"
               title: "Führungsteams"
               description: "Geschäftsführung, E-Commerce-Leitung, Marketing, Operations – alle an einem Tisch."
@@ -325,7 +325,7 @@ sections:
         - question: "Was bekomme ich am Ende?"
           answer: "Eine ausführliche Dokumentation aller Ergebnisse: Analyse-Erkenntnisse, strategische Entscheidungen, priorisierte Maßnahmen und eine Roadmap mit Timeline. Kein Foliengrab, sondern ein Arbeitsdokument, das Sie direkt nutzen können."
         - question: "Kann der Workshop auch Teil einer längeren Beratung sein?"
-          answer: "Absolut. Viele meiner Kunden starten mit einem Workshop als Kick-off für eine längerfristige Zusammenarbeit. Der Workshop schafft die strategische Grundlage, die Begleitung sichert die Umsetzung."
+          answer: "Absolut. Viele meiner Kunden starten mit einem Workshop als Kick-off für eine längerfristige Zusammenarbeit. Der Workshop schafft die strategische Grundlage, das <a href='/ecommerce-sparring'>E-Commerce Sparring</a> sichert die kontinuierliche Begleitung, und die <a href='/umsetzungsbegleitung'>Umsetzungsbegleitung</a> stellt die Qualität in der Implementierung sicher."
 
   # ========================================
   # Section 8: CTA
