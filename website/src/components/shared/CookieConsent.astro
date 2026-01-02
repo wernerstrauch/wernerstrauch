@@ -106,7 +106,7 @@ const { lang = "de" } = Astro.props;
     --cc-webkit-scrollbar-hover-bg: #112240 !important;
 
     /* Modal border radius */
-    --cc-modal-border-radius: 1rem !important;
+    --cc-modal-border-radius: 0 !important;
   }
 
   /* Consent Modal - matching site's card style */
@@ -363,8 +363,8 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .section__toggle:checked + .toggle__icon {
-    background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%) !important;
-    border-color: rgba(139, 92, 246, 0.5) !important;
+    background: #c8ff00 !important;
+    border-color: rgba(200, 255, 0, 0.5) !important;
   }
 
   #cc-main .section__toggle:disabled + .toggle__icon {
@@ -419,7 +419,7 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .pm__table-head {
-    background: rgba(139, 92, 246, 0.1) !important;
+    background: rgba(200, 255, 0, 0.1) !important;
   }
 
   #cc-main .pm__table-th {
@@ -447,7 +447,7 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .pm__table-tr:hover {
-    background: rgba(139, 92, 246, 0.05) !important;
+    background: rgba(200, 255, 0, 0.05) !important;
   }
 
   /* Footer buttons */
@@ -501,43 +501,43 @@ const { lang = "de" } = Astro.props;
   }
 
   #cc-main .pm__btn {
-    border-radius: 9999px !important;
+    border-radius: 0 !important;
     font-weight: 600 !important;
     padding: 0.625rem 1.25rem !important;
     transition: all 0.2s !important;
   }
 
   #cc-main .pm__btn--primary {
-    background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%) !important;
-    color: #ffffff !important;
+    background: #c8ff00 !important;
+    color: #0a1628 !important;
     border: none !important;
   }
 
   #cc-main .pm__btn--secondary {
-    background: #18181b !important;
-    border: 1px solid rgba(139, 92, 246, 0.35) !important;
+    background: #0a1628 !important;
+    border: 1px solid rgba(200, 255, 0, 0.35) !important;
     color: #ffffff !important;
   }
 
   /* Badge for service counter */
   #cc-main .pm__badge {
-    background: rgba(139, 92, 246, 0.15) !important;
-    color: #c4b5fd !important;
-    border-radius: 9999px !important;
+    background: rgba(200, 255, 0, 0.15) !important;
+    color: #c8ff00 !important;
+    border-radius: 0 !important;
     font-weight: 500 !important;
   }
 
   /* Link style for show preferences button */
   #cc-main .cm__btn--tertiary,
   #cc-main .cm__link {
-    color: #8b5cf6 !important;
+    color: #c8ff00 !important;
     font-weight: 500 !important;
     transition: color 0.2s !important;
   }
 
   #cc-main .cm__btn--tertiary:hover,
   #cc-main .cm__link:hover {
-    color: #a78bfa !important;
+    color: #d4ff33 !important;
   }
 
   /* Wider modal on desktop only */

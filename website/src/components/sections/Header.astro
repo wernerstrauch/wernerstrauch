@@ -128,15 +128,20 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
         </a>
       </div>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Button - Animated Burger */}
       <button
         type="button"
-        class="md:hidden p-2 -mr-2"
+        class="burger-btn md:hidden relative w-10 h-10 flex items-center justify-center -mr-2 group"
         aria-label="Menu"
+        aria-expanded="false"
+        x-bind:aria-expanded="mobileMenuOpen"
         @click="mobileMenuOpen = !mobileMenuOpen"
       >
-        <Icon name="heroicons:bars-3-16-solid" class="h-6 w-6" x-show="!mobileMenuOpen" />
-        <Icon name="heroicons:x-mark-16-solid" class="h-6 w-6" x-show="mobileMenuOpen" x-cloak />
+        <div class="burger-icon" x-bind:class="mobileMenuOpen && 'is-active'">
+          <span class="burger-line burger-line--top"></span>
+          <span class="burger-line burger-line--middle"></span>
+          <span class="burger-line burger-line--bottom"></span>
+        </div>
       </button>
     </nav>
   </div>
@@ -440,5 +445,82 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
 
   #main-header.header-scrolled .mega-menu-dropdown a:hover {
     color: var(--header-primary) !important;
+  }
+
+  /* ============================================
+     ANIMATED BURGER MENU
+     Refined morphing animation with lime accent
+     ============================================ */
+  .burger-btn {
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+
+  .burger-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .burger-btn:focus-visible {
+    outline: 2px solid var(--header-primary);
+    outline-offset: 2px;
+  }
+
+  .burger-icon {
+    position: relative;
+    width: 22px;
+    height: 16px;
+  }
+
+  .burger-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    border-radius: 2px;
+    transition:
+      transform 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+      opacity 0.2s ease,
+      background-color 0.2s ease;
+    transform-origin: center;
+  }
+
+  .burger-line--top {
+    top: 0;
+  }
+
+  .burger-line--middle {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .burger-line--bottom {
+    bottom: 0;
+  }
+
+  /* Hover state - lime glow */
+  .burger-btn:hover .burger-line {
+    background-color: var(--header-primary);
+    box-shadow: 0 0 8px var(--header-primary);
+  }
+
+  /* Active state - morphs to X */
+  .burger-icon.is-active .burger-line--top {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .burger-icon.is-active .burger-line--middle {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0);
+  }
+
+  .burger-icon.is-active .burger-line--bottom {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Active state with accent color */
+  .burger-icon.is-active .burger-line {
+    background-color: var(--header-primary);
   }
 </style>
