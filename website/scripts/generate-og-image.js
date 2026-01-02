@@ -218,6 +218,17 @@ const htmlContent = `
       color: rgba(255, 255, 255, 0.35);
       font-weight: 500;
     }
+
+    /* Signet */
+    .signet {
+      position: absolute;
+      bottom: 45px;
+      left: 70px;
+      width: 180px;
+      height: auto;
+      opacity: 0.5;
+      filter: brightness(0) invert(1);
+    }
   </style>
 </head>
 <body>
@@ -242,20 +253,29 @@ const htmlContent = `
     </div>
   </div>
 
+  <img src="SIGNET_PLACEHOLDER" alt="Signet" class="signet" />
+
 </body>
 </html>
 `;
 
 async function generateOGImage() {
   const imagePath = path.join(__dirname, '../src/images/ecommerce-berater-werner-strauch.png');
+  const signetPath = path.join(__dirname, '../public/signet-full.svg');
   const outputPath = path.join(__dirname, '../public/og-image.png');
 
   // Read image and convert to base64
   const imageBuffer = fs.readFileSync(imagePath);
   const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
 
-  // Replace placeholder with actual image
-  const finalHtml = htmlContent.replace('IMAGE_PLACEHOLDER', base64Image);
+  // Read signet SVG and convert to base64
+  const signetBuffer = fs.readFileSync(signetPath);
+  const base64Signet = `data:image/svg+xml;base64,${signetBuffer.toString('base64')}`;
+
+  // Replace placeholders with actual images
+  const finalHtml = htmlContent
+    .replace('IMAGE_PLACEHOLDER', base64Image)
+    .replace('SIGNET_PLACEHOLDER', base64Signet);
 
   console.log('Starting Playwright...');
 
