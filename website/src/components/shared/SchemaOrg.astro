@@ -1,0 +1,105 @@
+---
+/**
+ * SchemaOrg Component - Renders JSON-LD structured data
+ *
+ * Usage:
+ * <SchemaOrg type="person" />
+ * <SchemaOrg type="website" />
+ * <SchemaOrg type="service" service={{ name, description, url }} />
+ * <SchemaOrg type="breadcrumb" items={[{ name, url }]} />
+ * <SchemaOrg type="faq" faqs={[{ question, answer }]} />
+ */
+
+import {
+  generatePersonSchema,
+  generateWebSiteSchema,
+  generateProfessionalServiceSchema,
+  generateServiceSchema,
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateWebPageSchema,
+  generateOrganizationSchema,
+  getServiceSchemaForPage,
+} from "@lib/schema";
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface ServiceProps {
+  name: string;
+  description: string;
+  url: string;
+  serviceType?: string;
+  image?: string;
+}
+
+interface WebPageProps {
+  name: string;
+  description: string;
+  url: string;
+  dateModified?: string;
+}
+
+interface Props {
+  type: "person" | "website" | "professionalService" | "service" | "breadcrumb" | "faq" | "webPage" | "organization" | "serviceBySlug";
+  // For service type
+  service?: ServiceProps;
+  // For serviceBySlug type
+  slug?: string;
+  // For breadcrumb type
+  items?: BreadcrumbItem[];
+  // For faq type
+  faqs?: FAQItem[];
+  // For webPage type
+  page?: WebPageProps;
+}
+
+const { type, service, slug, items, faqs, page } = Astro.props;
+
+function getSchemaData() {
+  switch (type) {
+    case "person":
+      return generatePersonSchema();
+    case "website":
+      return generateWebSiteSchema();
+    case "professionalService":
+      return generateProfessionalServiceSchema();
+    case "service":
+      if (!service) return null;
+      return generateServiceSchema(service);
+    case "serviceBySlug":
+      if (!slug) return null;
+      return getServiceSchemaForPage(slug);
+    case "breadcrumb":
+      if (!items || items.length === 0) return null;
+      return generateBreadcrumbSchema(items);
+    case "faq":
+      if (!faqs || faqs.length === 0) return null;
+      return generateFAQSchema(faqs);
+    case "webPage":
+      if (!page) return null;
+      return generateWebPageSchema(page);
+    case "organization":
+      return generateOrganizationSchema();
+    default:
+      return null;
+  }
+}
+
+const schemaData = getSchemaData();
+---
+
+{schemaData && (
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(schemaData)}
+  />
+)}

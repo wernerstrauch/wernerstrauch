@@ -5,6 +5,7 @@ import type { HreflangEntry, SupportedLanguage } from "@lib/i18n";
 import Header from "@components/sections/Header.astro";
 import Footer from "@components/sections/Footer.astro";
 import CookieConsent from "@components/shared/CookieConsent.astro";
+import SchemaOrg from "@components/shared/SchemaOrg.astro";
 import { getImage } from "astro:assets";
 import faviconSrc from "@images/favicon.png";
 
@@ -100,23 +101,10 @@ const socialImageURL = new URL(ogImage ?? SITE.ogImage, Astro.url.origin).href;
       Alpine.start();
     </script>
 
-    {/* Schema.org WebSite */}
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: SITE.title,
-        url: Astro.site?.href,
-        description: SITE.description,
-        publisher: {
-          "@type": "Person",
-          name: SITE.author,
-          url: Astro.site?.href,
-        },
-      })}
-    />
+    {/* Schema.org Structured Data */}
+    <SchemaOrg type="website" />
+    <SchemaOrg type="person" />
+    <slot name="schema" />
   </head>
   <body
     class:list={[
