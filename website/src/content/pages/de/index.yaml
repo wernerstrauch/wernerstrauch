@@ -154,15 +154,29 @@ sections:
       variant: dark
       padding: lg
       containerSize: 2xl
-    background:
-      type: GridBackground
-      color: "#c8ff00"
-      glowColor: "#c8ff00"
-      opacity: 0.06
-      gridSize: 60
-      glowLines: 4
-      vignette: true
-      vignetteColor: "#0a1628"
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.10
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.06
+        gridSize: 60
+        glowLines: 4
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: left
+        size: lg
+        shape: diamonds
+        animate: true
     content:
       badge: "Die unbequeme Wahrheit"
       badgeIcon: "heroicons:exclamation-triangle-16-solid"
@@ -263,6 +277,29 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.10
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.06
+        gridSize: 60
+        glowLines: 4
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: right
+        size: lg
+        shape: rounded-squares
+        animate: true
     content:
       badge: "Zusammenarbeit"
       badgeIcon: "heroicons:arrow-path-16-solid"

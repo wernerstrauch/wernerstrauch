@@ -145,7 +145,7 @@ const containerStyles = twMerge(
 
       {/* Content */}
       {container ? (
-        <div class={twMerge(containerStyles, "relative")}>
+        <div class={containerStyles}>
           <slot />
         </div>
       ) : (

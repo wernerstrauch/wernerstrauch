@@ -11,131 +11,84 @@ interface Faq {
 interface Props {
   sectionVariant?: SectionVariant;
   badge?: string;
-  badgeIcon?: string;
   headline?: string;
   description?: string;
   faqs?: Faq[];
 }
 
 const {
-  sectionVariant = "light",
+  sectionVariant = "dark",
   badge = "FAQs",
-  badgeIcon = "heroicons:chat-bubble-left-right-16-solid",
   headline = "Häufig gestellte <em>Fragen</em>",
-  description = 'Noch Fragen? <a href="#kontakt" class="text-primary hover:text-primary-light font-medium underline transition-colors">Kontaktiere uns</a> für ein unverbindliches Gespräch.',
-  faqs = [
-    {
-      question: "Was kostet Shop Marketing?",
-      answer:
-        'Die Kosten richten sich nach dem Umfang der Betreuung. Eine reine <a href="/performance-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">Performance Marketing</a>-Betreuung startet ab ca. 1.500€/Monat, ein Full-Service-Paket mit allen Kanälen liegt bei 3.000-6.000€/Monat. Im kostenlosen Erstgespräch finden wir das passende Modell für dich.',
-    },
-    {
-      question: "Wie schnell sehe ich Ergebnisse?",
-      answer:
-        'Bei <a href="/performance-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">Performance Marketing</a> siehst du oft schon in den ersten Wochen Verbesserungen. <a href="/email-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">E-Mail-Flows</a> zeigen nach 2-4 Wochen Wirkung. SEO braucht typischerweise 3-6 Monate für signifikante Ergebnisse.',
-    },
-    {
-      question: "Mit welchen Shop-Systemen arbeitet ihr?",
-      answer:
-        "Wir arbeiten mit allen gängigen E-Commerce-Plattformen: Shopify, WooCommerce, Shopware, Magento und weitere. Die meisten Tools wie Klaviyo, Google Ads oder Meta funktionieren plattformunabhängig.",
-    },
-    {
-      question: "Brauche ich ein Mindest-Werbebudget?",
-      answer:
-        "Für sinnvolle Performance-Kampagnen empfehlen wir ein monatliches Ad-Budget ab ca. 3.000€. Darunter ist es schwer, genug Daten für Optimierungen zu sammeln. Wir sind aber ehrlich: Wenn dein Budget noch nicht reicht, sagen wir dir das.",
-    },
-    {
-      question: "Was ist mit Klaviyo?",
-      answer:
-        'Klaviyo ist unsere bevorzugte E-Mail-Marketing-Plattform für E-Commerce. Die Segmentierung, Automatisierungen und Integration mit Shop-Systemen sind unschlagbar. Wir sind <a href="/email-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">Klaviyo-Partner</a> und übernehmen Setup, Flows und laufende Optimierung.',
-    },
-    {
-      question: "Wie läuft die Zusammenarbeit ab?",
-      answer:
-        "Nach dem Erstgespräch analysieren wir deinen Shop und erstellen eine Strategie. Dann setzen wir gemeinsam Prioritäten und starten mit der Implementierung. Du bekommst regelmäßige Reports und wir sprechen mindestens 1x pro Woche.",
-    },
-  ],
+  description = 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> für ein unverbindliches Gespräch.',
+  faqs = [],
 } = Astro.props;
 
-// Process headline:
-// - <em> tags become circled words with animated SVG
-// - <mark> tags become colored text only (no circle)
-let emIndex = 0;
-let processedHeadline = headline.replace(
+// Process headline: replace <em> tags with styled spans
+const highlightStyle = `color: #c8ff00;`;
+const processedHeadline = headline.replace(
   /<em>(.*?)<\/em>/g,
-  (_match: string, content: string) => {
-    const index = emIndex++;
-    return `<span class="circled-word" data-circled-index="${index}">${content}<svg class="circled-word__svg" viewBox="0 0 800 350" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="circled-word__path" d="M253,-161 C253,-161 -284.789,-201.46 -376,-21 C-469,163 67.623,174.21 256,121 C564,34 250.829,-141.693 19.107,-116.936" transform="translate(400, 179) scale(0.9791)" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" pathLength="1"/></svg></span>`;
-  },
-);
-processedHeadline = processedHeadline.replace(
-  /<mark>(.*?)<\/mark>/g,
-  `<span class="highlighted-word">$1</span>`,
+  `<span style="${highlightStyle}">$1</span>`,
 );
 ---
 
 <div class="faq" data-variant={sectionVariant}>
-  {/* Decorative elements */}
-  <div
-    class="faq__decorative faq__decorative--top absolute top-0 left-1/4 h-72 w-72 rounded-full blur-3xl"
-  >
-  </div>
-  <div
-    class="faq__decorative faq__decorative--bottom absolute right-1/4 bottom-0 h-72 w-72 rounded-full blur-3xl"
-  >
-  </div>
-
-  <Container id="faq" class="relative max-w-[1000px]">
+  <Container class="relative max-w-[900px]">
     {/* Header */}
     <div class="mb-14 text-center">
-      <p class="faq__eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
-        {badge}
-      </p>
+      {badge && (
+        <p class="faq__eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+          {badge}
+        </p>
+      )}
       <h2
         class="faq__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
         style="transition-delay: 100ms;"
         set:html={processedHeadline}
       />
-      <p
-        class="faq__description fade-up mx-auto mt-4 max-w-2xl text-lg"
-        style="transition-delay: 200ms;"
-        set:html={description}
-      />
+      {description && (
+        <p
+          class="faq__description fade-up mx-auto mt-4 max-w-2xl text-lg"
+          style="transition-delay: 200ms;"
+          set:html={description}
+        />
+      )}
     </div>
 
-    {/* FAQ Accordion using native details/summary */}
-    <div class="faq-container space-y-4">
+    {/* FAQ Accordion */}
+    <div class="faq-container space-y-3">
       {
         faqs.map((faq, index) => (
-          <details class="faq-item group">
-            <summary class="faq__question-button flex w-full cursor-pointer list-none items-center gap-4 border p-5 text-left shadow-sm transition-all duration-300 hover:shadow-md [&::-webkit-details-marker]:hidden">
-              {/* Number badge */}
-              <span class="faq__number-badge flex h-10 w-10 flex-shrink-0 items-center justify-center text-sm font-bold transition-colors duration-300 group-hover:text-white">
+          <details
+            class="faq-item fade-up group"
+            style={`transition-delay: ${250 + index * 50}ms;`}
+          >
+            <summary class="faq__summary">
+              {/* Number */}
+              <span class="faq__number">
                 {String(index + 1).padStart(2, "0")}
               </span>
 
               {/* Question */}
-              <h3 class="faq__question flex-1 text-lg font-semibold">
-                {faq.question}
-              </h3>
+              <h3 class="faq__question">{faq.question}</h3>
 
-              {/* Toggle icon */}
-              <span class="faq__icon flex h-8 w-8 flex-shrink-0 items-center justify-center border transition-all duration-300">
+              {/* Toggle Icon */}
+              <span class="faq__toggle">
                 <Icon
                   name="heroicons:plus-16-solid"
-                  class="faq__icon-plus h-4 w-4 transition-all duration-300 group-open:hidden"
+                  class="faq__toggle-icon faq__toggle-icon--plus"
                 />
                 <Icon
                   name="heroicons:minus-16-solid"
-                  class="faq__icon-minus hidden h-4 w-4 group-open:block"
+                  class="faq__toggle-icon faq__toggle-icon--minus"
                 />
               </span>
             </summary>
 
-            {/* Answer panel */}
-            <div class="faq-content overflow-hidden">
-              <div class="faq-content-inner px-5 pt-4 pb-6 pl-[4.5rem]">
-                <p class="faq__answer leading-relaxed" set:html={faq.answer} />
+            {/* Answer */}
+            <div class="faq__content">
+              <div class="faq__content-inner">
+                <p class="faq__answer" set:html={faq.answer} />
               </div>
             </div>
           </details>
@@ -146,14 +99,14 @@ processedHeadline = processedHeadline.replace(
 </div>
 
 <script>
+  import "@scripts/animations";
+
   function initFaqAnimation(): void {
     const faqItems = document.querySelectorAll<HTMLDetailsElement>(".faq-item");
+    const ANIMATION_DURATION = 400;
 
-    const ANIMATION_DURATION = 500; // ms
-
-    // Helper to close a details element with animation
     function closeDetails(details: HTMLDetailsElement): void {
-      const content = details.querySelector(".faq-content") as HTMLElement;
+      const content = details.querySelector(".faq__content") as HTMLElement;
       if (!content) return;
       content.style.height = "0px";
       setTimeout(() => {
@@ -161,11 +114,10 @@ processedHeadline = processedHeadline.replace(
       }, ANIMATION_DURATION);
     }
 
-    // Helper to open a details element with animation
     function openDetails(details: HTMLDetailsElement): void {
-      const content = details.querySelector(".faq-content") as HTMLElement;
+      const content = details.querySelector(".faq__content") as HTMLElement;
       const contentInner = details.querySelector(
-        ".faq-content-inner",
+        ".faq__content-inner",
       ) as HTMLElement;
       if (!content || !contentInner) return;
 
@@ -176,19 +128,16 @@ processedHeadline = processedHeadline.replace(
 
     faqItems.forEach((details) => {
       const summary = details.querySelector("summary");
-      const content = details.querySelector(".faq-content") as HTMLElement;
+      const content = details.querySelector(".faq__content") as HTMLElement;
 
       if (!summary || !content) return;
 
-      // Set initial closed state
       content.style.height = "0px";
-      content.style.transition = `height ${ANIMATION_DURATION}ms ease-out`;
+      content.style.transition = `height ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
 
       summary.addEventListener("click", (e) => {
         e.preventDefault();
-
         const isOpen = details.hasAttribute("open");
-
         if (isOpen) {
           closeDetails(details);
         } else {
@@ -198,347 +147,357 @@ processedHeadline = processedHeadline.replace(
     });
   }
 
-  // Initialize on page load
   initFaqAnimation();
-
-  // Re-initialize on Astro page transitions
   document.addEventListener("astro:after-swap", initFaqAnimation);
 </script>
 
 <style>
-  /* CSS Variables */
-  .faq[data-variant="white"],
-  .faq[data-variant="light"] {
-    --section-text: var(--color-zinc-900);
-    --section-text-muted: var(--color-gray-600);
-    --section-accent: var(--primary);
-    --section-card-bg: var(--color-gray-50);
-    --section-card-bg-light: var(--color-white);
-    --section-card-border: var(--color-gray-200);
-    --section-decorative: color-mix(in srgb, var(--primary) 5%, transparent);
-    --section-badge-bg: color-mix(in srgb, var(--primary) 10%, transparent);
-    --section-badge-border: color-mix(in srgb, var(--primary) 30%, transparent);
-    --section-badge-icon: var(--primary);
-    --section-number-badge-bg: color-mix(
-      in srgb,
-      var(--primary) 10%,
-      transparent
-    );
-    --section-number-badge-hover-bg: var(--primary);
-    --section-icon-border: var(--color-gray-200);
-    --section-icon-color: var(--color-gray-500);
-    --section-icon-hover-border: color-mix(
-      in srgb,
-      var(--primary) 30%,
-      transparent
-    );
-    --section-icon-hover-bg: color-mix(
-      in srgb,
-      var(--primary) 10%,
-      transparent
-    );
-    --section-icon-hover-color: var(--primary);
-  }
+  /* ========================================
+     FAQ Section - Industrial Refined Style
+     Navy + Lime, Clean Lines, No Border-Radius
+     ======================================== */
 
-  .faq[data-variant="light"] {
-    --section-card-bg: var(--color-white);
-  }
-
-  .faq[data-variant="dark"] {
-    --section-text: var(--color-white);
-    --section-text-muted: var(--color-zinc-300);
-    --section-accent: var(--primary-light);
-    --section-card-bg: var(--color-zinc-800);
-    --section-card-bg-light: var(--color-zinc-800);
-    --section-card-border: var(--color-zinc-700);
-    --section-decorative: color-mix(in srgb, var(--primary) 5%, transparent);
-    --section-badge-bg: color-mix(in srgb, var(--primary) 20%, transparent);
-    --section-badge-border: color-mix(in srgb, var(--primary) 40%, transparent);
-    --section-badge-icon: var(--primary-light);
-    --section-number-badge-bg: color-mix(
-      in srgb,
-      var(--primary) 20%,
-      transparent
-    );
-    --section-number-badge-hover-bg: var(--primary);
-    --section-number-badge-hover-text: var(--color-white);
-    --section-icon-border: var(--color-zinc-700);
-    --section-icon-color: var(--color-zinc-400);
-    --section-icon-hover-border: color-mix(
-      in srgb,
-      var(--primary) 30%,
-      transparent
-    );
-    --section-icon-hover-bg: color-mix(
-      in srgb,
-      var(--primary) 10%,
-      transparent
-    );
-    --section-icon-hover-color: var(--primary-light);
-  }
-
-  .faq[data-variant="primary"] {
-    --section-text: var(--color-white);
-    --section-text-muted: color-mix(
-      in srgb,
-      var(--color-white) 80%,
-      transparent
-    );
-    --section-accent: var(--color-white);
-    --section-card-bg: color-mix(in srgb, var(--color-white) 10%, transparent);
-    --section-card-bg-light: color-mix(
-      in srgb,
-      var(--color-white) 10%,
-      transparent
-    );
-    --section-card-border: color-mix(
-      in srgb,
-      var(--color-white) 20%,
-      transparent
-    );
-    --section-decorative: color-mix(
-      in srgb,
-      var(--color-white) 5%,
-      transparent
-    );
-    --section-badge-bg: color-mix(in srgb, var(--color-white) 10%, transparent);
-    --section-badge-border: color-mix(
-      in srgb,
-      var(--color-white) 30%,
-      transparent
-    );
-    --section-badge-icon: var(--color-white);
-    --section-number-badge-bg: color-mix(
-      in srgb,
-      var(--color-white) 20%,
-      transparent
-    );
-    --section-number-badge-hover-bg: var(--color-white);
-    --section-number-badge-hover-text: var(--primary);
-    --section-icon-border: color-mix(
-      in srgb,
-      var(--color-white) 30%,
-      transparent
-    );
-    --section-icon-color: color-mix(
-      in srgb,
-      var(--color-white) 70%,
-      transparent
-    );
-    --section-icon-hover-border: color-mix(
-      in srgb,
-      var(--color-white) 50%,
-      transparent
-    );
-    --section-icon-hover-bg: color-mix(
-      in srgb,
-      var(--color-white) 20%,
-      transparent
-    );
-    --section-icon-hover-color: var(--color-white);
-  }
-
-  /* Component styles */
-  .faq__decorative {
-    background-color: var(--section-decorative);
-  }
-
+  /* ========================================
+     Eyebrow & Headline
+     ======================================== */
   .faq__eyebrow {
-    color: var(--section-accent);
-    letter-spacing: 0.1em;
+    color: #c8ff00;
+    letter-spacing: 0.15em;
   }
 
   .faq__headline {
-    color: var(--section-text);
-  }
-
-  /* Circled Word Animation */
-  .faq__headline :global(.circled-word) {
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-    color: var(--section-text); /* Adapts to section theme */
-  }
-
-  .faq__headline :global(.circled-word__svg) {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 130%;
-    height: 110%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    overflow: visible;
-  }
-
-  .faq__headline :global(.circled-word__path) {
-    stroke: #c8ff00;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .faq__headline.is-visible :global(.circled-word__path) {
-    stroke-dashoffset: 0;
-  }
-
-  .faq__headline.is-visible :global(.circled-word[data-circled-index="0"]) :global(.circled-word__path) {
-    transition-delay: 0.5s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .faq__headline :global(.circled-word__path) {
-      stroke-dashoffset: 0;
-      transition: none;
-    }
-  }
-
-  .faq__headline :global(.highlighted-word) {
-    color: var(--section-accent); /* Lime on dark, adapts to theme */
+    color: #ffffff;
   }
 
   .faq__description {
-    color: var(--section-text-muted);
+    color: rgba(255, 255, 255, 0.6);
   }
 
-  .faq__question-button {
-    background-color: var(--section-card-bg);
-    border-color: var(--section-card-border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+  .faq__description :global(.faq__link) {
+    color: #c8ff00;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
   }
 
-  .faq__question-button:hover {
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.06);
+  .faq__description :global(.faq__link:hover) {
+    opacity: 0.8;
   }
 
-  .faq__number-badge {
-    background-color: var(--section-number-badge-bg);
-    color: var(--section-accent);
+  /* ========================================
+     FAQ Item Container
+     ======================================== */
+  .faq-item {
+    position: relative;
   }
 
-  .faq__question-button:hover .faq__number-badge {
-    background-color: var(--section-number-badge-hover-bg);
+  /* ========================================
+     Summary (Question Row)
+     ======================================== */
+  .faq__summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .faq[data-variant="dark"] .faq__question-button:hover .faq__number-badge {
-    color: var(--section-number-badge-hover-text);
+  .faq__summary::-webkit-details-marker {
+    display: none;
   }
 
-  .faq[data-variant="primary"] .faq__question-button:hover .faq__number-badge {
-    color: var(--section-number-badge-hover-text);
+  .faq__summary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(200, 255, 0, 0.2);
   }
 
+  /* Open state */
+  .faq-item[open] .faq__summary {
+    background: rgba(200, 255, 0, 0.05);
+    border-color: rgba(200, 255, 0, 0.25);
+    border-bottom-color: transparent;
+  }
+
+  /* ========================================
+     Number Badge
+     ======================================== */
+  .faq__number {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq__summary:hover .faq__number {
+    color: #c8ff00;
+    border-color: rgba(200, 255, 0, 0.3);
+    background: rgba(200, 255, 0, 0.1);
+  }
+
+  .faq-item[open] .faq__number {
+    color: #0a1628;
+    background: #c8ff00;
+    border-color: #c8ff00;
+  }
+
+  /* ========================================
+     Question Text
+     ======================================== */
   .faq__question {
-    color: var(--section-text);
+    flex: 1;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
   }
 
-  .faq__icon {
-    border-color: var(--section-icon-border);
+  @media (max-width: 640px) {
+    .faq__question {
+      font-size: 1rem;
+    }
   }
 
-  .faq__question-button:hover .faq__icon {
-    border-color: var(--section-icon-hover-border);
-    background-color: var(--section-icon-hover-bg);
+  /* ========================================
+     Toggle Icon
+     ======================================== */
+  .faq__toggle {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .faq__icon-plus {
-    color: var(--section-icon-color);
+  .faq__summary:hover .faq__toggle {
+    border-color: rgba(200, 255, 0, 0.3);
+    background: rgba(200, 255, 0, 0.05);
   }
 
-  .faq__question-button:hover .faq__icon-plus {
-    color: var(--section-icon-hover-color);
+  .faq-item[open] .faq__toggle {
+    border-color: rgba(200, 255, 0, 0.4);
+    background: rgba(200, 255, 0, 0.1);
   }
 
-  .faq__icon-minus {
-    color: var(--section-accent);
+  .faq__toggle-icon {
+    width: 1rem;
+    height: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+  }
+
+  .faq__summary:hover .faq__toggle-icon {
+    color: #c8ff00;
+  }
+
+  .faq__toggle-icon--plus {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  .faq__toggle-icon--minus {
+    opacity: 0;
+    transform: rotate(-90deg);
+    color: #c8ff00;
+  }
+
+  .faq-item[open] .faq__toggle-icon--plus {
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+
+  .faq-item[open] .faq__toggle-icon--minus {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  /* ========================================
+     Content (Answer)
+     ======================================== */
+  .faq__content {
+    overflow: hidden;
+  }
+
+  .faq__content-inner {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    padding-left: calc(1.5rem + 2.5rem + 1rem); /* Align with question text */
+    background: rgba(200, 255, 0, 0.02);
+    border: 1px solid rgba(200, 255, 0, 0.25);
+    border-top: none;
+    position: relative;
+  }
+
+  /* Lime accent line */
+  .faq__content-inner::before {
+    content: "";
+    position: absolute;
+    left: calc(1.5rem + 1.25rem - 1px);
+    top: 0;
+    bottom: 1.5rem;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      #c8ff00 0%,
+      rgba(200, 255, 0, 0.3) 100%
+    );
   }
 
   .faq__answer {
-    color: var(--section-text-muted);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    font-size: 1rem;
+    padding-top: 1rem;
   }
 
-  /* Open state styles using native details[open] */
-  .faq[data-variant="white"] .faq-item[open] > summary,
-  .faq[data-variant="light"] .faq-item[open] > summary {
+  .faq__answer :global(a) {
+    color: #c8ff00;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
+  }
+
+  .faq__answer :global(a:hover) {
+    opacity: 0.8;
+  }
+
+  /* ========================================
+     Light/White Variant Override
+     ======================================== */
+  .faq[data-variant="light"] .faq__eyebrow,
+  .faq[data-variant="white"] .faq__eyebrow {
+    color: var(--primary);
+  }
+
+  .faq[data-variant="light"] .faq__headline,
+  .faq[data-variant="white"] .faq__headline {
+    color: #1c1c1e;
+  }
+
+  .faq[data-variant="light"] .faq__description,
+  .faq[data-variant="white"] .faq__description {
+    color: rgb(75 85 99);
+  }
+
+  .faq[data-variant="light"] .faq__description :global(.faq__link),
+  .faq[data-variant="white"] .faq__description :global(.faq__link) {
+    color: var(--primary);
+  }
+
+  .faq[data-variant="light"] .faq__summary,
+  .faq[data-variant="white"] .faq__summary {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .faq[data-variant="light"] .faq__summary:hover,
+  .faq[data-variant="white"] .faq__summary:hover {
+    background: rgba(0, 0, 0, 0.04);
     border-color: color-mix(in srgb, var(--primary) 30%, transparent);
-    background: linear-gradient(
-      to bottom right,
-      white,
-      color-mix(in srgb, var(--primary) 2%, transparent)
-    );
-    border-bottom-color: transparent;
   }
 
-  .faq[data-variant="white"] .faq-item[open] > .faq-content,
-  .faq[data-variant="light"] .faq-item[open] > .faq-content {
-    border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
-    border-top: none;
-    background: white;
+  .faq[data-variant="light"] .faq-item[open] .faq__summary,
+  .faq[data-variant="white"] .faq-item[open] .faq__summary {
+    background: color-mix(in srgb, var(--primary) 5%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
   }
 
-  .faq[data-variant="white"] .faq-item[open] > summary .faq__icon,
-  .faq[data-variant="light"] .faq-item[open] > summary .faq__icon {
+  .faq[data-variant="light"] .faq__number,
+  .faq[data-variant="white"] .faq__number {
+    color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .faq[data-variant="light"] .faq__summary:hover .faq__number,
+  .faq[data-variant="white"] .faq__summary:hover .faq__number {
+    color: var(--primary);
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
     background: color-mix(in srgb, var(--primary) 10%, transparent);
-    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
   }
 
-  .faq[data-variant="white"] .faq-item[open] > summary .faq__number-badge,
-  .faq[data-variant="light"] .faq-item[open] > summary .faq__number-badge {
-    background: var(--primary);
+  .faq[data-variant="light"] .faq-item[open] .faq__number,
+  .faq[data-variant="white"] .faq-item[open] .faq__number {
     color: white;
-  }
-
-  .faq[data-variant="dark"] .faq-item[open] > summary {
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.06);
-    border-bottom-color: transparent;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .faq[data-variant="dark"] .faq-item[open] > .faq-content {
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: none;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .faq[data-variant="dark"] .faq-item[open] > summary .faq__icon {
-    background: color-mix(in srgb, var(--primary) 10%, transparent);
-    border-color: color-mix(in srgb, var(--primary-light) 30%, transparent);
-  }
-
-  .faq[data-variant="dark"] .faq-item[open] > summary .faq__number-badge {
     background: var(--primary);
-    color: var(--color-white);
+    border-color: var(--primary);
   }
 
-  .faq[data-variant="primary"] .faq-item[open] > summary {
-    border-color: color-mix(in srgb, var(--color-white) 40%, transparent);
+  .faq[data-variant="light"] .faq__question,
+  .faq[data-variant="white"] .faq__question {
+    color: #1c1c1e;
+  }
+
+  .faq[data-variant="light"] .faq__toggle,
+  .faq[data-variant="white"] .faq__toggle {
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .faq[data-variant="light"] .faq__summary:hover .faq__toggle,
+  .faq[data-variant="white"] .faq__summary:hover .faq__toggle {
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+    background: color-mix(in srgb, var(--primary) 5%, transparent);
+  }
+
+  .faq[data-variant="light"] .faq-item[open] .faq__toggle,
+  .faq[data-variant="white"] .faq-item[open] .faq__toggle {
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .faq[data-variant="light"] .faq__toggle-icon,
+  .faq[data-variant="white"] .faq__toggle-icon {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .faq[data-variant="light"] .faq__summary:hover .faq__toggle-icon,
+  .faq[data-variant="white"] .faq__summary:hover .faq__toggle-icon {
+    color: var(--primary);
+  }
+
+  .faq[data-variant="light"] .faq__toggle-icon--minus,
+  .faq[data-variant="white"] .faq__toggle-icon--minus {
+    color: var(--primary);
+  }
+
+  .faq[data-variant="light"] .faq__content-inner,
+  .faq[data-variant="white"] .faq__content-inner {
+    background: color-mix(in srgb, var(--primary) 2%, white);
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  .faq[data-variant="light"] .faq__content-inner::before,
+  .faq[data-variant="white"] .faq__content-inner::before {
     background: linear-gradient(
-      to bottom right,
-      color-mix(in srgb, var(--color-white) 15%, transparent),
-      color-mix(in srgb, var(--color-white) 5%, transparent)
+      to bottom,
+      var(--primary) 0%,
+      color-mix(in srgb, var(--primary) 30%, transparent) 100%
     );
-    border-bottom-color: transparent;
   }
 
-  .faq[data-variant="primary"] .faq-item[open] > .faq-content {
-    border: 1px solid color-mix(in srgb, var(--color-white) 40%, transparent);
-    border-top: none;
-    background: color-mix(in srgb, var(--color-white) 10%, transparent);
+  .faq[data-variant="light"] .faq__answer,
+  .faq[data-variant="white"] .faq__answer {
+    color: rgb(75 85 99);
   }
 
-  .faq[data-variant="primary"] .faq-item[open] > summary .faq__icon {
-    background: color-mix(in srgb, var(--color-white) 20%, transparent);
-    border-color: color-mix(in srgb, var(--color-white) 50%, transparent);
-  }
-
-  .faq[data-variant="primary"] .faq-item[open] > summary .faq__number-badge {
-    background: var(--color-white);
+  .faq[data-variant="light"] .faq__answer :global(a),
+  .faq[data-variant="white"] .faq__answer :global(a) {
     color: var(--primary);
   }
 </style>
