@@ -23,6 +23,19 @@ const footerNavigation = {
     { name: t.footer.imprint, href: lang === "en" ? "/en/imprint" : "/impressum" },
     { name: t.footer.privacy, href: lang === "en" ? "/en/privacy" : "/datenschutz" },
   ],
+  servicesAnalyse: [
+    { name: "E-Commerce Audit", href: "/ecommerce-audit" },
+    { name: "E-Commerce Strategie", href: "/ecommerce-strategie" },
+    { name: "E-Commerce Beratung", href: "/ecommerce-beratung" },
+    { name: "Technologieberatung", href: "/technologieberatung" },
+  ],
+  servicesUmsetzung: [
+    { name: "E-Commerce Workshop", href: "/ecommerce-workshop" },
+    { name: "E-Commerce Sparring", href: "/ecommerce-sparring" },
+    { name: "Umsetzungsbegleitung", href: "/umsetzungsbegleitung" },
+    { name: "Projektleitung", href: "/projektleitung" },
+    { name: "Interim Management", href: "/interim-management" },
+  ],
 };
 ---
 
@@ -95,14 +108,14 @@ const footerNavigation = {
       </div>
 
       {/* Navigation Columns */}
-      <div class="grid grid-cols-2 gap-8 sm:gap-12 lg:col-span-7 lg:grid-cols-3">
-        {/* Main Navigation */}
+      <div class="grid grid-cols-2 gap-8 sm:gap-10 lg:col-span-7 lg:grid-cols-4">
+        {/* Services: Analyse & Strategie */}
         <div>
           <h4 class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
-            Navigation
+            Analyse & Strategie
           </h4>
-          <ul class="mt-4 space-y-3">
-            {footerNavigation.main.map((item) => (
+          <ul class="mt-4 space-y-2.5">
+            {footerNavigation.servicesAnalyse.map((item) => (
               <li>
                 <a
                   href={item.href}
@@ -116,12 +129,48 @@ const footerNavigation = {
           </ul>
         </div>
 
-        {/* Legal Navigation */}
+        {/* Services: Umsetzung & Führung */}
         <div>
           <h4 class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
+            Umsetzung & Führung
+          </h4>
+          <ul class="mt-4 space-y-2.5">
+            {footerNavigation.servicesUmsetzung.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="footer-nav-link group inline-flex items-center gap-2 text-sm transition-all duration-300"
+                >
+                  <span class="footer-nav-indicator" aria-hidden="true"></span>
+                  <span>{item.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Main Navigation + Legal */}
+        <div>
+          <h4 class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
+            Navigation
+          </h4>
+          <ul class="mt-4 space-y-2.5">
+            {footerNavigation.main.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="footer-nav-link group inline-flex items-center gap-2 text-sm transition-all duration-300"
+                >
+                  <span class="footer-nav-indicator" aria-hidden="true"></span>
+                  <span>{item.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <h4 class="footer-nav-label mt-6 text-xs font-semibold uppercase tracking-wider">
             Legal
           </h4>
-          <ul class="mt-4 space-y-3">
+          <ul class="mt-4 space-y-2.5">
             {footerNavigation.legal.map((item) => (
               <li>
                 <a
@@ -143,11 +192,11 @@ const footerNavigation = {
           </h4>
           <div class="mt-4 space-y-3">
             <a
-              href="mailto:info@digitalsprung.de"
+              href="mailto:kontakt@wernerstrauch.de"
               class="footer-email group inline-flex items-center gap-2 text-sm transition-all duration-300"
             >
               <Icon name="heroicons:envelope-16-solid" class="h-4 w-4" />
-              <span>info@digitalsprung.de</span>
+              <span>kontakt@wernerstrauch.de</span>
             </a>
           </div>
         </div>

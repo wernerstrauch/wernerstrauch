@@ -112,19 +112,30 @@ const processedHeadline = headline?.replace(
           </div>
 
           {/* Service Images */}
-          {items.map((item, index) => (
+          {resolvedItems.map((item, index) => (
             <div
               class="services-image"
               data-service-image={index}
             >
-              {item.image ? (
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  class="h-full w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
+              {item.resolvedImage.resolved ? (
+                item.resolvedImage.isPublic ? (
+                  <img
+                    src={item.resolvedImage.resolved as string}
+                    alt={item.title}
+                    class="h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <Image
+                    src={item.resolvedImage.resolved as ImageMetadata}
+                    alt={item.title || ""}
+                    class="h-full w-full object-cover"
+                    loading="lazy"
+                    widths={[480, 800, 1200]}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                )
               ) : (
                 <div class="services-image-placeholder">
                   <Icon
@@ -146,7 +157,7 @@ const processedHeadline = headline?.replace(
       {/* Service List - Right Side */}
       <div class="col-span-full lg:col-span-6 xl:col-span-5 xl:pl-10">
         <ul class="services-list" data-services-list>
-          {items.map((item, index) => (
+          {resolvedItems.map((item, index) => (
             <li>
               <a
                 href={item.linkHref || "#"}
