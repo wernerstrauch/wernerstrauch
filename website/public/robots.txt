@@ -1,0 +1,7 @@
+# robots.txt for wernerstrauch.de
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://wernerstrauch.de/sitemap-index.xml
