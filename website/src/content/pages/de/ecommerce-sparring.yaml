@@ -1,13 +1,13 @@
 # E-Commerce Sparring Seite
-# Kontinuierlicher Austausch auf Augenhoehe im Retainer-Modell
+# Kontinuierlicher Austausch auf Augenhöhe im Retainer-Modell
 
 lang: de
 pageId: ecommerce-sparring
 slug: ecommerce-sparring
 
 meta:
-  title: "E-Commerce Sparring | Ihr Sparringspartner auf Augenhoehe | Werner Strauch"
-  description: "E-Commerce Sparring: Regelmaessiger Austausch mit einem erfahrenen Sparringspartner. 2-4 Calls pro Monat, strategische Begleitung im Retainer-Modell ab 1.500 Euro/Monat."
+  title: "E-Commerce Sparring | Ihr Sparringspartner auf Augenhöhe | Werner Strauch"
+  description: "E-Commerce Sparring: Regelmäßiger Austausch mit einem erfahrenen Sparringspartner. 2-4 Calls pro Monat, strategische Begleitung im Retainer-Modell ab 1.500 Euro/Monat."
 
 settings:
   status: published
@@ -44,8 +44,8 @@ sections:
     content:
       badge: "E-Commerce Sparring"
       badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
-      headline: "Ihr <em>Sparringspartner</em> fuer E-Commerce"
-      subheadline: "Regelmaessiger Austausch auf Augenhoehe. Gemeinsam Herausforderungen reflektieren, Ideen testen und bessere Entscheidungen treffen – mit einem erfahrenen Partner an Ihrer Seite."
+      headline: "Ihr <em>Sparringspartner</em> für E-Commerce"
+      subheadline: "Regelmäßiger Austausch auf Augenhöhe. Gemeinsam Herausforderungen reflektieren, Ideen testen und bessere Entscheidungen treffen – mit einem erfahrenen Partner an Ihrer Seite."
       image: "/src/images/ecommerce-sparring-hero.png"
       imageAlt: "E-Commerce Sparring - Strategischer Austausch"
       primaryCta: "Sparring anfragen"
@@ -75,26 +75,26 @@ sections:
       badge: "Das Konzept"
       headline: "Was ist E-Commerce <em>Sparring</em>?"
       image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
-      imageAlt: "Sparring Gespraech zwischen zwei Personen"
+      imageAlt: "Sparring Gespräch zwischen zwei Personen"
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "Sparring ist mehr als Beratung und mehr als Coaching – es ist ein kontinuierlicher Dialog auf Augenhoehe."
+          content: "Sparring ist mehr als Beratung und mehr als Coaching – es ist ein kontinuierlicher Dialog auf Augenhöhe."
         - type: "text"
-          content: "<p>Im Sport ist der Sparringspartner jemand, der Ihnen hilft, besser zu werden – nicht indem er fuer Sie kaempft, sondern indem er mit Ihnen trainiert. Genau das ist E-Commerce Sparring: Ein regelmaessiger Austausch, bei dem wir gemeinsam Ihre Herausforderungen durchdenken, Ideen testen und Entscheidungen reflektieren.</p>"
+          content: "<p>Im Sport ist der Sparringspartner jemand, der Ihnen hilft, besser zu werden – nicht indem er für Sie kämpft, sondern indem er mit Ihnen trainiert. Genau das ist E-Commerce Sparring: Ein regelmäßiger Austausch, bei dem wir gemeinsam Ihre Herausforderungen durchdenken, Ideen testen und Entscheidungen reflektieren.</p>"
         - type: "text"
-          content: "<p>Anders als bei einem einmaligen Audit oder Workshop bin ich als Sparringspartner dauerhaft an Ihrer Seite. Ich kenne Ihr Geschaeft, Ihre Historie, Ihre Ziele – und kann deshalb schneller und gezielter unterstuetzen, wenn neue Fragen auftauchen.</p>"
+          content: "<p>Anders als bei einem einmaligen Audit oder Workshop bin ich als Sparringspartner dauerhaft an Ihrer Seite. Ich kenne Ihr Geschäft, Ihre Historie, Ihre Ziele – und kann deshalb schneller und gezielter unterstützen, wenn neue Fragen auftauchen.</p>"
         - type: "features"
           items:
             - icon: "heroicons:arrows-right-left"
               title: "Dialog statt Vortrag"
-              description: "Gemeinsame Loesungsfindung durch strukturierten Austausch."
+              description: "Gemeinsame Lösungsfindung durch strukturierten Austausch."
             - icon: "heroicons:calendar-days"
               title: "Kontinuierlich statt einmalig"
-              description: "Regelmaessige Termine schaffen Verbindlichkeit und Tiefe."
+              description: "Regelmäßige Termine schaffen Verbindlichkeit und Tiefe."
             - icon: "heroicons:user-group"
-              title: "Auf Augenhoehe"
-              description: "Sie kennen Ihr Geschaeft, ich bringe externe Perspektive ein."
+              title: "Auf Augenhöhe"
+              description: "Sie kennen Ihr Geschäft, ich bringe externe Perspektive ein."
 
   # ========================================
   # Section 3: BentoGrid (Typische Themen)
@@ -113,25 +113,25 @@ sections:
         fadeDirection: "both"
     content:
       badge: "Typische Themen"
-      headline: "Worueber wir <em>sprechen</em>"
-      description: "Sparring deckt alle Bereiche ab, die Sie aktuell beschaeftigen. Von strategischen Grundsatzfragen bis zu konkreten operativen Entscheidungen."
+      headline: "Worüber wir <em>sprechen</em>"
+      description: "Sparring deckt alle Bereiche ab, die Sie aktuell beschäftigen. Von strategischen Grundsatzfragen bis zu konkreten operativen Entscheidungen."
       cards:
         - title: "Strategie & Ausrichtung"
           description: "Wohin entwickelt sich Ihr E-Commerce? Welche Weichenstellungen stehen an? Gemeinsam reflektieren wir strategische Optionen und deren Konsequenzen."
           icon: "heroicons:map"
           features:
-            - "Geschaeftsmodell-Entwicklung"
+            - "Geschäftsmodell-Entwicklung"
             - "Marktpositionierung"
             - "Wachstumsstrategie"
         - title: "Technologie & Systeme"
-          description: "Shop-System, ERP, PIM – vor jeder Entscheidung koennen wir die Optionen durchsprechen. Als unabhaengiger Partner ohne Verkaufsinteresse."
+          description: "Shop-System, ERP, PIM – vor jeder Entscheidung können wir die Optionen durchsprechen. Als unabhängiger Partner ohne Verkaufsinteresse."
           icon: "heroicons:cpu-chip"
           features:
             - "Systemauswahl"
             - "Architektur-Fragen"
             - "Vendor-Evaluation"
         - title: "Operations & Prozesse"
-          description: "Fulfillment, Kundenservice, Retourenmanagement – wo klemmt es? Wir analysieren Engpaesse und entwickeln Loesungsansaetze."
+          description: "Fulfillment, Kundenservice, Retourenmanagement – wo klemmt es? Wir analysieren Engpässe und entwickeln Lösungsansätze."
           icon: "heroicons:cog-6-tooth"
           large: true
           features:
@@ -147,7 +147,7 @@ sections:
             - "Budget-Allokation"
             - "Performance-Review"
         - title: "Team & Organisation"
-          description: "Recruiting, Teamaufbau, Agentur-Steuerung – die menschliche Seite des E-Commerce. Oft unterschaetzt, aber erfolgsentscheidend."
+          description: "Recruiting, Teamaufbau, Agentur-Steuerung – die menschliche Seite des E-Commerce. Oft unterschätzt, aber erfolgsentscheidend."
           icon: "heroicons:user-group"
           large: true
           features:
@@ -167,7 +167,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "Die besten Entscheidungen entstehen nicht im stillen Kaemmerlein, sondern im Dialog. Ein guter Sparringspartner stellt die richtigen Fragen – und hoert zu."
+      quote: "Die besten Entscheidungen entstehen nicht im stillen Kämmerlein, sondern im Dialog. Ein guter Sparringspartner stellt die richtigen Fragen – und hört zu."
       author: "Werner Strauch"
       role: "E-Commerce-Sparringspartner"
 
@@ -188,7 +188,7 @@ sections:
         fadeDirection: "left"
     content:
       badge: "Sparring-Facts"
-      headline: "Klare Rahmenbedingungen fuer <em>echte Partnerschaft</em>"
+      headline: "Klare Rahmenbedingungen für <em>echte Partnerschaft</em>"
       stats:
         - value: "2–4"
           label: "Calls pro Monat"
@@ -229,8 +229,8 @@ sections:
       steps:
         - number: "01"
           icon: "heroicons:phone"
-          title: "Kennenlern-Gespraech"
-          description: "In einem kostenlosen 30-minuetigen Gespraech lernen wir uns kennen. Passt die Chemie? Gibt es genuegend Themen fuer ein Sparring?"
+          title: "Kennenlern-Gespräch"
+          description: "In einem kostenlosen 30-minütigen Gespräch lernen wir uns kennen. Passt die Chemie? Gibt es genügend Themen für ein Sparring?"
           details:
             - "Kostenlos"
             - "30 Minuten"
@@ -238,15 +238,15 @@ sections:
         - number: "02"
           icon: "heroicons:clipboard-document-list"
           title: "Onboarding-Session"
-          description: "Zum Start ein laengeres Gespraech: Ich lerne Ihr Geschaeft kennen, Sie schildern aktuelle Herausforderungen, wir definieren Fokusthemen."
+          description: "Zum Start ein längeres Gespräch: Ich lerne Ihr Geschäft kennen, Sie schildern aktuelle Herausforderungen, wir definieren Fokusthemen."
           details:
             - "90-120 Minuten"
-            - "Deep Dive ins Geschaeft"
+            - "Deep Dive ins Geschäft"
             - "Themenfindung"
         - number: "03"
           icon: "heroicons:calendar"
-          title: "Regelmaessige Sessions"
-          description: "Alle 1-2 Wochen treffen wir uns fuer 60-90 Minuten. Sie bringen Themen mit, wir arbeiten sie gemeinsam durch."
+          title: "Regelmäßige Sessions"
+          description: "Alle 1-2 Wochen treffen wir uns für 60-90 Minuten. Sie bringen Themen mit, wir arbeiten sie gemeinsam durch."
           details:
             - "Feste Termine"
             - "Flexible Agenda"
@@ -254,7 +254,7 @@ sections:
         - number: "04"
           icon: "heroicons:chat-bubble-left-right"
           title: "Asynchroner Support"
-          description: "Zwischen den Calls bin ich per E-Mail oder Messenger erreichbar. Kurze Fragen, schnelle Einschaetzungen – ohne extra Termin."
+          description: "Zwischen den Calls bin ich per E-Mail oder Messenger erreichbar. Kurze Fragen, schnelle Einschätzungen – ohne extra Termin."
           details:
             - "E-Mail & Chat"
             - "Schnelle Reaktion"
@@ -281,12 +281,12 @@ sections:
     content:
       badge: "Der Unterschied"
       headline: "Mit einem <em>Sparringspartner</em> an Ihrer Seite"
-      description: "Viele Unternehmer und E-Commerce-Verantwortliche treffen Entscheidungen allein. Ein Sparringspartner veraendert das."
+      description: "Viele Unternehmer und E-Commerce-Verantwortliche treffen Entscheidungen allein. Ein Sparringspartner verändert das."
       problemsTitle: "Ohne Sparring"
       solutionsTitle: "Mit Sparring"
       problems:
         - icon: "heroicons:user"
-          text: "Entscheidungen im stillen Kaemmerlein"
+          text: "Entscheidungen im stillen Kämmerlein"
         - icon: "heroicons:question-mark-circle"
           text: "Keine externe Perspektive auf blinde Flecken"
         - icon: "heroicons:clock"
@@ -323,26 +323,26 @@ sections:
         opacity: 0.05
         fadeDirection: "right"
     content:
-      badge: "Haeufige Fragen"
+      badge: "Häufige Fragen"
       headline: "Fragen zum <em>Sparring</em>"
       description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
       faqs:
         - question: "Was unterscheidet Sparring von Beratung?"
-          answer: "Beratung ist oft projektbezogen: Sie haben ein Problem, ich liefere eine Loesung. Sparring ist kontinuierlich und dialogisch. Ich gebe keine fertigen Antworten, sondern helfe Ihnen, selbst bessere Entscheidungen zu treffen. Der Fokus liegt auf dem Prozess, nicht nur dem Ergebnis."
-        - question: "Fuer wen ist Sparring geeignet?"
-          answer: "Sparring eignet sich fuer Unternehmer und E-Commerce-Verantwortliche, die regelmaessig strategische Entscheidungen treffen muessen und sich einen erfahrenen Austauschpartner wuenschen. Typische Sparringspartner sind Geschaeftsfuehrer, E-Commerce-Leiter oder Gruender mit wachsendem Online-Geschaeft."
+          answer: "Beratung ist oft projektbezogen: Sie haben ein Problem, ich liefere eine Lösung. Sparring ist kontinuierlich und dialogisch. Ich gebe keine fertigen Antworten, sondern helfe Ihnen, selbst bessere Entscheidungen zu treffen. Der Fokus liegt auf dem Prozess, nicht nur dem Ergebnis."
+        - question: "Für wen ist Sparring geeignet?"
+          answer: "Sparring eignet sich für Unternehmer und E-Commerce-Verantwortliche, die regelmäßig strategische Entscheidungen treffen müssen und sich einen erfahrenen Austauschpartner wünschen. Typische Sparringspartner sind Geschäftsführer, E-Commerce-Leiter oder Gründer mit wachsendem Online-Geschäft."
         - question: "Wie oft treffen wir uns?"
-          answer: "Je nach Bedarf 2-4 Mal pro Monat. Die meisten Sparrings starten mit woechentlichen Sessions und gehen dann auf 14-taegigen Rhythmus ueber. Die Frequenz koennen wir jederzeit anpassen – je nachdem, wie viel gerade los ist."
+          answer: "Je nach Bedarf 2-4 Mal pro Monat. Die meisten Sparrings starten mit wöchentlichen Sessions und gehen dann auf 14-tägigen Rhythmus über. Die Frequenz können wir jederzeit anpassen – je nachdem, wie viel gerade los ist."
         - question: "Was kostet Sparring?"
-          answer: "Das Sparring startet bei 1.500 Euro pro Monat (zzgl. MwSt.) fuer 2 Sessions. Fuer intensivere Begleitung mit 4 Sessions und erweitertem asynchronen Support gibt es erweiterte Pakete. Die Mindestlaufzeit betraegt 3 Monate."
+          answer: "Das Sparring startet bei 1.500 Euro pro Monat (zzgl. MwSt.) für 2 Sessions. Für intensivere Begleitung mit 4 Sessions und erweitertem asynchronen Support gibt es erweiterte Pakete. Die Mindestlaufzeit beträgt 3 Monate."
         - question: "Kann ich zwischendurch auch Fragen stellen?"
-          answer: "Ja, asynchroner Support ist im Retainer enthalten. Per E-Mail oder Messenger koennen Sie jederzeit kurze Fragen stellen oder Themen fuer das naechste Gespraech vorbereiten. Fuer umfangreichere Themen planen wir dann eine Session."
-        - question: "Wie laeuft eine typische Session ab?"
-          answer: "Sie bringen die Themen mit, die Sie aktuell beschaeftigen. Wir priorisieren gemeinsam und arbeiten dann strukturiert durch. Ich stelle Fragen, bringe Perspektiven ein, wir entwickeln Loesungsansaetze. Am Ende halten wir Entscheidungen und naechste Schritte fest."
+          answer: "Ja, asynchroner Support ist im Retainer enthalten. Per E-Mail oder Messenger können Sie jederzeit kurze Fragen stellen oder Themen für das nächste Gespräch vorbereiten. Für umfangreichere Themen planen wir dann eine Session."
+        - question: "Wie läuft eine typische Session ab?"
+          answer: "Sie bringen die Themen mit, die Sie aktuell beschäftigen. Wir priorisieren gemeinsam und arbeiten dann strukturiert durch. Ich stelle Fragen, bringe Perspektiven ein, wir entwickeln Lösungsansätze. Am Ende halten wir Entscheidungen und nächste Schritte fest."
         - question: "Was, wenn ich mal absagen muss?"
-          answer: "Kein Problem – bis 24 Stunden vorher koennen Sie jederzeit verschieben. Nicht genutzte Sessions verfallen nicht, sondern werden ins naechste Monat uebertragen. Flexibilitaet ist mir wichtig."
+          answer: "Kein Problem – bis 24 Stunden vorher können Sie jederzeit verschieben. Nicht genutzte Sessions verfallen nicht, sondern werden ins nächste Monat übertragen. Flexibilität ist mir wichtig."
         - question: "Kann ich das Sparring jederzeit beenden?"
-          answer: "Nach der Mindestlaufzeit von 3 Monaten gilt eine monatliche Kuendigungsfrist. Ich binde niemanden laenger als noetig – wenn das Sparring keinen Mehrwert mehr bringt, beenden wir es. Oft entwickelt sich die Zusammenarbeit aber auch weiter, z.B. in Richtung Projektbegleitung."
+          answer: "Nach der Mindestlaufzeit von 3 Monaten gilt eine monatliche Kündigungsfrist. Ich binde niemanden länger als nötig – wenn das Sparring keinen Mehrwert mehr bringt, beenden wir es. Oft entwickelt sich die Zusammenarbeit aber auch weiter, z.B. in Richtung Projektbegleitung."
 
   # ========================================
   # Section 9: CTA
@@ -360,9 +360,9 @@ sections:
         to: "transparent"
         direction: "to bottom"
     content:
-      headline: "Bereit fuer einen <em>Sparringspartner</em>?"
-      description: "Lassen Sie uns in 30 Minuten herausfinden, ob Sparring das richtige Format fuer Sie ist. Unverbindlich und kostenlos."
-      buttonText: "Kennenlern-Gespraech vereinbaren"
+      headline: "Bereit für einen <em>Sparringspartner</em>?"
+      description: "Lassen Sie uns in 30 Minuten herausfinden, ob Sparring das richtige Format für Sie ist. Unverbindlich und kostenlos."
+      buttonText: "Kennenlern-Gespräch vereinbaren"
       buttonHref: "/kontakt"
       emailLabel: "Lieber erstmal schreiben?"
       email: "kontakt@wernerstrauch.de"

@@ -74,7 +74,7 @@ sections:
     content:
       badge: "Meine Rolle"
       headline: "Beratend, nicht <em>entscheidend</em>"
-      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      image: "/src/images/umsetzungsbegleitung-beratung.png"
       imageAlt: "Beratung und Sparring bei E-Commerce Projekten"
       imagePosition: "right"
       content:

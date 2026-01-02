@@ -13,15 +13,23 @@ interface ContentBlock {
   content: string | string[] | FaqItem[];
 }
 
+// Alternative format: sections with title and content
+interface SectionItem {
+  title: string;
+  content: string;
+}
+
 interface Props {
   sectionVariant?: SectionVariant;
   eyebrow?: string;
+  badge?: string; // Alias for eyebrow
   headline?: string;
   leadParagraph?: string;
   pullQuote?: string;
   pullQuoteAuthor?: string;
   leftColumn?: ContentBlock[];
   rightColumn?: ContentBlock[];
+  sections?: SectionItem[]; // Alternative format
   showDropCap?: boolean;
   showSectionNumbers?: boolean;
 }
@@ -29,15 +37,35 @@ interface Props {
 const {
   sectionVariant = "dark",
   eyebrow,
+  badge,
   headline = "E-Commerce <em>Beratung</em> mit System",
   leadParagraph,
   pullQuote,
   pullQuoteAuthor,
-  leftColumn = [],
+  leftColumn: leftColumnProp = [],
   rightColumn = [],
+  sections = [],
   showDropCap = true,
   showSectionNumbers = false,
 } = Astro.props;
+
+// Use badge as eyebrow if eyebrow is not provided
+const displayEyebrow = eyebrow || badge;
+
+// Convert sections format to leftColumn format if sections is provided
+let leftColumn: ContentBlock[] = leftColumnProp;
+if (sections.length > 0 && leftColumnProp.length === 0) {
+  leftColumn = sections.flatMap((section): ContentBlock[] => {
+    const blocks: ContentBlock[] = [];
+    if (section.title) {
+      blocks.push({ type: "headline", content: section.title });
+    }
+    if (section.content) {
+      blocks.push({ type: "text", content: section.content });
+    }
+    return blocks;
+  });
+}
 
 // Process headline with accent highlights
 const highlightStyle = `color: var(--section-accent);`;
@@ -67,16 +95,16 @@ let sectionCounter = 0;
     />
   </svg>
 
-  <Container class="relative z-10">
+  <Container class="z-10">
     {/* Header Section with optional Pull Quote */}
     <header class="editorial-header mb-12 lg:mb-16">
       <div class="editorial-header-grid">
         {/* Left: Headline Area */}
         <div class="editorial-header-content">
-          {/* Eyebrow */}
-          {eyebrow && (
+          {/* Eyebrow / Badge */}
+          {displayEyebrow && (
             <p class="editorial-eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
-              {eyebrow}
+              {displayEyebrow}
             </p>
           )}
 

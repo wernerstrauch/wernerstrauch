@@ -46,7 +46,7 @@ sections:
       badgeIcon: "heroicons:academic-cap-solid"
       headline: "E-Commerce Workshop für <em>Ihr Team</em>"
       subheadline: "Strategie, Prozesse und Wachstum – in einem intensiven Workshop gemeinsam auf den Punkt gebracht. Mit klarer Roadmap und konkreten Action Items."
-      image: "/src/images/ecommerce-workshop-hero.png"
+      image: "/src/images/ecommerce-workshop.png"
       imageAlt: "E-Commerce Workshop - Team-Session"
       primaryCta: "Workshop anfragen"
       secondaryCta: "Ablauf ansehen"
@@ -253,7 +253,7 @@ sections:
     content:
       badge: "Für wen?"
       headline: "Der Workshop ist <em>ideal für</em>"
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      image: "/src/images/ecommerce-workshop-team.png"
       imageAlt: "Team Workshop Session"
       imagePosition: "left"
       content:

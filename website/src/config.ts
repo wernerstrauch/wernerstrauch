@@ -214,7 +214,6 @@ export const SITE: SiteConfig = {
     main: [
       { label: "Leistungen", href: "/leistungen" },
       { label: "Über mich", href: "/ueber-mich" },
-      { label: "Blog", href: "/blog" },
     ],
     megaMenu: MEGA_MENU_DE,
   },
@@ -242,7 +241,6 @@ export const SITE_EN: SiteConfig = {
     main: [
       { label: "Services", href: "/en/services" },
       { label: "About", href: "/en/about" },
-      { label: "Blog", href: "/en/blog" },
     ],
     megaMenu: MEGA_MENU_EN,
   },
