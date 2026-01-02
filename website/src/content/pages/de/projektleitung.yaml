@@ -72,7 +72,7 @@ sections:
       badge: "In Zahlen"
       headline: "Erfahrung, die <em>Projekte rettet</em>"
       stats:
-        - value: "30"
+        - value: "200"
           suffix: "+"
           label: "Projekte"
           description: "erfolgreich begleitet"
