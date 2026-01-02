@@ -1,12 +1,13 @@
 # E-Commerce-Beratung Seite
-# Individueller Aufbau, unterscheidet sich bewusst von der Startseite
+# Ganzheitliche Beratung: Strategie, Prozesse, Technologie, Markt
 
 lang: de
 pageId: ecommerce-beratung
+slug: ecommerce-beratung
 
 meta:
-  title: "E-Commerce Beratung | Werner Strauch"
-  description: "Strategische E-Commerce-Beratung für nachhaltiges Wachstum. Shop-Audit, Conversion-Optimierung, SEO und mehr. Jetzt Erstgespräch vereinbaren."
+  title: "E-Commerce Beratung | Strategie, Prozesse & Technologie | Werner Strauch"
+  description: "Ganzheitliche E-Commerce-Beratung: Von der Strategie über Prozessoptimierung bis zur Technologieauswahl. Unabhängige Expertise für nachhaltiges Wachstum."
 
 settings:
   status: published
@@ -15,35 +16,45 @@ settings:
 
 sections:
   # ========================================
-  # Section 1: Hero mit PageHeroSplit
+  # Section 1: Hero mit HeroSplit (mit Bild)
   # ========================================
   - id: hero
     enabled: true
     order: 1
-    component: PageHeroSplit
+    component: HeroSplit
     wrapper:
       variant: dark
-      padding: xl
+      padding: none
     backgrounds:
       - type: GridBackground
         color: "#c8ff00"
-        opacity: 0.08
-        fadeDirection: "bottom"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
-      title: "E-Commerce <em>Beratung</em> für nachhaltiges Wachstum"
-      description: "Als erfahrener E-Commerce-Berater helfe ich Ihnen, Ihren Online-Shop strategisch weiterzuentwickeln. Gemeinsam identifizieren wir Wachstumspotenziale und setzen messbare Verbesserungen um."
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
-      imageAlt: "E-Commerce Analyse Dashboard"
-      imagePosition: "right"
-      breadcrumbs:
-        - label: "Home"
-          href: "/"
-        - label: "E-Commerce-Beratung"
-      ctaText: "Erstgespräch vereinbaren"
-      ctaHref: "/kontakt"
+      badge: "E-Commerce Beratung"
+      badgeIcon: "heroicons:light-bulb-16-solid"
+      headline: "Ganzheitliche E-Commerce <em>Beratung</em>"
+      subheadline: "Strategie, Prozesse und Technologie – ich betrachte Ihren Online-Handel aus allen Perspektiven. Gemeinsam entwickeln wir Lösungen, die Ihr Geschäft nachhaltig voranbringen."
+      image: "/src/images/ecommerce-beratung-hero.png"
+      imageAlt: "E-Commerce Beratung - Strategische Analyse"
+      primaryCta: "Erstgespräch vereinbaren"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Beratungsbereiche"
+      secondaryCtaHref: "#beratungsbereiche"
 
   # ========================================
-  # Section 2: Problem vs. Solution
+  # Section 2: Problem vs. Solution (ganzheitlich)
   # ========================================
   - id: problem-solution
     enabled: true
@@ -62,94 +73,90 @@ sections:
         hideOnMobile: true
     content:
       badge: "Die Herausforderung"
-      headline: "Typische <em>Stolpersteine</em> im E-Commerce"
-      description: "Diese Probleme kenne ich aus dutzenden Shop-Projekten – und ich weiß, wie man sie löst."
-      problemsTitle: "Ohne Beratung"
+      headline: "Wenn <em>Wachstum</em> zur Belastung wird"
+      description: "Online-Händler stehen vor komplexen Herausforderungen – technisch, organisatorisch und strategisch."
+      problemsTitle: "Typische Symptome"
       solutionsTitle: "Mit Beratung"
       problems:
-        - icon: "heroicons:chart-bar"
-          text: "Umsatz stagniert trotz steigendem Traffic"
-        - icon: "heroicons:currency-euro"
-          text: "Hohe Werbekosten ohne klaren ROI"
-        - icon: "heroicons:shopping-cart"
-          text: "Viele Warenkorbabbrecher, wenig Käufer"
-        - icon: "heroicons:magnifying-glass"
-          text: "Shop wird in Google nicht gefunden"
+        - icon: "heroicons:cog-6-tooth"
+          text: "Manuelle Prozesse bremsen das Wachstum"
+        - icon: "heroicons:circle-stack"
+          text: "Systeme kommunizieren nicht miteinander"
+        - icon: "heroicons:cursor-arrow-ripple"
+          text: "Entscheidungen basieren auf Bauchgefühl"
         - icon: "heroicons:puzzle-piece"
-          text: "Keine klare Strategie für Wachstum"
-      solutions:
-        - icon: "heroicons:arrow-trending-up"
-          text: "Conversion-Optimierung steigert die Kaufrate"
-        - icon: "heroicons:calculator"
-          text: "Datengetriebene Kampagnen mit messbarem ROAS"
-        - icon: "heroicons:shopping-bag"
-          text: "Optimierte Customer Journey reduziert Abbrüche"
-        - icon: "heroicons:globe-alt"
-          text: "SEO-Strategie bringt organischen Traffic"
+          text: "Technologie-Stack ist historisch gewachsen"
         - icon: "heroicons:map"
-          text: "Klarer Fahrplan mit Prioritäten und Meilensteinen"
+          text: "Keine klare Roadmap für die Zukunft"
+      solutions:
+        - icon: "heroicons:bolt"
+          text: "Automatisierung schafft Kapazitäten"
+        - icon: "heroicons:arrows-right-left"
+          text: "Integrierte Systemlandschaft mit klaren Schnittstellen"
+        - icon: "heroicons:chart-bar"
+          text: "Datengetriebene Entscheidungsgrundlagen"
+        - icon: "heroicons:cube-transparent"
+          text: "Durchdachte Architektur für Skalierung"
+        - icon: "heroicons:flag"
+          text: "Strategische Roadmap mit Prioritäten"
 
   # ========================================
-  # Section 3: Beratungsschwerpunkte (BentoGrid)
+  # Section 3: Beratungsbereiche (BentoGrid - ganzheitlich)
   # ========================================
-  - id: beratungsschwerpunkte
+  - id: beratungsbereiche
     enabled: true
     order: 3
     component: BentoGrid
     wrapper:
-      variant: light
+      variant: dark
       padding: lg
-    backgrounds:
-      - type: Gradient
-        from: "#f8fafc"
-        to: "#f1f5f9"
     content:
-      badge: "Leistungen"
-      headline: "Meine <em>Beratungsschwerpunkte</em>"
-      description: "Von der Strategie bis zur Umsetzung – ich begleite Sie in allen Bereichen des E-Commerce."
+      badge: "Beratungsbereiche"
+      headline: "Vier Perspektiven für <em>nachhaltigen Erfolg</em>"
+      description: "E-Commerce-Erfolg entsteht nicht durch Einzelmaßnahmen, sondern durch das Zusammenspiel von Strategie, Prozessen, Technologie und Marktverständnis."
       cards:
-        - title: "Shop-Audit & Analyse"
-          description: "Umfassende Analyse Ihres Shops: Technik, UX, Conversion-Funnel und Wettbewerb. Sie erhalten einen klaren Bericht mit konkreten Handlungsempfehlungen."
-          icon: "heroicons:magnifying-glass-circle"
+        - title: "Strategie & Positionierung"
+          description: "Wo stehen Sie heute? Wo wollen Sie hin? Gemeinsam entwickeln wir eine klare E-Commerce-Strategie, die zu Ihrem Unternehmen passt und realistische Wachstumsziele definiert."
+          icon: "heroicons:map"
           large: true
           features:
-            - "Technisches Audit"
-            - "UX-Analyse"
-            - "Conversion-Funnel"
-            - "Wettbewerbsanalyse"
-        - title: "Conversion-Optimierung"
-          description: "Mehr Käufer bei gleichem Traffic. Ich identifiziere Reibungspunkte und optimiere die Customer Journey systematisch."
-          icon: "heroicons:arrow-trending-up"
+            - "Geschäftsmodell-Analyse"
+            - "Wettbewerbspositionierung"
+            - "Wachstumsstrategie"
+            - "Roadmap-Entwicklung"
+        - title: "Prozesse & Operations"
+          description: "Effiziente Abläufe sind das Rückgrat eines skalierbaren E-Commerce. Ich analysiere Ihre Prozesse und identifiziere Automatisierungspotenziale."
+          icon: "heroicons:cog-6-tooth"
           features:
-            - "A/B Testing"
-            - "Checkout-Optimierung"
-            - "Mobile UX"
-        - title: "SEO für Online-Shops"
-          description: "Organischer Traffic, der kauft. Von der technischen SEO bis zur Content-Strategie für Kategorie- und Produktseiten."
+            - "Prozessanalyse"
+            - "Automatisierung"
+            - "Fulfillment-Optimierung"
+        - title: "Technologie & Systeme"
+          description: "Shop-System, ERP, PIM, CRM – ich helfe Ihnen, die richtige Technologie-Architektur zu entwickeln und Systeme sinnvoll zu integrieren."
+          icon: "heroicons:cpu-chip"
+          features:
+            - "Systemauswahl"
+            - "Architektur-Design"
+            - "Integrationsberatung"
+        - title: "Markt & Wettbewerb"
+          description: "Wer sind Ihre Wettbewerber? Wie entwickelt sich der Markt? Fundierte Analysen liefern die Grundlage für strategische Entscheidungen."
           icon: "heroicons:globe-alt"
           features:
-            - "Technische SEO"
-            - "Content-Strategie"
-            - "Linkbuilding"
-        - title: "Paid Ads Beratung"
-          description: "Google Ads, Meta Ads, Performance Max – ich helfe Ihnen, Ihre Werbebudgets effizienter einzusetzen."
-          icon: "heroicons:megaphone"
-          features:
-            - "Kampagnen-Audit"
-            - "Budget-Allokation"
-            - "Zielgruppen-Strategie"
-        - title: "E-Mail-Marketing & Retention"
-          description: "Bestandskunden sind Gold wert. Ich entwickle Strategien für Wiederkauf, Kundenbindung und höheren Customer Lifetime Value."
-          icon: "heroicons:envelope"
+            - "Marktanalyse"
+            - "Wettbewerbsbeobachtung"
+            - "Trend-Monitoring"
+        - title: "Vertrieb & Wachstum"
+          description: "Vom organischen Wachstum über Performance-Marketing bis zu Marktplatz-Strategien – ich unterstütze Sie dabei, die richtigen Kanäle zu erschließen."
+          icon: "heroicons:arrow-trending-up"
           large: true
           features:
-            - "Klaviyo-Flows"
-            - "Segmentierung"
-            - "Loyalty-Programme"
-            - "Reaktivierung"
+            - "Kanalstrategie"
+            - "Performance-Analyse"
+            - "Marktplatz-Beratung"
+            - "Internationalisierung"
 
   # ========================================
-  # Section 4: Quote / Testimonial
+  # Section 4: Quote
   # ========================================
   - id: quote
     enabled: true
@@ -159,7 +166,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "E-Commerce ist kein Sprint, sondern ein Marathon. Wer systematisch optimiert statt hektisch zu reagieren, gewinnt langfristig."
+      quote: "Nachhaltige E-Commerce-Erfolge entstehen nicht durch Einzelmaßnahmen, sondern durch das Zusammenspiel von Strategie, Prozessen und Technologie."
       author: "Werner Strauch"
       role: "E-Commerce-Berater"
 
@@ -184,40 +191,40 @@ sections:
     content:
       badge: "Der Ablauf"
       headline: "So läuft eine <em>Beratung</em> ab"
-      description: "Strukturiert, transparent und zielgerichtet – von der ersten Analyse bis zur messbaren Verbesserung."
+      description: "Strukturiert, transparent und zielgerichtet – von der ersten Analyse bis zur strategischen Umsetzung."
       steps:
         - number: "01"
           icon: "heroicons:phone"
           title: "Erstgespräch"
-          description: "In einem kostenlosen 30-minütigen Gespräch lernen wir uns kennen. Sie schildern Ihre Situation, ich gebe erste Einschätzungen."
+          description: "In einem kostenlosen 30-minütigen Gespräch lernen wir uns kennen. Sie schildern Ihre Herausforderungen, ich gebe erste Einschätzungen."
           details:
             - "Kostenlos"
             - "30 Minuten"
             - "Unverbindlich"
         - number: "02"
           icon: "heroicons:document-magnifying-glass"
-          title: "Analyse & Audit"
-          description: "Ich tauche tief in Ihren Shop ein: Technik, Daten, Wettbewerb. Sie erhalten einen umfassenden Audit-Report."
+          title: "Analyse & Standortbestimmung"
+          description: "Ich analysiere Ihre aktuelle Situation: Geschäftsmodell, Prozesse, Technologie, Marktposition. Sie erhalten einen umfassenden Status-Report."
           details:
-            - "Shop-Analyse"
-            - "Daten-Review"
-            - "Audit-Report"
+            - "360°-Analyse"
+            - "Prozess-Mapping"
+            - "Status-Report"
         - number: "03"
           icon: "heroicons:presentation-chart-line"
-          title: "Strategie-Workshop"
-          description: "Gemeinsam entwickeln wir eine priorisierte Roadmap. Was muss jetzt passieren? Was kann warten?"
+          title: "Strategie & Roadmap"
+          description: "Gemeinsam entwickeln wir eine priorisierte Roadmap. Was sind die strategischen Hebel? Welche Quick Wins gibt es?"
           details:
+            - "Strategieentwicklung"
             - "Priorisierung"
-            - "Quick Wins"
-            - "Roadmap"
+            - "Maßnahmenplan"
         - number: "04"
-          icon: "heroicons:cog-6-tooth"
+          icon: "heroicons:rocket-launch"
           title: "Umsetzung & Begleitung"
-          description: "Je nach Bedarf begleite ich die Umsetzung – als Sparringspartner, Projekt-Coach oder mit Hands-on-Unterstützung."
+          description: "Je nach Bedarf begleite ich die Umsetzung – als Sparringspartner, Projektleiter oder mit Hands-on-Unterstützung bei Systemauswahl und Implementierung."
           details:
-            - "Sparring"
             - "Projekt-Begleitung"
-            - "Erfolgsmessung"
+            - "Vendor-Management"
+            - "Erfolgskontrolle"
 
   # ========================================
   # Section 6: Tiefere Positionierung (ContentSplitImage)
@@ -227,41 +234,70 @@ sections:
     order: 6
     component: ContentSplitImage
     wrapper:
-      variant: light
+      variant: dark
       padding: lg
     content:
       badge: "Mein Ansatz"
-      headline: "Beratung mit <em>Tiefgang</em>, nicht Buzzwords"
+      headline: "Unabhängige <em>Beratung</em> mit Weitblick"
       image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
       imageAlt: "Strategische E-Commerce Beratung"
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "Ich verkaufe keine Pakete von der Stange. Jede Beratung beginnt mit dem Verstehen Ihrer individuellen Situation."
+          content: "Ich verkaufe keine Software, keine Implementierungsleistung und keine Agenturpakete. Mein einziges Produkt ist unabhängige Expertise."
         - type: "text"
-          content: "<p>In über 10 Jahren E-Commerce habe ich eines gelernt: Es gibt keine Universallösung. Was für Shop A funktioniert, kann für Shop B völlig falsch sein. Deshalb starte ich jedes Projekt mit einer gründlichen Analyse.</p>"
+          content: "<p>Nach über 20 Jahren in der digitalen Wirtschaft – davon 7 Jahre als Geschäftsführer – weiß ich: Gute Beratung bedeutet, die richtigen Fragen zu stellen. Nicht jede Herausforderung braucht ein neues Tool. Manchmal ist ein optimierter Prozess die bessere Lösung.</p>"
         - type: "features"
           items:
-            - icon: "heroicons:light-bulb"
-              title: "Ehrliche Einschätzung"
-              description: "Ich sage Ihnen, was Sinn macht – und was nicht. Auch wenn das bedeutet, von einem Projekt abzuraten."
-            - icon: "heroicons:chart-bar"
-              title: "Datengetrieben"
-              description: "Bauchgefühl ist gut, Daten sind besser. Ich treffe Entscheidungen auf Basis von Zahlen und Tests."
-            - icon: "heroicons:users"
-              title: "Partnerschaftlich"
-              description: "Ich arbeite mit Ihnen, nicht für Sie. Das Ziel ist, dass Sie langfristig selbstständig weiterkommen."
+            - icon: "heroicons:scale"
+              title: "Unabhängig"
+              description: "Keine Provisionen von Software-Anbietern. Meine Empfehlungen basieren ausschließlich auf Ihrem Bedarf."
+            - icon: "heroicons:eye"
+              title: "Ganzheitlich"
+              description: "Ich betrachte Strategie, Prozesse und Technologie im Zusammenhang – nicht isoliert."
+            - icon: "heroicons:academic-cap"
+              title: "Erfahren"
+              description: "Diplom-Betriebswirt mit Schwerpunkt Wirtschaftsinformatik. Theorie und Praxis vereint."
         - type: "button"
           text: "Mehr über mich"
           href: "/ueber-mich"
           variant: "primary"
 
   # ========================================
-  # Section 7: Kompakte Stats
+  # Section 7: ContentEditorial (SEO-Text)
+  # ========================================
+  - id: editorial
+    enabled: true
+    order: 7
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Hintergrund"
+      headline: "Was macht gute <em>E-Commerce-Beratung</em> aus?"
+      sections:
+        - title: "Mehr als nur Marketing"
+          content: |
+            <p>Viele verstehen unter E-Commerce-Beratung primär die Optimierung von Werbeanzeigen, SEO oder Conversion-Raten. Das ist wichtig – aber es ist nur ein Teil des Bildes. Nachhaltiger E-Commerce-Erfolg entsteht, wenn Strategie, Prozesse und Technologie ineinandergreifen.</p>
+            <p>Ein Shop mit perfektem Marketing aber ineffizienten Fulfillment-Prozessen skaliert nicht. Ein technisch brillanter Shop ohne klare Positionierung kämpft um jeden Kunden. Deshalb betrachte ich E-Commerce immer ganzheitlich.</p>
+        - title: "Die vier Säulen erfolgreicher Online-Händler"
+          content: |
+            <p><strong>1. Strategie & Geschäftsmodell:</strong> Wer sind Ihre Kunden? Was ist Ihre Positionierung? Welche Wachstumshebel haben Sie? Eine klare Strategie ist die Grundlage aller operativen Entscheidungen.</p>
+            <p><strong>2. Prozesse & Operations:</strong> Vom Bestelleingang bis zur Retoure – effiziente Prozesse sind das Rückgrat eines skalierbaren E-Commerce. Automatisierung wo sinnvoll, menschliche Expertise wo nötig.</p>
+            <p><strong>3. Technologie & Systeme:</strong> Shop-System, ERP, PIM, CRM, Marketing-Automation – die richtige Technologie-Architektur macht den Unterschied. Nicht das teuerste Tool gewinnt, sondern das passende.</p>
+            <p><strong>4. Markt & Wettbewerb:</strong> Wer sind Ihre Wettbewerber? Wie entwickelt sich Ihr Markt? Welche Trends sind relevant? Fundierte Marktkenntnis ermöglicht strategische Entscheidungen.</p>
+        - title: "Typische Beratungsanlässe"
+          content: |
+            <p>Online-Händler suchen Beratung in verschiedenen Situationen: Vor einer Shop-Migration oder ERP-Einführung, bei stagnierendem Wachstum, vor der Internationalisierung, bei der Vorbereitung auf Investoren oder Verkauf, oder einfach, um einen externen Blick auf das eigene Geschäft zu bekommen.</p>
+            <p>Gemeinsam haben diese Anlässe, dass sie strategische Weichenstellungen erfordern – Entscheidungen, die langfristige Auswirkungen haben und deshalb fundiert getroffen werden sollten.</p>
+
+  # ========================================
+  # Section 8: Kompakte Stats
   # ========================================
   - id: stats
     enabled: true
-    order: 7
+    order: 8
     component: Stats
     wrapper:
       variant: dark
@@ -275,25 +311,24 @@ sections:
       badge: "In Zahlen"
       headline: "Erfahrung, die <em>zählt</em>"
       stats:
-        - value: "10"
+        - value: "20"
           suffix: "+"
           label: "Jahre Erfahrung"
-          description: "im E-Commerce"
+          description: "in der digitalen Wirtschaft"
+        - value: "7"
+          label: "Jahre"
+          description: "Geschäftsführung"
         - value: "50"
           suffix: "+"
-          label: "Shop-Projekte"
+          label: "Projekte"
           description: "erfolgreich begleitet"
-        - value: "35"
-          suffix: "%"
-          label: "Mehr Umsatz"
-          description: "durchschnittliche Steigerung"
 
   # ========================================
-  # Section 8: FAQ
+  # Section 9: FAQ
   # ========================================
   - id: faq
     enabled: true
-    order: 8
+    order: 9
     component: Faq
     wrapper:
       variant: dark
@@ -312,24 +347,24 @@ sections:
       description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
       faqs:
         - question: "Für wen ist die Beratung geeignet?"
-          answer: "Meine Beratung richtet sich an etablierte Online-Shops mit mindestens 6-stelligem Jahresumsatz, die strukturiert wachsen möchten. Start-ups in der Frühphase empfehle ich, erst solide Grundlagen zu schaffen."
-        - question: "Was kostet eine E-Commerce-Beratung?"
-          answer: "Die Kosten hängen vom Umfang ab. Ein einmaliges Audit startet bei 2.500€, eine laufende Begleitung beginnt bei 1.500€/Monat. Im kostenlosen Erstgespräch klären wir, was für Sie sinnvoll ist."
+          answer: "Meine Beratung richtet sich an etablierte Online-Händler und D2C-Marken, die vor strategischen Entscheidungen stehen – sei es eine System-Migration, Prozessoptimierung oder Neuausrichtung. Idealerweise haben Sie bereits einen funktionierenden Shop und suchen den nächsten Wachstumsschritt."
+        - question: "Was unterscheidet Sie von einer Agentur?"
+          answer: "Ich verkaufe keine Implementierungsleistung. Meine Empfehlungen sind unabhängig von Software-Partnerschaften oder Provisionen. Wenn Sie eine Agentur brauchen, helfe ich Ihnen, die richtige zu finden – aber ich bleibe auf Ihrer Seite des Tisches."
+        - question: "Beraten Sie auch bei ERP- oder Shop-Auswahl?"
+          answer: "Ja, das ist einer meiner Schwerpunkte. Ich begleite den gesamten Auswahlprozess: Von der Anforderungsanalyse über die Marktübersicht bis zur Anbieterauswahl. Dabei achte ich auf Passung zum Geschäftsmodell, nicht auf Feature-Listen."
         - question: "Wie läuft das Erstgespräch ab?"
-          answer: "Das Erstgespräch ist kostenlos und dauert etwa 30 Minuten. Wir besprechen Ihre aktuelle Situation, Ihre Ziele und ob eine Zusammenarbeit Sinn macht. Keine Verpflichtungen, keine versteckten Kosten."
+          answer: "Das Erstgespräch ist kostenlos und dauert etwa 30 Minuten. Wir besprechen Ihre aktuelle Situation, Ihre Ziele und ob eine Zusammenarbeit Sinn macht. Ich gebe erste Einschätzungen – unverbindlich und ohne versteckte Kosten."
         - question: "Arbeiten Sie auch operativ mit?"
-          answer: "Ja, je nach Bedarf. Das Spektrum reicht von reiner strategischer Beratung über Projekt-Coaching bis hin zu Hands-on-Unterstützung bei der Umsetzung. Wir definieren gemeinsam die passende Form."
-        - question: "Wie lange dauert eine typische Zusammenarbeit?"
-          answer: "Das variiert stark. Ein Audit ist ein einmaliges Projekt von 2-3 Wochen. Eine laufende Begleitung empfehle ich für mindestens 6 Monate, um nachhaltige Ergebnisse zu erzielen."
-        - question: "Welche Shop-Systeme kennen Sie?"
-          answer: "Ich habe Erfahrung mit Shopify, WooCommerce, Shopware und Magento. Die Beratung ist aber System-agnostisch – die Strategien und Prinzipien gelten übergreifend."
+          answer: "Je nach Bedarf. Das Spektrum reicht von reiner strategischer Beratung über Projekt-Coaching bis hin zur Interim-Projektleitung. Bei Systemeinführungen begleite ich oft als Owner auf Kundenseite."
+        - question: "Was kostet eine E-Commerce-Beratung?"
+          answer: "Die Kosten hängen vom Umfang ab. Ein einmaliges Audit startet bei 2.500€, eine laufende Begleitung ab 1.500€/Monat. Für größere Projekte wie ERP-Auswahl erstelle ich individuelle Angebote. Im Erstgespräch klären wir, was für Sie sinnvoll ist."
 
   # ========================================
-  # Section 9: CTA
+  # Section 10: CTA
   # ========================================
   - id: cta
     enabled: true
-    order: 9
+    order: 10
     component: CtaCentered
     wrapper:
       variant: dark
@@ -340,8 +375,8 @@ sections:
         to: "transparent"
         direction: "to bottom"
     content:
-      headline: "Bereit für den <em>nächsten Schritt</em>?"
-      description: "Lassen Sie uns in 30 Minuten herausfinden, wie ich Ihren Shop voranbringen kann. Unverbindlich und kostenlos."
+      headline: "Bereit für <em>Klarheit</em>?"
+      description: "Lassen Sie uns in 30 Minuten herausfinden, wo die größten Hebel für Ihr E-Commerce-Geschäft liegen. Unverbindlich und kostenlos."
       buttonText: "Erstgespräch vereinbaren"
       buttonHref: "/kontakt"
       emailLabel: "Lieber erstmal schreiben?"

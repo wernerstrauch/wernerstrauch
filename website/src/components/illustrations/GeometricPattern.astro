@@ -207,12 +207,6 @@ const uniqueId = `geometric-${Math.random().toString(36).substring(2, 11)}`;
   }
 
   /* Theme Color Variables */
-  [data-variant="light"] {
-    --illustration-primary: #4f3ca2;
-    --illustration-secondary: #6b5bb5;
-    --illustration-tertiary: #a090d0;
-  }
-
   [data-variant="dark"] {
     --illustration-primary: #b4e565;
     --illustration-secondary: #9dd84f;
@@ -220,19 +214,11 @@ const uniqueId = `geometric-${Math.random().toString(36).substring(2, 11)}`;
   }
 
   /* Base opacity per variant */
-  [data-variant="light"] {
-    opacity: 0.35;
-  }
-
   [data-variant="dark"] {
     opacity: 0.45;
   }
 
   /* Hover state - increase opacity */
-  :global(.bento-card:hover) [data-variant="light"] {
-    opacity: 0.55;
-  }
-
   :global(.bento-card:hover) [data-variant="dark"] {
     opacity: 0.65;
   }

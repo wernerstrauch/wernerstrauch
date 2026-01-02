@@ -42,7 +42,7 @@ sections:
     order: 2
     component: Stats
     wrapper:
-      variant: white
+      variant: dark
       padding: lg
     content:
       badge: "Results over promises"
@@ -94,7 +94,7 @@ sections:
     order: 4
     component: ServicesAccordion
     wrapper:
-      variant: white
+      variant: dark
       padding: lg
     content:
       headline: "How I <em>support</em> you"
@@ -151,7 +151,7 @@ sections:
     order: 5
     component: Principles
     wrapper:
-      variant: light
+      variant: dark
       padding: lg
     content:
       headline: "My <em>Principles</em>"
@@ -176,7 +176,7 @@ sections:
     order: 6
     component: Process
     wrapper:
-      variant: white
+      variant: dark
       padding: lg
     content:
       badge: "Collaboration"
@@ -219,7 +219,7 @@ sections:
     order: 7
     component: CaseStudies
     wrapper:
-      variant: light
+      variant: dark
       padding: lg
     content:
       headline: "Selected <em>Projects</em>"
@@ -246,7 +246,7 @@ sections:
     order: 8
     component: AboutSection
     wrapper:
-      variant: white
+      variant: dark
       padding: lg
     content:
       headline: "About <em>me</em>"
@@ -273,7 +273,7 @@ sections:
     order: 9
     component: Faq
     wrapper:
-      variant: light
+      variant: dark
       padding: lg
     content:
       badge: "FAQs"

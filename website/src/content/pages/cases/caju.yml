@@ -54,7 +54,7 @@ sections:
     order: 2
     component: CaseChallenge
     wrapper:
-      variant: light
+      variant: dark
       padding: lg
       container: false
       overflow: visible
@@ -79,7 +79,7 @@ sections:
     order: 2.5
     component: CaseServices
     wrapper:
-      variant: white
+      variant: dark
       padding: sm
       container: false
     content:
@@ -113,7 +113,7 @@ sections:
     order: 3
     component: CaseDetails
     wrapper:
-      variant: light
+      variant: dark
       padding: lg
       container: false
       overflow: visible

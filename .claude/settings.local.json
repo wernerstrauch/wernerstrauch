@@ -19,7 +19,9 @@
       "Skill(superpowers:brainstorm)",
       "Skill(superpowers:brainstorm:*)",
       "Bash(pnpm run build:*)",
-      "Bash(pnpm run dev)"
+      "Bash(pnpm run dev)",
+      "Bash(git diff:*)",
+      "Bash(node .claude/skills/fal-image-gen/scripts/generate_image.js:*)"
     ]
   }
 }

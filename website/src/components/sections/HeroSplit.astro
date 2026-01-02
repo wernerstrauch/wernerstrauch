@@ -42,13 +42,17 @@ const {
 } = Astro.props;
 
 // Resolve image if it's a string (from YAML)
-const images = import.meta.glob<{ default: ImageMetadata }>(
+const assetsImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/**/*.{png,jpg,jpeg,webp}",
 );
+const srcImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/images/**/*.{png,jpg,jpeg,webp}",
+);
+const images = { ...assetsImages, ...srcImages };
 
 let resolvedImage: ImageMetadata | string | undefined;
 if (typeof image === "string") {
-  if (image.startsWith("/src/assets/")) {
+  if (image.startsWith("/src/assets/") || image.startsWith("/src/images/")) {
     // Already a full asset path
     if (images[image]) {
       resolvedImage = (await images[image]()).default;
@@ -59,10 +63,13 @@ if (typeof image === "string") {
     // Public path - use as-is
     resolvedImage = image;
   } else {
-    // Relative path - add /src/assets/ prefix
-    const imagePath = `/src/assets/${image}`;
-    if (images[imagePath]) {
-      resolvedImage = (await images[imagePath]()).default;
+    // Relative path - try /src/images/ first, then /src/assets/
+    const imagesPath = `/src/images/${image}`;
+    const assetsPath = `/src/assets/${image}`;
+    if (images[imagesPath]) {
+      resolvedImage = (await images[imagesPath]()).default;
+    } else if (images[assetsPath]) {
+      resolvedImage = (await images[assetsPath]()).default;
     }
   }
 } else {
@@ -90,16 +97,6 @@ const processedHeadline = headline.replace(
   data-variant={sectionVariant}
 >
   <div class="relative z-10 lg:w-full lg:max-w-2xl">
-    {/* Diagonal divider for large screens */}
-    <svg
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-      class="herosplit-divider absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform lg:block"
-    >
-      <polygon points="0,0 90,0 50,100 0,100"></polygon>
-    </svg>
-
     <div class="relative px-6 sm:py-24 lg:px-8 lg:py-32 lg:pr-0">
       <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
         {/* Announcement banner */}
@@ -183,7 +180,7 @@ const processedHeadline = headline.replace(
 
 {/* Image section - outside max-w-7xl to reach screen edge */}
 <div
-  class="fade-up mt-8 lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:w-1/2"
+  class="herosplit-image-wrapper fade-up mt-8 lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:w-1/2"
   style="transition-delay: 400ms;"
 >
   <div
@@ -223,10 +220,13 @@ const processedHeadline = headline.replace(
      ======================================== */
 
   /* ========================================
-     Divider styles
+     Image diagonal clip - masks the image instead of overlaying the grid
      ======================================== */
-  .herosplit-divider {
-    fill: var(--section-bg);
+  @media (min-width: 1024px) {
+    .herosplit-image-wrapper {
+      /* Diagonal clip: flacher Winkel - 20% oben links, 0% unten links */
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    }
   }
 
   /* ========================================

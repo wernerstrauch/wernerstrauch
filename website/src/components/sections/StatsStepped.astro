@@ -237,18 +237,6 @@ const cardClasses = [
 
 <style>
   /* CSS Variables for theming */
-  [data-variant="white"] {
-    --section-text: #1c1c1e;
-    --section-text-muted: #6b7280;
-    --section-accent: var(--color-primary);
-  }
-
-  [data-variant="light"] {
-    --section-text: #1c1c1e;
-    --section-text-muted: #6b7280;
-    --section-accent: var(--color-primary);
-  }
-
   [data-variant="dark"] {
     --section-text: var(--color-white);
     --section-text-muted: var(--color-gray-300);
@@ -309,15 +297,6 @@ const cardClasses = [
 
   /* Card styles based on card variant and section variant */
   /* Light card variant */
-  [data-variant="white"] .stat-card[data-card-variant="light"] {
-    background-color: #f9fafb;
-  }
-
-  [data-variant="light"] .stat-card[data-card-variant="light"] {
-    background-color: #ffffff;
-    box-shadow: 0 0 0 1px #e5e7eb;
-  }
-
   [data-variant="dark"] .stat-card[data-card-variant="light"] {
     background-color: rgba(255, 255, 255, 0.05);
     box-shadow: 0 0 0 1px inset rgba(255, 255, 255, 0.1);
@@ -329,11 +308,6 @@ const cardClasses = [
   }
 
   /* Dark card variant */
-  [data-variant="white"] .stat-card[data-card-variant="dark"],
-  [data-variant="light"] .stat-card[data-card-variant="dark"] {
-    background-color: #1c1c1e;
-  }
-
   [data-variant="dark"] .stat-card[data-card-variant="dark"] {
     background-color: #1f2937;
     box-shadow: 0 0 0 1px inset rgba(255, 255, 255, 0.1);
@@ -345,11 +319,6 @@ const cardClasses = [
   }
 
   /* Primary card variant */
-  [data-variant="white"] .stat-card[data-card-variant="primary"],
-  [data-variant="light"] .stat-card[data-card-variant="primary"] {
-    background-color: var(--color-primary);
-  }
-
   [data-variant="dark"] .stat-card[data-card-variant="primary"] {
     background-color: var(--primary);
   }
@@ -359,15 +328,6 @@ const cardClasses = [
   }
 
   /* Stat value colors */
-  [data-variant="white"]
-    .stat-card[data-card-variant="light"]
-    .stats-stepped__stat-value,
-  [data-variant="light"]
-    .stat-card[data-card-variant="light"]
-    .stats-stepped__stat-value {
-    color: #1c1c1e;
-  }
-
   [data-variant="dark"]
     .stat-card[data-card-variant="light"]
     .stats-stepped__stat-value,
@@ -377,26 +337,11 @@ const cardClasses = [
     color: #ffffff;
   }
 
-  [data-variant="white"]
-    .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-value,
-  [data-variant="light"]
-    .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-value,
   [data-variant="dark"]
     .stat-card[data-card-variant="dark"]
     .stats-stepped__stat-value,
   [data-variant="primary"]
     .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-value {
-    color: #ffffff;
-  }
-
-  [data-variant="white"]
-    .stat-card[data-card-variant="primary"]
-    .stats-stepped__stat-value,
-  [data-variant="light"]
-    .stat-card[data-card-variant="primary"]
     .stats-stepped__stat-value {
     color: #ffffff;
   }
@@ -414,15 +359,6 @@ const cardClasses = [
   }
 
   /* Stat label colors */
-  [data-variant="white"]
-    .stat-card[data-card-variant="light"]
-    .stats-stepped__stat-label,
-  [data-variant="light"]
-    .stat-card[data-card-variant="light"]
-    .stats-stepped__stat-label {
-    color: #1c1c1e;
-  }
-
   [data-variant="dark"]
     .stat-card[data-card-variant="light"]
     .stats-stepped__stat-label,
@@ -432,26 +368,11 @@ const cardClasses = [
     color: #ffffff;
   }
 
-  [data-variant="white"]
-    .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-label,
-  [data-variant="light"]
-    .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-label,
   [data-variant="dark"]
     .stat-card[data-card-variant="dark"]
     .stats-stepped__stat-label,
   [data-variant="primary"]
     .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-label {
-    color: #ffffff;
-  }
-
-  [data-variant="white"]
-    .stat-card[data-card-variant="primary"]
-    .stats-stepped__stat-label,
-  [data-variant="light"]
-    .stat-card[data-card-variant="primary"]
     .stats-stepped__stat-label {
     color: #ffffff;
   }
@@ -469,15 +390,6 @@ const cardClasses = [
   }
 
   /* Stat description colors */
-  [data-variant="white"]
-    .stat-card[data-card-variant="light"]
-    .stats-stepped__stat-description,
-  [data-variant="light"]
-    .stat-card[data-card-variant="light"]
-    .stats-stepped__stat-description {
-    color: #6b7280;
-  }
-
   [data-variant="dark"]
     .stat-card[data-card-variant="light"]
     .stats-stepped__stat-description {
@@ -490,15 +402,6 @@ const cardClasses = [
     color: rgba(255, 255, 255, 0.7);
   }
 
-  [data-variant="white"]
-    .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-description,
-  [data-variant="light"]
-    .stat-card[data-card-variant="dark"]
-    .stats-stepped__stat-description {
-    color: #9ca3af;
-  }
-
   [data-variant="dark"]
     .stat-card[data-card-variant="dark"]
     .stats-stepped__stat-description,
@@ -506,15 +409,6 @@ const cardClasses = [
     .stat-card[data-card-variant="dark"]
     .stats-stepped__stat-description {
     color: #d1d5db;
-  }
-
-  [data-variant="white"]
-    .stat-card[data-card-variant="primary"]
-    .stats-stepped__stat-description,
-  [data-variant="light"]
-    .stat-card[data-card-variant="primary"]
-    .stats-stepped__stat-description {
-    color: rgba(255, 255, 255, 0.7);
   }
 
   [data-variant="dark"]

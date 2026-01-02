@@ -122,10 +122,6 @@ const useDarkLogos = sectionVariant === "dark" || sectionVariant === "primary";
     color: var(--headline-color-light);
   }
 
-  .logocloud[data-variant="white"] .logocloud__headline {
-    color: var(--headline-color-white);
-  }
-
   .logocloud[data-variant="dark"] .logocloud__headline {
     color: var(--headline-color-dark);
   }
@@ -175,12 +171,6 @@ const useDarkLogos = sectionVariant === "dark" || sectionVariant === "primary";
       brightness(var(--logo-brightness-light)) invert(var(--logo-invert-light));
   }
 
-  .logocloud[data-variant="white"] .logocloud__logo {
-    opacity: var(--logo-opacity-white);
-    filter: grayscale(var(--logo-grayscale-white))
-      brightness(var(--logo-brightness-white)) invert(var(--logo-invert-white));
-  }
-
   .logocloud[data-variant="dark"] .logocloud__logo {
     opacity: var(--logo-opacity-dark);
     filter: grayscale(var(--logo-grayscale-dark))
@@ -199,12 +189,6 @@ const useDarkLogos = sectionVariant === "dark" || sectionVariant === "primary";
     opacity: var(--logo-hover-opacity-light);
     filter: grayscale(var(--logo-hover-grayscale-light))
       brightness(var(--logo-brightness-light)) invert(var(--logo-invert-light));
-  }
-
-  .logocloud[data-variant="white"] .logocloud__logo:hover {
-    opacity: var(--logo-hover-opacity-white);
-    filter: grayscale(var(--logo-hover-grayscale-white))
-      brightness(var(--logo-brightness-white)) invert(var(--logo-invert-white));
   }
 
   .logocloud[data-variant="dark"] .logocloud__logo:hover {

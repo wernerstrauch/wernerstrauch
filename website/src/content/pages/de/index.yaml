@@ -18,7 +18,7 @@ sections:
     component: HeroWithPortrait
     wrapper:
       variant: dark
-      padding: xl
+      padding: none
     backgrounds:
       - type: LightGradientBackground
         color: "#c8ff00"
@@ -50,6 +50,7 @@ sections:
       secondaryCtaHref: "#services"
       image: "/src/images/ecommerce-berater-werner-strauch.png"
       imageAlt: "Werner Strauch - E-Commerce Berater"
+      imageScale: 0.9
 
   # About / Intro Section
   - id: intro

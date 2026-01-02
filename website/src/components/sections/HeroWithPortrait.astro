@@ -16,6 +16,7 @@ interface Props {
   secondaryCtaHref?: string;
   image?: string;
   imageAlt?: string;
+  imageScale?: number;
 }
 
 const {
@@ -29,7 +30,19 @@ const {
   secondaryCtaHref,
   image,
   imageAlt = "",
+  imageScale = 1,
 } = Astro.props;
+
+// Calculate scaled image sizes
+const baseDesktopWidth = 504;
+const baseDesktopWidthMd = 432;
+const baseMobileWidth = 320;
+const baseMobileWidthSm = 280;
+
+const scaledDesktopWidth = Math.round(baseDesktopWidth * imageScale);
+const scaledDesktopWidthMd = Math.round(baseDesktopWidthMd * imageScale);
+const scaledMobileWidth = Math.round(baseMobileWidth * imageScale);
+const scaledMobileWidthSm = Math.round(baseMobileWidthSm * imageScale);
 
 // Dynamic image import
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -71,7 +84,7 @@ processedHeadline = processedHeadline.replace(
   {/* Portrait Image - Desktop: absolute to Section, Mobile: below content */}
   {
     resolvedImage && (
-      <div class="hero-portrait__image hero-portrait__image--desktop">
+      <div class="hero-portrait__image hero-portrait__image--desktop" style={`--img-scale: ${imageScale};`}>
         <Image
           src={resolvedImage}
           alt={imageAlt}
@@ -149,7 +162,7 @@ processedHeadline = processedHeadline.replace(
     {/* Portrait Image - Mobile only: below content, right-aligned */}
     {
       resolvedImage && (
-        <div class="hero-portrait__image hero-portrait__image--mobile">
+        <div class="hero-portrait__image hero-portrait__image--mobile" style={`--img-scale: ${imageScale};`}>
           <Image
             src={resolvedImage}
             alt={imageAlt}
@@ -173,6 +186,31 @@ processedHeadline = processedHeadline.replace(
      ======================================== */
   .hero-portrait {
     position: static;
+    /* Desktop padding - matches xl padding from Section */
+    padding-top: 6rem;
+    padding-bottom: 10rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-portrait {
+      padding-top: 8rem;
+      padding-bottom: 10rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-portrait {
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+    }
+  }
+
+  /* Remove bottom padding on mobile when image overlaps */
+  @media (max-width: 1024px) {
+    .hero-portrait {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
   }
 
   /* ========================================
@@ -273,7 +311,7 @@ processedHeadline = processedHeadline.replace(
 
   .hero-portrait__image--desktop .hero-portrait__image-img {
     height: auto;
-    width: 504px; /* 420px * 1.2 */
+    width: calc(504px * var(--img-scale, 1));
     max-width: none;
     object-fit: contain;
     object-position: bottom right;
@@ -282,7 +320,7 @@ processedHeadline = processedHeadline.replace(
 
   @media (max-width: 1280px) {
     .hero-portrait__image--desktop .hero-portrait__image-img {
-      width: 432px; /* 360px * 1.2 */
+      width: calc(432px * var(--img-scale, 1));
     }
   }
 
@@ -304,7 +342,7 @@ processedHeadline = processedHeadline.replace(
     .hero-portrait__image--mobile {
       display: flex !important;
       justify-content: flex-end;
-      margin-top: 2rem;
+      margin-top: -150px;
       margin-right: -1rem;
       position: relative;
       z-index: 30;
@@ -312,7 +350,7 @@ processedHeadline = processedHeadline.replace(
 
     .hero-portrait__image--mobile .hero-portrait__image-img {
       height: auto;
-      width: 320px;
+      width: calc(320px * var(--img-scale, 1));
       object-fit: contain;
       display: block;
     }
@@ -320,7 +358,7 @@ processedHeadline = processedHeadline.replace(
 
   @media (max-width: 640px) {
     .hero-portrait__image--mobile .hero-portrait__image-img {
-      width: 280px;
+      width: calc(280px * var(--img-scale, 1));
     }
   }
 </style>

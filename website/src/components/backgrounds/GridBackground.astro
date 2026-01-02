@@ -8,6 +8,7 @@ interface Props {
   rotate?: number;
   vignette?: boolean;
   vignetteColor?: string;
+  fadeDirection?: "none" | "right" | "left" | "bottom" | "top" | "both";
 }
 
 const {
@@ -19,7 +20,20 @@ const {
   rotate = 0,
   vignette = false,
   vignetteColor = "inherit",
+  fadeDirection = "none",
 } = Astro.props;
+
+// Build fade gradient based on direction
+const fadeGradients: Record<string, string> = {
+  none: "",
+  right: "linear-gradient(to right, black 0%, black 40%, transparent 70%)",
+  left: "linear-gradient(to left, black 0%, black 40%, transparent 70%)",
+  bottom: "linear-gradient(to bottom, black 0%, black 60%, transparent 100%)",
+  top: "linear-gradient(to top, black 0%, black 60%, transparent 100%)",
+  both: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+};
+
+const maskStyle = fadeDirection !== "none" ? `mask-image: ${fadeGradients[fadeDirection]}; -webkit-mask-image: ${fadeGradients[fadeDirection]};` : "";
 
 // Generate random grid line indices for glow lines
 // These will be exact multiples of gridSize to align with grid lines
@@ -44,7 +58,7 @@ const verticalGlows = Array.from(
 );
 ---
 
-<div class="absolute inset-0 overflow-hidden">
+<div class="absolute inset-0 overflow-hidden" style={maskStyle}>
   <div
     class="absolute inset-[-50%] h-[200%] w-[200%]"
     style={`transform: rotate(${rotate}deg);`}
