@@ -54,6 +54,8 @@ export default defineConfig({
         // Exclude legal pages (Impressum, Datenschutz, Privacy, Legal)
         if (page.includes('/impressum') || page.includes('/datenschutz')) return false;
         if (page.includes('/privacy') || page.includes('/legal')) return false;
+        // Exclude blog pages (no content yet)
+        if (page.includes('/blog')) return false;
         return true;
       },
     }),
