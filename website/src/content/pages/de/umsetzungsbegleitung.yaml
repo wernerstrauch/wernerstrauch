@@ -1,0 +1,378 @@
+# E-Commerce Umsetzungsbegleitung Seite
+# Sparringspartner & QA bei Shop-Migration, ERP-Einführung, Systemintegration
+
+lang: de
+pageId: umsetzungsbegleitung
+slug: umsetzungsbegleitung
+
+meta:
+  title: "E-Commerce Umsetzungsbegleitung | Sparringspartner & QA | Werner Strauch"
+  description: "Professionelle Umsetzungsbegleitung für E-Commerce-Projekte: Sparringspartner, QA, Vendor-Management. Bei Shop-Migration, ERP-Einführung oder Systemintegration. 2-8 Tage/Monat."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: Hero mit HeroSplit
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "Umsetzungsbegleitung"
+      badgeIcon: "heroicons:shield-check-16-solid"
+      headline: "E-Commerce <em>Umsetzungsbegleitung</em>"
+      subheadline: "Ihr Sparringspartner bei komplexen E-Commerce-Projekten. Ich begleite Shop-Migrationen, ERP-Einführungen und Systemintegrationen – als kritischer Mitdenker, nicht als Entscheider."
+      image: "/src/images/umsetzungsbegleitung-hero.png"
+      imageAlt: "E-Commerce Umsetzungsbegleitung - Sparringspartner"
+      primaryCta: "Erstgespräch vereinbaren"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Meine Rolle verstehen"
+      secondaryCtaHref: "#meine-rolle"
+
+  # ========================================
+  # Section 2: ContentSplitImage (Meine Rolle)
+  # ========================================
+  - id: meine-rolle
+    enabled: true
+    order: 2
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "left"
+        size: "md"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Meine Rolle"
+      headline: "Beratend, nicht <em>entscheidend</em>"
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      imageAlt: "Beratung und Sparring bei E-Commerce Projekten"
+      imagePosition: "right"
+      content:
+        - type: "lead"
+          content: "Ich bin kein Projektleiter, der Entscheidungen trifft. Ich bin der Sparringspartner, der die richtigen Fragen stellt und blinde Flecken aufdeckt."
+        - type: "text"
+          content: "<p>Bei komplexen E-Commerce-Projekten brauchen Sie jemanden, der unabhängig mitdenkt – ohne eigene Agenda. Jemanden, der technische Konzepte hinterfragt, Vendor-Angebote einordnet und Business-Anforderungen in die Sprache der Entwickler übersetzt.</p>"
+        - type: "features"
+          items:
+            - icon: "heroicons:chat-bubble-left-right"
+              title: "Sparringspartner"
+              description: "Ich hinterfrage Konzepte, spiele Szenarien durch und bringe neue Perspektiven ein."
+            - icon: "heroicons:clipboard-document-check"
+              title: "Qualitätssicherung"
+              description: "Ich prüfe Deliverables, teste kritische Funktionen und sichere Abnahmen ab."
+            - icon: "heroicons:users"
+              title: "Vendor-Management"
+              description: "Ich begleite Abstimmungen mit Dienstleistern und halte Agenturen auf Kurs."
+            - icon: "heroicons:language"
+              title: "Übersetzer"
+              description: "Ich übersetze zwischen Business und Technik – in beide Richtungen."
+
+  # ========================================
+  # Section 3: ProblemSolution
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 3
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Der Unterschied"
+      headline: "Projekte <em>mit Begleitung</em>"
+      description: "E-Commerce-Projekte scheitern selten an der Technik – sondern an Kommunikation, Erwartungen und fehlender Kontrolle."
+      problemsTitle: "Ohne Begleitung"
+      solutionsTitle: "Mit Begleitung"
+      problems:
+        - icon: "heroicons:question-mark-circle"
+          text: "Niemand hinterfragt Vendor-Vorschläge kritisch"
+        - icon: "heroicons:document-text"
+          text: "Pflichtenheft wird unterschiedlich interpretiert"
+        - icon: "heroicons:exclamation-triangle"
+          text: "Probleme werden zu spät erkannt"
+        - icon: "heroicons:banknotes"
+          text: "Budget und Timeline laufen aus dem Ruder"
+        - icon: "heroicons:arrows-pointing-out"
+          text: "Business und IT sprechen aneinander vorbei"
+      solutions:
+        - icon: "heroicons:eye"
+          text: "Unabhängige Prüfung aller Konzepte und Angebote"
+        - icon: "heroicons:document-check"
+          text: "Klare Spezifikationen mit einheitlichem Verständnis"
+        - icon: "heroicons:shield-check"
+          text: "Frühzeitige QA und regelmäßige Reviews"
+        - icon: "heroicons:chart-bar"
+          text: "Transparente Fortschrittskontrolle"
+        - icon: "heroicons:arrows-right-left"
+          text: "Übersetzung zwischen allen Beteiligten"
+
+  # ========================================
+  # Section 4: BentoGrid (Einsatzszenarien)
+  # ========================================
+  - id: einsatzszenarien
+    enabled: true
+    order: 4
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "Einsatzszenarien"
+      headline: "Wo ich Sie <em>begleite</em>"
+      description: "Umsetzungsbegleitung macht bei komplexen Projekten Sinn, bei denen externe Dienstleister involviert sind und viel auf dem Spiel steht."
+      cards:
+        - title: "Shop-Migration"
+          description: "Wechsel des Shop-Systems ist einer der riskantesten Momente im E-Commerce. Ich begleite den Prozess von der Anforderung bis zum Go-Live."
+          icon: "heroicons:arrow-path"
+          large: true
+          features:
+            - "Anforderungs-Review"
+            - "Datenmigrations-Kontrolle"
+            - "UAT-Begleitung"
+            - "Go-Live-Absicherung"
+        - title: "ERP-Einführung"
+          description: "ERP-Projekte sind komplex und langwierig. Ich sorge dafür, dass E-Commerce-Anforderungen nicht untergehen."
+          icon: "heroicons:circle-stack"
+          features:
+            - "Prozess-Mapping"
+            - "Schnittstellen-Review"
+            - "Testbegleitung"
+        - title: "Systemintegration"
+          description: "PIM, OMS, WMS, Marketing-Automation – ich begleite die Integration neuer Systeme in Ihre bestehende Landschaft."
+          icon: "heroicons:puzzle-piece"
+          features:
+            - "Architektur-Review"
+            - "API-Spezifikation"
+            - "Integrationstests"
+        - title: "Agentur-Steuerung"
+          description: "Wenn mehrere Dienstleister zusammenarbeiten müssen, halte ich alle auf Kurs und sichere Qualität."
+          icon: "heroicons:user-group"
+          features:
+            - "Vendor-Koordination"
+            - "Deliverable-Review"
+            - "Eskalationsmanagement"
+        - title: "Relaunch & Redesign"
+          description: "Bei Shop-Relaunches begleite ich UX-Reviews, Performance-Checks und die technische Umsetzung."
+          icon: "heroicons:sparkles"
+          large: true
+          features:
+            - "UX-Review"
+            - "Performance-Audit"
+            - "SEO-Migration"
+            - "Launch-Koordination"
+
+  # ========================================
+  # Section 5: Process (Ablauf)
+  # ========================================
+  - id: ablauf
+    enabled: true
+    order: 5
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "left"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Der Ablauf"
+      headline: "So funktioniert die <em>Begleitung</em>"
+      description: "Strukturiert und flexibel – von Projektstart bis zur erfolgreichen Abnahme."
+      steps:
+        - number: "01"
+          icon: "heroicons:rocket-launch"
+          title: "Kick-off & Onboarding"
+          description: "Ich mache mich mit Ihrem Projekt vertraut: Ziele, Beteiligte, Zeitplan, kritische Pfade. Gemeinsam definieren wir meine Rolle und Fokusthemen."
+          details:
+            - "Projekt-Briefing"
+            - "Stakeholder-Mapping"
+            - "Fokus-Definition"
+        - number: "02"
+          icon: "heroicons:chat-bubble-left-right"
+          title: "Laufende Begleitung"
+          description: "Ich nehme an Jour Fixes teil, reviewe Deliverables, beantworte Fragen und bin Ihr Sparringspartner bei allen wichtigen Entscheidungen."
+          details:
+            - "Weekly Check-ins"
+            - "Deliverable-Reviews"
+            - "Ad-hoc-Sparring"
+        - number: "03"
+          icon: "heroicons:clipboard-document-check"
+          title: "Reviews & QA"
+          description: "Bei wichtigen Meilensteinen prüfe ich Ergebnisse intensiv: Konzepte, Prototypen, Testfälle, Staging-Umgebungen."
+          details:
+            - "Meilenstein-Reviews"
+            - "Testbegleitung"
+            - "Qualitätssicherung"
+        - number: "04"
+          icon: "heroicons:check-badge"
+          title: "Abnahme & Übergabe"
+          description: "Ich begleite die finale Abnahme, dokumentiere offene Punkte und sorge für einen sauberen Übergang in den Betrieb."
+          details:
+            - "Abnahme-Support"
+            - "Punch-List"
+            - "Übergabe-Dokumentation"
+
+  # ========================================
+  # Section 6: Stats
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 6
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "In Zahlen"
+      headline: "Flexible <em>Begleitung</em>"
+      stats:
+        - value: "2–8"
+          label: "Tage pro Monat"
+          description: "je nach Projektphase"
+        - value: "1.500"
+          prefix: "ab"
+          suffix: "€"
+          label: "pro Monat"
+          description: "zzgl. MwSt."
+        - value: "3–12"
+          label: "Monate"
+          description: "typische Projektdauer"
+        - value: "100"
+          suffix: "%"
+          label: "Unabhängig"
+          description: "keine Vendor-Bindung"
+
+  # ========================================
+  # Section 7: Quote
+  # ========================================
+  - id: quote
+    enabled: true
+    order: 7
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "Meine Aufgabe ist nicht, Entscheidungen zu treffen – sondern sicherzustellen, dass die richtigen Fragen gestellt werden, bevor entschieden wird."
+      author: "Werner Strauch"
+      role: "E-Commerce-Berater"
+
+  # ========================================
+  # Section 8: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 8
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Häufige Fragen"
+      headline: "Fragen zur <em>Umsetzungsbegleitung</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
+      faqs:
+        - question: "Was unterscheidet Sie von einem Projektleiter?"
+          answer: "Ein Projektleiter ist Teil des Projekts und trifft operative Entscheidungen. Ich bin bewusst einen Schritt zurück: Ich hinterfrage, prüfe und berate – aber die Entscheidungen treffen Sie. Das ermöglicht mir, kritisch zu bleiben, ohne in Interessenkonflikte zu geraten."
+        - question: "Wie viel Zeit muss ich einplanen?"
+          answer: "Der Aufwand variiert je nach Projektphase: In Spitzenzeiten (Kick-off, Go-Live) können es 6-8 Tage pro Monat sein, in ruhigeren Phasen 2-3 Tage. Wir definieren gemeinsam einen Rahmen, der zu Ihrem Projekt passt."
+        - question: "Arbeiten Sie auch mit unserer Agentur zusammen?"
+          answer: "Ja, das ist der Normalfall. Ich bin kein Konkurrent Ihrer Agentur, sondern Ihr Vertreter auf Kundenseite. Gute Agenturen schätzen das – weil klare Anforderungen und schnelle Entscheidungen auch ihnen helfen."
+        - question: "Ab welcher Projektgröße macht Begleitung Sinn?"
+          answer: "Als Faustregel: Bei Projekten ab 50.000€ Volumen oder ab 3 Monaten Laufzeit lohnt sich eine unabhängige Begleitung. Bei kleineren Projekten ist oft ein einmaliges Audit oder ein Workshop sinnvoller."
+        - question: "Kann ich Sie auch nur für bestimmte Phasen buchen?"
+          answer: "Absolut. Manche Kunden buchen mich nur für die Konzeptphase, andere nur für Go-Live-Absicherung. Wir können die Begleitung flexibel auf kritische Phasen fokussieren."
+        - question: "Was kostet die Umsetzungsbegleitung?"
+          answer: "Die monatliche Begleitung startet bei 1.500€ für 2 Tage pro Monat und geht bis 4.000€ für 8 Tage pro Monat. Bei längeren Projekten sind auch Paketpreise möglich. Im Erstgespräch klären wir, welcher Umfang für Ihr Projekt sinnvoll ist."
+        - question: "Wie schnell können Sie starten?"
+          answer: "In der Regel kann ich innerhalb von 1-2 Wochen starten. Für dringende Projekte finden wir auch kurzfristigere Lösungen. Sprechen Sie mich einfach an."
+        - question: "Was passiert, wenn es Konflikte mit dem Dienstleister gibt?"
+          answer: "Ich moderiere und vermittle – aber ich bin eindeutig auf Ihrer Seite. Bei echten Konflikten helfe ich, diese zu dokumentieren, Eskalationswege zu definieren und wenn nötig, Alternativen zu evaluieren."
+
+  # ========================================
+  # Section 9: CTA
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 9
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Projekt in Planung?"
+      description: "Lassen Sie uns besprechen, wie ich Ihr E-Commerce-Projekt begleiten kann. 30 Minuten – unverbindlich und kostenlos."
+      buttonText: "Erstgespräch vereinbaren"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

@@ -1,0 +1,402 @@
+# E-Commerce Strategie Seite
+# Strategische Planung für nachhaltige E-Commerce-Erfolge
+
+lang: de
+pageId: ecommerce-strategie
+slug: ecommerce-strategie
+
+meta:
+  title: "E-Commerce Strategie | Strategische Planung & Roadmap | Werner Strauch"
+  description: "E-Commerce Strategie entwickeln: Geschaeftsmodell, Kanalstrategie, Technologie und KPIs. Strategiedokument und Roadmap in 2-6 Wochen. Unabhaengige Beratung."
+
+settings:
+  status: published
+  priority: 0.9
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: HeroSplit
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "E-Commerce Strategie"
+      badgeIcon: "heroicons:map-16-solid"
+      headline: "E-Commerce <em>Strategie</em> fuer nachhaltiges Wachstum"
+      subheadline: "Eine klare Strategie ist das Fundament fuer jeden erfolgreichen Online-Handel. Gemeinsam entwickeln wir Ihre Roadmap – von der Zielgruppenanalyse bis zum messbaren Erfolg."
+      image: "/src/images/ecommerce-strategie-hero.png"
+      imageAlt: "E-Commerce Strategie - Strategische Planung"
+      primaryCta: "Strategiegespraech vereinbaren"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Strategiefelder entdecken"
+      secondaryCtaHref: "#strategiefelder"
+
+  # ========================================
+  # Section 2: ProblemSolution - Ohne vs. Mit Strategie
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 2
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Der Unterschied"
+      headline: "Ohne Strategie vs. <em>Mit Strategie</em>"
+      description: "Eine fundierte E-Commerce Strategie macht den Unterschied zwischen reaktivem Handeln und proaktivem Wachstum."
+      problemsTitle: "Ohne Strategie"
+      solutionsTitle: "Mit Strategie"
+      problems:
+        - icon: "heroicons:arrows-pointing-out"
+          text: "Ressourcen verteilen sich auf zu viele Baustellen"
+        - icon: "heroicons:question-mark-circle"
+          text: "Entscheidungen basieren auf Bauchgefuehl statt Daten"
+        - icon: "heroicons:currency-euro"
+          text: "Marketingbudget verpufft ohne klaren ROI"
+        - icon: "heroicons:puzzle-piece"
+          text: "Technologie-Entscheidungen ohne langfristige Vision"
+        - icon: "heroicons:arrow-path"
+          text: "Staendiges Reagieren statt strategisches Agieren"
+      solutions:
+        - icon: "heroicons:flag"
+          text: "Klare Prioritaeten und fokussierter Ressourceneinsatz"
+        - icon: "heroicons:chart-bar"
+          text: "Datengetriebene Entscheidungen mit messbaren KPIs"
+        - icon: "heroicons:banknotes"
+          text: "Effiziente Budgetallokation mit nachvollziehbarem ROI"
+        - icon: "heroicons:cube-transparent"
+          text: "Technologie-Roadmap abgestimmt auf Geschaeftsziele"
+        - icon: "heroicons:rocket-launch"
+          text: "Proaktives Wachstum mit klarer Richtung"
+
+  # ========================================
+  # Section 3: ContentSplitImage - Was ist E-Commerce Strategie? (Bild LINKS)
+  # ========================================
+  - id: definition
+    enabled: true
+    order: 3
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Definition"
+      headline: "Was ist eine <em>E-Commerce Strategie</em>?"
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      imageAlt: "E-Commerce Strategie Entwicklung"
+      imagePosition: "left"
+      content:
+        - type: "lead"
+          content: "Eine E-Commerce Strategie ist Ihr Masterplan fuer den digitalen Vertrieb – sie definiert, wie Sie Ihre Ziele erreichen und sich vom Wettbewerb abheben."
+        - type: "text"
+          content: "<p>Sie umfasst weit mehr als nur Marketing-Massnahmen: Von der Zielgruppendefinition ueber das Geschaeftsmodell bis zur Technologie-Architektur. Eine gute Strategie verbindet alle Elemente zu einem stimmigen Gesamtbild und gibt klare Antworten auf die Frage: Warum sollten Kunden bei Ihnen kaufen – und nicht beim Wettbewerb?</p>"
+        - type: "text"
+          content: "<p>Das Ergebnis ist ein Strategiedokument mit konkreter Roadmap, Business Case und KPI-Framework. Keine PowerPoint-Praesentation fuer die Schublade, sondern ein Arbeitsdokument, das Ihre Entscheidungen leitet.</p>"
+        - type: "button"
+          text: "Strategie entwickeln"
+          href: "/kontakt"
+          variant: "primary"
+
+  # ========================================
+  # Section 4: BentoGrid - Strategische Themenfelder (6 Karten)
+  # ========================================
+  - id: strategiefelder
+    enabled: true
+    order: 4
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "left"
+        size: "lg"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Strategische Themenfelder"
+      headline: "Die sechs Saeulen Ihrer <em>E-Commerce Strategie</em>"
+      description: "Eine erfolgreiche Strategie betrachtet alle relevanten Dimensionen – von der Marktpositionierung bis zur datengetriebenen Steuerung."
+      cards:
+        - title: "Geschaeftsmodell & Positionierung"
+          description: "Was ist Ihr Wertversprechen? Wie differenzieren Sie sich? Wir schaerfen Ihr Geschaeftsmodell und definieren eine klare Marktpositionierung."
+          icon: "heroicons:building-storefront"
+          large: true
+          features:
+            - "Value Proposition Design"
+            - "Wettbewerbsanalyse"
+            - "Differenzierungsstrategie"
+            - "Preispositionierung"
+        - title: "Kanalstrategie"
+          description: "Eigener Shop, Marktplaetze, Social Commerce – welche Kanaele passen zu Ihrem Geschaeft? Wir entwickeln eine integrierte Kanalstrategie."
+          icon: "heroicons:squares-plus"
+          features:
+            - "Omnichannel vs. Multichannel"
+            - "Marktplatz-Strategie"
+            - "D2C-Konzept"
+        - title: "Technologie & Architektur"
+          description: "Shop-System, ERP, PIM, CRM – die richtige Technologie-Architektur ist das Rueckgrat Ihres E-Commerce. Wir planen zukunftssicher."
+          icon: "heroicons:cpu-chip"
+          features:
+            - "Systemlandschaft"
+            - "Composable Commerce"
+            - "API-First Architektur"
+        - title: "Wachstum & Skalierung"
+          description: "Wie erreichen Sie die naechste Wachstumsstufe? Von organischem Wachstum bis zur Internationalisierung – wir identifizieren Ihre Hebel."
+          icon: "heroicons:arrow-trending-up"
+          features:
+            - "Wachstumshebel"
+            - "Internationalisierung"
+            - "Skalierungsplan"
+        - title: "Kundenbindung & Retention"
+          description: "Neukunden gewinnen ist teuer – Bestandskunden halten ist profitabel. Wir entwickeln Strategien fuer nachhaltige Kundenbeziehungen."
+          icon: "heroicons:heart"
+          features:
+            - "Customer Lifetime Value"
+            - "Loyalty-Programme"
+            - "CRM-Strategie"
+        - title: "Daten & KPIs"
+          description: "Was Sie nicht messen, koennen Sie nicht steuern. Wir definieren die relevanten KPIs und schaffen die Grundlage fuer datengetriebene Entscheidungen."
+          icon: "heroicons:chart-bar-square"
+          large: true
+          features:
+            - "KPI-Framework"
+            - "Reporting-Struktur"
+            - "Data-Driven Decision Making"
+            - "Attribution & Tracking"
+
+  # ========================================
+  # Section 5: Quote
+  # ========================================
+  - id: quote
+    enabled: true
+    order: 5
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "Strategie bedeutet nicht, alles zu planen. Strategie bedeutet, zu wissen, was man tut – und was nicht."
+      author: "Werner Strauch"
+      role: "E-Commerce-Stratege"
+
+  # ========================================
+  # Section 6: Process - Strategieprozess (4 Schritte)
+  # ========================================
+  - id: process
+    enabled: true
+    order: 6
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Der Prozess"
+      headline: "So entsteht Ihre <em>E-Commerce Strategie</em>"
+      description: "In vier Phasen von der Analyse zur umsetzbaren Roadmap – strukturiert, transparent und praxisorientiert."
+      steps:
+        - number: "01"
+          icon: "heroicons:magnifying-glass"
+          title: "Analyse & Discovery"
+          description: "Wir analysieren Ihr Geschaeft, Ihren Markt und Ihre Wettbewerber. Daten, Interviews und Benchmarks schaffen die Wissensbasis fuer strategische Entscheidungen."
+          details:
+            - "Geschaeftsmodell-Analyse"
+            - "Wettbewerbs-Benchmarking"
+            - "Stakeholder-Interviews"
+        - number: "02"
+          icon: "heroicons:light-bulb"
+          title: "Strategieentwicklung"
+          description: "Auf Basis der Analyse entwickeln wir gemeinsam Ihre Strategie. Positionierung, Kanalstrategie, Technologie-Roadmap – alles aufeinander abgestimmt."
+          details:
+            - "Strategische Optionen"
+            - "Entscheidungsworkshop"
+            - "Positionierung"
+        - number: "03"
+          icon: "heroicons:calculator"
+          title: "Business Case & Roadmap"
+          description: "Jede Strategie braucht einen Business Case. Wir rechnen Szenarien durch und erstellen eine priorisierte Roadmap mit klaren Meilensteinen."
+          details:
+            - "Finanzmodell"
+            - "Szenario-Analyse"
+            - "Priorisierte Roadmap"
+        - number: "04"
+          icon: "heroicons:document-check"
+          title: "Strategiedokument"
+          description: "Sie erhalten ein umfassendes Strategiedokument: Analyse, Strategie, Business Case, Roadmap und KPI-Framework – bereit fuer die Umsetzung."
+          details:
+            - "Executive Summary"
+            - "Detaillierte Strategie"
+            - "KPI-Framework"
+
+  # ========================================
+  # Section 7: Stats - Erfahrungswerte
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 7
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "Erfahrungswerte"
+      headline: "Strategieentwicklung <em>in Zahlen</em>"
+      stats:
+        - value: "2–6"
+          label: "Wochen"
+          description: "Projektdauer je nach Umfang"
+        - value: "3.500"
+          prefix: "ab "
+          suffix: "€"
+          label: "Investment"
+          description: "fuer fokussierte Strategieprojekte"
+        - value: "20"
+          suffix: "+"
+          label: "Jahre"
+          description: "Erfahrung in der digitalen Wirtschaft"
+
+  # ========================================
+  # Section 8: ContentEditorial - SEO-Text mit Trends 2025
+  # ========================================
+  - id: editorial
+    enabled: true
+    order: 8
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Trends & Entwicklungen"
+      headline: "E-Commerce Strategie <em>2025</em> – Was jetzt zaehlt"
+      sections:
+        - title: "Die wichtigsten Trends fuer Ihre Strategie"
+          content: |
+            <p>Die E-Commerce-Landschaft veraendert sich rasant. Eine zukunftsfaehige Strategie muss aktuelle Trends beruecksichtigen – ohne jedem Hype hinterherzulaufen. Diese Entwicklungen sollten Sie auf dem Radar haben:</p>
+            <p><strong>Kuenstliche Intelligenz (KI):</strong> Von der personalisierten Produktempfehlung ueber intelligente Suche bis zum automatisierten Kundenservice – KI wird zum Standard. Die strategische Frage ist nicht ob, sondern wie Sie KI sinnvoll einsetzen.</p>
+            <p><strong>Direct-to-Consumer (D2C):</strong> Immer mehr Marken setzen auf den direkten Kundenkontakt. D2C ermoeglicht hoehere Margen, direktes Kundenfeedback und volle Kontrolle ueber die Customer Experience – erfordert aber auch neue Kompetenzen.</p>
+        - title: "Omnichannel und Composable Commerce"
+          content: |
+            <p><strong>Omnichannel-Integration:</strong> Kunden erwarten nahtlose Erlebnisse ueber alle Kanaele. Die strikte Trennung von Online und Offline loest sich auf. Strategien, die Kanaele noch isoliert betrachten, greifen zu kurz.</p>
+            <p><strong>Composable Commerce:</strong> Monolithische Systeme weichen modularen Architekturen. Best-of-Breed-Ansaetze ermoeglichen mehr Flexibilitaet – erfordern aber auch mehr Integrationsaufwand. Die Technologie-Strategie wird komplexer.</p>
+            <p><strong>Social Commerce:</strong> TikTok Shop, Instagram Shopping, Live-Shopping – Social-Media-Plattformen werden zu Verkaufskanaelen. Fuer manche Zielgruppen ist dies bereits der primaere Touchpoint.</p>
+        - title: "Strategie statt Aktionismus"
+          content: |
+            <p>Bei all den Trends gilt: Eine gute Strategie bedeutet nicht, alles zu machen. Sie bedeutet, bewusst zu entscheiden, was zu Ihrem Geschaeft passt – und was nicht. Nicht jeder Trend ist fuer jedes Unternehmen relevant.</p>
+            <p>Eine fundierte E-Commerce Strategie hilft Ihnen, die richtigen Schwerpunkte zu setzen und Ihre Ressourcen dort einzusetzen, wo sie den groessten Hebel haben. Gemeinsam finden wir heraus, welche Entwicklungen fuer Sie relevant sind.</p>
+
+  # ========================================
+  # Section 9: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 9
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Haeufige Fragen"
+      headline: "Fragen zur <em>E-Commerce Strategie</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
+      faqs:
+        - question: "Fuer wen ist eine Strategieberatung sinnvoll?"
+          answer: "Eine E-Commerce Strategie ist sinnvoll fuer Online-Haendler und D2C-Marken, die vor wichtigen Entscheidungen stehen: Neuausrichtung, Skalierung, Internationalisierung oder groessere Technologie-Investitionen. Auch wenn Sie das Gefuehl haben, dass Ihr E-Commerce 'irgendwie funktioniert', aber die klare Richtung fehlt."
+        - question: "Was unterscheidet Ihre Strategieberatung von Agenturen?"
+          answer: "Ich verkaufe keine Implementierungsleistung. Meine Strategie-Empfehlungen sind unabhaengig von Software-Partnerschaften oder Agenturinteressen. Ich stehe auf Ihrer Seite des Tisches und helfe Ihnen, die richtigen Partner zu finden – bin aber nicht selbst Anbieter."
+        - question: "Wie lange dauert eine Strategieentwicklung?"
+          answer: "Je nach Umfang zwischen 2 und 6 Wochen. Ein fokussiertes Strategieprojekt (z.B. Kanalstrategie) dauert ca. 2-3 Wochen. Eine umfassende E-Commerce Strategie mit Business Case und detaillierter Roadmap 4-6 Wochen. Im Erstgespraech klaeren wir den passenden Umfang."
+        - question: "Was kostet eine E-Commerce Strategie?"
+          answer: "Ein fokussiertes Strategieprojekt startet bei 3.500 Euro. Eine umfassende Strategieentwicklung mit Business Case, Roadmap und KPI-Framework liegt typischerweise zwischen 8.000 und 15.000 Euro – je nach Komplexitaet und Umfang. Im Erstgespraech gebe ich eine erste Einschaetzung."
+        - question: "Was bekomme ich als Ergebnis?"
+          answer: "Ein umfassendes Strategiedokument mit: Executive Summary, Markt- und Wettbewerbsanalyse, Strategische Positionierung, Kanalstrategie, Technologie-Roadmap, Business Case mit Finanzmodell, priorisiertem Massnahmenplan und KPI-Framework. Kein PowerPoint-Grab, sondern ein Arbeitsdokument."
+        - question: "Begleiten Sie auch die Umsetzung?"
+          answer: "Ja, auf Wunsch. Manche Kunden nutzen die Strategie als Grundlage fuer die eigene Umsetzung. Andere moechten eine kontinuierliche Begleitung bei der Implementierung – als Sparringspartner, Projekt-Coach oder in einer Interim-Rolle. Beides ist moeglich."
+        - question: "Wie laeuft das Erstgespraech ab?"
+          answer: "Das Erstgespraech ist kostenlos und dauert ca. 30 Minuten. Wir besprechen Ihre aktuelle Situation, Ihre Ziele und Herausforderungen. Ich gebe erste Einschaetzungen und wir klaeren, ob eine Zusammenarbeit sinnvoll ist. Unverbindlich und ohne versteckte Kosten."
+        - question: "Koennen Sie auch bei der Technologie-Auswahl helfen?"
+          answer: "Absolut. Die Technologie-Strategie ist ein wichtiger Teil der Gesamtstrategie. Ob Shop-System, ERP, PIM oder Marketing-Automation – ich helfe Ihnen, die richtige Architektur zu entwickeln und begleite auf Wunsch auch den Auswahlprozess."
+
+  # ========================================
+  # Section 10: CtaCentered
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 10
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Bereit fuer <em>strategische Klarheit</em>?"
+      description: "Lassen Sie uns in 30 Minuten herausfinden, wo die groessten Hebel fuer Ihr E-Commerce-Geschaeft liegen. Unverbindlich und kostenlos."
+      buttonText: "Strategiegespraech vereinbaren"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

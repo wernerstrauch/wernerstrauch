@@ -22,9 +22,9 @@ const {
   logos,
 } = Astro.props;
 
-// Dynamisch Bilder aus src/assets laden
+// Dynamisch Bilder aus src/assets und src/images laden
 const allImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{png,jpg,jpeg,svg,webp}",
+  ["/src/assets/**/*.{png,jpg,jpeg,svg,webp}", "/src/images/**/*.{png,jpg,jpeg,svg,webp}"],
 );
 
 // Logos aus YAML oder Fallback auf CLIENTS
@@ -33,7 +33,7 @@ let resolvedLogos: { name: string; logo: ImageMetadata | string }[] = [];
 if (logos && logos.length > 0) {
   // Logos aus YAML verwenden
   for (const logo of logos) {
-    if (logo.src.startsWith("/src/assets/")) {
+    if (logo.src.startsWith("/src/assets/") || logo.src.startsWith("/src/images/")) {
       // Asset-Pfad - dynamisch importieren
       const imageLoader = allImages[logo.src];
       if (imageLoader) {
@@ -46,8 +46,20 @@ if (logos && logos.length > 0) {
     }
   }
 } else {
-  // Fallback auf globale CLIENTS
-  resolvedLogos = CLIENTS.map((c) => ({ name: c.name, logo: c.logo }));
+  // Fallback auf globale CLIENTS - auch aus /src/images/ laden
+  for (const client of CLIENTS) {
+    if (typeof client.logo === "string" && client.logo.startsWith("/src/images/")) {
+      const imageLoader = allImages[client.logo];
+      if (imageLoader) {
+        const image = await imageLoader();
+        resolvedLogos.push({ name: client.name, logo: image.default });
+      } else {
+        resolvedLogos.push({ name: client.name, logo: client.logo });
+      }
+    } else {
+      resolvedLogos.push({ name: client.name, logo: client.logo });
+    }
+  }
 }
 ---
 

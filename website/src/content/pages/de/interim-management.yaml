@@ -1,0 +1,394 @@
+# E-Commerce Interim Management Seite
+# Führung auf Zeit mit operativer Verantwortung
+
+lang: de
+pageId: interim-management
+slug: interim-management
+
+meta:
+  title: "E-Commerce Interim Management | Führung auf Zeit | Werner Strauch"
+  description: "E-Commerce Interim Management: Erfahrene Führung auf Zeit für Vakanz, Transformation oder Wachstum. Head of E-Commerce, CDO, Digital Sales Director. 3-12 Monate."
+
+settings:
+  status: published
+  priority: 0.9
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: HeroSplit
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "Interim Management"
+      badgeIcon: "heroicons:user-circle-16-solid"
+      headline: "E-Commerce <em>Interim Management</em>"
+      subheadline: "Führung auf Zeit mit operativer Verantwortung. Wenn Sie schnell erfahrene Hands-on-Expertise brauchen – als Head of E-Commerce, CDO oder Digital Sales Director."
+      image: "/src/images/interim-management-hero.png"
+      imageAlt: "E-Commerce Interim Management - Führung auf Zeit"
+      primaryCta: "Erstgespräch vereinbaren"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Einsatzszenarien"
+      secondaryCtaHref: "#szenarien"
+
+  # ========================================
+  # Section 2: ProblemSolution - Wann brauchen Sie Interim Management?
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 2
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Die Situation"
+      headline: "Wann brauchen Sie <em>Interim Management</em>?"
+      description: "Manchmal reicht Beratung nicht aus. Manchmal brauchen Sie jemanden, der die Verantwortung übernimmt und umsetzt."
+      problemsTitle: "Die Herausforderung"
+      solutionsTitle: "Mit Interim Management"
+      problems:
+        - icon: "heroicons:user-minus"
+          text: "Führungsposition vakant, interner Ersatz fehlt"
+        - icon: "heroicons:arrow-path"
+          text: "Transformation steckt fest, Umsetzung stockt"
+        - icon: "heroicons:exclamation-triangle"
+          text: "Krise erfordert schnelles, erfahrenes Handeln"
+        - icon: "heroicons:puzzle-piece"
+          text: "Komplexes Projekt ohne internen Projektleiter"
+        - icon: "heroicons:clock"
+          text: "Keine Zeit für langwierige Recruiting-Prozesse"
+      solutions:
+        - icon: "heroicons:user-plus"
+          text: "Sofort einsatzbereite Führungskraft"
+        - icon: "heroicons:rocket-launch"
+          text: "Schnelle Umsetzung mit operativer Verantwortung"
+        - icon: "heroicons:shield-check"
+          text: "Erfahrung aus vergleichbaren Situationen"
+        - icon: "heroicons:presentation-chart-line"
+          text: "Klare Führung und Struktur für Projekte"
+        - icon: "heroicons:bolt"
+          text: "Start innerhalb von 2-4 Wochen möglich"
+
+  # ========================================
+  # Section 3: BentoGrid - Einsatzszenarien
+  # ========================================
+  - id: szenarien
+    enabled: true
+    order: 3
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "Einsatzszenarien"
+      headline: "Wann ein Interim Manager <em>Sinn macht</em>"
+      description: "Interim Management ist keine Dauerlösung, sondern ein gezieltes Instrument für definierte Situationen und Zeiträume."
+      cards:
+        - title: "Vakanz überbrücken"
+          description: "Eine Führungsposition ist unbesetzt – durch Kündigung, Krankheit oder während des Recruiting-Prozesses. Ich übernehme sofort die operative Verantwortung und halte das Team auf Kurs."
+          icon: "heroicons:user-minus"
+          large: true
+          features:
+            - "Sofortige Einsatzbereitschaft"
+            - "Team-Führung & Motivation"
+            - "Laufendes Geschäft sichern"
+            - "Recruiting unterstützen"
+        - title: "Transformation treiben"
+          description: "Digitalisierung, Prozess-Neugestaltung oder Systemwechsel – Change-Projekte brauchen erfahrene Führung, die Widerstände überwindet und Ergebnisse liefert."
+          icon: "heroicons:arrow-path"
+          features:
+            - "Change Management"
+            - "Stakeholder-Alignment"
+            - "Umsetzungsverantwortung"
+        - title: "Krise managen"
+          description: "Umsatzeinbruch, Qualitätsprobleme oder Team-Konflikte – in Krisensituationen zählt Erfahrung. Ich analysiere schnell und handle entschlossen."
+          icon: "heroicons:exclamation-triangle"
+          features:
+            - "Schnelle Analyse"
+            - "Sofortmaßnahmen"
+            - "Stabilisierung"
+        - title: "Bereich aufbauen"
+          description: "Sie wollen E-Commerce starten oder eine neue Einheit aufbauen? Ich übernehme den Aufbau von Strukturen, Prozessen und Team – bis Ihr permanenter Manager übernimmt."
+          icon: "heroicons:building-office-2"
+          features:
+            - "Strukturaufbau"
+            - "Team-Recruiting"
+            - "Prozessetablierung"
+        - title: "Projekt leiten"
+          description: "Shop-Relaunch, ERP-Einführung, Marktplatz-Anbindung – komplexe Projekte brauchen einen erfahrenen Projektleiter mit E-Commerce-Expertise und Entscheidungskompetenz."
+          icon: "heroicons:clipboard-document-check"
+          large: true
+          features:
+            - "Projektverantwortung"
+            - "Vendor-Steuerung"
+            - "Budget-Kontrolle"
+            - "Stakeholder-Management"
+
+  # ========================================
+  # Section 4: ContentSplitImage - Unterschied zu Beratung (Bild LINKS)
+  # ========================================
+  - id: unterschied
+    enabled: true
+    order: 4
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Der Unterschied"
+      headline: "Mehr als <em>Beratung</em>"
+      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      imageAlt: "Interim Manager in Aktion"
+      imagePosition: "left"
+      content:
+        - type: "lead"
+          content: "Ein Berater empfiehlt. Ein Interim Manager setzt um. Der entscheidende Unterschied liegt in der operativen Verantwortung."
+        - type: "text"
+          content: "<p>Als Interim Manager übernehme ich nicht nur die Analyse und Strategie-Entwicklung, sondern auch die Führung Ihres Teams und die Verantwortung für Ergebnisse. Ich treffe Entscheidungen, führe Mitarbeiter, steuere Dienstleister und trage die Konsequenzen – wie ein interner Manager, nur auf Zeit.</p>"
+        - type: "features"
+          items:
+            - icon: "heroicons:document-text"
+              title: "Beratung"
+              description: "Analyse, Empfehlungen, Strategie. Die Umsetzung liegt bei Ihrem Team."
+            - icon: "heroicons:user-circle"
+              title: "Interim Management"
+              description: "Volle operative Verantwortung. Ich führe, entscheide und liefere Ergebnisse."
+            - icon: "heroicons:scale"
+              title: "Der Vorteil"
+              description: "Keine Übersetzungsverluste. Wer die Strategie entwickelt, setzt sie auch um."
+        - type: "button"
+          text: "Verfügbarkeit anfragen"
+          href: "/kontakt"
+          variant: "primary"
+
+  # ========================================
+  # Section 5: Stats - 4 Facts
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 5
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "In Zahlen"
+      headline: "Interim Management <em>auf einen Blick</em>"
+      stats:
+        - value: "3–12"
+          label: "Monate"
+          description: "typische Mandatsdauer"
+        - value: "2–5"
+          label: "Tage/Woche"
+          description: "flexibles Engagement"
+        - value: "2–4"
+          label: "Wochen"
+          description: "bis zum Start"
+        - value: "1.150–1.500"
+          prefix: "€"
+          label: "Tagessatz"
+          description: "abhängig vom Umfang"
+
+  # ========================================
+  # Section 6: Process - Ablauf eines Mandats
+  # ========================================
+  - id: process
+    enabled: true
+    order: 6
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "left"
+        size: "md"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Der Ablauf"
+      headline: "So läuft ein <em>Mandat</em> ab"
+      description: "Strukturiert und transparent – von der ersten Anfrage bis zur erfolgreichen Übergabe."
+      steps:
+        - number: "01"
+          icon: "heroicons:phone"
+          title: "Erstgespräch & Briefing"
+          description: "Wir besprechen Ihre Situation, Anforderungen und Erwartungen. Ich gebe eine erste Einschätzung zu Machbarkeit, Dauer und Kosten."
+          details:
+            - "Situationsanalyse"
+            - "Anforderungsprofil"
+            - "Aufwandsschätzung"
+        - number: "02"
+          icon: "heroicons:document-check"
+          title: "Angebot & Vertrag"
+          description: "Sie erhalten ein konkretes Angebot mit Scope, Zielen, Zeitrahmen und Konditionen. Nach Beauftragung starte ich innerhalb von 2-4 Wochen."
+          details:
+            - "Klarer Scope"
+            - "Definierte Ziele"
+            - "Transparente Konditionen"
+        - number: "03"
+          icon: "heroicons:rocket-launch"
+          title: "Onboarding & Umsetzung"
+          description: "Schnelles Onboarding, dann volle operative Verantwortung. Regelmäßige Status-Updates halten Sie auf dem Laufenden."
+          details:
+            - "Schneller Start"
+            - "Operative Führung"
+            - "Laufendes Reporting"
+        - number: "04"
+          icon: "heroicons:arrow-right-circle"
+          title: "Übergabe & Exit"
+          description: "Strukturierte Übergabe an Ihren neuen permanenten Manager oder Ihr Team. Dokumentation sichert Wissenstransfer."
+          details:
+            - "Wissenstransfer"
+            - "Dokumentation"
+            - "Optional: Coaching"
+
+  # ========================================
+  # Section 7: Quote - Zitat zur Führung
+  # ========================================
+  - id: quote
+    enabled: true
+    order: 7
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "Ein guter Interim Manager macht sich selbst überflüssig. Das Ziel ist nicht Abhängigkeit, sondern der erfolgreiche Übergang zu einer dauerhaften Lösung."
+      author: "Werner Strauch"
+      role: "E-Commerce Interim Manager"
+
+  # ========================================
+  # Section 8: ContentEditorial - Detaillierte Erklärung
+  # ========================================
+  - id: editorial
+    enabled: true
+    order: 8
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Hintergrund"
+      headline: "Was ist <em>Interim Management</em>?"
+      sections:
+        - title: "Definition und Abgrenzung"
+          content: |
+            <p>Interim Management bedeutet die zeitlich befristete Übernahme einer Führungsposition mit voller operativer Verantwortung. Im Gegensatz zu einem Berater, der von außen empfiehlt, arbeitet ein Interim Manager im Unternehmen – mit Weisungsbefugnis, Budget-Verantwortung und klaren Ergebniszielen.</p>
+            <p>Die typische Mandatsdauer liegt zwischen 3 und 12 Monaten. Das Engagement kann Vollzeit (5 Tage/Woche) oder Teilzeit (2-3 Tage/Woche) sein – je nach Situation und Anforderung.</p>
+        - title: "Typische Rollen im E-Commerce"
+          content: |
+            <p><strong>Head of E-Commerce / E-Commerce-Leiter:</strong> Verantwortung für den gesamten Online-Vertrieb, Führung des E-Commerce-Teams, Steuerung von Shop, Marketing und Operations.</p>
+            <p><strong>Chief Digital Officer (CDO):</strong> Strategische Verantwortung für die digitale Transformation des Unternehmens, oft auf C-Level angesiedelt.</p>
+            <p><strong>Digital Sales Director:</strong> Fokus auf digitale Vertriebskanäle, Marktplätze und Online-Wachstum.</p>
+            <p><strong>Projekt-/Programmleiter:</strong> Verantwortung für große Transformationsprojekte wie Shop-Relaunch, ERP-Einführung oder Internationalisierung.</p>
+        - title: "Vorteile gegenüber Festanstellung"
+          content: |
+            <p>Ein Interim Manager bringt sofort verfügbare Erfahrung ohne langwierigen Recruiting-Prozess. Er hat einen frischen Blick von außen, ist unbelastet von internen Befindlichkeiten und bringt Best Practices aus anderen Unternehmen mit.</p>
+            <p>Die zeitliche Befristung schafft Flexibilität: Sie zahlen nur so lange, wie Sie die Expertise brauchen. Und ein erfahrener Interim Manager arbeitet von Tag 1 ergebnisorientiert – er weiß, dass sein Erfolg an messbaren Resultaten gemessen wird.</p>
+
+  # ========================================
+  # Section 9: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 9
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Häufige Fragen"
+      headline: "Fragen zum <em>Interim Management</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
+      faqs:
+        - question: "Wie schnell können Sie starten?"
+          answer: "In der Regel innerhalb von 2-4 Wochen nach Beauftragung. Bei akuten Krisensituationen ist auch ein schnellerer Start möglich. Im Erstgespräch klären wir die genaue Verfügbarkeit."
+        - question: "Was kostet Interim Management?"
+          answer: "Der Tagessatz liegt zwischen 1.150€ und 1.500€, abhängig von Rolle, Komplexität und Engagement-Modell. Bei einem Vollzeit-Mandat über mehrere Monate sind auch Pauschalmodelle möglich. Reisekosten werden separat abgerechnet."
+        - question: "Vollzeit oder Teilzeit – was macht Sinn?"
+          answer: "Das hängt von der Situation ab. In einer Krise oder bei Vakanz einer Führungsposition ist meist Vollzeit (5 Tage/Woche) sinnvoll. Für Transformations-Begleitung oder Projekt-Oversight reichen oft 2-3 Tage/Woche. Wir finden das passende Modell."
+        - question: "Wie unterscheidet sich das von einer Agentur?"
+          answer: "Eine Agentur liefert Dienstleistungen (Design, Entwicklung, Marketing). Ein Interim Manager übernimmt Führungsverantwortung in Ihrem Unternehmen. Ich steuere bei Bedarf auch Agenturen – aber als Teil Ihres Teams, nicht als externer Dienstleister."
+        - question: "Was passiert nach dem Mandat?"
+          answer: "Das Ziel ist immer eine saubere Übergabe. Entweder an einen neuen permanenten Manager, den ich beim Onboarding unterstütze, oder an Ihr bestehendes Team mit dokumentierten Prozessen und Strukturen. Auf Wunsch bleibe ich als Sparringspartner oder Berater im Hintergrund verfügbar."
+        - question: "Übernehmen Sie auch die Mitarbeiterführung?"
+          answer: "Ja, das ist ein wesentlicher Teil des Interim Managements. Ich führe Ihr Team, halte Einzelgespräche, setze Ziele und entwickle Mitarbeiter – wie ein interner Manager. Das ist der zentrale Unterschied zur reinen Beratung."
+        - question: "Arbeiten Sie auch remote?"
+          answer: "Ein Mix aus Präsenz und Remote ist meist sinnvoll. Gerade in der Anfangsphase ist Vor-Ort-Präsenz wichtig für Teamführung und Stakeholder-Management. Danach kann der Remote-Anteil steigen. Reine Remote-Mandate sind in Ausnahmen möglich."
+        - question: "Welche Branchen-Erfahrung haben Sie?"
+          answer: "Mein Schwerpunkt liegt auf B2C-E-Commerce, D2C-Marken und Omnichannel-Handel. Ich habe Erfahrung in den Bereichen Fashion, Consumer Electronics, FMCG und B2B. Im Erstgespräch klären wir, ob meine Expertise zu Ihrer Situation passt."
+
+  # ========================================
+  # Section 10: CtaCentered
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 10
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Führungslücke <em>schließen</em>?"
+      description: "Lassen Sie uns in einem kurzen Gespräch klären, ob Interim Management die richtige Lösung für Ihre Situation ist. Unverbindlich und vertraulich."
+      buttonText: "Verfügbarkeit anfragen"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

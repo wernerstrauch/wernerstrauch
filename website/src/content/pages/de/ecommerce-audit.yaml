@@ -1,0 +1,391 @@
+# E-Commerce Audit Seite
+# Systematische Analyse mit 500+ Prüfpunkten
+
+lang: de
+pageId: ecommerce-audit
+slug: ecommerce-audit
+
+meta:
+  title: "E-Commerce Audit | Systematische Shop-Analyse | Werner Strauch"
+  description: "Professionelles E-Commerce Audit: 500+ Prüfpunkte, 50-100+ Seiten Report, priorisierte Maßnahmen. Systematische Analyse von Shop, SEO, Conversion, Technologie und Prozessen."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: HeroSplit mit Badge
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "E-Commerce Audit"
+      badgeIcon: "heroicons:magnifying-glass-circle-16-solid"
+      headline: "E-Commerce <em>Audit</em> – Ihr Shop unter der Lupe"
+      subheadline: "Wo verlieren Sie Kunden? Wo bleibt Umsatz liegen? Ein systematisches Audit mit 500+ Prüfpunkten deckt Schwachstellen auf und zeigt konkrete Optimierungspotenziale."
+      image: "/src/images/ecommerce-audit-hero.png"
+      imageAlt: "E-Commerce Audit - Systematische Shop-Analyse"
+      primaryCta: "Audit anfragen"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Audit-Bereiche"
+      secondaryCtaHref: "#audit-bereiche"
+
+  # ========================================
+  # Section 2: Stats (4 Audit-Facts)
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 2
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Audit-Facts"
+      headline: "Zahlen, die für <em>Klarheit</em> sprechen"
+      stats:
+        - value: "500"
+          suffix: "+"
+          label: "Prüfpunkte"
+          description: "systematisch analysiert"
+        - value: "2–4"
+          label: "Wochen"
+          description: "für das komplette Audit"
+        - value: "50–100"
+          suffix: "+"
+          label: "Seiten Report"
+          description: "mit allen Ergebnissen"
+        - value: "ab 2.500"
+          prefix: "€"
+          label: "Investment"
+          description: "zzgl. MwSt."
+
+  # ========================================
+  # Section 3: ProblemSolution (Symptome vs. Klarheit)
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 3
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Das Problem"
+      headline: "Wenn der Shop <em>nicht performt</em>"
+      description: "Sie investieren in Marketing, aber die Conversion stimmt nicht. Die Ladezeiten sind okay, aber trotzdem springen Kunden ab. Ein Audit schafft Klarheit."
+      problemsTitle: "Typische Symptome"
+      solutionsTitle: "Nach dem Audit"
+      problems:
+        - icon: "heroicons:arrow-trending-down"
+          text: "Conversion-Rate stagniert oder sinkt"
+        - icon: "heroicons:cursor-arrow-rays"
+          text: "Hohe Absprungrate ohne klare Ursache"
+        - icon: "heroicons:magnifying-glass"
+          text: "SEO-Rankings entwickeln sich nicht wie erwartet"
+        - icon: "heroicons:exclamation-triangle"
+          text: "Technische Probleme, die niemand erklären kann"
+        - icon: "heroicons:question-mark-circle"
+          text: "Bauchgefühl statt Fakten bei Entscheidungen"
+      solutions:
+        - icon: "heroicons:document-chart-bar"
+          text: "Klare Analyse aller Schwachstellen"
+        - icon: "heroicons:list-bullet"
+          text: "Priorisierte Maßnahmenliste"
+        - icon: "heroicons:chart-bar"
+          text: "Fundierte Entscheidungsgrundlagen"
+        - icon: "heroicons:check-badge"
+          text: "Konkrete Quick Wins identifiziert"
+        - icon: "heroicons:map"
+          text: "Roadmap für nachhaltige Verbesserung"
+
+  # ========================================
+  # Section 4: BentoGrid (6 Audit-Bereiche)
+  # ========================================
+  - id: audit-bereiche
+    enabled: true
+    order: 4
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "Audit-Bereiche"
+      headline: "Sechs Perspektiven für <em>360° Klarheit</em>"
+      description: "Ein professionelles E-Commerce Audit analysiert Ihren Shop aus allen relevanten Blickwinkeln – von der User Experience bis zur technischen Infrastruktur."
+      cards:
+        - title: "Shop & User Experience"
+          description: "Wie erleben Kunden Ihren Shop? Navigation, Produktdarstellung, Checkout-Prozess – jeder Schritt der Customer Journey wird analysiert."
+          icon: "heroicons:shopping-cart"
+          large: true
+          features:
+            - "Navigation & Informationsarchitektur"
+            - "Produktseiten & Darstellung"
+            - "Checkout-Optimierung"
+            - "Mobile Experience"
+        - title: "SEO & Sichtbarkeit"
+          description: "Technisches SEO, OnPage-Faktoren, Content-Struktur – wie gut ist Ihr Shop für Suchmaschinen optimiert?"
+          icon: "heroicons:magnifying-glass"
+          features:
+            - "Technisches SEO"
+            - "OnPage-Analyse"
+            - "Content & Keywords"
+        - title: "Conversion & Performance"
+          description: "Wo verlieren Sie Kunden? Welche Seiten performen schlecht? Datenbasierte Analyse Ihrer Conversion-Funnels."
+          icon: "heroicons:arrow-trending-up"
+          features:
+            - "Funnel-Analyse"
+            - "A/B-Testing-Potenziale"
+            - "Warenkorb-Abbrüche"
+        - title: "Technologie & Performance"
+          description: "Ladezeiten, Core Web Vitals, technische Schulden – wie fit ist Ihre technische Basis für Wachstum?"
+          icon: "heroicons:cpu-chip"
+          features:
+            - "Page Speed & Core Web Vitals"
+            - "Code-Qualität"
+            - "Systemarchitektur"
+        - title: "Sicherheit & Compliance"
+          description: "DSGVO, Payment Security, SSL – ist Ihr Shop rechtlich und technisch auf der sicheren Seite?"
+          icon: "heroicons:shield-check"
+          features:
+            - "DSGVO-Compliance"
+            - "Payment Security"
+            - "Datenschutz-Check"
+        - title: "Prozesse & Systeme"
+          description: "Wie effizient sind Ihre Backend-Prozesse? Bestellabwicklung, Lagerhaltung, Kundenkommunikation."
+          icon: "heroicons:cog-6-tooth"
+          large: true
+          features:
+            - "Bestellprozess-Analyse"
+            - "System-Integrationen"
+            - "Automatisierungspotenziale"
+            - "Fulfillment-Check"
+
+  # ========================================
+  # Section 5: Process (Audit-Ablauf - 4 Schritte)
+  # ========================================
+  - id: ablauf
+    enabled: true
+    order: 5
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "left"
+        size: "md"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Der Ablauf"
+      headline: "So läuft ein <em>Audit</em> ab"
+      description: "Strukturiert und transparent – von der Vorbereitung bis zur Präsentation der Ergebnisse."
+      steps:
+        - number: "01"
+          icon: "heroicons:clipboard-document-list"
+          title: "Vorbereitung & Briefing"
+          description: "Sie geben mir Zugang zu Analytics, Shop-Backend und relevanten Systemen. In einem Kick-off-Call klären wir Fokusthemen und Ihre Ziele."
+          details:
+            - "Zugänge einrichten"
+            - "Kick-off-Call"
+            - "Fokus definieren"
+        - number: "02"
+          icon: "heroicons:magnifying-glass-circle"
+          title: "Systematische Analyse"
+          description: "Ich arbeite alle Audit-Bereiche mit über 500 Prüfpunkten durch. Automatisierte Tools und manuelle Prüfung ergänzen sich."
+          details:
+            - "500+ Prüfpunkte"
+            - "Tool-Analyse"
+            - "Manuelle Prüfung"
+        - number: "03"
+          icon: "heroicons:document-text"
+          title: "Report & Priorisierung"
+          description: "Sie erhalten einen umfassenden Report (50-100+ Seiten) mit allen Findings, priorisiert nach Impact und Aufwand."
+          details:
+            - "Detaillierter Report"
+            - "Priorisierte Maßnahmen"
+            - "Quick Wins markiert"
+        - number: "04"
+          icon: "heroicons:presentation-chart-bar"
+          title: "Präsentation & Übergabe"
+          description: "In einer 60-90 minütigen Präsentation stelle ich die wichtigsten Ergebnisse vor und beantworte Ihre Fragen."
+          details:
+            - "Management-Präsentation"
+            - "Q&A-Session"
+            - "Handlungsempfehlungen"
+
+  # ========================================
+  # Section 6: ContentSplitImage (Deliverables - Bild RECHTS)
+  # ========================================
+  - id: deliverables
+    enabled: true
+    order: 6
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
+    content:
+      badge: "Was Sie erhalten"
+      headline: "Ihre <em>Audit-Deliverables</em>"
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      imageAlt: "E-Commerce Audit Report und Analyse"
+      imagePosition: "right"
+      content:
+        - type: "lead"
+          content: "Kein oberflächlicher Check, sondern eine fundierte Analyse mit konkreten Handlungsempfehlungen – dokumentiert und präsentiert."
+        - type: "features"
+          items:
+            - icon: "heroicons:document-text"
+              title: "Umfassender Audit-Report"
+              description: "50-100+ Seiten mit allen Findings, Screenshots und Erklärungen. Kein Copy-Paste aus Tools, sondern individuelle Analyse."
+            - icon: "heroicons:clipboard-document-check"
+              title: "Priorisierte Maßnahmenliste"
+              description: "Alle Optimierungsmaßnahmen nach Impact und Aufwand bewertet. Sie wissen sofort, wo Sie anfangen sollten."
+            - icon: "heroicons:bolt"
+              title: "Quick-Win-Übersicht"
+              description: "Maßnahmen, die schnell umgesetzt werden können und sofortigen Impact haben – separat markiert."
+            - icon: "heroicons:presentation-chart-line"
+              title: "Management-Präsentation"
+              description: "60-90 Minuten Präsentation der wichtigsten Ergebnisse – ideal für Stakeholder und Entscheider."
+        - type: "button"
+          text: "Audit anfragen"
+          href: "/kontakt"
+          variant: "primary"
+
+  # ========================================
+  # Section 7: ContentEditorial (SEO-Text)
+  # ========================================
+  - id: editorial
+    enabled: true
+    order: 7
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Hintergrund"
+      headline: "Was macht ein gutes <em>E-Commerce Audit</em> aus?"
+      sections:
+        - title: "Mehr als ein automatisierter Report"
+          content: |
+            <p>Jedes SEO-Tool spuckt auf Knopfdruck einen "Audit" aus. Doch diese automatisierten Reports kratzen nur an der Oberfläche. Ein professionelles E-Commerce Audit geht tiefer: Es verbindet technische Analyse mit Business-Verständnis und berücksichtigt Ihre spezifische Situation.</p>
+            <p>Die eigentliche Arbeit besteht nicht im Sammeln von Daten – sondern im Interpretieren und Priorisieren. Was bedeutet ein bestimmtes Finding für <em>Ihr</em> Geschäft? Wie dringend ist es? Welche Maßnahme hat den größten Hebel?</p>
+        - title: "Die sechs Säulen eines umfassenden Audits"
+          content: |
+            <p><strong>1. Shop & User Experience:</strong> Wie erleben echte Kunden Ihren Shop? Navigation, Produktpräsentation, Checkout – jeder Touchpoint wird auf Conversion-Killer untersucht.</p>
+            <p><strong>2. SEO & Sichtbarkeit:</strong> Technisches SEO, OnPage-Faktoren, Content-Qualität – wie gut werden Sie von potenziellen Kunden gefunden?</p>
+            <p><strong>3. Conversion & Performance:</strong> Wo im Funnel verlieren Sie Kunden? Welche Seiten performen unter Durchschnitt? Datenbasierte Analyse statt Vermutungen.</p>
+            <p><strong>4. Technologie & Speed:</strong> Ladezeiten, Core Web Vitals, Code-Qualität – die technische Basis entscheidet über Ranking und User Experience.</p>
+            <p><strong>5. Sicherheit & Compliance:</strong> DSGVO, Payment Security, SSL – rechtliche und technische Risiken erkennen, bevor sie zum Problem werden.</p>
+            <p><strong>6. Prozesse & Systeme:</strong> Wie effizient läuft das Backend? Bestellabwicklung, Integrationen, Automatisierung – oft liegt hier ungenutztes Potenzial.</p>
+        - title: "Wann ist ein Audit sinnvoll?"
+          content: |
+            <p>Ein E-Commerce Audit ist besonders wertvoll vor strategischen Entscheidungen: Vor einem Shop-Relaunch, um die richtigen Prioritäten zu setzen. Vor einer Marketing-Offensive, um Conversion-Lecks zu stopfen. Oder einfach, wenn Sie das Gefühl haben, dass Ihr Shop unter seinen Möglichkeiten bleibt.</p>
+            <p>Im Gegensatz zur laufenden Beratung ist ein Audit ein einmaliges Projekt mit klarem Scope und definierten Deliverables. Sie erhalten einen umfassenden Statusbericht und eine priorisierte Roadmap – die Umsetzung liegt dann bei Ihnen oder Ihrer Agentur.</p>
+
+  # ========================================
+  # Section 8: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 8
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Häufige Fragen"
+      headline: "Fragen zum <em>Audit</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
+      faqs:
+        - question: "Wie lange dauert ein E-Commerce Audit?"
+          answer: "Ein umfassendes Audit dauert in der Regel 2-4 Wochen – je nach Shop-Größe und Komplexität. Darin enthalten sind Vorbereitung, Analyse, Report-Erstellung und Präsentation. Für dringende Fälle ist auch ein Express-Audit möglich."
+        - question: "Was kostet ein E-Commerce Audit?"
+          answer: "Ein Basis-Audit mit den wichtigsten Bereichen startet bei 2.500€. Ein umfassendes Audit mit allen sechs Bereichen liegt zwischen 4.000€ und 6.000€, je nach Shop-Komplexität. Im Vorgespräch klären wir, welcher Umfang für Sie sinnvoll ist."
+        - question: "Welche Zugänge benötigen Sie?"
+          answer: "Für ein vollständiges Audit benötige ich Zugang zu: Google Analytics / Matomo, Google Search Console, Shop-Backend (Read-Only reicht), ggf. weiteren Systemen je nach Fokus. Alle Zugänge werden nach Projektende entfernt."
+        - question: "Was unterscheidet Ihr Audit von automatisierten Tools?"
+          answer: "Automatisierte Tools liefern Rohdaten – ich liefere Interpretation und Priorisierung. Mein Audit kombiniert Tool-Analysen mit manueller Prüfung und Business-Kontext. Sie erhalten nicht nur eine Liste von Problemen, sondern eine Roadmap mit klaren Prioritäten."
+        - question: "Können Sie die Maßnahmen auch umsetzen?"
+          answer: "Das Audit ist bewusst als einmaliges Projekt konzipiert. Die Umsetzung liegt bei Ihnen, Ihrem Team oder Ihrer Agentur. Auf Wunsch begleite ich die Umsetzung als Sparringspartner – das ist dann Teil einer separaten Beratungsvereinbarung."
+        - question: "Für welche Shop-Systeme bieten Sie Audits an?"
+          answer: "Das Audit ist systemunabhängig – ob Shopify, Shopware, WooCommerce, Magento oder eine Custom-Lösung. Die Analyse-Methoden sind übertragbar, die technischen Checks werden an Ihr System angepasst."
+        - question: "Was passiert nach dem Audit?"
+          answer: "Sie erhalten den Report und die Präsentation. Damit haben Sie alles, was Sie für die nächsten Schritte brauchen. Viele Kunden setzen die Maßnahmen selbst um. Auf Wunsch biete ich eine optionale Begleitung der Umsetzung oder einen Follow-up-Check nach 3-6 Monaten an."
+        - question: "Ist das Audit auch für kleine Shops sinnvoll?"
+          answer: "Ja – gerade kleinere Shops profitieren oft am meisten, weil hier noch keine Prozesse etabliert sind und viel Potenzial brach liegt. Für Shops mit weniger Komplexität biete ich ein fokussiertes Basis-Audit an, das die wichtigsten Bereiche abdeckt."
+
+  # ========================================
+  # Section 9: CtaCentered
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 9
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Bereit für <em>Klarheit</em>?"
+      description: "Finden Sie heraus, wo Ihr Shop Potenzial verschenkt. In einem kostenlosen Vorgespräch klären wir Ihre Ziele und den passenden Audit-Umfang."
+      buttonText: "Audit anfragen"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

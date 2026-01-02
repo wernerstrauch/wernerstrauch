@@ -72,6 +72,7 @@ import AboutSection from "@components/sections/AboutSection.astro";
 import CtaCentered from "@components/sections/CtaCentered.astro";
 import Quote from "@components/sections/Quote.astro";
 import ServicesShowcase from "@components/sections/ServicesShowcase.astro";
+import LegalPage from "@components/sections/LegalPage.astro";
 
 // Static Paths for Pre-Rendering
 export async function getStaticPaths() {
@@ -154,7 +155,7 @@ const componentMap: Record<string, any> = {
   Cta,
   Divider,
   LegalContent,
-  LegalPage: LegalContent,
+  LegalPage,
   Contact,
   Testimonials,
   TrustBar,

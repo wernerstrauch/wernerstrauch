@@ -1,0 +1,402 @@
+# E-Commerce Projektleitung Seite
+# Externe Projektleitung fuer komplexe E-Commerce Projekte
+
+lang: de
+pageId: projektleitung
+slug: projektleitung
+
+meta:
+  title: "E-Commerce Projektleitung | Shop-Relaunch, Migration & ERP | Werner Strauch"
+  description: "Externe E-Commerce Projektleitung: Shop-Relaunch, System-Migration, ERP-Einfuehrung. Erfahrener Projektleiter mit klarer Methodik. Ab 4.000 Euro/Monat."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: Hero mit HeroSplit
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "E-Commerce Projektleitung"
+      badgeIcon: "heroicons:clipboard-document-check-16-solid"
+      headline: "E-Commerce Projekte <em>erfolgreich</em> umsetzen"
+      subheadline: "Shop-Relaunch, System-Migration oder ERP-Einfuehrung – komplexe E-Commerce-Projekte brauchen erfahrene Steuerung. Als externer Projektleiter bringe ich Struktur, Erfahrung und den objektiven Blick von aussen."
+      image: "/src/images/projektleitung-hero.png"
+      imageAlt: "E-Commerce Projektleitung - Projektsteuerung"
+      primaryCta: "Projekt besprechen"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Projektarten ansehen"
+      secondaryCtaHref: "#projektarten"
+
+  # ========================================
+  # Section 2: Stats (Projekt-Facts)
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 2
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "In Zahlen"
+      headline: "Erfahrung, die <em>Projekte rettet</em>"
+      stats:
+        - value: "30"
+          suffix: "+"
+          label: "Projekte"
+          description: "erfolgreich begleitet"
+        - value: "95"
+          suffix: "%"
+          label: "Erfolgsquote"
+          description: "im Zeit- und Budgetrahmen"
+        - value: "20"
+          suffix: "+"
+          label: "Jahre"
+          description: "Projekterfahrung"
+        - value: "ab 4.000"
+          prefix: ""
+          label: "Euro/Monat"
+          description: "zzgl. MwSt."
+
+  # ========================================
+  # Section 3: BentoGrid (Projektarten)
+  # ========================================
+  - id: projektarten
+    enabled: true
+    order: 3
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Projektarten"
+      headline: "Welches <em>Projekt</em> steht an?"
+      description: "Von der Shop-Migration bis zur ERP-Einfuehrung – ich uebernehme die Projektleitung fuer komplexe E-Commerce-Vorhaben mit vielen Stakeholdern und Schnittstellen."
+      cards:
+        - title: "Shop-Relaunch"
+          description: "Ihr Shop braucht ein umfassendes Update – neues Design, neue Technologie, neue Features. Ein Relaunch ist mehr als ein Facelifting: Er beruehrt alle Bereiche Ihres E-Commerce."
+          icon: "heroicons:arrow-path-rounded-square"
+          large: true
+          features:
+            - "Plattformwechsel"
+            - "Design-Refresh"
+            - "Feature-Erweiterung"
+            - "Datenmigration"
+        - title: "System-Migration"
+          description: "Wechsel von einem Shop-System zum anderen. Ob von Magento zu Shopware, von WooCommerce zu Shopify oder umgekehrt – Migration ohne Datenverlust und Umsatzeinbruch."
+          icon: "heroicons:arrows-right-left"
+          features:
+            - "Datenmigration"
+            - "URL-Handling"
+            - "Parallelbetrieb"
+        - title: "ERP-Einfuehrung"
+          description: "Ein neues ERP-System veraendert alle Prozesse. Von der Anforderungsanalyse ueber die Anbieterauswahl bis zum Go-Live – ich steuere das Projekt auf Ihrer Seite."
+          icon: "heroicons:circle-stack"
+          features:
+            - "Anforderungsanalyse"
+            - "Anbieterauswahl"
+            - "Implementierung"
+        - title: "Systemintegration"
+          description: "Shop, ERP, PIM, CRM, Fulfillment – die Systeme muessen miteinander sprechen. Ich koordiniere die Integration und sorge fuer reibungslose Schnittstellen."
+          icon: "heroicons:puzzle-piece"
+          features:
+            - "Schnittstellendesign"
+            - "API-Integration"
+            - "Datensynchronisation"
+        - title: "E-Commerce Neuaufbau"
+          description: "Sie starten neu im E-Commerce oder bauen einen Kanal komplett neu auf. Von der Strategie ueber Systemauswahl bis zum Launch – ich begleite den gesamten Aufbau."
+          icon: "heroicons:building-storefront"
+          large: true
+          features:
+            - "Strategieentwicklung"
+            - "Systemauswahl"
+            - "Prozessdesign"
+            - "Launch-Management"
+
+  # ========================================
+  # Section 4: ProblemSolution
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 4
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "left"
+        size: "md"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Der Unterschied"
+      headline: "Projekte mit und ohne <em>Projektleitung</em>"
+      description: "E-Commerce-Projekte scheitern selten an der Technologie – sondern an Kommunikation, unklaren Zustaendigkeiten und fehlendem Fokus."
+      problemsTitle: "Ohne Projektleitung"
+      solutionsTitle: "Mit Projektleitung"
+      problems:
+        - icon: "heroicons:exclamation-triangle"
+          text: "Unklare Zustaendigkeiten zwischen Agentur und internem Team"
+        - icon: "heroicons:clock"
+          text: "Staendige Verschiebungen und Budgetueberschreitungen"
+        - icon: "heroicons:chat-bubble-left-right"
+          text: "Kommunikationschaos zwischen vielen Stakeholdern"
+        - icon: "heroicons:document-minus"
+          text: "Wichtige Anforderungen gehen im Projektverlauf unter"
+        - icon: "heroicons:fire"
+          text: "Dauerhaftes Krisenmanagement statt strukturiertem Vorgehen"
+      solutions:
+        - icon: "heroicons:clipboard-document-check"
+          text: "Klare Rollen, Verantwortlichkeiten und Entscheidungswege"
+        - icon: "heroicons:calendar-days"
+          text: "Realistischer Zeitplan mit Meilensteinen und Puffern"
+        - icon: "heroicons:megaphone"
+          text: "Strukturierte Kommunikation mit allen Beteiligten"
+        - icon: "heroicons:document-check"
+          text: "Lueckenlose Anforderungsverfolgung bis zur Abnahme"
+        - icon: "heroicons:shield-check"
+          text: "Proaktives Risikomanagement statt Feuerwehreinsaetze"
+
+  # ========================================
+  # Section 5: Process (Projektablauf)
+  # ========================================
+  - id: ablauf
+    enabled: true
+    order: 5
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+    content:
+      badge: "Der Ablauf"
+      headline: "So steuere ich <em>Ihr Projekt</em>"
+      description: "Strukturiert von der Analyse bis zum Go-Live – mit klaren Meilensteinen und kontinuierlicher Kommunikation."
+      steps:
+        - number: "01"
+          icon: "heroicons:magnifying-glass"
+          title: "Projekt-Audit"
+          description: "Ich analysiere den aktuellen Stand: Ziele, Stakeholder, Risiken, Timeline. Bei laufenden Projekten identifiziere ich Probleme und Handlungsbedarf."
+          details:
+            - "Stakeholder-Analyse"
+            - "Risikoidentifikation"
+            - "Ist-Aufnahme"
+        - number: "02"
+          icon: "heroicons:document-text"
+          title: "Projektplanung"
+          description: "Gemeinsam definieren wir Scope, Meilensteine und Verantwortlichkeiten. Ich erstelle einen realistischen Projektplan mit Puffern fuer Unvorhergesehenes."
+          details:
+            - "Scope-Definition"
+            - "Meilensteinplanung"
+            - "Ressourcenplanung"
+        - number: "03"
+          icon: "heroicons:play"
+          title: "Durchfuehrung"
+          description: "Ich koordiniere alle Beteiligten, moderiere Abstimmungen, tracke den Fortschritt und eskaliere bei Bedarf. Regelmaessige Status-Updates halten alle auf Kurs."
+          details:
+            - "Stakeholder-Koordination"
+            - "Fortschritts-Tracking"
+            - "Risiko-Monitoring"
+        - number: "04"
+          icon: "heroicons:rocket-launch"
+          title: "Go-Live & Uebergabe"
+          description: "Ich steuere den Launch, koordiniere den Hypercare-Zeitraum und sorge fuer eine saubere Uebergabe an Ihr Team – inklusive Dokumentation und Lessons Learned."
+          details:
+            - "Launch-Koordination"
+            - "Hypercare-Phase"
+            - "Wissenstransfer"
+
+  # ========================================
+  # Section 6: ContentSplitImage (Warum extern?)
+  # ========================================
+  - id: warum-extern
+    enabled: true
+    order: 6
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Warum extern?"
+      headline: "Die Vorteile eines <em>externen Projektleiters</em>"
+      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      imageAlt: "Externe Projektleitung - Strategische Steuerung"
+      imagePosition: "left"
+      content:
+        - type: "lead"
+          content: "Ein externer Projektleiter bringt nicht nur Erfahrung mit – sondern auch den unvoreingenommenen Blick, der internen Kraeften oft fehlt."
+        - type: "text"
+          content: "<p>Interne Projektleiter sind oft in Alltagsaufgaben eingebunden, politisch vorbelastet oder fachlich zu tief im Detail. Ein externer Projektleiter kann sich zu 100% auf das Projekt konzentrieren – und unbequeme Wahrheiten aussprechen, ohne Karriere-Risiken.</p>"
+        - type: "features"
+          items:
+            - icon: "heroicons:eye"
+              title: "Objektiver Blick"
+              description: "Keine internen Verflechtungen, keine politischen Ruecksichten. Ich sehe, was ist – nicht, was sein sollte."
+            - icon: "heroicons:academic-cap"
+              title: "Projekt-Erfahrung"
+              description: "Ich habe viele aehnliche Projekte gesehen und weiss, wo typische Fallstricke lauern."
+            - icon: "heroicons:clock"
+              title: "Voller Fokus"
+              description: "Keine Ablenkung durch Tagesgeschaeft. Das Projekt hat meine ungeteilte Aufmerksamkeit."
+            - icon: "heroicons:arrow-right-start-on-rectangle"
+              title: "Temporaer verfuegbar"
+              description: "Nach dem Projekt bin ich weg – kein Aufbau interner Strukturen noetig."
+        - type: "button"
+          text: "Projekt besprechen"
+          href: "/kontakt"
+          variant: "primary"
+
+  # ========================================
+  # Section 7: Quote
+  # ========================================
+  - id: quote
+    enabled: true
+    order: 7
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "Ein guter Projektleiter ist wie ein Dirigent: Er macht selbst keinen Ton, aber ohne ihn klingt das Orchester nicht."
+      author: "Werner Strauch"
+      role: "E-Commerce Projektleiter"
+
+  # ========================================
+  # Section 8: ContentEditorial (Methoden & Erfolgsfaktoren)
+  # ========================================
+  - id: editorial
+    enabled: true
+    order: 8
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Methodik"
+      headline: "Methoden und <em>Erfolgsfaktoren</em>"
+      sections:
+        - title: "Agil, Wasserfall oder Hybrid?"
+          content: |
+            <p>Es gibt nicht die eine richtige Projektmethodik. Die Wahl haengt von Projekt, Team und Rahmenbedingungen ab. Bei Shop-Relaunches mit klarem Scope funktioniert ein klassischer Wasserfall-Ansatz oft gut. Bei agilen Entwicklungsteams passe ich mich an Scrum oder Kanban an. Haeufig ist ein Hybrid-Ansatz sinnvoll: Feste Meilensteine und Budget, aber agile Umsetzung in Sprints.</p>
+            <p>Wichtiger als die Methodik ist die konsequente Anwendung: Klare Rituale, transparente Kommunikation, regelmaessige Reviews. Ich bringe die Struktur mit – und passe sie an Ihre Organisation an.</p>
+        - title: "Die drei Erfolgsfaktoren"
+          content: |
+            <p><strong>1. Klare Zustaendigkeiten:</strong> Wer entscheidet was? Wer liefert zu? Wer nimmt ab? Unklare Verantwortlichkeiten sind der haeufigste Grund fuer Projektverzoegerungen. Ich sorge fuer eine RACI-Matrix, die jeder versteht.</p>
+            <p><strong>2. Datenqualitaet:</strong> Bei Migrationen und ERP-Einfuehrungen ist Datenqualitaet erfolgskritisch. Schlechte Stammdaten, unvollstaendige Produktinformationen oder inkonsistente Kundenhistorien werden spaetestens beim Go-Live zum Problem. Ich initiiere frueh die Datenbereinigung.</p>
+            <p><strong>3. Kommunikation:</strong> Projekte scheitern an Missverstaendnissen, nicht an Technologie. Ich etabliere klare Kommunikationswege: Wer informiert wen, wie oft, ueber welchen Kanal? Regelmaessige Status-Updates halten alle Stakeholder auf dem Laufenden.</p>
+        - title: "Typische Projektrisiken"
+          content: |
+            <p>Nach dutzenden E-Commerce-Projekten kenne ich die typischen Fallen: Scope Creep (der Umfang waechst unkontrolliert), unrealistische Zeitplaene, unterschaetzte Integrationsaufwaende, fehlende Testphasen, mangelnde Stakeholder-Einbindung. Als erfahrener Projektleiter erkenne ich diese Risiken frueh und steuere gegen – bevor sie zum Problem werden.</p>
+
+  # ========================================
+  # Section 9: FAQ
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 9
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Haeufige Fragen"
+      headline: "Fragen zur <em>Projektleitung</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
+      faqs:
+        - question: "Ab welcher Projektgroesse macht externe Projektleitung Sinn?"
+          answer: "Sobald mehr als drei Parteien beteiligt sind (z.B. internes Team, Agentur, Software-Anbieter) oder das Projektbudget ueber 50.000 Euro liegt. Bei kleineren Projekten reicht oft ein gelegentliches Sparring. Im Erstgespraech klaeren wir, was fuer Ihr Projekt sinnvoll ist."
+        - question: "Uebernehmen Sie auch die technische Umsetzung?"
+          answer: "Nein, ich entwickle nicht selbst. Meine Rolle ist die Steuerung: Ich koordiniere Agentur, Entwickler und interne Teams, pruefe Qualitaet und halte den Zeitplan. So bleibe ich unabhaengig und kann objektiv bewerten."
+        - question: "Wie viel Zeit investieren Sie pro Woche?"
+          answer: "Das haengt von der Projektphase ab. In intensiven Phasen (Kickoff, Go-Live) kann es Vollzeit sein. Im regulaeren Projektverlauf typischerweise 1-2 Tage pro Woche. Wir vereinbaren ein monatliches Kontingent mit Flexibilitaet nach oben und unten."
+        - question: "Koennen Sie auch laufende Projekte uebernehmen?"
+          answer: "Ja, das ist sogar haeufig der Fall. Wenn Projekte aus dem Ruder laufen, uebernehme ich die Steuerung: Bestandsaufnahme, Probleme identifizieren, Kurs korrigieren. Ein 'Projekt-Turnaround' ist oft effektiver als von vorne zu beginnen."
+        - question: "Was kostet externe Projektleitung?"
+          answer: "Ab 4.000 Euro pro Monat, abhaengig vom Projektumfang und der benoetigten Intensitaet. Bei Vollzeit-Einsaetzen oder besonders komplexen Projekten entsprechend mehr. Verglichen mit Projektverzoegerungen und Budget-Ueberschreitungen ist professionelle Projektleitung eine Investition, die sich rechnet."
+        - question: "Arbeiten Sie vor Ort oder remote?"
+          answer: "Beides ist moeglich. Fuer Kickoff-Workshops und kritische Abstimmungen bin ich gerne vor Ort. Die laufende Koordination funktioniert remote oft effizienter. Ein Mix aus beidem hat sich bewaehrt – wir finden das passende Modell fuer Ihr Projekt."
+        - question: "Welche Tools nutzen Sie?"
+          answer: "Ich passe mich an Ihre Tool-Landschaft an. Ob Jira, Asana, Monday, Notion oder klassisch mit Excel und PowerPoint – wichtiger als das Tool ist der konsequente Einsatz. Falls Sie noch kein Projektmanagement-Tool haben, empfehle ich ein passendes Setup."
+        - question: "Wie schnell koennen Sie starten?"
+          answer: "In der Regel innerhalb von 2-4 Wochen. Bei dringenden Projekten oder Krisen-Situationen auch schneller. Im Erstgespraech klaeren wir Ihre Timeline und meinen Verfuegbarkeit."
+
+  # ========================================
+  # Section 10: CTA
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 10
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Projekt in <em>guten Haenden</em>"
+      description: "Lassen Sie uns in 30 Minuten besprechen, wie ich Ihr E-Commerce-Projekt zum Erfolg fuehren kann. Kostenlos und unverbindlich."
+      buttonText: "Projekt besprechen"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

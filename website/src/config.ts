@@ -12,7 +12,7 @@ export function getCurrentDomain() {
 export const SOCIALS = [
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/wernerstrauch",
+    href: "https://www.linkedin.com/in/werner-strauch-42520b15b/",
     icon: "simple-icons:linkedin",
   },
   {
@@ -24,9 +24,14 @@ export const SOCIALS = [
 
 // Client logos for trust bar
 export const CLIENTS = [
-  { name: "Client 1", logo: "/images/logos/client-1.svg" },
-  { name: "Client 2", logo: "/images/logos/client-2.svg" },
-  { name: "Client 3", logo: "/images/logos/client-3.svg" },
+  { name: "Netrada", logo: "/src/images/logos/logo-1.svg" },
+  { name: "Kadlwei", logo: "/src/images/logos/logo-2.svg" },
+  { name: "Naturtrüb", logo: "/src/images/logos/logo-3.svg" },
+  { name: "Fictional 1", logo: "/src/images/logos/fictional-logo-01.svg" },
+  { name: "Fictional 2", logo: "/src/images/logos/fictional-logo-02.svg" },
+  { name: "Fictional 3", logo: "/src/images/logos/fictional-logo-03.svg" },
+  { name: "Fictional 4", logo: "/src/images/logos/fictional-logo-04.svg" },
+  { name: "Fictional 5", logo: "/src/images/logos/fictional-logo-05.svg" },
 ];
 
 // Mega Menu Navigation - SEO-optimized structure
@@ -216,7 +221,7 @@ export const SITE: SiteConfig = {
   socials: [
     {
       name: "LinkedIn",
-      href: "https://linkedin.com/in/wernerstrauch",
+      href: "https://www.linkedin.com/in/werner-strauch-42520b15b/",
       icon: "simple-icons:linkedin",
     },
     {

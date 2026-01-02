@@ -1,0 +1,414 @@
+# E-Commerce Technologieberatung Seite
+# Shopsysteme, ERP, PIM, CRM, DAM - Systemauswahl und Integration
+
+lang: de
+pageId: technologieberatung
+slug: technologieberatung
+
+meta:
+  title: "E-Commerce Technologieberatung | Systemauswahl & Integration | Werner Strauch"
+  description: "Unabhängige E-Commerce Technologieberatung: Shopsysteme, ERP, PIM, CRM auswählen und integrieren. RFI/RFP-Prozess, TCO-Analyse und moderne Architekturen wie Headless Commerce."
+
+settings:
+  status: published
+  priority: 0.85
+  headerVariant: dark
+
+sections:
+  # ========================================
+  # Section 1: HeroSplit mit Badge "Technologieberatung"
+  # ========================================
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: dark
+      padding: none
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.12
+        glowLines: 8
+        vignette: true
+        vignetteColor: "#0a1628"
+        fadeDirection: "right"
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      badge: "Technologieberatung"
+      badgeIcon: "heroicons:cpu-chip-16-solid"
+      headline: "Die richtige <em>Technologie</em> für Ihren E-Commerce"
+      subheadline: "Shopsysteme, ERP, PIM, CRM – die Auswahl ist komplex. Ich helfe Ihnen, die passende Technologie-Architektur zu finden und Systeme sinnvoll zu integrieren."
+      image: "/src/images/technologieberatung-hero.png"
+      imageAlt: "Technologieberatung - Systemarchitektur und Integration"
+      primaryCta: "Erstgespräch vereinbaren"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Technologiebereiche"
+      secondaryCtaHref: "#technologiebereiche"
+
+  # ========================================
+  # Section 2: BentoGrid - Technologie-Bereiche (5 Karten)
+  # ========================================
+  - id: technologiebereiche
+    enabled: true
+    order: 2
+    component: BentoGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
+    content:
+      badge: "Technologiebereiche"
+      headline: "Fünf Systeme, die <em>zusammenspielen</em> müssen"
+      description: "Erfolgreicher E-Commerce basiert auf einer durchdachten Systemlandschaft. Jedes System hat seine Aufgabe – aber erst die Integration macht den Unterschied."
+      cards:
+        - title: "Shopsysteme"
+          description: "Shopify, Shopware, Magento, commercetools oder WooCommerce? Die Wahl des Shopsystems ist fundamental. Ich helfe Ihnen, das System zu finden, das zu Ihrem Geschäftsmodell passt."
+          icon: "heroicons:shopping-cart"
+          large: true
+          features:
+            - "SaaS vs. Self-Hosted"
+            - "Monolith vs. Headless"
+            - "B2C vs. B2B-Anforderungen"
+            - "Internationale Skalierung"
+        - title: "ERP-Systeme"
+          description: "SAP, Microsoft Dynamics, Xentral oder Weclapp – das ERP ist das Rückgrat Ihrer Prozesse. Warenwirtschaft, Finanzen und Fulfillment zentral gesteuert."
+          icon: "heroicons:building-office"
+          features:
+            - "Warenwirtschaft"
+            - "Finanzmanagement"
+            - "Auftragsabwicklung"
+        - title: "PIM-Systeme"
+          description: "Akeneo, Pimcore oder inRiver – wenn Produktdaten über mehrere Kanäle gepflegt werden müssen, ist ein PIM unverzichtbar."
+          icon: "heroicons:document-text"
+          features:
+            - "Produktdaten-Hub"
+            - "Multi-Channel-Fähigkeit"
+            - "Datenqualität"
+        - title: "Integrationen"
+          description: "APIs, Middleware, iPaaS – die Verbindung zwischen Systemen entscheidet über Effizienz. Datenflüsse automatisieren, Medienbrüche vermeiden."
+          icon: "heroicons:arrows-right-left"
+          features:
+            - "API-Strategie"
+            - "Middleware-Auswahl"
+            - "Echtzeit-Synchronisation"
+        - title: "Moderne Architekturen"
+          description: "Headless Commerce, MACH und Composable Commerce – neue Ansätze versprechen mehr Flexibilität. Aber sind sie die richtige Wahl für Sie?"
+          icon: "heroicons:cube-transparent"
+          large: true
+          features:
+            - "Headless Commerce"
+            - "MACH-Prinzipien"
+            - "Composable Commerce"
+            - "API-First-Strategien"
+
+  # ========================================
+  # Section 3: ProblemSolution - Gewachsene Systeme vs. Klare Architektur
+  # ========================================
+  - id: problem-solution
+    enabled: true
+    order: 3
+    component: ProblemSolution
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.12
+        position: "left"
+        size: "lg"
+        shape: "hexagons"
+        hideOnMobile: true
+    content:
+      badge: "Die Herausforderung"
+      headline: "Gewachsene Systeme vs. klare <em>Architektur</em>"
+      description: "Technologie-Entscheidungen prägen Ihr Unternehmen für Jahre. Die richtige Architektur macht skalierbar – die falsche bremst."
+      problemsTitle: "Gewachsene Systeme"
+      solutionsTitle: "Klare Architektur"
+      problems:
+        - icon: "heroicons:puzzle-piece"
+          text: "Silos ohne echte Integration"
+        - icon: "heroicons:document-duplicate"
+          text: "Daten in mehreren Systemen manuell pflegen"
+        - icon: "heroicons:clock"
+          text: "Workarounds statt Prozesse"
+        - icon: "heroicons:currency-euro"
+          text: "Versteckte Kosten durch Ineffizienz"
+        - icon: "heroicons:exclamation-triangle"
+          text: "Abhängigkeit von Einzelwissen"
+      solutions:
+        - icon: "heroicons:arrows-right-left"
+          text: "Nahtlose Datenflüsse zwischen Systemen"
+        - icon: "heroicons:circle-stack"
+          text: "Single Source of Truth für Stammdaten"
+        - icon: "heroicons:bolt"
+          text: "Automatisierte End-to-End-Prozesse"
+        - icon: "heroicons:chart-bar"
+          text: "Transparente TCO und planbare Kosten"
+        - icon: "heroicons:document-text"
+          text: "Dokumentierte, wartbare Architektur"
+
+  # ========================================
+  # Section 4: Process - Auswahlprozess (5 Schritte)
+  # ========================================
+  - id: process
+    enabled: true
+    order: 4
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Auswahlprozess"
+      headline: "Strukturiert zum <em>richtigen System</em>"
+      description: "Von der Anforderungsanalyse bis zur Entscheidung – ein bewährter Prozess für fundierte Technologie-Auswahl."
+      steps:
+        - number: "01"
+          icon: "heroicons:clipboard-document-list"
+          title: "Anforderungsanalyse"
+          description: "Was muss das System leisten? Wir definieren funktionale und nicht-funktionale Anforderungen, priorisieren nach Must-Have und Nice-to-Have."
+          details:
+            - "Stakeholder-Interviews"
+            - "Prozess-Mapping"
+            - "Anforderungskatalog"
+        - number: "02"
+          icon: "heroicons:magnifying-glass"
+          title: "Markt-Screening"
+          description: "Welche Anbieter kommen in Frage? Ich erstelle eine Longlist, bewerte nach Ihren Kriterien und entwickle eine qualifizierte Shortlist."
+          details:
+            - "Longlist (8-10 Anbieter)"
+            - "Bewertungsmatrix"
+            - "Shortlist (3-4 Anbieter)"
+        - number: "03"
+          icon: "heroicons:document-text"
+          title: "RFI/RFP-Prozess"
+          description: "Strukturierte Anfragen an die Shortlist-Anbieter. Vergleichbare Angebote durch standardisierte Fragebögen und Szenarien."
+          details:
+            - "RFI/RFP-Erstellung"
+            - "Anbieter-Kommunikation"
+            - "Angebots-Auswertung"
+        - number: "04"
+          icon: "heroicons:beaker"
+          title: "Proof of Concept"
+          description: "Optional: Kritische Use Cases im Praxistest. Ein PoC deckt auf, was Hochglanz-Demos verbergen."
+          details:
+            - "PoC-Definition"
+            - "Test-Begleitung"
+            - "Ergebnis-Bewertung"
+        - number: "05"
+          icon: "heroicons:check-badge"
+          title: "Entscheidung & Verhandlung"
+          description: "Fundierte Entscheidungsvorlage für Ihre Geschäftsführung. Bei Bedarf unterstütze ich auch bei Vertragsverhandlungen."
+          details:
+            - "Entscheidungsmatrix"
+            - "TCO-Vergleich"
+            - "Vertragsunterstützung"
+
+  # ========================================
+  # Section 5: Quote - Zitat zur Technologie
+  # ========================================
+  - id: quote
+    enabled: true
+    order: 5
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "Das beste System ist nicht das mit den meisten Features, sondern das, welches am besten zu Ihrem Geschäftsmodell passt."
+      author: "Werner Strauch"
+      role: "E-Commerce-Berater"
+
+  # ========================================
+  # Section 6: ContentSplitImage - TCO & Evaluierung (Bild RECHTS)
+  # ========================================
+  - id: tco-evaluierung
+    enabled: true
+    order: 6
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "TCO & Evaluierung"
+      headline: "Kosten <em>ehrlich</em> vergleichen"
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      imageAlt: "Total Cost of Ownership Analyse"
+      imagePosition: "right"
+      content:
+        - type: "lead"
+          content: "Lizenzkosten sind nur die Spitze des Eisbergs. Die wahren Kosten einer Technologie-Entscheidung zeigen sich erst im Gesamtbild."
+        - type: "text"
+          content: "<p>Implementierung, Customizing, Schulung, laufender Betrieb, Updates, Support – all das fließt in die Total Cost of Ownership ein. Ich erstelle transparente TCO-Vergleiche, die Überraschungen vermeiden.</p>"
+        - type: "features"
+          items:
+            - icon: "heroicons:calculator"
+              title: "TCO-Analyse"
+              description: "Alle Kostenfaktoren über 3-5 Jahre: Lizenz, Implementierung, Betrieb, Weiterentwicklung."
+            - icon: "heroicons:scale"
+              title: "Funktionale Bewertung"
+              description: "Systematischer Abgleich von Anforderungen und Systemfähigkeiten. Keine Bauchentscheidungen."
+            - icon: "heroicons:cog-6-tooth"
+              title: "Technische Evaluierung"
+              description: "Architektur, Schnittstellen, Performance, Sicherheit – die technische Due Diligence."
+        - type: "button"
+          text: "Beratung anfragen"
+          href: "/kontakt"
+          variant: "primary"
+
+  # ========================================
+  # Section 7: ContentEditorial - Trends: Headless, MACH, Composable
+  # ========================================
+  - id: editorial
+    enabled: true
+    order: 7
+    component: ContentEditorial
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Trends & Architekturen"
+      headline: "Headless, MACH, <em>Composable</em> – was steckt dahinter?"
+      sections:
+        - title: "Headless Commerce"
+          content: |
+            <p>Bei Headless Commerce wird das Frontend (der „Kopf") vom Backend entkoppelt. Der Shop kommuniziert über APIs mit dem Commerce-System. Das ermöglicht maximale Flexibilität bei der Frontend-Gestaltung und die Anbindung beliebiger Touchpoints.</p>
+            <p><strong>Vorteile:</strong> Volle Designfreiheit, schnelle Frontend-Entwicklung, Multi-Touchpoint-Fähigkeit. <strong>Nachteile:</strong> Höhere Komplexität, mehr Entwicklungsaufwand, erfordert starke Tech-Teams.</p>
+        - title: "MACH-Architektur"
+          content: |
+            <p>MACH steht für Microservices, API-first, Cloud-native und Headless. Diese Prinzipien beschreiben eine moderne, flexible E-Commerce-Architektur, die auf Best-of-Breed-Komponenten setzt.</p>
+            <p>Statt einem monolithischen System wählen Sie spezialisierte Dienste für jeden Bereich: Commerce, Search, CMS, Payments. Die Herausforderung liegt in der Orchestrierung und im erhöhten Betriebsaufwand.</p>
+        - title: "Composable Commerce"
+          content: |
+            <p>Composable Commerce geht noch einen Schritt weiter: Die gesamte E-Commerce-Plattform wird aus austauschbaren Komponenten zusammengestellt. Jede Komponente kann unabhängig ersetzt oder erweitert werden.</p>
+            <p>Dieser Ansatz bietet maximale Flexibilität, erfordert aber auch erhebliche technische Kompetenz und klare Governance. Nicht für jedes Unternehmen ist das der richtige Weg.</p>
+        - title: "Die richtige Entscheidung treffen"
+          content: |
+            <p>Ob klassischer Monolith, Headless oder Composable – es gibt keine universell richtige Antwort. Die beste Architektur hängt von Ihrem Geschäftsmodell, Ihrer technischen Kompetenz und Ihren Wachstumszielen ab.</p>
+            <p>Ich helfe Ihnen, die Hype-Zyklen von echtem Mehrwert zu unterscheiden und eine Architektur zu wählen, die zu Ihrer Organisation passt – heute und in fünf Jahren.</p>
+
+  # ========================================
+  # Section 8: Stats - Erfahrungswerte
+  # ========================================
+  - id: stats
+    enabled: true
+    order: 8
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
+    content:
+      badge: "In Zahlen"
+      headline: "Erfahrung in <em>Technologieentscheidungen</em>"
+      stats:
+        - value: "50"
+          suffix: "+"
+          label: "Systemevaluierungen"
+          description: "durchgeführt"
+        - value: "20"
+          suffix: "+"
+          label: "Jahre"
+          description: "in der digitalen Wirtschaft"
+        - value: "15"
+          suffix: "+"
+          label: "Migrationen"
+          description: "erfolgreich begleitet"
+
+  # ========================================
+  # Section 9: FAQ - 6-8 Fragen
+  # ========================================
+  - id: faq
+    enabled: true
+    order: 9
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "md"
+        shape: "circles"
+        hideOnMobile: true
+    content:
+      badge: "Häufige Fragen"
+      headline: "Fragen zur <em>Technologieberatung</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="faq__link">Kontaktieren Sie mich</a> direkt.'
+      faqs:
+        - question: "Ab welcher Unternehmensgröße macht eine Technologieberatung Sinn?"
+          answer: "Eine strukturierte Technologieberatung lohnt sich in der Regel ab einem Jahresumsatz von 2-3 Millionen Euro oder wenn Sie vor einer größeren Systementscheidung stehen. Bei kleineren Händlern reicht oft ein Strategiegespräch, um die richtigen Weichen zu stellen."
+        - question: "Empfehlen Sie bestimmte Systeme oder Anbieter?"
+          answer: "Ich bin unabhängig und erhalte keine Provisionen von Software-Anbietern. Meine Empfehlungen basieren ausschließlich auf Ihren Anforderungen. Das bedeutet auch: Manchmal empfehle ich, das bestehende System zu behalten und zu optimieren."
+        - question: "Wie lange dauert ein typischer Auswahlprozess?"
+          answer: "Ein vollständiger Auswahlprozess mit RFP und PoC dauert typischerweise 3-6 Monate. Ein schnelleres Screening mit Shortlist-Empfehlung ist in 4-6 Wochen möglich. Die Dauer hängt von der Komplexität und Ihrer internen Entscheidungsgeschwindigkeit ab."
+        - question: "Begleiten Sie auch die Implementierung?"
+          answer: "Ja, als Owner auf Kundenseite. Ich setze nicht selbst um, aber ich stelle sicher, dass die Implementierung Ihren Anforderungen entspricht, begleite Workshops, prüfe Meilensteine und koordiniere bei Bedarf das Vendor-Management."
+        - question: "Was ist der Unterschied zwischen RFI und RFP?"
+          answer: "Ein RFI (Request for Information) ist eine erste Informationsanfrage, um Anbieter kennenzulernen. Ein RFP (Request for Proposal) ist eine detaillierte Ausschreibung mit konkreten Anforderungen und der Bitte um ein verbindliches Angebot. Ich setze beide Instrumente ein – je nach Phase im Auswahlprozess."
+        - question: "Brauche ich wirklich ein PIM-System?"
+          answer: "Nicht unbedingt. Ein PIM lohnt sich, wenn Sie mehr als 500-1000 Produkte haben, mehrere Vertriebskanäle bespielen oder komplexe Produktdaten pflegen. Für kleinere Shops reicht oft das Shopsystem. Ich helfe Ihnen, die richtige Entscheidung zu treffen."
+        - question: "Was kostet eine Technologieberatung?"
+          answer: "Ein initiales Architektur-Assessment startet bei 3.500 Euro. Ein vollständiger Auswahlprozess mit RFP und Entscheidungsvorlage liegt typischerweise zwischen 8.000 und 15.000 Euro – abhängig von Komplexität und Anzahl der zu evaluierenden Systeme."
+        - question: "Ist Headless Commerce die Zukunft?"
+          answer: "Headless ist ein leistungsfähiger Ansatz, aber nicht für jeden. Für Händler mit standardisierten Anforderungen sind moderne Monolithen wie Shopify Plus oder Shopware oft die bessere Wahl. Headless macht Sinn bei komplexen Frontend-Anforderungen, Multi-Touchpoint-Strategien oder wenn Sie ein starkes Tech-Team haben."
+
+  # ========================================
+  # Section 10: CTA
+  # ========================================
+  - id: cta
+    enabled: true
+    order: 10
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: Gradient
+        from: "rgba(200, 255, 0, 0.05)"
+        to: "transparent"
+        direction: "to bottom"
+    content:
+      headline: "Technologie-Entscheidung <em>anstehend</em>?"
+      description: "Lassen Sie uns in 30 Minuten besprechen, welche Systeme zu Ihrem Geschäftsmodell passen. Unabhängig, strukturiert und ohne Verkaufsgespräch."
+      buttonText: "Erstgespräch vereinbaren"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

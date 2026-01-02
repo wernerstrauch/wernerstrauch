@@ -1,0 +1,449 @@
+---
+/**
+ * LegalPage Component
+ *
+ * Elegante Legal-Page-Komponente für Impressum und Datenschutz.
+ * Industrial-Refined Design mit Editorial-Touch.
+ * Nutzt das bestehende Navy + Lime Farbschema.
+ */
+
+import Container from "@components/shared/Container.astro";
+import { marked } from "marked";
+import type { SectionVariant } from "../../types";
+
+interface LegalSection {
+  id?: string;
+  title: string;
+  content: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  pageTitle: string;
+  pageSubtitle?: string;
+  lastUpdated?: string;
+  sections: LegalSection[];
+}
+
+const {
+  sectionVariant = "dark",
+  pageTitle,
+  pageSubtitle,
+  lastUpdated,
+  sections = [],
+} = Astro.props;
+
+// Configure marked
+marked.use({
+  async: false,
+});
+
+function parseMarkdown(content: string): string {
+  return marked.parse(content, { async: false }) as string;
+}
+
+// Process title with accent highlights
+const highlightStyle = `color: var(--section-accent);`;
+const processedTitle = pageTitle.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div class="legal-page" data-variant={sectionVariant}>
+  {/* Background Signet Watermark */}
+  <svg
+    class="legal-signet"
+    viewBox="0 0 568.43 423.16"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M568.43,0h-189.86c-57.83,0-110.7,36.49-136.56,94.25l-95.13,212.47c-21.25,47.46-58.51,83.55-103.59,100.33L0,423.16h189.86c57.83,0,110.7-36.49,136.56-94.25l95.13-212.47c21.25-47.46,58.51-83.55,103.59-100.33L568.43,0Z"
+      fill="currentColor"
+    />
+  </svg>
+
+  <Container class="relative z-10 max-w-4xl">
+    {/* Header */}
+    <header class="legal-header mb-12 lg:mb-16">
+      {/* Decorative Top Line */}
+      <div class="legal-header-line" aria-hidden="true"></div>
+
+      {/* Title */}
+      <h1
+        class="legal-title text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl"
+        set:html={processedTitle}
+      />
+
+      {/* Subtitle & Meta */}
+      <div class="legal-meta mt-6 flex flex-wrap items-center gap-4">
+        {pageSubtitle && (
+          <p class="legal-subtitle text-lg lg:text-xl">
+            {pageSubtitle}
+          </p>
+        )}
+        {lastUpdated && (
+          <>
+            {pageSubtitle && <span class="legal-meta-divider" aria-hidden="true"></span>}
+            <p class="legal-date text-sm">
+              Stand: {lastUpdated}
+            </p>
+          </>
+        )}
+      </div>
+
+      {/* Decorative Line */}
+      <div class="legal-accent-line mt-8" aria-hidden="true"></div>
+    </header>
+
+    {/* Table of Contents */}
+    {sections.length > 3 && (
+      <nav class="legal-toc mb-12" aria-label="Inhaltsverzeichnis">
+        <h2 class="legal-toc-title text-xs font-semibold uppercase tracking-wider mb-4">
+          Inhalt
+        </h2>
+        <ol class="legal-toc-list">
+          {sections.map((section, index) => (
+            <li>
+              <a href={`#section-${index + 1}`} class="legal-toc-link">
+                <span class="legal-toc-number">{String(index + 1).padStart(2, "0")}</span>
+                <span>{section.title}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+
+    {/* Content Sections */}
+    <div class="legal-content">
+      {sections.map((section, index) => (
+        <section
+          id={section.id || `section-${index + 1}`}
+          class="legal-section"
+        >
+          {/* Section Header */}
+          <div class="legal-section-header">
+            <span class="legal-section-number" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h2 class="legal-section-title">
+              {section.title}
+            </h2>
+          </div>
+
+          {/* Section Content */}
+          <div
+            class="legal-section-content prose"
+            set:html={parseMarkdown(section.content || "")}
+          />
+        </section>
+      ))}
+    </div>
+
+    {/* Footer Note */}
+    <footer class="legal-footer mt-16 pt-8">
+      <p class="legal-footer-text">
+        Bei Fragen zu diesen Informationen kontaktieren Sie mich gerne unter
+        <a href="mailto:kontakt@wernerstrauch.de">kontakt@wernerstrauch.de</a>
+      </p>
+    </footer>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Legal Page - Industrial Refined Style
+     Navy + Lime, Clean Typography
+     ======================================== */
+
+  .legal-page {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+  }
+
+  /* ========================================
+     Background Signet Watermark
+     ======================================== */
+  .legal-signet {
+    position: fixed;
+    right: -150px;
+    bottom: -100px;
+    width: 500px;
+    height: 370px;
+    color: var(--section-accent);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .legal-signet {
+      width: 650px;
+      height: 485px;
+      right: -100px;
+      bottom: -120px;
+    }
+  }
+
+  /* ========================================
+     Header
+     ======================================== */
+  .legal-header {
+    position: relative;
+  }
+
+  .legal-header-line {
+    position: absolute;
+    top: -2rem;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--section-accent);
+  }
+
+  .legal-title {
+    color: var(--section-text);
+  }
+
+  .legal-meta {
+    color: var(--section-text-muted);
+  }
+
+  .legal-subtitle {
+    color: var(--section-text-muted);
+    font-weight: 400;
+  }
+
+  .legal-meta-divider {
+    width: 4px;
+    height: 4px;
+    background: var(--section-accent);
+    transform: rotate(45deg);
+  }
+
+  .legal-date {
+    color: var(--section-accent);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .legal-accent-line {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--section-accent), transparent);
+  }
+
+  /* ========================================
+     Table of Contents
+     ======================================== */
+  .legal-toc {
+    padding: 1.5rem 2rem;
+    background: color-mix(in srgb, var(--section-accent) 5%, transparent);
+    border-left: 3px solid var(--section-accent);
+  }
+
+  .legal-toc-title {
+    color: var(--section-accent);
+    letter-spacing: 0.15em;
+  }
+
+  .legal-toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .legal-toc-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    color: var(--section-text-muted);
+    font-size: 0.9375rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .legal-toc-link:hover {
+    color: var(--section-text);
+    padding-left: 0.5rem;
+  }
+
+  .legal-toc-number {
+    color: var(--section-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.7;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .legal-toc-link:hover .legal-toc-number {
+    opacity: 1;
+  }
+
+  /* ========================================
+     Content Sections
+     ======================================== */
+  .legal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .legal-section {
+    position: relative;
+    scroll-margin-top: 6rem;
+  }
+
+  .legal-section::before {
+    content: "";
+    position: absolute;
+    left: -1.5rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--section-accent) 30%, transparent) 0%,
+      transparent 100%
+    );
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .legal-section::before {
+      display: block;
+    }
+  }
+
+  /* Section Header */
+  .legal-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .legal-section-number {
+    color: var(--section-accent);
+    font-size: 0.875rem;
+    font-weight: 700;
+    opacity: 0.6;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .legal-section-title {
+    color: var(--section-text);
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 640px) {
+    .legal-section-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Section Content */
+  .legal-section-content {
+    color: var(--section-text-muted);
+    font-size: 1rem;
+    line-height: 1.85;
+    padding-left: 0;
+  }
+
+  @media (min-width: 640px) {
+    .legal-section-content {
+      padding-left: calc(0.875rem + 1rem + 0.5rem);
+      font-size: 1.0625rem;
+    }
+  }
+
+  /* Prose Styles */
+  .legal-section-content :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .legal-section-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .legal-section-content :global(strong) {
+    color: var(--section-text);
+    font-weight: 600;
+  }
+
+  .legal-section-content :global(a) {
+    color: var(--section-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: all 0.2s;
+  }
+
+  .legal-section-content :global(a:hover) {
+    text-decoration-thickness: 2px;
+    opacity: 0.85;
+  }
+
+  .legal-section-content :global(ul),
+  .legal-section-content :global(ol) {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .legal-section-content :global(li) {
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+  }
+
+  .legal-section-content :global(li::marker) {
+    color: var(--section-accent);
+  }
+
+  .legal-section-content :global(h3) {
+    color: var(--section-text);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .legal-section-content :global(h4) {
+    color: var(--section-text);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ========================================
+     Footer
+     ======================================== */
+  .legal-footer {
+    border-top: 1px solid color-mix(in srgb, var(--section-text) 10%, transparent);
+  }
+
+  .legal-footer-text {
+    color: var(--section-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .legal-footer-text :global(a) {
+    color: var(--section-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s;
+  }
+
+  .legal-footer-text :global(a:hover) {
+    opacity: 0.8;
+  }
+</style>
