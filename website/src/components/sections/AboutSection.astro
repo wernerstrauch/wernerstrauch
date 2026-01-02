@@ -1,6 +1,8 @@
 ---
 import Container from "@components/shared/Container.astro";
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import type { SectionVariant } from "../../types";
 
 interface Background {
@@ -19,7 +21,7 @@ interface Props {
   approach?: string;
   expertise?: string[];
   background?: Background;
-  image?: string;
+  image?: ImageMetadata | string;
 }
 
 const {
@@ -33,6 +35,42 @@ const {
   background,
   image,
 } = Astro.props;
+
+// Resolve image if it's a string (from YAML)
+const assetsImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+const srcImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/images/**/*.{png,jpg,jpeg,webp}",
+);
+const allImages = { ...assetsImages, ...srcImages };
+
+let resolvedImage: ImageMetadata | string | undefined;
+if (typeof image === "string") {
+  if (image.startsWith("/src/assets/") || image.startsWith("/src/images/")) {
+    if (allImages[image]) {
+      resolvedImage = (await allImages[image]()).default;
+    } else {
+      resolvedImage = image;
+    }
+  } else if (image.startsWith("http")) {
+    resolvedImage = image;
+  } else if (image.startsWith("/")) {
+    resolvedImage = image;
+  } else {
+    const imagesPath = `/src/images/${image}`;
+    const assetsPath = `/src/assets/${image}`;
+    if (allImages[imagesPath]) {
+      resolvedImage = (await allImages[imagesPath]()).default;
+    } else if (allImages[assetsPath]) {
+      resolvedImage = (await allImages[assetsPath]()).default;
+    }
+  }
+} else {
+  resolvedImage = image;
+}
+
+const isPublicImage = typeof resolvedImage === "string";
 
 // Process headline:
 // - <em> tags become circled words with animated SVG
@@ -137,13 +175,23 @@ processedHeadline = processedHeadline.replace(
       {/* Image - takes 2 columns */}
       <div class="lg:col-span-2">
         {
-          image ? (
+          resolvedImage ? (
             <div class="about-image-wrapper fade-up relative aspect-[3/4] overflow-hidden">
-              <img
-                src={image}
-                alt={name}
-                class="h-full w-full object-cover"
-              />
+              {isPublicImage ? (
+                <img
+                  src={resolvedImage as string}
+                  alt={name}
+                  class="h-full w-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={resolvedImage as ImageMetadata}
+                  alt={name || ""}
+                  class="h-full w-full object-cover"
+                  widths={[480, 800, 1200]}
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              )}
               {/* Overlay gradient */}
               <div class="about-image-overlay absolute inset-0" />
             </div>

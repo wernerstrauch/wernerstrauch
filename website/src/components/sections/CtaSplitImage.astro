@@ -2,6 +2,8 @@
 import Container from "@components/shared/Container.astro";
 import Button from "@components/shared/Button.astro";
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import type { SectionVariant } from "../../types";
 
 interface Props {
@@ -11,7 +13,7 @@ interface Props {
   description?: string;
   primaryCta?: string;
   primaryCtaHref?: string;
-  image?: string;
+  image?: ImageMetadata | string;
   imageAlt?: string;
   imagePosition?: "left" | "right";
 }
@@ -27,6 +29,42 @@ const {
   imageAlt = "Team bei der Arbeit",
   imagePosition = "left",
 } = Astro.props;
+
+// Resolve image if it's a string (from YAML)
+const assetsImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+const srcImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/images/**/*.{png,jpg,jpeg,webp}",
+);
+const allImages = { ...assetsImages, ...srcImages };
+
+let resolvedImage: ImageMetadata | string | undefined;
+if (typeof image === "string") {
+  if (image.startsWith("/src/assets/") || image.startsWith("/src/images/")) {
+    if (allImages[image]) {
+      resolvedImage = (await allImages[image]()).default;
+    } else {
+      resolvedImage = image;
+    }
+  } else if (image.startsWith("http")) {
+    resolvedImage = image;
+  } else if (image.startsWith("/")) {
+    resolvedImage = image;
+  } else {
+    const imagesPath = `/src/images/${image}`;
+    const assetsPath = `/src/assets/${image}`;
+    if (allImages[imagesPath]) {
+      resolvedImage = (await allImages[imagesPath]()).default;
+    } else if (allImages[assetsPath]) {
+      resolvedImage = (await allImages[assetsPath]()).default;
+    }
+  }
+} else {
+  resolvedImage = image;
+}
+
+const isPublicImage = typeof resolvedImage === "string";
 
 // Variant-based styles
 const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
@@ -49,7 +87,17 @@ const isLeft = imagePosition === "left";
       isLeft ? "md:left-0" : "md:right-0",
     ]}
   >
-    <img src={image} alt={imageAlt} class="size-full object-cover" />
+{isPublicImage ? (
+      <img src={resolvedImage as string} alt={imageAlt} class="size-full object-cover" />
+    ) : resolvedImage ? (
+      <Image
+        src={resolvedImage as ImageMetadata}
+        alt={imageAlt || ""}
+        class="size-full object-cover"
+        widths={[640, 1024, 1536]}
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+    ) : null}
   </div>
 
   {/* Content section */}

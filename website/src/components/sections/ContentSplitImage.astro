@@ -215,12 +215,23 @@ const getDelay = () => {
           isImageLeft ? "lg:-ml-8 xl:ml-0" : "lg:-mr-8 xl:mr-0",
         ]}
       >
-        <img
-          src={image}
-          alt={imageAlt}
-          class="absolute inset-0 size-full object-cover"
-          loading="lazy"
-        />
+{isPublicImage ? (
+          <img
+            src={resolvedImage as string}
+            alt={imageAlt}
+            class="absolute inset-0 size-full object-cover"
+            loading="lazy"
+          />
+        ) : resolvedImage ? (
+          <Image
+            src={resolvedImage as ImageMetadata}
+            alt={imageAlt || ""}
+            class="absolute inset-0 size-full object-cover"
+            loading="lazy"
+            widths={[640, 1024, 1536]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
+        ) : null}
       </div>
     </div>
 
