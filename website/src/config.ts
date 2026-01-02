@@ -24,14 +24,9 @@ export const SOCIALS = [
 
 // Client logos for trust bar
 export const CLIENTS = [
-  { name: "Netrada", logo: "/src/images/logos/logo-1.svg" },
+  { name: "entra", logo: "/src/images/logos/logo-1.svg" },
   { name: "Kadlwei", logo: "/src/images/logos/logo-2.svg" },
-  { name: "Naturtrüb", logo: "/src/images/logos/logo-3.svg" },
-  { name: "Fictional 1", logo: "/src/images/logos/fictional-logo-01.svg" },
-  { name: "Fictional 2", logo: "/src/images/logos/fictional-logo-02.svg" },
-  { name: "Fictional 3", logo: "/src/images/logos/fictional-logo-03.svg" },
-  { name: "Fictional 4", logo: "/src/images/logos/fictional-logo-04.svg" },
-  { name: "Fictional 5", logo: "/src/images/logos/fictional-logo-05.svg" },
+  // { name: "Naturrein", logo: "/src/images/logos/logo-3.svg" }, // Quadratisches Format - passt nicht zu den anderen
 ];
 
 // Mega Menu Navigation - SEO-optimized structure
@@ -206,9 +201,9 @@ export const SITE: SiteConfig = {
   },
   favicon: "/favicon.png",
   contact: {
-    email: "kontakt@wernerstrauch.de",
-    company: "Werner Strauch",
-    address: ["Deutschland"],
+    email: "info@digitalsprung.de",
+    company: "digitalsprung GmbH",
+    address: ["Gladbacher Str. 31A", "52525 Heinsberg", "Deutschland"],
   },
   navigation: {
     main: [

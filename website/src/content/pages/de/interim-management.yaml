@@ -64,6 +64,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.12
@@ -115,6 +126,13 @@ sections:
         color: "#c8ff00"
         opacity: 0.06
         fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "left"
+        size: "lg"
+        shape: "squares"
+        hideOnMobile: true
     content:
       badge: "Einsatzszenarien"
       headline: "Wann ein Interim Manager <em>Sinn macht</em>"
@@ -170,6 +188,14 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
       badge: "Der Unterschied"
       headline: "Mehr als <em>Beratung</em>"
@@ -241,6 +267,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.04
+        fadeDirection: "right"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.1
@@ -311,6 +348,14 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
       badge: "Hintergrund"
       headline: "Was ist <em>Interim Management</em>?"
@@ -341,6 +386,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.08

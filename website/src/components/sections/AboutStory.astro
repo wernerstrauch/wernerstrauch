@@ -1,5 +1,6 @@
 ---
 import Container from "@components/shared/Container.astro";
+import Eyebrow from "@components/shared/Eyebrow.astro";
 import { Icon } from "astro-icon/components";
 import type { SectionVariant } from "../../types";
 
@@ -46,9 +47,7 @@ const processedHeading =
       <div>
         {
           badge && (
-            <p class="about-story__eyebrow blur-in mb-4 text-base font-semibold">
-              {badge}
-            </p>
+            <Eyebrow text={badge} icon={badgeIcon} class="mb-6" />
           )
         }
         <h2

@@ -63,6 +63,14 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
       badge: "Audit-Facts"
       headline: "Zahlen, die für <em>Klarheit</em> sprechen"
@@ -145,6 +153,13 @@ sections:
         color: "#c8ff00"
         opacity: 0.06
         fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.1
+        position: "right"
+        size: "lg"
+        shape: "diamonds"
+        hideOnMobile: true
     content:
       badge: "Audit-Bereiche"
       headline: "Sechs Perspektiven für <em>360° Klarheit</em>"
@@ -306,6 +321,14 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
       badge: "Hintergrund"
       headline: "Was macht ein gutes <em>E-Commerce Audit</em> aus?"

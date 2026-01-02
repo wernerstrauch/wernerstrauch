@@ -1,6 +1,7 @@
 ---
 import Container from "@components/shared/Container.astro";
 import Button from "@components/shared/Button.astro";
+import Eyebrow from "@components/shared/Eyebrow.astro";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import type { SectionVariant } from "../../types";
@@ -8,6 +9,7 @@ import type { SectionVariant } from "../../types";
 interface Props {
   sectionVariant?: SectionVariant;
   eyebrowText?: string;
+  eyebrowIcon?: string;
   headline: string;
   subheadline?: string;
   primaryCta?: string;
@@ -22,6 +24,7 @@ interface Props {
 const {
   sectionVariant = "white",
   eyebrowText,
+  eyebrowIcon = "heroicons:sparkles-16-solid",
   headline,
   subheadline,
   primaryCta,
@@ -101,9 +104,7 @@ processedHeadline = processedHeadline.replace(
       {/* Eyebrow Text */}
       {
         eyebrowText && (
-          <p class="hero-portrait__eyebrow blur-in mb-2 text-base font-semibold">
-            {eyebrowText}
-          </p>
+          <Eyebrow text={eyebrowText} icon={eyebrowIcon} class="mb-6" />
         )
       }
 

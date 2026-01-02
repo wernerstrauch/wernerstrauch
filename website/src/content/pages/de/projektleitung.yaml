@@ -100,6 +100,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        fadeDirection: "both"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.1
@@ -163,6 +174,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.08
@@ -262,10 +284,18 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
       badge: "Warum extern?"
       headline: "Die Vorteile eines <em>externen Projektleiters</em>"
-      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+      image: "/src/images/projektleitung-extern.png"
       imageAlt: "Externe Projektleitung - Strategische Steuerung"
       imagePosition: "left"
       content:
@@ -317,6 +347,14 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.06
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
       badge: "Methodik"
       headline: "Methoden und <em>Erfolgsfaktoren</em>"

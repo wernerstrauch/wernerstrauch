@@ -1,5 +1,6 @@
 ---
 import Container from "@components/shared/Container.astro";
+import Eyebrow from "@components/shared/Eyebrow.astro";
 import { Icon } from "astro-icon/components";
 import type { SectionVariant } from "../../types";
 
@@ -23,6 +24,7 @@ interface Props {
   sectionVariant?: SectionVariant;
   eyebrow?: string;
   badge?: string; // Alias for eyebrow
+  badgeIcon?: string;
   headline?: string;
   leadParagraph?: string;
   pullQuote?: string;
@@ -38,6 +40,7 @@ const {
   sectionVariant = "dark",
   eyebrow,
   badge,
+  badgeIcon = "heroicons:document-text-16-solid",
   headline = "E-Commerce <em>Beratung</em> mit System",
   leadParagraph,
   pullQuote,
@@ -103,9 +106,9 @@ let sectionCounter = 0;
         <div class="editorial-header-content">
           {/* Eyebrow / Badge */}
           {displayEyebrow && (
-            <p class="editorial-eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
-              {displayEyebrow}
-            </p>
+            <div class="mb-6">
+              <Eyebrow text={displayEyebrow} icon={badgeIcon} />
+            </div>
           )}
 
           {/* Main Headline */}

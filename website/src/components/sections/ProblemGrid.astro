@@ -1,5 +1,6 @@
 ---
 import Container from "@components/shared/Container.astro";
+import Eyebrow from "@components/shared/Eyebrow.astro";
 import { Icon } from "astro-icon/components";
 import type { SectionVariant } from "../../types";
 
@@ -12,6 +13,7 @@ interface Problem {
 interface Props {
   sectionVariant?: SectionVariant;
   badge?: string;
+  badgeIcon?: string;
   headline?: string;
   subheadline?: string;
   problems?: Problem[];
@@ -20,6 +22,7 @@ interface Props {
 const {
   sectionVariant = "dark",
   badge,
+  badgeIcon = "heroicons:exclamation-triangle-16-solid",
   headline = "Kommt dir das bekannt vor?",
   subheadline,
   problems = [],
@@ -39,9 +42,9 @@ const processedHeadline = headline.replace(
     <div class="mb-12 text-center lg:mb-16">
       {/* Eyebrow */}
       {badge && (
-        <p class="problemgrid-eyebrow blur-in mb-4 text-base font-semibold">
-          {badge}
-        </p>
+        <div class="mb-6 flex justify-center">
+          <Eyebrow text={badge} icon={badgeIcon} />
+        </div>
       )}
 
       <h2

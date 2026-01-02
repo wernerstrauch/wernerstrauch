@@ -99,18 +99,10 @@ sections:
     content:
       headline: "Erfahrung aus Projekten für führende Marken"
       logos:
-        - name: "digitalsprung"
-          src: "/src/images/logos/fictional-logo-01.svg"
-        - name: "Kunde 2"
-          src: "/src/images/logos/fictional-logo-02.svg"
-        - name: "Kunde 3"
-          src: "/src/images/logos/fictional-logo-03.svg"
-        - name: "Kunde 4"
-          src: "/src/images/logos/fictional-logo-04.svg"
-        - name: "Kunde 5"
-          src: "/src/images/logos/fictional-logo-05.svg"
-        - name: "Kunde 6"
-          src: "/src/images/logos/fictional-logo-06.svg"
+        - name: "entra"
+          src: "/src/images/logos/logo-1.svg"
+        - name: "Kadlwei"
+          src: "/src/images/logos/logo-2.svg"
 
   # Trust Stats
   - id: trust-stats

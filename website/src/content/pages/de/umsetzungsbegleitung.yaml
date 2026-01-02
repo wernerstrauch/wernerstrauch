@@ -64,6 +64,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.1
@@ -108,6 +119,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.12
@@ -325,6 +347,17 @@ sections:
       variant: dark
       padding: lg
     backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "left"
       - type: ConcentricShapes
         color: "#c8ff00"
         opacity: 0.08

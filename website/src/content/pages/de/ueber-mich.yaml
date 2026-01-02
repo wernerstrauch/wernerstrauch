@@ -16,10 +16,10 @@ sections:
   - id: hero
     enabled: true
     order: 1
-    component: PageHeroCompact
+    component: HeroSplit
     wrapper:
       variant: dark
-      padding: lg
+      padding: none
     backgrounds:
       - type: LightGradientBackground
         color: "#c8ff00"
@@ -37,12 +37,16 @@ sections:
         vignette: true
         vignetteColor: "#0a1628"
     content:
-      icon: "heroicons:user-16-solid"
-      title: "Der Mensch hinter der Beratung"
-      description: "Diplom-Betriebswirt mit technischem Tiefgang. 20+ Jahre Erfahrung in E-Commerce und digitaler Transformation. 7 Jahre Geschäftsführung. Führung von Teams bis 20 Personen."
-      breadcrumbs:
-        - label: "Über mich"
-          href: "/ueber-mich"
+      badge: "Über mich"
+      badgeIcon: "heroicons:user-16-solid"
+      headline: "Ich spreche <em>Code</em> und <em>Strategie</em>"
+      subheadline: "Angefangen als Entwickler, heute Geschäftsführer und Berater. 20 Jahre E-Commerce haben mir gezeigt: Die besten Lösungen entstehen, wenn Technik und Business dieselbe Sprache sprechen."
+      image: "/src/images/werner-strauch-konferenz.jpg"
+      imageAlt: "Werner Strauch auf einer Konferenz"
+      primaryCta: "Kontakt aufnehmen"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Meine Leistungen"
+      secondaryCtaHref: "/ecommerce-beratung"
 
   # Story Section
   - id: story
@@ -108,10 +112,32 @@ sections:
           description: "größtes geführtes Team"
           icon: "heroicons:users"
 
+  # Shop Expertise Section
+  - id: shop-expertise
+    enabled: true
+    order: 4
+    component: ContentSplitImage
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Hands-on Expertise"
+      headline: "Aus der Praxis, <em>für die Praxis</em>"
+      image: "/src/images/werner-strauch-shop-experte.jpg"
+      imageAlt: "Werner Strauch - E-Commerce & Shop Experte"
+      imagePosition: "left"
+      content:
+        - type: "lead"
+          content: "Ich kenne E-Commerce nicht nur aus PowerPoint-Präsentationen – ich habe selbst Shops aufgebaut, migriert und skaliert."
+        - type: "text"
+          content: "<p>Von der ersten Zeile Code bis zur strategischen Geschäftsführung: Mein Weg durch die E-Commerce-Welt gibt mir heute die Möglichkeit, auf Augenhöhe mit Entwicklern, Projektleitern und Geschäftsführern zu sprechen.</p>"
+        - type: "text"
+          content: "<p>Diese praktische Erfahrung fließt in jede Beratung ein – ob bei der Auswahl des richtigen Shopsystems, der Optimierung von Prozessen oder der strategischen Neuausrichtung Ihres Online-Geschäfts.</p>"
+
   # Qualifications
   - id: qualifications
     enabled: true
-    order: 4
+    order: 5
     component: ContentSection
     wrapper:
       variant: dark
@@ -132,14 +158,35 @@ sections:
   # Skills/Expertise Grid
   - id: skills
     enabled: true
-    order: 5
-    component: ProblemGrid
+    order: 6
+    component: SkillsShowcase
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        opacity: 0.05
+        fadeDirection: "both"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.08
+        position: "right"
+        size: "lg"
+        shape: "hexagons"
+        hideOnMobile: true
     content:
+      badge: "Expertise"
+      badgeIcon: "heroicons:academic-cap-16-solid"
       headline: "Meine <em>Kernkompetenzen</em>"
-      problems:
+      skills:
         - icon: "heroicons:shopping-cart"
           title: "E-Commerce Strategie"
           description: "Shop-Architektur, Plattform-Auswahl, Migrations-Planung und technische Skalierung für nachhaltiges Wachstum."
@@ -156,7 +203,7 @@ sections:
   # CTA
   - id: cta
     enabled: true
-    order: 6
+    order: 7
     component: CtaCentered
     wrapper:
       variant: dark

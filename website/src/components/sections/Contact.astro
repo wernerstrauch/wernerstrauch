@@ -1,4 +1,5 @@
 ---
+import Eyebrow from "@components/shared/Eyebrow.astro";
 import { Icon } from "astro-icon/components";
 import type { SectionVariant } from "../../types";
 
@@ -170,9 +171,9 @@ const processedHeadline = heading.replace(
   <div class="relative z-10">
     <!-- Header -->
     <div class="mb-12 text-center lg:mb-16">
-      <p class="contact__eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
-        {badge}
-      </p>
+      <div class="mb-6 flex justify-center">
+        <Eyebrow text={badge} icon={badgeIcon} />
+      </div>
       <h1
         class="contact__headline scale-up text-3xl font-bold sm:text-4xl lg:text-5xl"
         set:html={processedHeadline}

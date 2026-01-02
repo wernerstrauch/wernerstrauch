@@ -250,6 +250,14 @@ sections:
     wrapper:
       variant: dark
       padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
     content:
       badge: "Für wen?"
       headline: "Der Workshop ist <em>ideal für</em>"

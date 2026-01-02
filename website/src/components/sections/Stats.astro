@@ -1,5 +1,6 @@
 ---
 import Container from "@components/shared/Container.astro";
+import Eyebrow from "@components/shared/Eyebrow.astro";
 import type { SectionVariant } from "../../types";
 
 interface Stat {
@@ -13,6 +14,7 @@ interface Stat {
 interface Props {
   sectionVariant?: SectionVariant;
   badge?: string;
+  badgeIcon?: string;
   headline?: string;
   description?: string;
   stats?: Stat[];
@@ -22,6 +24,7 @@ interface Props {
 const {
   sectionVariant = "light",
   badge = "Unsere Ergebnisse",
+  badgeIcon = "heroicons:chart-bar-16-solid",
   headline = "Zahlen, die <em>überzeugen</em>",
   description: sectionDescription,
   stats: statsFromProps,
@@ -83,9 +86,9 @@ processedHeadline = processedHeadline.replace(
     {/* Header */}
     <div class="mb-12 text-center">
       {badge && (
-        <p class="stats-eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
-          {badge}
-        </p>
+        <div class="mb-6 flex justify-center">
+          <Eyebrow text={badge} icon={badgeIcon} />
+        </div>
       )}
       <h2
         class="stats-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"

@@ -1,0 +1,50 @@
+---
+/**
+ * Eyebrow Component
+ *
+ * Unified pill-style eyebrow/badge component for consistent styling across sections.
+ * Industrial-refined design with icon support.
+ */
+
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  text: string;
+  icon?: string;
+  class?: string;
+}
+
+const { text, icon = "heroicons:sparkles-16-solid", class: className = "" } =
+  Astro.props;
+---
+
+<div class:list={["eyebrow blur-in inline-flex items-center rounded-full", className]}>
+  <div class="eyebrow-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+    <Icon name={icon} class="eyebrow-icon h-4 w-4" />
+    <span class="eyebrow-text text-sm font-medium">
+      {text}
+    </span>
+  </div>
+</div>
+
+<style>
+  /* ========================================
+     Eyebrow - Pill-style badge
+     Uses CSS variables from section theme
+     ======================================== */
+  .eyebrow {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .eyebrow-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .eyebrow-icon {
+    color: var(--section-accent);
+  }
+
+  .eyebrow-text {
+    color: var(--section-text);
+  }
+</style>
