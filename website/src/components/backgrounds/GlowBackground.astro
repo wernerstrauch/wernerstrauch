@@ -1,0 +1,33 @@
+---
+interface Props {
+  width?: string;
+  height?: string;
+  opacity?: number;
+  blur?: string;
+  position?: "center" | "top" | "bottom";
+}
+
+const {
+  width = "800px",
+  height = "400px",
+  opacity = 10,
+  blur = "3xl",
+  position = "center",
+} = Astro.props;
+
+const positionClasses = {
+  center: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+  top: "top-0 left-1/2 -translate-x-1/2",
+  bottom: "bottom-0 left-1/2 -translate-x-1/2",
+};
+---
+
+<div
+  class:list={[
+    "glow-background absolute rounded-full",
+    `blur-${blur}`,
+    positionClasses[position],
+  ]}
+  style={`width: ${width}; height: ${height}; background: color-mix(in srgb, var(--section-accent) ${opacity}%, transparent);`}
+>
+</div>

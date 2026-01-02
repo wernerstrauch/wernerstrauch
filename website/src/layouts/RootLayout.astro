@@ -1,0 +1,133 @@
+---
+import "@/styles/styles.css";
+import { SITE, getSiteConfig } from "@config";
+import type { HreflangEntry, SupportedLanguage } from "@lib/i18n";
+import Header from "@components/sections/Header.astro";
+import Footer from "@components/sections/Footer.astro";
+import CookieConsent from "@components/shared/CookieConsent.astro";
+import { getImage } from "astro:assets";
+import faviconSrc from "@images/favicon.png";
+
+// Generate optimized favicon images
+const favicon32 = await getImage({ src: faviconSrc, width: 32, height: 32, format: "png" });
+const favicon16 = await getImage({ src: faviconSrc, width: 16, height: 16, format: "png" });
+const appleTouchIcon = await getImage({ src: faviconSrc, width: 180, height: 180, format: "png" });
+
+interface Props {
+  title?: string;
+  author?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  lang?: SupportedLanguage;
+  hreflangEntries?: HreflangEntry[];
+  headerVariant?: "light" | "dark";
+  alternateUrl?: string;
+}
+
+const {
+  title = SITE.title,
+  author = SITE.author,
+  description = SITE.description,
+  ogImage = SITE.ogImage,
+  canonicalURL = new URL(Astro.url.pathname.replace(/\/$/, "") || "/", Astro.site).href,
+  lang = "de",
+  hreflangEntries = [],
+  headerVariant = "light",
+  alternateUrl,
+} = Astro.props;
+
+const siteConfig = getSiteConfig(lang);
+const socialImageURL = new URL(ogImage ?? SITE.ogImage, Astro.url.origin).href;
+---
+
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />
+    <link rel="icon" type="image/png" sizes="16x16" href={favicon16.src} />
+    <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon.src} />
+
+    {/* General Meta Tags */}
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {/* Hreflang tags for SEO */}
+    {
+      hreflangEntries.map((entry) => (
+        <link rel="alternate" hreflang={entry.lang} href={entry.url} />
+      ))
+    }
+
+    {/* Open Graph / Facebook */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:site_name" content={SITE.title} />
+
+    {/* Twitter */}
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImageURL} />
+
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+    </style>
+
+    {/* Alpine.js */}
+    <script>
+      import Alpine from 'alpinejs';
+      import collapse from '@alpinejs/collapse';
+
+      Alpine.plugin(collapse);
+
+      // Make Alpine available globally
+      window.Alpine = Alpine;
+
+      // Start Alpine
+      Alpine.start();
+    </script>
+
+    {/* Schema.org WebSite */}
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: SITE.title,
+        url: Astro.site?.href,
+        description: SITE.description,
+        publisher: {
+          "@type": "Person",
+          name: SITE.author,
+          url: Astro.site?.href,
+        },
+      })}
+    />
+  </head>
+  <body
+    class:list={[
+      "bg-background text-foreground overflow-x-hidden font-sans antialiased",
+      headerVariant === "dark" && "header-dark",
+    ]}
+  >
+    <Header lang={lang} headerVariant={headerVariant} alternateUrl={alternateUrl} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <CookieConsent lang={lang} />
+  </body>
+</html>

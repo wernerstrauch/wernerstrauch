@@ -1,0 +1,549 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Step {
+  number: string;
+  icon?: string;
+  title: string;
+  description: string;
+  details?: string[];
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  steps?: Step[];
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Unser Prozess",
+  badgeIcon = "heroicons:arrow-path-16-solid",
+  headline = "In 4 Schritten zum <em>Wachstum</em>",
+  description = "Strukturiert, transparent und messbar – so bringen wir deinen Shop auf das nächste Level.",
+  steps = [
+    {
+      number: "01",
+      icon: "heroicons:magnifying-glass",
+      title: "Analyse & Audit",
+      description:
+        "Wir analysieren deinen Shop, deine Zielgruppe und deine bisherigen Marketing-Aktivitäten. Wo liegt ungenutztes Potenzial?",
+      details: ["Shop-Analyse", "Tracking-Audit", "Wettbewerbsanalyse"],
+    },
+    {
+      number: "02",
+      icon: "heroicons:light-bulb",
+      title: "Strategie & Planung",
+      description:
+        "Basierend auf den Erkenntnissen entwickeln wir eine kanalübergreifende Strategie mit klaren Zielen und KPIs.",
+      details: ["Marketing-Roadmap", "Budget-Planung", "KPI-Definition"],
+    },
+    {
+      number: "03",
+      icon: "heroicons:rocket-launch",
+      title: "Implementierung",
+      description:
+        "Wir setzen die Strategie um: Kampagnen-Launch, E-Mail-Flows einrichten, SEO-Optimierungen durchführen.",
+      details: ["Kampagnen-Setup", "Klaviyo-Flows", "Onpage-SEO"],
+    },
+    {
+      number: "04",
+      icon: "heroicons:arrow-trending-up",
+      title: "Optimierung & Skalierung",
+      description:
+        "Kontinuierliche Analyse und Optimierung. Was funktioniert, skalieren wir – was nicht, passen wir an.",
+      details: ["A/B Testing", "Performance-Reports", "Wachstums-Skalierung"],
+    },
+  ],
+} = Astro.props;
+
+// Process headline:
+// - <em> tags become circled words with animated SVG
+// - <mark> tags become colored text only (no circle)
+let emIndex = 0;
+let processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  (_match: string, content: string) => {
+    const index = emIndex++;
+    return `<span class="circled-word" data-circled-index="${index}">${content}<svg class="circled-word__svg" viewBox="0 0 800 350" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="circled-word__path" d="M253,-161 C253,-161 -284.789,-201.46 -376,-21 C-469,163 67.623,174.21 256,121 C564,34 250.829,-141.693 19.107,-116.936" transform="translate(400, 179) scale(0.9791)" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" pathLength="1"/></svg></span>`;
+  },
+);
+processedHeadline = processedHeadline.replace(
+  /<mark>(.*?)<\/mark>/g,
+  `<span class="highlighted-word">$1</span>`,
+);
+---
+
+<Container id="prozess" class="process-section" data-variant={sectionVariant}>
+  {/* Header - Animated */}
+  <div class="mb-16 text-center lg:mb-24">
+    <p class="process-eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+      {badge}
+    </p>
+    <h2
+      class="process-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+      style="transition-delay: 100ms;"
+      set:html={processedHeadline}
+    />
+    <p
+      class="process-description fade-up mx-auto mt-4 max-w-2xl text-lg"
+      style="transition-delay: 200ms;"
+    >
+      {description}
+    </p>
+  </div>
+
+  {/* Vertical Timeline */}
+  <div class="relative mx-auto max-w-5xl">
+    {/* Vertical Progress Line - Centered */}
+    <div
+      class="absolute top-0 bottom-0 left-8 w-px md:left-1/2 md:-translate-x-1/2"
+    >
+      <div class="process-timeline-bg absolute inset-0"></div>
+      <div
+        class="timeline-progress process-timeline-line absolute top-0 left-0 w-full"
+        style="height: 0%;"
+      >
+      </div>
+    </div>
+
+    {/* Steps */}
+    <div class="relative space-y-20 md:space-y-32">
+      {
+        steps.map((step, index) => {
+          const isEven = index % 2 === 0;
+          return (
+            <div class="timeline-step relative" data-step={index}>
+              {/* Desktop Layout */}
+              <div class="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-8">
+                {/* Left Side */}
+                <div class={`${isEven ? "text-right" : ""}`}>
+                  {isEven && (
+                    <div class="step-content translate-x-8 pr-8 opacity-0">
+                      <span class="process-step-label mb-2 inline-block text-xs font-bold tracking-wider uppercase">
+                        Schritt{" "}
+                        <span class="step-number-anim">{step.number}</span>
+                      </span>
+                      <h3 class="process-step-title mb-3 text-2xl font-bold">
+                        {step.title}
+                      </h3>
+                      <p class="process-step-description mb-4 leading-relaxed">
+                        {step.description}
+                      </p>
+                      {step.details && step.details.length > 0 && (
+                        <div class="flex flex-wrap justify-end gap-2">
+                          {step.details.map((detail) => (
+                            <span class="process-detail-tag inline-flex items-center gap-1 border px-3 py-1 text-xs font-medium">
+                              <Icon
+                                name="heroicons:check-16-solid"
+                                class="process-detail-icon h-3 w-3"
+                              />
+                              {detail}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Center Circle */}
+                <div class="relative z-10 flex-shrink-0">
+                  <div class="step-circle process-circle flex h-16 w-16 items-center justify-center rounded-full border-2 shadow-lg transition-all duration-500">
+                    <div class="step-icon process-circle-inner flex h-12 w-12 items-center justify-center rounded-full transition-all duration-500">
+                      {step.icon ? (
+                        <Icon
+                          name={step.icon}
+                          class="process-circle-icon h-6 w-6 transition-colors duration-500"
+                        />
+                      ) : (
+                        <span class="process-circle-icon text-lg font-bold">
+                          {step.number}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div class="step-pulse process-pulse absolute inset-0 scale-100 rounded-full border-2 opacity-0" />
+                </div>
+
+                {/* Right Side */}
+                <div class={`${!isEven ? "" : ""}`}>
+                  {!isEven && (
+                    <div class="step-content -translate-x-8 pl-8 opacity-0">
+                      <span class="process-step-label mb-2 inline-block text-xs font-bold tracking-wider uppercase">
+                        Schritt{" "}
+                        <span class="step-number-anim">{step.number}</span>
+                      </span>
+                      <h3 class="process-step-title mb-3 text-2xl font-bold">
+                        {step.title}
+                      </h3>
+                      <p class="process-step-description mb-4 leading-relaxed">
+                        {step.description}
+                      </p>
+                      {step.details && step.details.length > 0 && (
+                        <div class="flex flex-wrap gap-2">
+                          {step.details.map((detail) => (
+                            <span class="process-detail-tag inline-flex items-center gap-1 border px-3 py-1 text-xs font-medium">
+                              <Icon
+                                name="heroicons:check-16-solid"
+                                class="process-detail-icon h-3 w-3"
+                              />
+                              {detail}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Mobile Layout */}
+              <div class="flex items-start gap-6 md:hidden">
+                {/* Circle */}
+                <div class="relative z-10 flex-shrink-0">
+                  <div class="step-circle process-circle flex h-16 w-16 items-center justify-center rounded-full border-2 shadow-lg transition-all duration-500">
+                    <div class="step-icon process-circle-inner flex h-12 w-12 items-center justify-center rounded-full transition-all duration-500">
+                      {step.icon ? (
+                        <Icon
+                          name={step.icon}
+                          class="process-circle-icon h-6 w-6 transition-colors duration-500"
+                        />
+                      ) : (
+                        <span class="process-circle-icon text-lg font-bold">
+                          {step.number}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div class="step-pulse process-pulse absolute inset-0 scale-100 rounded-full border-2 opacity-0" />
+                </div>
+
+                {/* Content */}
+                <div class="step-content flex-1 translate-x-4 pt-1 opacity-0">
+                  <span class="process-step-label mb-2 inline-block text-xs font-bold tracking-wider uppercase">
+                    Schritt <span class="step-number-anim">{step.number}</span>
+                  </span>
+                  <h3 class="process-step-title mb-2 text-xl font-bold">
+                    {step.title}
+                  </h3>
+                  <p class="process-step-description mb-3 text-sm leading-relaxed">
+                    {step.description}
+                  </p>
+                  {step.details && step.details.length > 0 && (
+                    <div class="flex flex-wrap gap-2">
+                      {step.details.map((detail) => (
+                        <span class="process-detail-tag inline-flex items-center gap-1 border px-2 py-1 text-xs font-medium">
+                          <Icon
+                            name="heroicons:check-16-solid"
+                            class="process-detail-icon h-3 w-3"
+                          />
+                          {detail}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</Container>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .process-eyebrow {
+    color: var(--section-accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .process-headline {
+    color: var(--section-text);
+  }
+
+  .process-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Circled Word Animation
+     ======================================== */
+  .process-headline :global(.circled-word) {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--section-text); /* Adapts to section theme */
+  }
+
+  .process-headline :global(.circled-word__svg) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .process-headline :global(.circled-word__path) {
+    stroke: #c8ff00;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .process-headline.is-visible :global(.circled-word__path) {
+    stroke-dashoffset: 0;
+  }
+
+  .process-headline.is-visible :global(.circled-word[data-circled-index="0"]) :global(.circled-word__path) {
+    transition-delay: 0.5s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-headline :global(.circled-word__path) {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  .process-headline :global(.highlighted-word) {
+    color: var(--section-accent); /* Lime on dark, adapts to theme */
+  }
+
+  /* ========================================
+     Timeline styles
+     ======================================== */
+  .process-timeline-bg {
+    background: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .process-timeline-line {
+    background: var(--section-accent);
+  }
+
+  /* ========================================
+     Step content styles
+     ======================================== */
+  .process-step-label {
+    color: var(--section-accent);
+  }
+
+  .process-step-title {
+    color: var(--section-text);
+  }
+
+  .process-step-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Detail tag styles
+     ======================================== */
+  .process-detail-tag {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+    color: var(--section-text);
+  }
+
+  .process-detail-icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Circle styles - Glassmorphism
+     ======================================== */
+  .process-circle {
+    border-color: color-mix(in srgb, var(--section-accent) 40%, transparent);
+    box-shadow: 0 10px 15px -3px
+      color-mix(in srgb, var(--section-accent) 20%, transparent);
+    background: var(--section-card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .process-circle-inner {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .process-circle-icon {
+    color: var(--section-accent);
+  }
+
+  .process-pulse {
+    border-color: color-mix(in srgb, var(--section-accent) 60%, transparent);
+  }
+
+  /* ========================================
+     Active state animations
+     ======================================== */
+  .timeline-step.is-active .step-circle {
+    border-color: color-mix(in srgb, var(--section-accent) 80%, transparent);
+    box-shadow: 0 0 30px
+      color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .timeline-step.is-active .step-icon {
+    background: color-mix(in srgb, var(--section-accent) 20%, transparent);
+  }
+
+  .timeline-step.is-active .step-icon svg {
+    color: var(--section-accent);
+  }
+
+  .timeline-step.is-completed .step-circle {
+    border-color: color-mix(in srgb, var(--section-accent) 60%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 5%, transparent);
+  }
+
+  .timeline-step.is-completed .step-icon {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  /* ========================================
+     Step content animation
+     ======================================== */
+  .step-content {
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .timeline-step.is-active .step-content {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Pulse animation */
+  .timeline-step.is-active .step-pulse {
+    animation: pulse-ring 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
+  /* Timeline progress line */
+  .timeline-progress {
+    transition: height 0.1s linear;
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .step-content,
+    .step-circle,
+    .step-icon,
+    .timeline-progress {
+      transition: none;
+    }
+
+    .step-pulse {
+      animation: none;
+    }
+
+    .timeline-step .step-content {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function initTimelineAnimation() {
+    const timelineSteps = document.querySelectorAll(".timeline-step");
+    const progressLine = document.querySelector(
+      ".timeline-progress",
+    ) as HTMLElement;
+    const section = document.getElementById("prozess");
+
+    if (!timelineSteps.length || !progressLine || !section) return;
+
+    function updateTimeline() {
+      const sectionRect = section!.getBoundingClientRect();
+      const sectionTop = sectionRect.top;
+      const sectionHeight = sectionRect.height;
+      const windowHeight = window.innerHeight;
+
+      // Calculate scroll progress within the section
+      const scrollStart = sectionTop - windowHeight * 0.6;
+      const scrollEnd = sectionTop + sectionHeight - windowHeight * 0.4;
+      const scrollRange = scrollEnd - scrollStart;
+      const scrollProgress = Math.max(
+        0,
+        Math.min(1, -scrollStart / scrollRange),
+      );
+
+      // Update progress line height
+      progressLine!.style.height = `${scrollProgress * 100}%`;
+
+      // Update each step based on scroll position
+      timelineSteps.forEach((step) => {
+        const stepElement = step as HTMLElement;
+        const stepRect = stepElement.getBoundingClientRect();
+        const stepCenter = stepRect.top + stepRect.height / 2;
+        const triggerPoint = windowHeight * 0.6;
+
+        if (stepCenter < triggerPoint) {
+          stepElement.classList.add("is-active");
+          // Mark as completed if we've scrolled past
+          if (stepCenter < windowHeight * 0.3) {
+            stepElement.classList.add("is-completed");
+          }
+        } else {
+          stepElement.classList.remove("is-active", "is-completed");
+        }
+      });
+    }
+
+    // Throttle scroll events
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateTimeline();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+
+    // Initial check
+    updateTimeline();
+  }
+
+  // Initialize
+  initTimelineAnimation();
+
+  // Re-initialize on page transitions
+  document.addEventListener("astro:page-load", initTimelineAnimation);
+</script>

@@ -1,0 +1,595 @@
+---
+/**
+ * MarketingOrbitCanvas
+ * Animated canvas showing Shopify in center with marketing platforms orbiting slowly
+ *
+ * Usage:
+ * <MarketingOrbitCanvas id="my-orbit-canvas" class="w-full h-64" />
+ */
+interface Props {
+  id: string;
+  class?: string;
+  accentColor?: string;
+}
+
+const { id, class: className = "", accentColor = "#4f3ca2" } = Astro.props;
+---
+
+<canvas
+  id={id}
+  class:list={["marketing-orbit-canvas", className]}
+  data-accent-color={accentColor}></canvas>
+
+<script>
+  interface OrbitingPlatform {
+    name: string;
+    color: string;
+    orbitRadius: number;
+    speed: number;
+    startAngle: number;
+    size: number;
+  }
+
+  interface CanvasState {
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    time: number;
+    animationId: number | null;
+    resizeObserver: ResizeObserver;
+    accentColor: string;
+    platforms: OrbitingPlatform[];
+  }
+
+  const canvasStates: Map<string, CanvasState> = new Map();
+
+  function drawRoundedRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: number,
+  ) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function drawShopifyLogo(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const scale = size / 100;
+
+    ctx.save();
+    ctx.translate(cx - size / 2, cy - size / 2);
+    ctx.scale(scale, scale);
+
+    // Bag body
+    ctx.beginPath();
+    ctx.moveTo(25, 20);
+    ctx.lineTo(15, 95);
+    ctx.lineTo(85, 95);
+    ctx.lineTo(75, 20);
+    ctx.closePath();
+
+    const gradient = ctx.createLinearGradient(15, 20, 85, 95);
+    gradient.addColorStop(0, "#95BF47");
+    gradient.addColorStop(1, "#5E8E3E");
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Bag handle
+    ctx.beginPath();
+    ctx.moveTo(35, 20);
+    ctx.quadraticCurveTo(35, 5, 50, 5);
+    ctx.quadraticCurveTo(65, 5, 65, 20);
+    ctx.strokeStyle = "#95BF47";
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
+    ctx.stroke();
+
+    // S letter
+    ctx.fillStyle = "white";
+    ctx.font = "bold 48px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("S", 50, 60);
+
+    ctx.restore();
+  }
+
+  function drawGoogleLogo(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.4;
+
+    // Google "G" multicolor
+    ctx.lineWidth = s * 0.22;
+    ctx.lineCap = "round";
+
+    // Blue arc (right side)
+    ctx.beginPath();
+    ctx.arc(cx, cy, s * 0.7, -0.3, 1.2);
+    ctx.strokeStyle = "#4285F4";
+    ctx.stroke();
+
+    // Green arc (bottom)
+    ctx.beginPath();
+    ctx.arc(cx, cy, s * 0.7, 1.2, 2.3);
+    ctx.strokeStyle = "#34A853";
+    ctx.stroke();
+
+    // Yellow arc (left bottom)
+    ctx.beginPath();
+    ctx.arc(cx, cy, s * 0.7, 2.3, 3.4);
+    ctx.strokeStyle = "#FBBC05";
+    ctx.stroke();
+
+    // Red arc (top)
+    ctx.beginPath();
+    ctx.arc(cx, cy, s * 0.7, 3.4, 5.9);
+    ctx.strokeStyle = "#EA4335";
+    ctx.stroke();
+
+    // Horizontal bar
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + s * 0.65, cy);
+    ctx.strokeStyle = "#4285F4";
+    ctx.lineWidth = s * 0.2;
+    ctx.stroke();
+  }
+
+  function drawMetaLogo(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.35;
+
+    // Meta infinity-like shape
+    ctx.lineWidth = s * 0.25;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    // Gradient from blue to cyan
+    const gradient = ctx.createLinearGradient(cx - s, cy, cx + s, cy);
+    gradient.addColorStop(0, "#0081FB");
+    gradient.addColorStop(0.5, "#0099FF");
+    gradient.addColorStop(1, "#00C2FF");
+    ctx.strokeStyle = gradient;
+
+    // Left loop
+    ctx.beginPath();
+    ctx.moveTo(cx - s * 0.1, cy);
+    ctx.bezierCurveTo(
+      cx - s * 0.1,
+      cy - s * 0.8,
+      cx - s * 1.1,
+      cy - s * 0.8,
+      cx - s * 1.1,
+      cy,
+    );
+    ctx.bezierCurveTo(
+      cx - s * 1.1,
+      cy + s * 0.8,
+      cx - s * 0.1,
+      cy + s * 0.8,
+      cx - s * 0.1,
+      cy,
+    );
+    ctx.stroke();
+
+    // Right loop
+    ctx.beginPath();
+    ctx.moveTo(cx + s * 0.1, cy);
+    ctx.bezierCurveTo(
+      cx + s * 0.1,
+      cy - s * 0.8,
+      cx + s * 1.1,
+      cy - s * 0.8,
+      cx + s * 1.1,
+      cy,
+    );
+    ctx.bezierCurveTo(
+      cx + s * 1.1,
+      cy + s * 0.8,
+      cx + s * 0.1,
+      cy + s * 0.8,
+      cx + s * 0.1,
+      cy,
+    );
+    ctx.stroke();
+  }
+
+  function drawPinterestLogo(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.4;
+
+    // Pinterest "P" in circle
+    ctx.fillStyle = "#E60023";
+    ctx.beginPath();
+    ctx.arc(cx, cy, s * 0.9, 0, Math.PI * 2);
+    ctx.fill();
+
+    // White "P"
+    ctx.fillStyle = "white";
+    ctx.font = `bold ${s * 1.4}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("P", cx, cy + s * 0.05);
+  }
+
+  function drawTikTokLogo(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.3;
+
+    // Musical note shape with TikTok colors
+    ctx.lineWidth = s * 0.4;
+    ctx.lineCap = "round";
+
+    // Cyan shadow
+    ctx.strokeStyle = "#25F4EE";
+    ctx.beginPath();
+    ctx.moveTo(cx - s * 0.15, cy + s * 0.8);
+    ctx.lineTo(cx - s * 0.15, cy - s * 0.5);
+    ctx.quadraticCurveTo(
+      cx + s * 0.5,
+      cy - s * 0.3,
+      cx + s * 0.7,
+      cy - s * 0.8,
+    );
+    ctx.stroke();
+
+    // Red shadow
+    ctx.strokeStyle = "#FE2C55";
+    ctx.beginPath();
+    ctx.moveTo(cx + s * 0.15, cy + s * 0.8);
+    ctx.lineTo(cx + s * 0.15, cy - s * 0.5);
+    ctx.quadraticCurveTo(cx + s * 0.8, cy - s * 0.3, cx + s * 1, cy - s * 0.8);
+    ctx.stroke();
+
+    // White main
+    ctx.strokeStyle = "white";
+    ctx.beginPath();
+    ctx.moveTo(cx, cy + s * 0.8);
+    ctx.lineTo(cx, cy - s * 0.5);
+    ctx.quadraticCurveTo(
+      cx + s * 0.65,
+      cy - s * 0.3,
+      cx + s * 0.85,
+      cy - s * 0.8,
+    );
+    ctx.stroke();
+
+    // Note circle
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    ctx.ellipse(
+      cx - s * 0.2,
+      cy + s * 0.7,
+      s * 0.35,
+      s * 0.25,
+      -0.3,
+      0,
+      Math.PI * 2,
+    );
+    ctx.fill();
+  }
+
+  function drawKlaviyoLogo(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.35;
+
+    // Klaviyo flag/pennant shape
+    ctx.fillStyle = "#1A1A1A";
+    ctx.beginPath();
+    ctx.moveTo(cx - s * 0.8, cy - s * 0.7);
+    ctx.lineTo(cx + s * 0.8, cy);
+    ctx.lineTo(cx - s * 0.8, cy + s * 0.7);
+    ctx.closePath();
+    ctx.fill();
+
+    // Inner green accent
+    ctx.fillStyle = "#9EE868";
+    ctx.beginPath();
+    ctx.moveTo(cx - s * 0.5, cy - s * 0.4);
+    ctx.lineTo(cx + s * 0.3, cy);
+    ctx.lineTo(cx - s * 0.5, cy + s * 0.4);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function drawLinkedInLogo(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.35;
+
+    // Blue rounded square
+    ctx.fillStyle = "#0A66C2";
+    drawRoundedRect(
+      ctx,
+      cx - s * 0.9,
+      cy - s * 0.9,
+      s * 1.8,
+      s * 1.8,
+      s * 0.25,
+    );
+    ctx.fill();
+
+    // White "in" text
+    ctx.fillStyle = "white";
+    ctx.font = `bold ${s * 1.1}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("in", cx, cy + s * 0.05);
+  }
+
+  function drawPlatformCard(
+    ctx: CanvasRenderingContext2D,
+    platform: OrbitingPlatform,
+    x: number,
+    y: number,
+    baseSize: number,
+  ) {
+    const circleRadius = baseSize * 0.85;
+
+    // Circle shadow
+    ctx.shadowColor = "rgba(0, 0, 0, 0.12)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetY = 3;
+
+    // Circle background
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    ctx.arc(x, y, circleRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    // Draw platform logo
+    switch (platform.name) {
+      case "google":
+        drawGoogleLogo(ctx, x, y, baseSize);
+        break;
+      case "meta":
+        drawMetaLogo(ctx, x, y, baseSize);
+        break;
+      case "pinterest":
+        drawPinterestLogo(ctx, x, y, baseSize);
+        break;
+      case "tiktok":
+        drawTikTokLogo(ctx, x, y, baseSize);
+        break;
+      case "klaviyo":
+        drawKlaviyoLogo(ctx, x, y, baseSize);
+        break;
+      case "linkedin":
+        drawLinkedInLogo(ctx, x, y, baseSize);
+        break;
+    }
+  }
+
+  function animate(state: CanvasState) {
+    const { ctx, canvas, platforms } = state;
+    const rect = canvas.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    // Very slow time progression for gentle movement
+    state.time += 0.002;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const minDim = Math.min(width, height);
+
+    // Sizes
+    const shopifySize = minDim * 0.13;
+    const platformSize = minDim * 0.055;
+    const orbit1Radius = minDim * 0.18;
+    const orbit2Radius = minDim * 0.28;
+    const orbit3Radius = minDim * 0.38;
+
+    // Draw orbit paths (subtle circles)
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 6]);
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, orbit1Radius, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, orbit2Radius, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, orbit3Radius, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+    // Draw all platforms orbiting around Shopify
+    platforms.forEach((platform) => {
+      const angle = state.time * platform.speed + platform.startAngle;
+      const orbitRadius = platform.orbitRadius * minDim;
+
+      const x = centerX + Math.cos(angle) * orbitRadius;
+      const y = centerY + Math.sin(angle) * orbitRadius;
+
+      drawPlatformCard(ctx, platform, x, y, platformSize * platform.size);
+    });
+
+    // Draw central Shopify circle with logo (on top)
+    const shopifyCircleRadius = shopifySize * 0.75;
+
+    ctx.shadowColor = "rgba(0, 0, 0, 0.12)";
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetY = 4;
+
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, shopifyCircleRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    drawShopifyLogo(ctx, centerX, centerY, shopifySize * 0.7);
+
+    state.animationId = requestAnimationFrame(() => animate(state));
+  }
+
+  function initCanvas(canvas: HTMLCanvasElement) {
+    const id = canvas.id;
+    if (!id || canvasStates.has(id)) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.scale(dpr, dpr);
+
+    // Define orbiting platforms distributed across 3 orbits
+    const platforms: OrbitingPlatform[] = [
+      // Orbit 1 (innermost) - 2 platforms
+      {
+        name: "google",
+        color: "#4285F4",
+        orbitRadius: 0.18,
+        speed: 0.35,
+        startAngle: 0,
+        size: 1,
+      },
+      {
+        name: "meta",
+        color: "#0081FB",
+        orbitRadius: 0.18,
+        speed: 0.35,
+        startAngle: Math.PI,
+        size: 1,
+      },
+      // Orbit 2 (middle) - 2 platforms
+      {
+        name: "klaviyo",
+        color: "#1A1A1A",
+        orbitRadius: 0.28,
+        speed: 0.25,
+        startAngle: Math.PI * 0.5,
+        size: 1,
+      },
+      {
+        name: "pinterest",
+        color: "#E60023",
+        orbitRadius: 0.28,
+        speed: 0.25,
+        startAngle: Math.PI * 1.5,
+        size: 1,
+      },
+      // Orbit 3 (outermost) - 2 platforms
+      {
+        name: "tiktok",
+        color: "#000000",
+        orbitRadius: 0.38,
+        speed: 0.18,
+        startAngle: Math.PI * 0.25,
+        size: 1,
+      },
+      {
+        name: "linkedin",
+        color: "#0A66C2",
+        orbitRadius: 0.38,
+        speed: 0.18,
+        startAngle: Math.PI * 1.25,
+        size: 1,
+      },
+    ];
+
+    const state: CanvasState = {
+      canvas,
+      ctx,
+      time: 0,
+      animationId: null,
+      accentColor: canvas.dataset.accentColor || "#4f3ca2",
+      platforms,
+      resizeObserver: new ResizeObserver(() => {
+        const newRect = canvas.getBoundingClientRect();
+        canvas.width = newRect.width * dpr;
+        canvas.height = newRect.height * dpr;
+        ctx.scale(dpr, dpr);
+      }),
+    };
+
+    state.resizeObserver.observe(canvas.parentElement || canvas);
+    canvasStates.set(id, state);
+    animate(state);
+  }
+
+  function initAllCanvases() {
+    document
+      .querySelectorAll<HTMLCanvasElement>(".marketing-orbit-canvas")
+      .forEach(initCanvas);
+  }
+
+  function cleanup() {
+    canvasStates.forEach((state) => {
+      if (state.animationId) cancelAnimationFrame(state.animationId);
+      state.resizeObserver.disconnect();
+    });
+    canvasStates.clear();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAllCanvases);
+  } else {
+    initAllCanvases();
+  }
+  document.addEventListener("astro:after-swap", initAllCanvases);
+  document.addEventListener("astro:before-swap", cleanup, { once: true });
+</script>
+
+<style>
+  .marketing-orbit-canvas {
+    display: block;
+  }
+</style>

@@ -1,0 +1,421 @@
+---
+// StarField is dynamically imported in the script below
+interface Props {
+  blobCount?: number;
+  minRadius?: number;
+  maxRadius?: number;
+  blur?: number;
+  opacity?: number;
+  speed?: number;
+  bleed?: number; // Percentage to extend beyond section bounds
+  // StarField options
+  starField?: boolean;
+  starDensity?: "low" | "medium" | "high";
+  starMinRadius?: number;
+  starMaxRadius?: number;
+}
+
+const {
+  blobCount = 4,
+  minRadius = 0.15,
+  maxRadius = 0.3,
+  blur = 60,
+  opacity = 0.6,
+  speed = 0.0003,
+  bleed = 0,
+  // StarField defaults
+  starField: starFieldProp = false,
+  starDensity = "low",
+  starMinRadius = 1,
+  starMaxRadius = 3,
+} = Astro.props;
+
+// Handle boolean or string "true" (YAML may pass string)
+const starField =
+  starFieldProp === true || (starFieldProp as unknown) === "true";
+
+const propsJson = JSON.stringify({
+  blobCount,
+  minRadius,
+  maxRadius,
+  blur,
+  opacity,
+  speed,
+  bleed,
+  starField,
+  starDensity,
+  starMinRadius,
+  starMaxRadius,
+});
+---
+
+<!-- Placeholder that marks the position - the actual canvas will be moved to body -->
+<div class="glow-animated-anchor" data-glow-props={propsJson}></div>
+
+<script>
+  interface GlowInstance {
+    container: HTMLDivElement;
+    canvas: HTMLCanvasElement;
+    starfieldLayer: HTMLDivElement | null;
+    anchor: HTMLDivElement;
+    section: Element;
+    animationId: number;
+    resizeObserver: ResizeObserver;
+    cleanup: () => void;
+  }
+
+  const glowInstances = new Map<HTMLDivElement, GlowInstance>();
+
+  function initGlowFromAnchor(anchor: HTMLDivElement) {
+    if (glowInstances.has(anchor)) return;
+
+    const props = JSON.parse(anchor.dataset.glowProps || "{}");
+    const {
+      blobCount = 4,
+      minRadius = 0.15,
+      maxRadius = 0.3,
+      opacity = 0.6,
+      speed = 0.0003,
+      // bleed is no longer used - blur(60px) + scale(1.2) creates the effect
+      starField = false,
+      starDensity = "low",
+      starMinRadius = 1,
+      starMaxRadius = 3,
+    } = props;
+
+    // Find the parent section
+    const section = anchor.closest("section");
+    if (!section) return;
+
+    // Create container that will be inserted into section
+    const container = document.createElement("div");
+    container.className = "glow-animated-overlay";
+    // Use inset:0 - the blur(60px) + scale(1.2) on canvas already creates bleed effect
+    container.style.cssText = `
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: visible;
+      contain: layout style;
+    `;
+
+    // Create canvas - starts hidden to prevent white flash
+    const canvas = document.createElement("canvas");
+    canvas.className = "glow-animated-canvas";
+    canvas.style.cssText = `
+      display: block;
+      width: 100%;
+      height: 100%;
+      filter: blur(60px);
+      transform: scale(1.2);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    `;
+    container.appendChild(canvas);
+
+    // Create starfield layer if needed
+    let starfieldLayer: HTMLDivElement | null = null;
+    if (starField) {
+      starfieldLayer = document.createElement("div");
+      starfieldLayer.className = "glow-starfield-layer";
+      starfieldLayer.style.cssText = `
+        position: absolute;
+        inset: -20px;
+        z-index: 1;
+        pointer-events: none;
+        contain: layout style;
+      `;
+      // Create starfield canvas
+      const starCanvas = document.createElement("canvas");
+      starCanvas.id = `starfield-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      starCanvas.style.pointerEvents = "none";
+      starCanvas.setAttribute("data-starfield", "");
+      starCanvas.setAttribute("data-max-radius", String(starMaxRadius));
+      starCanvas.setAttribute("data-min-radius", String(starMinRadius));
+      starCanvas.setAttribute("data-density", starDensity);
+      starfieldLayer.appendChild(starCanvas);
+      container.appendChild(starfieldLayer);
+    }
+
+    // Ensure section has relative positioning for absolute child
+    const sectionStyle = getComputedStyle(section);
+    if (sectionStyle.position === "static") {
+      (section as HTMLElement).style.position = "relative";
+    }
+
+    // Insert container after the anchor (which is in the background slot)
+    anchor.after(container);
+
+    // Canvas animation setup
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let blobs: BlobShape[] = [];
+    let animationId: number;
+    let isVisible = true;
+    let lastFrameTime = 0;
+    let hasRenderedFirstFrame = false;
+    const targetFPS = 24; // Reduced from 30 for better performance
+    const frameInterval = 1000 / targetFPS;
+    const renderScale = 0.5; // Render at half resolution (blurred anyway)
+
+    // Cache accent color - only update on resize, not every frame
+    let cachedColorWithOpacity = "";
+
+    function updateCachedColor() {
+      let accentColor = "#a78bfa";
+      if (section) {
+        const computed = getComputedStyle(section);
+        accentColor =
+          computed.getPropertyValue("--section-accent").trim() || "#a78bfa";
+      }
+
+      if (accentColor.startsWith("#")) {
+        const hex = accentColor.slice(1);
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        cachedColorWithOpacity = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+      } else if (accentColor.startsWith("rgb")) {
+        cachedColorWithOpacity = accentColor
+          .replace("rgb", "rgba")
+          .replace(")", `, ${opacity})`);
+      } else {
+        cachedColorWithOpacity = accentColor;
+      }
+    }
+
+    const random = (min: number, max: number) =>
+      Math.random() * (max - min) + min;
+
+    class BlobShape {
+      x: number;
+      y: number;
+      radius: number;
+      vx: number;
+      vy: number;
+      points: { angle: number; noiseOffsetX: number; noiseStep: number }[];
+      numPoints: number;
+
+      constructor(x: number, y: number, radius: number) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.vx = random(-0.15, 0.15);
+        this.vy = random(-0.15, 0.15);
+        this.points = [];
+        this.numPoints = 8;
+        const angleStep = (Math.PI * 2) / this.numPoints;
+
+        for (let i = 0; i < this.numPoints; i++) {
+          this.points.push({
+            angle: angleStep * i,
+            noiseOffsetX: random(0, 1000),
+            noiseStep: random(speed * 0.5, speed * 1.5),
+          });
+        }
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        const buffer = this.radius * 1.5;
+        if (this.x < -buffer || this.x > width + buffer) this.vx *= -1;
+        if (this.y < -buffer || this.y > height + buffer) this.vy *= -1;
+      }
+
+      draw(ctx: CanvasRenderingContext2D, time: number, color: string) {
+        ctx.beginPath();
+        const coords: { x: number; y: number }[] = [];
+
+        for (let i = 0; i < this.numPoints; i++) {
+          const p = this.points[i];
+          const noise =
+            Math.sin(p.noiseOffsetX + time * p.noiseStep) *
+            Math.cos(p.noiseOffsetX * 0.5 + time * p.noiseStep * 1.5);
+          const dynamicRadius = this.radius + noise * this.radius * 0.3;
+          const px = this.x + Math.cos(p.angle) * dynamicRadius;
+          const py = this.y + Math.sin(p.angle) * dynamicRadius;
+          coords.push({ x: px, y: py });
+        }
+
+        const firstPoint = coords[0];
+        const lastPoint = coords[this.numPoints - 1];
+        let midX = (lastPoint.x + firstPoint.x) / 2;
+        let midY = (lastPoint.y + firstPoint.y) / 2;
+        ctx.moveTo(midX, midY);
+
+        for (let i = 0; i < coords.length; i++) {
+          const p1 = coords[i];
+          const p2 = coords[(i + 1) % coords.length];
+          midX = (p1.x + p2.x) / 2;
+          midY = (p1.y + p2.y) / 2;
+          ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        }
+
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+    }
+
+    function initCanvas() {
+      if (!section) return;
+      // Use container dimensions (includes bleed)
+      const rect = container.getBoundingClientRect();
+      // Use scaled dimensions for rendering (upscaled via CSS)
+      width = Math.floor(rect.width * renderScale);
+      height = Math.floor(rect.height * renderScale);
+      canvas.width = width;
+      canvas.height = height;
+
+      // Update cached color on init/resize
+      updateCachedColor();
+
+      blobs = [];
+      for (let i = 0; i < blobCount; i++) {
+        const radius = random(
+          Math.min(width, height) * minRadius,
+          Math.min(width, height) * maxRadius,
+        );
+        const x = random(radius, width - radius);
+        const y = random(radius, height - radius);
+        blobs.push(new BlobShape(x, y, radius));
+      }
+
+      // Also update starfield canvas size if present
+      if (starfieldLayer) {
+        const starCanvas = starfieldLayer.querySelector("canvas");
+        if (starCanvas) {
+          starCanvas.width = width;
+          starCanvas.height = height;
+          starCanvas.style.width = `${width}px`;
+          starCanvas.style.height = `${height}px`;
+        }
+      }
+    }
+
+    function animate(time: number) {
+      animationId = requestAnimationFrame(animate);
+
+      // Skip rendering when not visible
+      if (!isVisible) return;
+
+      // Limit frame rate to reduce CPU usage
+      const elapsed = time - lastFrameTime;
+      if (elapsed < frameInterval) return;
+      lastFrameTime = time - (elapsed % frameInterval);
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Use cached color (updated only on init/resize)
+      ctx.globalCompositeOperation = "screen";
+      blobs.forEach((blob) => {
+        blob.update();
+        blob.draw(ctx, time, cachedColorWithOpacity);
+      });
+      ctx.globalCompositeOperation = "source-over";
+
+      // Show canvas after first frame is rendered
+      if (!hasRenderedFirstFrame) {
+        hasRenderedFirstFrame = true;
+        canvas.style.opacity = "1";
+      }
+    }
+
+    // Resize observer
+    const resizeObserver = new ResizeObserver(() => {
+      initCanvas();
+    });
+    resizeObserver.observe(section);
+
+    // Visibility observer - pause animation when off-screen
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting;
+      },
+      { threshold: 0 },
+    );
+    visibilityObserver.observe(container);
+
+    // Start animation
+    initCanvas();
+    animationId = requestAnimationFrame(animate);
+
+    // Initialize starfield if present
+    if (starfieldLayer) {
+      const starCanvas = starfieldLayer.querySelector("canvas");
+      if (starCanvas) {
+        import("@scripts/starfield.ts").then(({ Stars }) => {
+          try {
+            new Stars(starCanvas.id, starMaxRadius, starMinRadius, starDensity);
+          } catch (e) {
+            console.warn("StarField init failed:", e);
+          }
+        });
+      }
+    }
+
+    // Cleanup function
+    const cleanup = () => {
+      cancelAnimationFrame(animationId);
+      resizeObserver.disconnect();
+      visibilityObserver.disconnect();
+      container.remove();
+      glowInstances.delete(anchor);
+    };
+
+    // Store instance
+    glowInstances.set(anchor, {
+      container,
+      canvas,
+      starfieldLayer,
+      anchor,
+      section,
+      animationId,
+      resizeObserver,
+      cleanup,
+    });
+
+    // Cleanup on page navigation
+    document.addEventListener("astro:before-swap", cleanup, { once: true });
+  }
+
+  function initAllGlows() {
+    document
+      .querySelectorAll<HTMLDivElement>(".glow-animated-anchor")
+      .forEach((anchor) => {
+        initGlowFromAnchor(anchor);
+      });
+  }
+
+  // Defer initialization to not block main thread
+  function deferredInit() {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(() => initAllGlows(), { timeout: 2000 });
+    } else {
+      setTimeout(initAllGlows, 150);
+    }
+  }
+
+  // Initialize
+  deferredInit();
+
+  // Re-init on Astro page transitions
+  document.addEventListener("astro:after-swap", () => {
+    // Clean up old instances
+    glowInstances.forEach((instance) => instance.cleanup());
+    glowInstances.clear();
+    deferredInit();
+  });
+</script>
+
+<style>
+  .glow-animated-anchor {
+    display: none;
+  }
+</style>

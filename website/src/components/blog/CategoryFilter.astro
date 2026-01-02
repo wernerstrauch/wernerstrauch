@@ -1,0 +1,161 @@
+---
+interface Props {
+  categories: Array<{
+    value: string;
+    label: string;
+    count: number;
+  }>;
+  currentCategory?: string;
+}
+
+const { categories, currentCategory = "alle" } = Astro.props;
+
+// Add "Alle" as first option
+const allCategories = [
+  {
+    value: "alle",
+    label: "Alle",
+    count: categories.reduce((sum, c) => sum + c.count, 0),
+  },
+  ...categories,
+];
+---
+
+<div
+  class="category-filter"
+  x-data={`{
+    active: '${currentCategory}',
+    isDragging: false,
+    startX: 0,
+    scrollLeftStart: 0,
+    canScrollLeft: false,
+    canScrollRight: false,
+    scrollContainer: null,
+    isTouchDevice: false,
+    init() {
+      this.scrollContainer = this.$refs.scrollContainer;
+      this.handleScroll();
+      this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    },
+    handleScroll() {
+      const scrollLeft = this.scrollContainer.scrollLeft;
+      const scrollWidth = this.scrollContainer.scrollWidth;
+      const clientWidth = this.scrollContainer.clientWidth;
+      this.canScrollLeft = scrollLeft > 0;
+      this.canScrollRight = scrollLeft + clientWidth < scrollWidth;
+    },
+    startDrag(e) {
+      if (this.isTouchDevice) return;
+      this.isDragging = true;
+      this.startX = e.clientX;
+      this.scrollLeftStart = this.scrollContainer.scrollLeft;
+    },
+    drag(e) {
+      if (!this.isDragging || this.isTouchDevice) return;
+      const deltaX = e.clientX - this.startX;
+      this.scrollContainer.scrollLeft = this.scrollLeftStart - deltaX;
+    },
+    endDrag() {
+      if (this.isTouchDevice) return;
+      this.isDragging = false;
+    }
+  }`}
+  x-init="init()"
+>
+  <div
+    x-ref="scrollContainer"
+    @scroll.throttle.100="handleScroll"
+    @resize.window.throttle.100="handleScroll"
+    @mousedown="startDrag($event)"
+    @mousemove="drag($event)"
+    @mouseup="endDrag()"
+    @mouseleave="endDrag()"
+    :class={`{
+      '[mask-image:linear-gradient(90deg,transparent,#000_2rem)]': canScrollLeft && !canScrollRight,
+      '[mask-image:linear-gradient(90deg,#000_calc(100%-2rem),transparent_100%)]': canScrollRight && !canScrollLeft,
+      '[mask-image:linear-gradient(90deg,transparent,#000_2rem,#000_calc(100%-2rem),transparent_100%)]': canScrollLeft && canScrollRight,
+      'cursor-grab': !isDragging && !isTouchDevice,
+    }`}
+    class="category-filter__scroll overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
+    <div class="flex w-max items-center gap-2 lg:gap-3">
+      {
+        allCategories.map((cat) => (
+          <button
+            type="button"
+            data-category={cat.value}
+            class="category-filter__button flex h-11 items-center rounded-full pr-7 pl-5 font-medium transition-all duration-200 lg:h-12 lg:pr-8 lg:pl-6"
+            x-bind:class={`active === '${cat.value}' ? 'category-filter__button--active' : 'category-filter__button--inactive'`}
+            x-on:click={`active = '${cat.value}'; $dispatch('filter-category', { category: '${cat.value}' })`}
+          >
+            <span class="relative whitespace-nowrap">
+              {cat.label}
+              <span class="category-filter__count absolute -top-0.5 left-[calc(100%+0.25rem)] text-xs font-medium">
+                {cat.count}
+              </span>
+            </span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .category-filter__button--active {
+    background-color: var(--primary);
+    color: var(--color-white);
+  }
+
+  .category-filter__button--active .category-filter__count {
+    color: color-mix(in srgb, var(--color-white) 70%, transparent);
+  }
+
+  .category-filter__button--inactive {
+    background-color: transparent;
+    color: var(--color-gray-700);
+    box-shadow: inset 0 0 0 1px var(--color-gray-300);
+  }
+
+  .category-filter__button--inactive:hover {
+    background-color: var(--color-gray-100);
+    box-shadow: inset 0 0 0 1px var(--color-gray-400);
+  }
+
+  .category-filter__button--inactive .category-filter__count {
+    color: var(--color-gray-400);
+  }
+
+  /* Dark mode support */
+  :global([data-section-theme="dark"]) .category-filter__button--active {
+    background-color: var(--color-white);
+    color: var(--color-gray-900);
+  }
+
+  :global([data-section-theme="dark"])
+    .category-filter__button--active
+    .category-filter__count {
+    color: var(--color-gray-500);
+  }
+
+  :global([data-section-theme="dark"]) .category-filter__button--inactive {
+    background-color: transparent;
+    color: var(--color-white);
+    box-shadow: inset 0 0 0 1px var(--color-gray-600);
+  }
+
+  :global([data-section-theme="dark"])
+    .category-filter__button--inactive:hover {
+    background-color: var(--color-white);
+    color: var(--color-gray-900);
+    box-shadow: inset 0 0 0 1px var(--color-gray-900);
+  }
+
+  :global([data-section-theme="dark"])
+    .category-filter__button--inactive
+    .category-filter__count {
+    color: var(--color-gray-500);
+  }
+</style>

@@ -1,0 +1,352 @@
+---
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Stat {
+  value: number | string;
+  suffix?: string;
+  label: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  stats?: Stat[];
+  backgroundImage?: string;
+  backgroundImageAlt?: string;
+}
+
+const {
+  sectionVariant = "dark",
+  badge = "Unsere Ergebnisse",
+  badgeIcon = "heroicons:chart-pie-16-solid",
+  headline = "Zahlen, die <em>überzeugen</em>",
+  description = "Mit datengetriebenen Strategien und bewährten Methoden helfen wir dir, deinen E-Commerce-Erfolg nachhaltig zu steigern.",
+  stats = [
+    {
+      value: 35,
+      suffix: "+",
+      label: "Betreute Shops",
+    },
+    {
+      value: 4,
+      suffix: "x",
+      label: "Durchschn. ROAS",
+    },
+    {
+      value: 2,
+      suffix: "M+",
+      label: "Ad Spend verwaltet",
+    },
+    {
+      value: 40,
+      suffix: "%",
+      label: "Mehr Umsatz",
+    },
+  ],
+  backgroundImage = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
+  backgroundImageAlt = "",
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled gradient spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span class="stats-bg__highlight" style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div
+  class="stats-bg relative isolate overflow-hidden py-24 sm:py-32"
+  data-variant={sectionVariant}
+>
+  {/* Background Image */}
+  <img
+    src={backgroundImage}
+    alt={backgroundImageAlt}
+    class="stats-bg__image absolute inset-0 -z-10 size-full object-cover"
+    loading="lazy"
+  />
+
+  {/* Gradient Blur Decoration */}
+  <div
+    aria-hidden="true"
+    class="absolute -bottom-8 -left-96 -z-10 transform-gpu blur-3xl sm:-bottom-64 sm:-left-40 lg:-bottom-32 lg:left-8 xl:-left-10"
+  >
+    <div
+      style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+      class="stats-bg__gradient aspect-[1266/975] w-[79.125rem] bg-gradient-to-tr opacity-15"
+    >
+    </div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+    {/* Header */}
+    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
+      {/* Badge */}
+      {
+        badge && (
+          <div class="blur-in mb-4 flex">
+            <div class="stats-bg__badge-outer shadow-inner-blur flex items-center rounded-full">
+              <div class="stats-bg__badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                <Icon name={badgeIcon} class="stats-bg__badge-icon h-4 w-4" />
+                <span class="stats-bg__badge-text text-sm font-medium">
+                  {badge}
+                </span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {/* Headline */}
+      <h2
+        class="stats-bg__headline scale-up text-3xl leading-tight font-bold tracking-tight text-pretty sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+
+      {/* Description */}
+      {
+        description && (
+          <p
+            class="stats-bg__description fade-up mt-6 text-lg/8"
+            style="transition-delay: 150ms;"
+          >
+            {description}
+          </p>
+        )
+      }
+    </div>
+
+    {/* Stats Grid */}
+    <dl
+      class="stats-grid mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-4"
+    >
+      {
+        stats.map((stat, index) => (
+          <div
+            class="stats-bg__stat fade-up flex flex-col gap-y-3 border-l pl-6"
+            style={`transition-delay: ${200 + index * 50}ms;`}
+          >
+            <dt class="stats-bg__stat-label text-sm/6">{stat.label}</dt>
+            <dd class="stats-bg__stat-value order-first text-3xl font-semibold tracking-tight">
+              {typeof stat.value === "number" ? (
+                <>
+                  <span class="counter" data-target={stat.value}>
+                    0
+                  </span>
+                  {stat.suffix && <span>{stat.suffix}</span>}
+                </>
+              ) : (
+                <span>{stat.value}</span>
+              )}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</div>
+
+<script>
+  // Counter animation with Apple-like easing
+  function animateCounter(
+    element: HTMLElement,
+    target: number,
+    duration: number = 2000,
+  ): void {
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime: number): void {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Apple-like ease-out-expo
+      const easeOutExpo = 1 - Math.pow(2, -10 * progress);
+      const current = Math.floor(start + (target - start) * easeOutExpo);
+
+      element.textContent = current.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = target.toString();
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Observe counters
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          const target = parseInt(element.dataset.target || "0", 10);
+
+          // Add slight delay based on index for stagger effect
+          const parent = element.closest("[class*='fade-up']");
+          const siblings = parent?.parentElement?.children;
+          let index = 0;
+          if (siblings && parent) {
+            index = Array.from(siblings).indexOf(parent);
+          }
+
+          setTimeout(() => {
+            animateCounter(element, target);
+          }, index * 150);
+
+          counterObserver.unobserve(element);
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  document.querySelectorAll(".stats-grid .counter").forEach((element) => {
+    counterObserver.observe(element);
+  });
+</script>
+
+<style>
+  .counter {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* CSS Variables per variant */
+  .stats-bg {
+    /* White variant (default in light mode) */
+    --section-bg: #ffffff;
+    --section-text: #1c1c1e;
+    --section-text-muted: rgb(75 85 99); /* gray-600 */
+    --section-accent: var(--primary-color);
+    --section-border: rgba(0, 0, 0, 0.15);
+    --badge-bg: rgba(var(--primary-rgb), 0.1);
+    --badge-border: rgba(var(--primary-rgb), 0.3);
+    --badge-icon: var(--primary-color);
+    --badge-text: #1c1c1e;
+    --image-opacity: 0.1;
+    --image-blend: normal;
+    --gradient-from: rgba(var(--primary-rgb), 0.3);
+    --gradient-to: rgba(var(--primary-light-rgb), 0.3);
+  }
+
+  .stats-bg[data-variant="light"] {
+    --section-bg: #f5f5f7;
+    --section-text: #1c1c1e;
+    --section-text-muted: rgb(75 85 99); /* gray-600 */
+    --section-accent: var(--primary-color);
+    --section-border: rgba(0, 0, 0, 0.15);
+    --badge-bg: rgba(var(--primary-rgb), 0.1);
+    --badge-border: rgba(var(--primary-rgb), 0.3);
+    --badge-icon: var(--primary-color);
+    --badge-text: #1c1c1e;
+    --image-opacity: 0.1;
+    --image-blend: normal;
+    --gradient-from: rgba(var(--primary-rgb), 0.3);
+    --gradient-to: rgba(var(--primary-light-rgb), 0.3);
+  }
+
+  .stats-bg[data-variant="dark"] {
+    --section-bg: #1c1c1e;
+    --section-text: #ffffff;
+    --section-text-muted: rgb(209 213 219); /* gray-300 */
+    --section-accent: #b4e565;
+    --section-border: rgba(255, 255, 255, 0.1);
+    --badge-bg: rgba(180, 229, 101, 0.1);
+    --badge-border: rgba(180, 229, 101, 0.4);
+    --badge-icon: #b4e565;
+    --badge-text: #ffffff;
+    --image-opacity: 0.2;
+    --image-blend: luminosity;
+    --gradient-from: rgba(180, 229, 101, 0.3);
+    --gradient-to: rgba(157, 216, 79, 0.3);
+  }
+
+  .stats-bg[data-variant="primary"] {
+    --section-bg: var(--primary-color);
+    --section-text: #ffffff;
+    --section-text-muted: rgba(255, 255, 255, 0.8);
+    --section-accent: #ffffff;
+    --section-border: rgba(255, 255, 255, 0.2);
+    --badge-bg: rgba(255, 255, 255, 0.1);
+    --badge-border: rgba(255, 255, 255, 0.3);
+    --badge-icon: #ffffff;
+    --badge-text: #ffffff;
+    --image-opacity: 0.15;
+    --image-blend: multiply;
+    --gradient-from: rgba(255, 255, 255, 0.2);
+    --gradient-to: rgba(var(--primary-light-rgb), 0.2);
+  }
+
+  /* Apply CSS variables to elements */
+  .stats-bg {
+    background-color: var(--section-bg);
+  }
+
+  .stats-bg__image {
+    opacity: var(--image-opacity);
+    mix-blend-mode: var(--image-blend);
+  }
+
+  .stats-bg__gradient {
+    background-image: linear-gradient(
+      to top right,
+      var(--gradient-from),
+      var(--gradient-to)
+    );
+  }
+
+  .stats-bg__badge-outer {
+    background-color: var(--badge-bg);
+  }
+
+  .stats-bg__badge-inner {
+    border-color: var(--badge-border);
+  }
+
+  .stats-bg__badge-icon {
+    color: var(--badge-icon);
+  }
+
+  .stats-bg__badge-text {
+    color: var(--badge-text);
+  }
+
+  .stats-bg__headline {
+    color: var(--section-text);
+  }
+
+  .stats-bg__highlight {
+    background: linear-gradient(
+      to bottom,
+      var(--section-accent),
+      var(--section-accent)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stats-bg__description {
+    color: var(--section-text-muted);
+  }
+
+  .stats-bg__stat {
+    border-color: var(--section-border);
+  }
+
+  .stats-bg__stat-value {
+    color: var(--section-text);
+  }
+
+  .stats-bg__stat-label {
+    color: var(--section-text-muted);
+  }
+</style>

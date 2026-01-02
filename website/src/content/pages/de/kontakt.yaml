@@ -1,0 +1,113 @@
+lang: de
+pageId: contact
+slug: kontakt
+
+meta:
+  title: "Kontakt | Werner Strauch – E-Commerce Beratung"
+  description: "Vereinbaren Sie ein unverbindliches Erstgespräch. Ich freue mich auf Ihre Nachricht zu E-Commerce-Strategie, ERP-Auswahl oder Shopify-Projekten."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: contact
+    enabled: true
+    order: 1
+    component: Contact
+    wrapper:
+      variant: dark
+      padding: xl
+    background:
+      type: GridBackground
+      color: "#c8ff00"
+      glowColor: "#c8ff00"
+      opacity: 0.06
+      gridSize: 60
+      glowLines: 4
+      vignette: true
+      vignetteColor: "#0a1628"
+    content:
+      badge: "Kontakt"
+      badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
+      heading: "Lassen Sie uns <em>sprechen</em>"
+      description: "Sie haben Fragen zu E-Commerce-Strategie, ERP-Auswahl oder Shopify-Projekten? Ich freue mich auf Ihre Nachricht."
+      contactInfo:
+        - icon: "heroicons:envelope"
+          label: "E-Mail"
+          value: "kontakt@wernerstrauch.de"
+          href: "mailto:kontakt@wernerstrauch.de"
+        - icon: "heroicons:map-pin"
+          label: "Standort"
+          value: "Remote / DACH-Region"
+          href: "#"
+      formFields:
+        - id: "firstName"
+          name: "firstName"
+          label: "Vorname"
+          type: "text"
+          required: true
+          placeholder: "Max"
+          gridCol: "half"
+        - id: "lastName"
+          name: "lastName"
+          label: "Nachname"
+          type: "text"
+          required: true
+          placeholder: "Mustermann"
+          gridCol: "half"
+        - id: "email"
+          name: "email"
+          label: "E-Mail"
+          type: "email"
+          required: true
+          placeholder: "max@unternehmen.de"
+          gridCol: "full"
+        - id: "company"
+          name: "company"
+          label: "Unternehmen"
+          type: "text"
+          placeholder: "Musterfirma GmbH"
+          gridCol: "full"
+        - id: "interest"
+          name: "interest"
+          label: "Interesse an"
+          type: "select"
+          gridCol: "full"
+          options:
+            - value: ""
+              label: "Bitte wählen..."
+            - value: "audit"
+              label: "E-Commerce Audit"
+            - value: "erp"
+              label: "ERP-Auswahl & Evaluierung"
+            - value: "shopify"
+              label: "Shopify-Architektur & Migration"
+            - value: "process"
+              label: "Prozessoptimierung"
+            - value: "sparring"
+              label: "Strategisches Sparring"
+            - value: "other"
+              label: "Sonstiges"
+        - id: "message"
+          name: "message"
+          label: "Ihre Nachricht"
+          type: "textarea"
+          required: true
+          placeholder: "Beschreiben Sie kurz Ihr Anliegen oder Projekt..."
+          rows: 5
+          gridCol: "full"
+      privacyText: 'Ich stimme der <a href="/datenschutz" class="privacy-link">Datenschutzerklärung</a> zu und bin mit der Verarbeitung meiner Daten zur Kontaktaufnahme einverstanden.'
+      submitButtonText: "Nachricht senden"
+      successTitle: "Vielen Dank!"
+      successMessage: "Ich habe Ihre Nachricht erhalten und melde mich innerhalb von 24–48 Stunden bei Ihnen."
+      responseTime: "Antwort innerhalb von 24–48h"
+      responseTimeDetails: "Ich melde mich schnellstmöglich bei Ihnen"
+      officeHoursTitle: "Erreichbarkeit"
+      officeHours:
+        - days: "Montag – Freitag"
+          hours: "09:00 – 18:00 Uhr"
+        - days: "Samstag – Sonntag"
+          hours: "Geschlossen"
+          closed: true

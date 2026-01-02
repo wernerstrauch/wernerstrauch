@@ -1,0 +1,188 @@
+lang: de
+pageId: shopify-plus-agentur
+
+meta:
+  title: "Shopify Plus Agentur | Enterprise E-Commerce Lösungen"
+  description: "Shopify Plus Agentur für wachsende Brands. Skalierbare Enterprise-Lösungen, B2B-Features und individuelle Checkout-Anpassungen."
+
+slug: "shopify-plus-agentur"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:rocket-launch-16-solid"
+        text: "Enterprise E-Commerce"
+      headline:
+        line1: "Shopify Plus"
+        line2: "<em>Agentur</em>"
+      subheadline: "Die Enterprise-Lösung für wachsende Brands. Skalierbar, flexibel und mit erweiterten Features für anspruchsvolle Anforderungen."
+      ctas:
+        - text: "Beratung anfragen"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Plus Features"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#features"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify Plus Partner"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Enterprise Support"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "24/7 Verfügbarkeit"
+
+  - id: features
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Vorteile"
+      badgeIcon: "heroicons:star-16-solid"
+      headline: "Warum <em>Shopify Plus?</em>"
+      description: "Die Enterprise-Plattform für ambitionierte E-Commerce Brands."
+      services:
+        - tagline: "Checkout"
+          title: "Checkout Customization"
+          description: "Volle Kontrolle über den Checkout-Prozess mit Checkout Extensions und Scripts."
+          icon: "heroicons:shopping-cart"
+        - tagline: "B2B"
+          title: "B2B Commerce"
+          description: "Dedizierte B2B-Funktionen: Kundenspezifische Preise, Staffelpreise und Freigabe-Workflows."
+          icon: "heroicons:building-office-2"
+        - tagline: "Automation"
+          title: "Shopify Flow"
+          description: "Automatisiere Workflows und Prozesse ohne Entwickler-Ressourcen."
+          icon: "heroicons:arrow-path"
+        - tagline: "Global"
+          title: "Multi-Store"
+          description: "Verwalte mehrere Stores und Märkte von einer zentralen Plattform aus."
+          icon: "heroicons:globe-alt"
+
+  - id: stats
+    enabled: true
+    order: 3
+    component: StatsStepped
+    wrapper:
+      variant: dark
+      padding: lg
+      container: true
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.08
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      variant: dark
+      badge: "Shopify Plus"
+      badgeIcon: "heroicons:chart-bar-16-solid"
+      headline: "Enterprise <em>Performance</em>"
+      description: "Shopify Plus liefert die Infrastruktur für High-Volume Commerce."
+      stats:
+        - value: "99.99%"
+          title: "Uptime"
+          description: "Garantierte Verfügbarkeit auch bei Traffic-Spitzen"
+          cardVariant: "light"
+        - value: "10k+"
+          title: "Checkouts/Minute"
+          description: "Skalierbare Infrastruktur für Flash Sales"
+          cardVariant: "dark"
+        - value: "Unlimited"
+          title: "Bandbreite"
+          description: "Keine Limits bei Traffic oder Transaktionen"
+          cardVariant: "primary"
+
+  - id: seo-content
+    enabled: true
+    order: 4
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "Shopify Plus Agentur: <em>Enterprise E-Commerce ohne Kompromisse</em>"
+      tagline: "Shopify Plus ist die Enterprise-Lösung für schnell wachsende Brands. Als zertifizierter Partner helfen wir dir, das volle Potenzial der Plattform zu nutzen."
+      leftColumn:
+        - type: text
+          content: "Als <strong>Shopify Plus Agentur</strong> betreuen wir Brands mit hohen Anforderungen an Performance, Skalierbarkeit und Individualisierung. Shopify Plus bietet Features, die weit über den Standard hinausgehen."
+        - type: text
+          content: "Mit <strong>Checkout Extensions</strong> und <strong>Shopify Functions</strong> kannst du den Kaufprozess vollständig an deine Bedürfnisse anpassen – von Custom Fields über Rabattlogiken bis zu individuellen Versandoptionen."
+        - type: headline
+          content: "Wann lohnt sich Shopify Plus?"
+        - type: bullets
+          content:
+            - "<strong>High Volume</strong> – Ab ca. 1 Mio. € Jahresumsatz"
+            - "<strong>B2B Commerce</strong> – Großhandel und Business-Kunden"
+            - "<strong>Multi-Store</strong> – Mehrere Shops oder internationale Expansion"
+            - "<strong>Custom Checkout</strong> – Individuelle Checkout-Anforderungen"
+            - "<strong>Integrationen</strong> – Komplexe ERP/PIM-Anbindungen"
+      rightColumn:
+        - type: text
+          content: "Shopify Plus bietet dedizierte <strong>Account Manager</strong>, Priority Support und Zugang zu exklusiven Features wie Shopify Audiences für besseres Targeting in Paid Campaigns."
+        - type: text
+          content: "Die <strong>Launchpad-App</strong> ermöglicht die Automatisierung von Verkaufsaktionen, Flash Sales und Produktlaunches – ideal für Brands mit häufigen Kampagnen."
+        - type: headline
+          content: "Häufige Fragen zu Shopify Plus"
+        - type: faq
+          content:
+            - question: "Was kostet Shopify Plus?"
+              answer: "Shopify Plus startet bei ca. 2.300€/Monat, abhängig vom Umsatzvolumen. Bei hohen Umsätzen wird eine prozentuale Gebühr fällig."
+            - question: "Kann ich von Shopify zu Plus upgraden?"
+              answer: "Ja, ein Upgrade ist jederzeit möglich. Wir unterstützen dich bei der Migration und der Nutzung der neuen Features."
+            - question: "Was ist der Unterschied zu normalem Shopify?"
+              answer: "Plus bietet mehr Customization (vor allem im Checkout), höhere API-Limits, B2B-Features, Multi-Store-Management und dedizierten Support."
+
+  - id: cta
+    enabled: true
+    order: 5
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Bereit für <em>Shopify Plus?</em>"
+      description: "Lass uns besprechen, ob Shopify Plus die richtige Lösung für dein Wachstum ist."
+      buttonText: "Jetzt Beratung anfragen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

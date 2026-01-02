@@ -1,0 +1,636 @@
+---
+interface Props {
+  lineCount?: number;
+  bloomStrength?: number;
+  trailCount?: number;
+  colors?: string[];
+}
+
+const {
+  lineCount = 20,
+  bloomStrength = 6.0,
+  trailCount = 4,
+  colors = ["#4B0082", "#5D0096", "#38005A", "#663399"],
+} = Astro.props;
+
+const colorsJson = JSON.stringify(colors);
+---
+
+<div class="waves-background absolute inset-0 overflow-hidden">
+  <canvas id="waves-canvas" class="waves-canvas absolute inset-0 h-full w-full"
+  ></canvas>
+</div>
+
+<script define:vars={{ lineCount, bloomStrength, trailCount, colorsJson }}>
+  // Store config for the module script
+  window.__wavesConfig = {
+    lineCount,
+    bloomStrength,
+    trailCount,
+    colors: JSON.parse(colorsJson),
+  };
+</script>
+
+<script>
+  import * as THREE from "three";
+  import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+  import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+  import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+
+  function initWaves() {
+    const canvas = document.getElementById("waves-canvas") as HTMLCanvasElement;
+    if (!canvas) return;
+
+    // Get config from window
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userConfig = (window as any).__wavesConfig || {};
+
+    const CONFIG = {
+      lineCount: userConfig.lineCount || 20,
+      segmentCount: 500,
+      baseAmplitude: 32, // Reduced to keep waves within visible canvas
+      waveWidth: 160,
+      speed: 0.0008,
+      colors: (
+        userConfig.colors || ["#4B0082", "#5D0096", "#38005A", "#663399"]
+      ).map((c: string) => new THREE.Color(c)),
+      bloomStrength: userConfig.bloomStrength || 6.0,
+      bloomRadius: 1.1,
+      bloomThreshold: 0.02,
+      trailCount: userConfig.trailCount || 4,
+      trailLength: 0.18,
+      trailSegments: 40,
+    };
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.0012);
+
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      canvas.clientWidth / canvas.clientHeight,
+      1,
+      1000,
+    );
+    camera.position.z = 100;
+    camera.position.y = 0;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: false,
+      alpha: true,
+    });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ReinhardToneMapping;
+    renderer.toneMappingExposure = 2.2;
+
+    const composer = new EffectComposer(renderer);
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(canvas.clientWidth, canvas.clientHeight),
+      CONFIG.bloomStrength,
+      CONFIG.bloomRadius,
+      CONFIG.bloomThreshold,
+    );
+    composer.addPass(bloomPass);
+
+    const waveGroup = new THREE.Group();
+    scene.add(waveGroup);
+
+    // Soft particle texture
+    function createSoftParticleTexture() {
+      const texCanvas = document.createElement("canvas");
+      texCanvas.width = 64;
+      texCanvas.height = 64;
+      const context = texCanvas.getContext("2d")!;
+      const gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
+      gradient.addColorStop(0.2, "rgba(255, 255, 255, 0.8)");
+      gradient.addColorStop(0.5, "rgba(255, 255, 255, 0.2)");
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(texCanvas);
+    }
+    const particleTexture = createSoftParticleTexture();
+
+    // Three wave groups with distinct characteristics
+    const waveGroups = [
+      {
+        // Group 1: Flows from left, positioned lowest
+        direction: 1,
+        basePhase: 0,
+        yOffset: -35,
+        freqMix: 0.012,
+        amplitude: 1.0,
+      },
+      {
+        // Group 2: Flows from right, lower area
+        direction: -1,
+        basePhase: Math.PI,
+        yOffset: -20,
+        freqMix: 0.01,
+        amplitude: 1.2,
+      },
+      {
+        // Group 3: Slower, wider waves, center area
+        direction: 1,
+        basePhase: Math.PI * 0.5,
+        yOffset: -5,
+        freqMix: 0.008,
+        amplitude: 0.8,
+      },
+    ];
+
+    const linesPerGroup = Math.ceil(CONFIG.lineCount / 3);
+
+    // Main lines
+    const lines: THREE.Line[] = [];
+    for (let i = 0; i < CONFIG.lineCount; i++) {
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(CONFIG.segmentCount * 3);
+      const colors = new Float32Array(CONFIG.segmentCount * 3);
+
+      const color =
+        CONFIG.colors[Math.floor(Math.random() * CONFIG.colors.length)];
+
+      for (let j = 0; j < CONFIG.segmentCount; j++) {
+        colors[j * 3] = color.r;
+        colors[j * 3 + 1] = color.g;
+        colors[j * 3 + 2] = color.b;
+      }
+
+      geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3),
+      );
+      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+      const material = new THREE.LineBasicMaterial({
+        vertexColors: true,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        opacity: Math.random() * 0.4 + 0.4,
+      });
+
+      const line = new THREE.Line(geometry, material);
+
+      // Assign to one of three groups
+      const groupIndex = Math.floor(i / linesPerGroup);
+      const group = waveGroups[Math.min(groupIndex, 2)];
+      const indexInGroup = i % linesPerGroup;
+
+      // Lines within a group are spaced sinusoidally for bundled appearance
+      const groupSpread = 8; // How spread out lines are within group
+      const sinOffset =
+        Math.sin((indexInGroup / linesPerGroup) * Math.PI) * groupSpread;
+
+      line.userData = {
+        groupIndex: Math.min(groupIndex, 2),
+        phaseOffset: group.basePhase + indexInGroup * 0.15,
+        speedEx: (0.9 + Math.random() * 0.2) * group.direction,
+        freqMix: group.freqMix + (Math.random() - 0.5) * 0.002,
+        yAmp: group.amplitude * (0.8 + Math.random() * 0.4),
+        yOffset: group.yOffset + sinOffset,
+        zOffset: (groupIndex - 1) * 15 + (Math.random() - 0.5) * 10,
+      };
+
+      lines.push(line);
+      waveGroup.add(line);
+    }
+
+    // Background particles
+    const pGeo = new THREE.BufferGeometry();
+    const pCount = 80;
+    const pPos = new Float32Array(pCount * 3);
+    for (let i = 0; i < pCount; i++) {
+      pPos[i * 3] = (Math.random() - 0.5) * 250;
+      pPos[i * 3 + 1] = (Math.random() - 0.5) * 120;
+      pPos[i * 3 + 2] = (Math.random() - 0.5) * 100;
+    }
+    pGeo.setAttribute("position", new THREE.BufferAttribute(pPos, 3));
+    const pMat = new THREE.PointsMaterial({
+      color: 0x6a0dad,
+      map: particleTexture,
+      size: 3.0,
+      transparent: true,
+      opacity: 0.15,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const particles = new THREE.Points(pGeo, pMat);
+    waveGroup.add(particles);
+
+    // Flow trails
+    interface Trail {
+      mesh: THREE.Line;
+      lineIndex: number;
+      progress: number;
+      direction: number;
+      speed: number;
+      isActive: boolean;
+    }
+    const trails: Trail[] = [];
+
+    for (let i = 0; i < CONFIG.trailCount; i++) {
+      const tGeo = new THREE.BufferGeometry();
+      const tPos = new Float32Array(CONFIG.trailSegments * 3);
+      const tColors = new Float32Array(CONFIG.trailSegments * 3);
+
+      tGeo.setAttribute("position", new THREE.BufferAttribute(tPos, 3));
+      tGeo.setAttribute("color", new THREE.BufferAttribute(tColors, 3));
+
+      const tMat = new THREE.LineBasicMaterial({
+        vertexColors: true,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        opacity: 1.0,
+        depthTest: false,
+      });
+
+      const trailLine = new THREE.Line(tGeo, tMat);
+      waveGroup.add(trailLine);
+
+      const dir = Math.random() > 0.5 ? 1 : -1;
+
+      trails.push({
+        mesh: trailLine,
+        lineIndex: Math.floor(Math.random() * CONFIG.lineCount),
+        progress: Math.random(),
+        direction: dir,
+        speed: Math.random() * 0.0003 + 0.0001,
+        isActive: true,
+      });
+    }
+
+    // Animation
+    let time = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let mouseSpeed = 0; // Track mouse movement speed
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let scrollSpeed = 0; // Track scroll speed
+    let lastScrollY = 0;
+    let animationId: number;
+    let isVisible = true; // Track visibility for performance
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Normalized mouse position (-1 to 1)
+      targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      targetMouseY = (e.clientY / window.innerHeight) * 2 - 1;
+
+      // Calculate mouse velocity
+      const dx = targetMouseX - lastMouseX;
+      const dy = targetMouseY - lastMouseY;
+      mouseSpeed = Math.min(Math.sqrt(dx * dx + dy * dy) * 15, 3); // Cap at 3x speed boost
+
+      lastMouseX = targetMouseX;
+      lastMouseY = targetMouseY;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+      scrollSpeed = Math.min(scrollDelta * 0.1, 3); // Cap at 3x speed boost
+      lastScrollY = currentScrollY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Click and hold for time-lapse effect
+    let isMouseDown = false;
+
+    // Get the parent section to check if click is within bounds
+    const section = canvas.closest("section");
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      // Check if click is within the section bounds
+      if (
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      ) {
+        isMouseDown = true;
+      }
+    };
+
+    const handleMouseUp = () => {
+      isMouseDown = false;
+    };
+
+    // Listen on window to capture clicks even when content is above canvas
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+
+    function getPointOnLine(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      lineData: any,
+      t: number,
+      time: number,
+      mX: number,
+      mY: number,
+    ): { x: number; y: number; z: number } {
+      const x = (t - 0.5) * CONFIG.waveWidth;
+
+      const sineVal = Math.sin(t * Math.PI);
+      const envelope = Math.pow(Math.max(0, sineVal), 1.5);
+
+      // Mouse influence on wave frequency and amplitude
+      const mouseWaveInfluence = mX * 0.3; // Horizontal mouse affects wave speed
+      const mouseAmpInfluence = 1 + mY * 0.25; // Vertical mouse affects amplitude
+
+      const wave1 = Math.sin(
+        x * lineData.freqMix +
+          time * lineData.speedEx * (1 + mouseWaveInfluence) +
+          lineData.phaseOffset,
+      );
+      const wave2 = Math.cos(x * 0.03 - time * 1.5);
+
+      // Mouse creates a local distortion effect based on x position
+      const distFromCenter = Math.abs(t - 0.5) * 2; // 0 at center, 1 at edges
+      const mouseDistortion =
+        Math.sin((t + mX * 0.5) * Math.PI * 3) * mY * 15 * (1 - distFromCenter);
+
+      // Base wave + group vertical offset (yOffset positions the whole group)
+      const waveY =
+        (wave1 + wave2 * 0.3) *
+        CONFIG.baseAmplitude *
+        lineData.yAmp *
+        envelope *
+        mouseAmpInfluence;
+
+      const y = waveY + (lineData.yOffset || 0) * envelope + mouseDistortion;
+
+      const zSpread = lineData.zOffset * envelope;
+      const z = zSpread + Math.sin(time + x * 0.05) * 5 + mX * 10 * envelope;
+
+      return { x, y, z };
+    }
+
+    let currentSpeed = 1; // Smoothed speed multiplier
+    let hasRenderedFirstFrame = false;
+
+    function animate() {
+      animationId = requestAnimationFrame(animate);
+
+      // Skip rendering when not visible to save CPU
+      if (!isVisible) return;
+
+      // Time-lapse effect when mouse is held down
+      const timeLapseBoost = isMouseDown ? 8 : 0; // 8x speed when holding
+
+      // Smooth speed interpolation (accelerates quickly, decelerates slowly)
+      const targetSpeed = 1 + mouseSpeed + scrollSpeed + timeLapseBoost;
+      currentSpeed +=
+        (targetSpeed - currentSpeed) * (isMouseDown ? 0.08 : 0.15);
+      mouseSpeed *= 0.95; // Decay mouse speed when not moving
+      scrollSpeed *= 0.92; // Decay scroll speed when not scrolling
+
+      // Apply speed multiplier to time progression
+      time += CONFIG.speed * currentSpeed;
+
+      // Smooth mouse interpolation for fluid wave response
+      mouseX += (targetMouseX - mouseX) * 0.08;
+      mouseY += (targetMouseY - mouseY) * 0.08;
+
+      // Camera follows mouse slightly
+      camera.position.x += (mouseX * 8 - camera.position.x) * 0.03;
+      camera.position.y += (-mouseY * 5 - camera.position.y) * 0.03;
+      camera.lookAt(0, 0, 0);
+
+      lines.forEach((line) => {
+        const pos = (line.geometry.attributes.position as THREE.BufferAttribute)
+          .array as Float32Array;
+        const data = line.userData;
+
+        for (let i = 0; i < CONFIG.segmentCount; i++) {
+          const t = i / (CONFIG.segmentCount - 1);
+          const p = getPointOnLine(data, t, time, mouseX, mouseY);
+          pos[i * 3] = p.x;
+          pos[i * 3 + 1] = p.y;
+          pos[i * 3 + 2] = p.z;
+        }
+        line.geometry.attributes.position.needsUpdate = true;
+      });
+
+      particles.rotation.y = time * 0.08;
+      particles.rotation.z = Math.sin(time * 0.15) * 0.08;
+
+      trails.forEach((trail) => {
+        // Trail speed is also affected by currentSpeed (time-lapse effect)
+        trail.progress += trail.speed * trail.direction * currentSpeed;
+
+        if (trail.progress > 1.2 || trail.progress < -0.2) {
+          trail.lineIndex = Math.floor(Math.random() * CONFIG.lineCount);
+          trail.direction = Math.random() > 0.5 ? 1 : -1;
+          trail.speed = Math.random() * 0.0003 + 0.0001;
+
+          const randomDelay = Math.random() * 0.3;
+
+          if (trail.direction === 1) {
+            trail.progress = -0.1 - randomDelay;
+          } else {
+            trail.progress = 1.1 + randomDelay;
+          }
+        }
+
+        const lineObj = lines[trail.lineIndex];
+        const lineData = lineObj.userData;
+        const positions = (
+          trail.mesh.geometry.attributes.position as THREE.BufferAttribute
+        ).array as Float32Array;
+        const colors = (
+          trail.mesh.geometry.attributes.color as THREE.BufferAttribute
+        ).array as Float32Array;
+
+        const tailLen = CONFIG.trailLength;
+
+        for (let k = 0; k < CONFIG.trailSegments; k++) {
+          const kNorm = k / (CONFIG.trailSegments - 1);
+
+          const t = trail.progress - kNorm * tailLen * trail.direction;
+          const p = getPointOnLine(lineData, t, time, mouseX, mouseY);
+
+          positions[k * 3] = p.x;
+          positions[k * 3 + 1] = p.y + 0.05;
+          positions[k * 3 + 2] = p.z;
+
+          // Color logic
+          let masterAlpha = 1.0;
+          if (trail.progress < 0 || trail.progress > 1) masterAlpha = 0;
+          else masterAlpha = Math.sin(trail.progress * Math.PI);
+          masterAlpha = Math.pow(masterAlpha, 0.4);
+
+          const opacityGradient = Math.pow(1.0 - kNorm, 2.0);
+          const alpha = opacityGradient * masterAlpha;
+
+          const headGlow = 1.0 + Math.pow(1.0 - kNorm, 10.0) * 10.0;
+
+          const colorBase = new THREE.Color(0xea00ff);
+          const baseIntensity = 1.5;
+
+          const finalIntensity = baseIntensity * headGlow;
+
+          colors[k * 3] = colorBase.r * finalIntensity * alpha;
+          colors[k * 3 + 1] = colorBase.g * finalIntensity * alpha;
+          colors[k * 3 + 2] = colorBase.b * finalIntensity * alpha;
+        }
+
+        trail.mesh.geometry.attributes.position.needsUpdate = true;
+        trail.mesh.geometry.attributes.color.needsUpdate = true;
+      });
+
+      composer.render();
+
+      // Show canvas after first frame is rendered
+      if (!hasRenderedFirstFrame) {
+        hasRenderedFirstFrame = true;
+        canvas.classList.add("is-ready");
+      }
+    }
+
+    let currentWidth = 0;
+    let currentHeight = 0;
+
+    function updateLayout() {
+      const container = canvas.parentElement;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const w = Math.floor(rect.width);
+      const h = Math.floor(rect.height);
+      if (w === 0 || h === 0) return;
+
+      // Skip if size hasn't changed
+      if (w === currentWidth && h === currentHeight) return;
+      currentWidth = w;
+      currentHeight = h;
+
+      // Update renderer and composer size
+      const pixelRatio = renderer.getPixelRatio();
+      renderer.setSize(w, h, false);
+      composer.setSize(w, h);
+
+      // Manually set canvas dimensions for proper rendering
+      canvas.width = w * pixelRatio;
+      canvas.height = h * pixelRatio;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+
+      // Update camera aspect ratio
+      const aspect = w / h;
+      camera.aspect = aspect;
+      camera.updateProjectionMatrix();
+
+      const vFOV = (camera.fov * Math.PI) / 180;
+      const overlapFactor = 0.85;
+      let targetZ =
+        (CONFIG.waveWidth * overlapFactor) / (2 * Math.tan(vFOV / 2) * aspect);
+      targetZ = Math.max(80, targetZ);
+      camera.position.z = targetZ;
+
+      const visibleWidthAtZ = 2 * Math.tan(vFOV / 2) * targetZ * aspect;
+      let scaleX = 1;
+      if (visibleWidthAtZ > CONFIG.waveWidth * 0.9) {
+        scaleX = (visibleWidthAtZ / CONFIG.waveWidth) * 1.15;
+      }
+      const maxWaveHeight = 130;
+      const visibleHeightAtZ = 2 * Math.tan(vFOV / 2) * targetZ;
+      let scaleY = 1;
+      const safeHeight = visibleHeightAtZ * 0.85;
+      if (maxWaveHeight > safeHeight) {
+        scaleY = safeHeight / maxWaveHeight;
+      }
+      waveGroup.scale.set(scaleX, scaleY, 1);
+    }
+
+    // Use ResizeObserver for container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      // Use requestAnimationFrame to batch resize updates
+      requestAnimationFrame(() => {
+        updateLayout();
+      });
+    });
+
+    const observeTarget = canvas.parentElement || canvas;
+    resizeObserver.observe(observeTarget);
+
+    // Also listen for window resize as fallback
+    window.addEventListener("resize", updateLayout);
+
+    // Visibility observer - pause animation when off-screen
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting;
+      },
+      { threshold: 0 },
+    );
+    visibilityObserver.observe(canvas);
+
+    // Initial layout
+    updateLayout();
+
+    animationId = requestAnimationFrame(animate);
+
+    // Cleanup on navigation
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        cancelAnimationFrame(animationId);
+        resizeObserver.disconnect();
+        visibilityObserver.disconnect();
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("resize", updateLayout);
+        window.removeEventListener("mousedown", handleMouseDown);
+        window.removeEventListener("mouseup", handleMouseUp);
+        renderer.dispose();
+        composer.dispose();
+      },
+      { once: true },
+    );
+  }
+
+  // Defer initialization to not block main thread
+  function deferredInit() {
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(() => initWaves(), { timeout: 2000 });
+    } else {
+      setTimeout(initWaves, 100);
+    }
+  }
+
+  // Init on load and after navigation
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", deferredInit);
+  } else {
+    deferredInit();
+  }
+  document.addEventListener("astro:after-swap", deferredInit);
+</script>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .waves-background {
+    background: var(--color-zinc-900);
+  }
+
+  .waves-canvas {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+
+  .waves-canvas.is-ready {
+    opacity: 1;
+  }
+</style>

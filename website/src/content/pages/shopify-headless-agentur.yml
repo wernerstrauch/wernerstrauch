@@ -1,0 +1,132 @@
+lang: de
+pageId: shopify-headless
+
+meta:
+  title: "Shopify Headless Agentur | Hydrogen & Headless Commerce"
+  description: "Shopify Headless Commerce mit Hydrogen. Maximale Performance und Flexibilität für Enterprise E-Commerce. Von zertifizierten Shopify Plus Experten."
+
+slug: "shopify-headless-agentur"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:cube-transparent-16-solid"
+        text: "Headless Commerce"
+      headline:
+        line1: "Shopify"
+        line2: "<em>Headless Commerce</em>"
+      subheadline: "Maximale Performance und Flexibilität mit Hydrogen. Die Zukunft des Enterprise E-Commerce."
+      ctas:
+        - text: "Projekt besprechen"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Was ist Headless?"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#vorteile"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Hydrogen Experten"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify Plus Partner"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Enterprise Ready"
+
+  - id: services
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Vorteile"
+      badgeIcon: "heroicons:bolt-16-solid"
+      headline: "Warum <em>Headless Commerce?</em>"
+      description: "Headless trennt Frontend und Backend - für maximale Flexibilität und Performance."
+      services:
+        - tagline: "Performance"
+          title: "Blitzschnell"
+          description: "Sub-Sekunden Ladezeiten durch Edge-Rendering und optimierte Datenabfragen."
+          icon: "heroicons:bolt"
+        - tagline: "Flexibilität"
+          title: "Volle Kontrolle"
+          description: "Keine Theme-Limitierungen. Jedes Design und jede Funktion ist möglich."
+          icon: "heroicons:adjustments-horizontal"
+        - tagline: "Skalierung"
+          title: "Enterprise Ready"
+          description: "Unbegrenzte Skalierbarkeit für Traffic-Spitzen und globales Wachstum."
+          icon: "heroicons:arrow-trending-up"
+        - tagline: "Omnichannel"
+          title: "Multi-Frontend"
+          description: "Ein Backend, viele Frontends - Web, App, POS und mehr."
+          icon: "heroicons:device-phone-mobile"
+
+  - id: process
+    enabled: true
+    order: 3
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+    content:
+      variant: light
+      badge: "Technologie"
+      badgeIcon: "heroicons:code-bracket-16-solid"
+      headline: "Unser <em>Tech Stack</em>"
+      description: "Moderne Technologien für zukunftssichere Headless-Lösungen."
+      steps:
+        - title: "Shopify Hydrogen"
+          description: "Shopifys offizielles React-Framework für Headless Commerce."
+        - title: "Remix / Next.js"
+          description: "Server-Side Rendering und optimale Performance out of the box."
+        - title: "Storefront API"
+          description: "Direkter Zugriff auf alle Shop-Daten über GraphQL."
+        - title: "Edge Deployment"
+          description: "Globale Auslieferung über Oxygen oder Vercel Edge."
+
+  - id: cta
+    enabled: true
+    order: 4
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Bereit für <em>Headless?</em>"
+      description: "Lass uns prüfen, ob Headless Commerce die richtige Lösung für dein Business ist."
+      buttonText: "Beratung anfragen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

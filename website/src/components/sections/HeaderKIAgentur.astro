@@ -1,0 +1,525 @@
+---
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCurrentDomain } from "@config";
+
+// Get domain configuration
+const domain = getCurrentDomain();
+const { logo, navigation } = domain;
+
+// Navigation from domain config
+const navLinks = navigation.main;
+const megaMenuCategories = navigation.megaMenu;
+---
+
+<header
+  class="fixed top-0 right-0 left-0 z-50 h-20"
+  x-data="{ scrolled: false }"
+  x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 100 })"
+>
+  <Container class="flex h-full items-center">
+    <nav class="relative z-50 flex w-full items-center justify-between">
+      {/* Logo Desktop */}
+      <div
+        class="relative z-10 hidden shrink-0 items-center transition-opacity duration-300 md:flex"
+        :class="scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'"
+      >
+        <a href="/" aria-label="Home" class="flex shrink-0 items-center">
+          {
+            logo.image ? (
+              <Image
+                src={logo.image}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+                densities={[1.5, 2]}
+                loading="eager"
+                class="w-auto"
+                style={`height: ${logo.height}px`}
+              />
+            ) : (
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+                loading="eager"
+                class="w-auto"
+                style={`height: ${logo.height}px`}
+              />
+            )
+          }
+        </a>
+      </div>
+
+      {/* Pill Navigation */}
+      <div
+        class="fixed left-0 flex w-full justify-center px-3 sm:px-6 md:px-0"
+        x-data=`{
+          showButton: false,
+          mainCtaOffset: 0,
+          pillWidth: 0,
+          pillExpandedWidth: 0,
+          windowWidth: window.innerWidth,
+          mobileMenuOpen: false,
+          leistungenOpen: false,
+          updateDropdownPosition() {
+            const pillRect = this.$refs.pillNav.getBoundingClientRect();
+            this.$refs.leistungenDropdown.style.top = pillRect.bottom + 8 + 'px';
+          },
+          toggleLeistungen() {
+            if (this.leistungenOpen) {
+              return this.closeLeistungen()
+            }
+            this.$refs.leistungenButton.focus()
+            this.leistungenOpen = true
+            this.updateDropdownPosition();
+          },
+          closeLeistungen(focusAfter) {
+            if (!this.leistungenOpen) return
+            this.leistungenOpen = false
+            focusAfter && focusAfter.focus()
+          },
+          getOffsetTop(element) {
+            let offsetTop = 0;
+            while (element) {
+              offsetTop += element.offsetTop;
+              element = element.offsetParent;
+            }
+            return offsetTop;
+          },
+          initNavbar() {
+            const topCta = document.getElementById('top-cta');
+            if (topCta) {
+              this.mainCtaOffset = this.getOffsetTop(topCta) + topCta.offsetHeight;
+            }
+            this.pillWidth = $refs.pillNav.offsetWidth;
+            $refs.navCta.classList.remove('hidden');
+
+            const navCtaStyle = window.getComputedStyle($refs.navCta);
+            const navCtaWidth = $refs.navCta.offsetWidth;
+            const navCtaMargin = parseInt(navCtaStyle.marginLeft) + parseInt(navCtaStyle.marginRight);
+
+            this.pillExpandedWidth = navCtaWidth + navCtaMargin + this.pillWidth;
+
+            window.addEventListener('resize', () => {
+              if (window.innerWidth > 768) {
+                $refs.pillNav.style.width = "fit-content"
+                setTimeout(() => {
+                  this.windowWidth = window.innerWidth;
+                  if (topCta) {
+                    this.mainCtaOffset = this.getOffsetTop(topCta) + topCta.offsetHeight;
+                  }
+                  if (this.showButton && this.windowWidth > 768) {
+                    this.pillExpandedWidth = $refs.pillNav.firstElementChild.offsetWidth;
+                    this.pillWidth = this.pillExpandedWidth - navCtaWidth - navCtaMargin;
+                  } else {
+                    this.pillWidth = $refs.pillNav.firstElementChild.offsetWidth;
+                    this.pillExpandedWidth = navCtaWidth + navCtaMargin + this.pillWidth;
+                  }
+                  $refs.pillNav.style.width = this.showButton && this.windowWidth > 768 ? this.pillExpandedWidth + 'px' : this.pillWidth + 'px';
+                }, 250)
+
+                if (this.leistungenOpen) {
+                  this.updateDropdownPosition();
+                }
+              } else {
+                $refs.pillNav.style.width = "100%";
+              }
+            });
+
+            window.addEventListener('scroll', () => {
+              $refs.pillNav.classList.add('overflow-hidden')
+              this.showButton = window.scrollY > this.mainCtaOffset;
+            });
+
+            this.$watch('showButton', (_) => {
+              if (this.leistungenOpen) {
+                setTimeout(() => {
+                  this.updateDropdownPosition();
+                }, 500)
+              }
+            });
+          }
+        }`
+        x-init="initNavbar"
+        x-on:keydown.escape.prevent.stop="closeLeistungen($refs.leistungenButton)"
+      >
+        <div
+          id="pill-nav"
+          class="shadow-inner-blur relative z-50 flex w-full items-center overflow-hidden rounded-full transition-[width] duration-500 ease-in-out md:w-auto"
+          style="background: var(--header-bg); -webkit-backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness)); backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness))"
+          x-ref="pillNav"
+          :style="`width: ${windowWidth > 768 ? (showButton ? pillExpandedWidth + 'px' : pillWidth + 'px') : '100%'}; background: var(--header-bg); -webkit-backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness)); backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness))`"
+        >
+          <div
+            class="flex h-full w-full items-center justify-between rounded-full py-1 pr-5 pl-[18px] sm:py-0 md:w-fit md:justify-normal md:px-1.5"
+            style="border: 1px solid var(--header-border); color: var(--header-text)"
+          >
+            {/* Logo Mobile */}
+            <div class="flex shrink-0 items-center md:hidden">
+              <a
+                href="/"
+                aria-label="Home"
+                class="flex shrink-0 items-center py-2"
+              >
+                {
+                  logo.image ? (
+                    <Image
+                      src={logo.image}
+                      alt={logo.alt}
+                      width={logo.width}
+                      height={Math.min(logo.height, 36)}
+                      densities={[1.5, 2]}
+                      loading="eager"
+                      class="w-auto"
+                      style={`height: ${Math.min(logo.height, 36)}px`}
+                    />
+                  ) : (
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={logo.width}
+                      height={logo.height}
+                      loading="eager"
+                      class="w-auto"
+                      style={`height: ${Math.min(logo.height, 36)}px`}
+                    />
+                  )
+                }
+              </a>
+            </div>
+
+            {/* Desktop Nav Links */}
+            {/* Leistungen Dropdown Trigger */}
+            <button
+              type="button"
+              class="group relative hidden h-full cursor-pointer items-center px-3 py-2.5 text-sm font-medium outline-hidden duration-200 ease-in-out md:inline-flex lg:px-4"
+              :style="`color: var(${leistungenOpen ? '--header-text-hover' : '--header-text'})`"
+              @click="toggleLeistungen()"
+              :aria-expanded="leistungenOpen"
+              x-ref="leistungenButton"
+            >
+              <span>Leistungen</span>
+              <Icon
+                name="heroicons:chevron-down-16-solid"
+                class="ml-1 h-4 w-4 opacity-50 duration-300 group-hover:opacity-100"
+                style="color: inherit"
+                :class="leistungenOpen ? 'rotate-180 opacity-100' : ''"
+              />
+            </button>
+
+            {/* Other Nav Links */}
+            {
+              navLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class="relative hidden h-full items-center px-3 py-2.5 text-sm font-medium whitespace-nowrap duration-200 ease-in-out hover:[color:var(--header-text-hover)] md:inline-flex lg:px-4"
+                  style="color: var(--header-text)"
+                >
+                  {link.label}
+                </a>
+              ))
+            }
+
+            {/* Language Switcher Desktop - temporarily disabled */}
+            {
+              /* <a
+              href={switchUrl}
+              class="relative hidden h-full items-center px-2 py-2.5 text-sm font-medium text-[#1c1c1e]/60 duration-200 ease-in-out hover:text-[#4f3ca2] md:inline-flex lg:px-3"
+              title={`${LANGUAGES[otherLang].name}`}
+            >
+              {LANGUAGES[otherLang].code}
+            </a> */
+            }
+
+            {/* Mobile Buttons */}
+            <div class="flex items-center md:hidden">
+              <Button
+                data-open-funnel
+                class="-mr-px"
+                size="sm"
+                showArrow={false}
+              >
+                Kontakt
+              </Button>
+
+              {/* Hamburger */}
+              <button
+                type="button"
+                class="ml-2 cursor-pointer p-2 transition-colors hover:[color:var(--header-text-hover)]"
+                style="color: var(--header-text)"
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                :aria-expanded="mobileMenuOpen"
+                aria-label="Menü"
+              >
+                <Icon
+                  name="heroicons:bars-3"
+                  class="h-5 w-5"
+                  x-show="!mobileMenuOpen"
+                />
+                <Icon
+                  name="heroicons:x-mark"
+                  class="h-5 w-5"
+                  x-show="mobileMenuOpen"
+                  x-cloak
+                />
+              </button>
+            </div>
+
+            {/* Desktop CTA (appears on scroll) */}
+            <Button
+              id="nav-cta"
+              data-open-funnel
+              class="-mr-px ml-3 hidden"
+              size="sm"
+              showArrow={false}
+              x-ref="navCta"
+              x-show="showButton"
+              x-bind:class="windowWidth < 768 ? 'hidden!' : ''"
+              x-transition:enter="transition-all ease-out duration-500"
+              x-transition:enter-start="transform opacity-0 translate-x-full"
+              x-transition:enter-end="transform opacity-100 translate-x-0"
+              x-transition:leave="transition-all ease-in duration-500"
+              x-transition:leave-start="transform opacity-100 translate-x-0"
+              x-transition:leave-end="transform opacity-0 translate-x-full"
+            >
+              Kontakt
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <div
+          class="shadow-inner-blur fixed top-20 right-4 left-4 z-40 rounded-xl md:hidden"
+          style="background: var(--header-bg-solid); border: 1px solid var(--header-border); -webkit-backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness)); backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness))"
+          x-show="mobileMenuOpen"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 -translate-y-2"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-2"
+          @click.away="mobileMenuOpen = false"
+          x-cloak
+        >
+          <div class="space-y-1 p-4" x-data="{ leistungenOpen: false }">
+            {/* Leistungen Accordion */}
+            <div>
+              <button
+                type="button"
+                class="flex w-full cursor-pointer items-center justify-between rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-200"
+                style="color: var(--header-text)"
+                @click="leistungenOpen = !leistungenOpen"
+              >
+                <span>Leistungen</span>
+                <Icon
+                  name="heroicons:chevron-down-16-solid"
+                  class="h-4 w-4 transition-transform duration-200"
+                  x-bind:class="leistungenOpen && 'rotate-180'"
+                />
+              </button>
+              <div x-show="leistungenOpen" x-collapse x-cloak>
+                <div class="mt-2 space-y-4 px-4">
+                  {
+                    megaMenuCategories.map((category) => (
+                      <div>
+                        <a
+                          href={category.href}
+                          class="group mb-2 flex items-center gap-2"
+                          @click="mobileMenuOpen = false"
+                        >
+                          <Icon
+                            name={category.icon}
+                            class="h-4 w-4"
+                            style="color: var(--header-text-hover)"
+                          />
+                          <span
+                            class="text-xs font-semibold tracking-wide uppercase opacity-50 transition-colors group-hover:opacity-100"
+                            style="color: var(--header-text); --tw-hover-color: var(--header-text-hover)"
+                          >
+                            {category.title}
+                          </span>
+                        </a>
+                        <div
+                          class="ml-6 space-y-1 border-l pl-3"
+                          style="border-color: color-mix(in srgb, var(--header-text-hover) 20%, transparent)"
+                        >
+                          {category.links?.map((link) => (
+                            <a
+                              href={link.href}
+                              class="block rounded-lg py-1.5 text-sm opacity-70 transition-colors duration-200 hover:opacity-100"
+                              style="color: var(--header-text)"
+                              @click="mobileMenuOpen = false"
+                            >
+                              {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+
+            {/* Other Links */}
+            {
+              navLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class="block rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-200"
+                  style="color: var(--header-text)"
+                  @click="mobileMenuOpen = false"
+                >
+                  {link.label}
+                </a>
+              ))
+            }
+            <div
+              class="mt-2 border-t pt-3"
+              style="border-color: var(--header-border)"
+            >
+              <Button
+                data-open-funnel
+                size="sm"
+                showArrow={false}
+                class="w-full justify-center"
+                @click="mobileMenuOpen = false"
+              >
+                Erstgespräch vereinbaren
+              </Button>
+            </div>
+
+            {/* Language Switcher Mobile - temporarily disabled */}
+            {
+              /* <div
+              class="mt-3 flex items-center justify-center gap-2 border-t border-gray-200 pt-3"
+            >
+              <a
+                href={lang === "de" ? "/" : switchUrl}
+                class:list={[
+                  "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
+                  lang === "de"
+                    ? "bg-[#4f3ca2]/10 text-[#4f3ca2]"
+                    : "text-[#1c1c1e]/60 hover:text-[#4f3ca2]",
+                ]}
+              >
+                DE
+              </a>
+              <span class="text-[#1c1c1e]/30">|</span>
+              <a
+                href={lang === "en" ? "/en" : switchUrl}
+                class:list={[
+                  "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
+                  lang === "en"
+                    ? "bg-[#4f3ca2]/10 text-[#4f3ca2]"
+                    : "text-[#1c1c1e]/60 hover:text-[#4f3ca2]",
+                ]}
+              >
+                EN
+              </a>
+            </div> */
+            }
+          </div>
+        </div>
+
+        {
+          /* Leistungen Dropdown Menu (außerhalb der pill-nav für korrektes overflow) */
+        }
+        <div
+          class="shadow-inner-blur fixed left-1/2 z-[60] hidden -translate-x-1/2 overflow-hidden rounded-2xl outline-hidden ease-in-out focus:outline-hidden md:block"
+          style="display: none; background: var(--header-bg-solid); border: 1px solid var(--header-border); -webkit-backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness)); backdrop-filter: blur(16px) brightness(var(--header-backdrop-brightness))"
+          x-show="leistungenOpen"
+          x-transition:enter="transition duration-300 ease-out"
+          x-transition:enter-start="opacity-0 -translate-y-2"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="duration-200 transition ease-in"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-2"
+          @click.away="leistungenOpen = false"
+          x-ref="leistungenDropdown"
+        >
+          <div class="grid grid-cols-4 gap-0 p-4">
+            {
+              megaMenuCategories.map((category) => (
+                <div class="px-3">
+                  <a
+                    href={category.href}
+                    class="group mb-3 flex items-center gap-2"
+                  >
+                    <div
+                      class="flex h-7 w-7 items-center justify-center rounded-lg transition-colors"
+                      style="background: color-mix(in srgb, var(--header-text-hover) 10%, transparent)"
+                    >
+                      <Icon
+                        name={category.icon}
+                        class="h-4 w-4"
+                        style="color: var(--header-text-hover)"
+                      />
+                    </div>
+                    <span
+                      class="text-sm font-semibold transition-colors group-hover:[color:var(--header-text-hover)]"
+                      style="color: var(--header-text)"
+                    >
+                      {category.title}
+                    </span>
+                  </a>
+                  <ul class="space-y-1">
+                    {category.links?.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          class="block rounded-lg px-2 py-1.5 text-sm opacity-70 transition-colors duration-200 hover:[color:var(--header-text-hover)] hover:opacity-100"
+                          style="color: var(--header-text)"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+          <div
+            class="px-4 py-3"
+            style="border-top: 1px solid var(--header-border); background: color-mix(in srgb, var(--header-text) 3%, transparent)"
+          >
+            <a
+              href="/#leistungen"
+              class="flex items-center justify-center gap-1.5 text-xs font-medium opacity-50 transition-colors hover:[color:var(--header-text-hover)] hover:opacity-100"
+              style="color: var(--header-text)"
+            >
+              Alle Leistungen im Überblick
+              <Icon name="heroicons:arrow-right-16-solid" class="h-3 w-3" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop CTA (visible before scroll) */}
+      <div
+        class="hidden items-center transition-opacity duration-300 md:flex lg:space-x-3 xl:space-x-4"
+        :class="scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'"
+      >
+        <Button data-open-funnel size="sm" showArrow={false} id="top-cta">
+          Erstgespräch vereinbaren
+        </Button>
+      </div>
+    </nav>
+    <hr
+      class="absolute inset-x-0 bottom-0 h-px border-0 transition-opacity duration-300"
+      style="background: linear-gradient(to right, transparent, var(--header-divider), transparent)"
+      :class="scrolled ? 'opacity-0' : 'opacity-100'"
+    />
+  </Container>
+</header>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

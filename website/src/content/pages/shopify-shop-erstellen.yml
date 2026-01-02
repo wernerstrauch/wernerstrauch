@@ -1,0 +1,132 @@
+lang: de
+pageId: shopify-shop-erstellen
+
+meta:
+  title: "Shopify Shop erstellen | Professioneller Onlineshop vom Experten"
+  description: "Shopify Shop erstellen lassen vom Experten. Wir bauen deinen professionellen Onlineshop - von der Konzeption bis zum Launch. Conversion-optimiert und skalierbar."
+
+slug: "shopify-shop-erstellen"
+
+settings:
+  status: published
+  priority: 0.9
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:rocket-launch-16-solid"
+        text: "Shop erstellen"
+      headline:
+        line1: "Professionellen"
+        line2: "<em>Shopify Shop</em> erstellen"
+      subheadline: "Von der ersten Idee bis zum erfolgreichen Launch. Wir bauen deinen Onlineshop, der verkauft."
+      ctas:
+        - text: "Projekt starten"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Unsere Leistungen"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#leistungen"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify Partner"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "100+ Shops gelauncht"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Conversion-optimiert"
+
+  - id: services
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Leistungen"
+      badgeIcon: "heroicons:squares-2x2-16-solid"
+      headline: "Alles aus einer Hand"
+      description: "Von der Strategie bis zum fertigen Shop - wir begleiten dich durch den gesamten Prozess."
+      services:
+        - tagline: "Konzeption"
+          title: "Strategie & Planung"
+          description: "Gemeinsam entwickeln wir dein Shop-Konzept, definieren Zielgruppen und planen die Customer Journey."
+          icon: "heroicons:light-bulb"
+        - tagline: "Design"
+          title: "UX & UI Design"
+          description: "Individuelles Design, das deine Marke widerspiegelt und Besucher zu Kunden macht."
+          icon: "heroicons:paint-brush"
+        - tagline: "Entwicklung"
+          title: "Shop Entwicklung"
+          description: "Professionelle Umsetzung mit Shopify 2.0, optimiert für Performance und Conversions."
+          icon: "heroicons:code-bracket"
+        - tagline: "Launch"
+          title: "Go-Live & Support"
+          description: "Reibungsloser Launch mit Schulung und fortlaufendem Support für deinen Erfolg."
+          icon: "heroicons:rocket-launch"
+
+  - id: process
+    enabled: true
+    order: 3
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+    content:
+      variant: light
+      badge: "Ablauf"
+      badgeIcon: "heroicons:arrow-path-16-solid"
+      headline: "In 4 Schritten zum <em>eigenen Shop</em>"
+      description: "Unser bewährter Prozess für erfolgreiche Shop-Projekte."
+      steps:
+        - title: "Kickoff & Strategie"
+          description: "Wir analysieren dein Geschäftsmodell, Zielgruppe und Wettbewerb."
+        - title: "Design & Konzept"
+          description: "Wireframes, Mockups und finales Design - bis du 100% zufrieden bist."
+        - title: "Entwicklung & Setup"
+          description: "Shop-Aufbau, Theme-Entwicklung, App-Integration und Content-Pflege."
+        - title: "Testing & Launch"
+          description: "Qualitätssicherung, Schulung und erfolgreicher Go-Live deines Shops."
+
+  - id: cta
+    enabled: true
+    order: 4
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Bereit für deinen <em>eigenen Shop?</em>"
+      description: "Lass uns gemeinsam deinen erfolgreichen Onlineshop aufbauen. Kostenloses Erstgespräch inklusive."
+      buttonText: "Projekt besprechen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

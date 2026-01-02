@@ -1,0 +1,145 @@
+lang: de
+pageId: ueber-uns
+
+meta:
+  title: "Über uns | digitalsprung - Shopify & E-Commerce Agentur"
+  description: "Lerne das Team hinter digitalsprung kennen. Wir sind eine inhabergeführte Shopify Agentur mit Sitz in Heinsberg bei Mönchengladbach."
+
+slug: "ueber-uns"
+
+settings:
+  status: published
+  priority: 0.7
+  headerVariant: light
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: light
+      padding: none
+      container: false
+    content:
+      badge: "Über uns"
+      badgeIcon: "heroicons:users-16-solid"
+      headline: "Wir sind <em>digitalsprung</em>"
+      subheadline: "Eine inhabergeführte E-Commerce Agentur mit Leidenschaft für Shopify und datengetriebenes Marketing. Seit über 10 Jahren helfen wir Brands beim digitalen Wachstum."
+      image: "/src/assets/digitalsprung/images/about-team-collaboration.png"
+      imageAlt: "digitalsprung Team bei der Zusammenarbeit"
+      primaryCta: "Kontakt aufnehmen"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Unsere Projekte"
+      secondaryCtaHref: "/referenzen"
+
+  - id: values-mixed
+    enabled: true
+    order: 2
+    component: BentoMixed
+    wrapper:
+      variant: white
+      padding: lg
+      container: false
+    content:
+      gap: "md"
+      rounded: "2xl"
+      heroCard:
+        headline: "Partnerschaft auf Augenhöhe"
+        description: "Wir sehen uns nicht als Dienstleister, sondern als verlängertes Team. Dein Erfolg ist unser Erfolg."
+        ctaText: "Kontakt aufnehmen"
+        ctaHref: "/kontakt"
+        variant: "primary"
+      featureImage:
+        src: "/src/assets/digitalsprung/images/about-office-space.png"
+        alt: "digitalsprung Büro in Heinsberg"
+      smallImage:
+        src: "/src/assets/digitalsprung/images/about-development-work.png"
+        alt: "Entwicklungsarbeit am Laptop"
+      statementCard:
+        headline: "Qualität vor Quantität"
+        description: "Bei jedem Projekt."
+        variant: "accent"
+
+  - id: location
+    enabled: true
+    order: 3
+    component: Services
+    wrapper:
+      variant: light
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Standort"
+      badgeIcon: "heroicons:map-pin-16-solid"
+      headline: "Zu Hause in <em>Heinsberg</em>"
+      description: "Unsere Agentur liegt im schönen Heinsberg, nahe Mönchengladbach und Aachen. Wir arbeiten mit Kunden aus ganz Deutschland und darüber hinaus – remote und vor Ort."
+      services:
+        - tagline: "Adresse"
+          title: "digitalsprung GmbH"
+          description: "Gladbacher Str. 31A, 52525 Heinsberg"
+          icon: "heroicons:building-office-2"
+        - tagline: "Kontakt"
+          title: "Erreichbarkeit"
+          description: "Mo-Fr 9-18 Uhr. Telefon: +49 (0) 2435-94989-50"
+          icon: "heroicons:phone"
+
+  - id: seo-content
+    enabled: true
+    order: 4
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "Mehr als eine Agentur: <em>Dein Partner für E-Commerce Erfolg</em>"
+      tagline: "digitalsprung steht für persönliche Betreuung, technische Exzellenz und messbare Ergebnisse. Lerne uns kennen."
+      leftColumn:
+        - type: text
+          content: "Als <strong>inhabergeführte Agentur</strong> sind wir kein austauschbarer Dienstleister. Bei uns arbeiten echte Menschen mit Leidenschaft für E-Commerce – und das merkst du in jedem Projekt."
+        - type: text
+          content: "Unser Team vereint Expertise aus <strong>Entwicklung</strong>, <strong>Design</strong> und <strong>Marketing</strong>. Diese interdisziplinäre Aufstellung ermöglicht ganzheitliche Lösungen aus einer Hand."
+        - type: headline
+          content: "Was uns auszeichnet"
+        - type: bullets
+          content:
+            - "<strong>Spezialisierung</strong> – Fokus auf Shopify und E-Commerce"
+            - "<strong>Erfahrung</strong> – Über 10 Jahre im Markt"
+            - "<strong>Transparenz</strong> – Klare Kommunikation und faire Preise"
+            - "<strong>Qualität</strong> – Code und Design auf höchstem Niveau"
+            - "<strong>Partnerschaft</strong> – Langfristige Kundenbeziehungen"
+      rightColumn:
+        - type: text
+          content: "Wir glauben an <strong>nachhaltige Partnerschaften</strong>. Viele unserer Kunden begleiten wir seit dem ersten Tag – durch Wachstumsphasen, Relaunches und internationale Expansion."
+        - type: text
+          content: "Unser Büro liegt in <strong>Heinsberg</strong>, im Dreiländereck Deutschland-Niederlande-Belgien. Wir arbeiten mit Kunden aus dem gesamten deutschsprachigen Raum – flexibel remote oder vor Ort."
+        - type: headline
+          content: "Häufige Fragen über uns"
+        - type: faq
+          content:
+            - question: "Wie groß ist euer Team?"
+              answer: "Wir sind ein kleines, aber erfahrenes Team. Das bedeutet: kurze Wege, direkte Kommunikation und keine Praktikanten an deinem Projekt."
+            - question: "Arbeitet ihr auch mit Kunden außerhalb Deutschlands?"
+              answer: "Ja, wir betreuen Kunden aus Deutschland, Österreich, der Schweiz und darüber hinaus. Remote-Arbeit ist für uns Alltag."
+            - question: "Kann ich euch besuchen?"
+              answer: "Natürlich! Wir freuen uns über Besuch in unserem Büro in Heinsberg. Alternativ kommen wir auch gerne zu dir."
+
+  - id: cta
+    enabled: true
+    order: 5
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Lass uns <em>kennenlernen</em>"
+      description: "Ob vor Ort in Heinsberg oder remote – wir freuen uns auf ein Gespräch mit dir."
+      buttonText: "Kontakt aufnehmen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

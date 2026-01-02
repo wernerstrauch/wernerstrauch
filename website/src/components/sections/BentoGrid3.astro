@@ -1,0 +1,290 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import WireframeIllustration from "@components/illustrations/WireframeIllustration.astro";
+import type { SectionVariant } from "../../types";
+
+interface Props {
+  sectionVariant?: SectionVariant;
+}
+
+const { sectionVariant = "light" } = Astro.props;
+
+// Map variants for child illustration components that only support light/dark
+const illustrationVariant =
+  sectionVariant === "dark" || sectionVariant === "primary" ? "dark" : "light";
+
+const cards = [
+  {
+    title: "Datengetriebene Entscheidungen",
+    subtitle: "Analytics Dashboard",
+    description:
+      "Unsere Analytics-Dashboards zeigen dir in Echtzeit, was funktioniert und wo Optimierungspotenzial liegt. Von Customer Journey Tracking bis ROI-Analyse.",
+    icon: "heroicons:chart-bar",
+    colSpan: 4,
+    illustration: "dataflow",
+  },
+  {
+    title: "Technologie & Innovation",
+    subtitle: "KI-gestützte Optimierung",
+    description:
+      "Modernste Marketing-Technologien und automatisierte Workflows für effizientere Kampagnen.",
+    icon: "heroicons:cpu-chip",
+    colSpan: 2,
+    illustration: "geometric",
+  },
+  {
+    title: "Persönliche Betreuung",
+    subtitle: "Fester Ansprechpartner",
+    description:
+      "Kein anonymes Ticket-System. Du hast einen festen Ansprechpartner, der dein Business versteht.",
+    icon: "heroicons:users",
+    colSpan: 2,
+    illustration: "waves",
+  },
+  {
+    title: "Skalierbare Prozesse",
+    subtitle: "Wachstum ohne Grenzen",
+    description:
+      "Unsere erprobten Prozesse wachsen mit deinem Business. Von der ersten Kampagne bis zum vollständig automatisierten Marketing-System.",
+    icon: "heroicons:arrow-trending-up",
+    colSpan: 4,
+    illustration: "dataflow",
+  },
+];
+---
+
+<div class="bentogrid3-section relative" data-variant={sectionVariant}>
+  <Container class="max-w-[1400px]">
+    {/* Header */}
+    <div class="mb-10 sm:mb-16">
+      <div class="blur-in mb-4">
+        <div
+          class="bentogrid3-badge shadow-inner-blur inline-flex items-center rounded-full"
+        >
+          <div
+            class="bentogrid3-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5"
+          >
+            <Icon
+              name="heroicons:sparkles-16-solid"
+              class="bentogrid3-badge-icon h-4 w-4"
+            />
+            <span class="bentogrid3-badge-text text-sm font-semibold"
+              >Innovation trifft Performance</span
+            >
+          </div>
+        </div>
+      </div>
+      <h2
+        class="bentogrid3-headline scale-up mt-2 max-w-lg text-4xl font-semibold tracking-tight sm:text-5xl"
+        style="transition-delay: 100ms;"
+      >
+        Alles was du brauchst für
+        <span class="relative inline-block">
+          <span class="bentogrid3-highlight relative z-10"> Wachstum </span>
+          <span
+            class="bentogrid3-highlight-shadow absolute -top-px left-0 -z-10"
+            >Wachstum</span
+          >
+        </span>
+      </h2>
+    </div>
+
+    {/* Bento Grid */}
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-6 lg:grid-rows-2">
+      {/* Card 1 - Large (4 cols) */}
+      <div class="flex p-px lg:col-span-4">
+        <div
+          class="bentogrid3-card relative w-full overflow-hidden rounded-lg shadow-sm outline outline-1 lg:rounded-tl-[2rem]"
+        >
+          {/* Illustration Container */}
+          <div class="relative h-80 overflow-hidden">
+            <WireframeIllustration
+              variant={illustrationVariant}
+              theme="analytics"
+            />
+          </div>
+
+          {/* Content */}
+          <div class="p-10">
+            <div class="mb-2 flex items-center gap-3">
+              <Icon name={cards[0].icon} class="bentogrid3-card-icon h-5 w-5" />
+              <h3 class="bentogrid3-card-subtitle text-sm font-semibold">
+                {cards[0].subtitle}
+              </h3>
+            </div>
+            <p
+              class="bentogrid3-card-title mt-2 text-lg font-medium tracking-tight"
+            >
+              {cards[0].title}
+            </p>
+            <p class="bentogrid3-card-description mt-2 max-w-lg text-sm/6">
+              {cards[0].description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Card 2 - Small (2 cols) */}
+      <div class="flex p-px lg:col-span-2">
+        <div
+          class="bentogrid3-card relative w-full overflow-hidden rounded-lg shadow-sm outline outline-1 lg:rounded-tr-[2rem]"
+        >
+          {/* Illustration Container */}
+          <div class="relative h-80 overflow-hidden">
+            <WireframeIllustration variant={illustrationVariant} theme="tech" />
+          </div>
+
+          {/* Content */}
+          <div class="p-10">
+            <div class="mb-2 flex items-center gap-3">
+              <Icon name={cards[1].icon} class="bentogrid3-card-icon h-5 w-5" />
+              <h3 class="bentogrid3-card-subtitle text-sm font-semibold">
+                {cards[1].subtitle}
+              </h3>
+            </div>
+            <p
+              class="bentogrid3-card-title mt-2 text-lg font-medium tracking-tight"
+            >
+              {cards[1].title}
+            </p>
+            <p class="bentogrid3-card-description mt-2 max-w-lg text-sm/6">
+              {cards[1].description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Card 3 - Small (2 cols) */}
+      <div class="flex p-px lg:col-span-2">
+        <div
+          class="bentogrid3-card relative w-full overflow-hidden rounded-lg shadow-sm outline outline-1 lg:rounded-bl-[2rem]"
+        >
+          {/* Illustration Container */}
+          <div class="relative h-80 overflow-hidden">
+            <WireframeIllustration
+              variant={illustrationVariant}
+              theme="growth"
+            />
+          </div>
+
+          {/* Content */}
+          <div class="p-10">
+            <div class="mb-2 flex items-center gap-3">
+              <Icon name={cards[2].icon} class="bentogrid3-card-icon h-5 w-5" />
+              <h3 class="bentogrid3-card-subtitle text-sm font-semibold">
+                {cards[2].subtitle}
+              </h3>
+            </div>
+            <p
+              class="bentogrid3-card-title mt-2 text-lg font-medium tracking-tight"
+            >
+              {cards[2].title}
+            </p>
+            <p class="bentogrid3-card-description mt-2 max-w-lg text-sm/6">
+              {cards[2].description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Card 4 - Large (4 cols) */}
+      <div class="flex p-px lg:col-span-4">
+        <div
+          class="bentogrid3-card relative w-full overflow-hidden rounded-lg shadow-sm outline outline-1 lg:rounded-br-[2rem]"
+        >
+          {/* Illustration Container */}
+          <div class="relative h-80 overflow-hidden">
+            <WireframeIllustration
+              variant={illustrationVariant}
+              theme="email"
+            />
+          </div>
+
+          {/* Content */}
+          <div class="p-10">
+            <div class="mb-2 flex items-center gap-3">
+              <Icon name={cards[3].icon} class="bentogrid3-card-icon h-5 w-5" />
+              <h3 class="bentogrid3-card-subtitle text-sm font-semibold">
+                {cards[3].subtitle}
+              </h3>
+            </div>
+            <p
+              class="bentogrid3-card-title mt-2 text-lg font-medium tracking-tight"
+            >
+              {cards[3].title}
+            </p>
+            <p class="bentogrid3-card-description mt-2 max-w-lg text-sm/6">
+              {cards[3].description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .bentogrid3-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .bentogrid3-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .bentogrid3-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .bentogrid3-badge-text {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .bentogrid3-headline {
+    color: var(--section-text);
+  }
+
+  .bentogrid3-highlight {
+    color: var(--section-accent);
+  }
+
+  .bentogrid3-highlight-shadow {
+    color: color-mix(in srgb, var(--section-accent) 40%, transparent);
+  }
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .bentogrid3-card {
+    background: var(--section-card-bg);
+    outline-color: var(--section-card-border);
+  }
+
+  .bentogrid3-card-icon {
+    color: var(--section-accent);
+  }
+
+  .bentogrid3-card-subtitle {
+    color: var(--section-text-muted);
+  }
+
+  .bentogrid3-card-title {
+    color: var(--section-text);
+  }
+
+  .bentogrid3-card-description {
+    color: var(--section-text-muted);
+  }
+</style>

@@ -1,0 +1,419 @@
+---
+import { Icon } from "astro-icon/components";
+import { getSiteConfig } from "@config";
+import { LANGUAGES, type SupportedLanguage, getAlternateUrl } from "@lib/i18n";
+
+interface Props {
+  lang?: SupportedLanguage;
+  headerVariant?: "light" | "dark";
+  alternateUrl?: string;
+}
+
+const { lang = "de", headerVariant = "light", alternateUrl } = Astro.props;
+const siteConfig = getSiteConfig(lang);
+const navigation = siteConfig.navigation.main;
+const megaMenu = siteConfig.navigation.megaMenu || [];
+
+// Filter out nav items that have megaMenu dropdowns
+const megaMenuHrefs = megaMenu.map((cat) => cat.href);
+const navLinks = navigation.filter((link) => !megaMenuHrefs.includes(link.href));
+
+// Get the alternate language URL
+const targetLang = lang === "de" ? "en" : "de";
+const altUrl = getAlternateUrl(lang, alternateUrl);
+---
+
+<header
+  id="main-header"
+  class:list={[
+    "fixed top-0 right-0 left-0 z-50 transition-all duration-300",
+    headerVariant === "dark" ? "text-white" : "text-foreground",
+  ]}
+  data-header-variant={headerVariant}
+  x-data=`{
+    activeDropdown: null,
+    mobileMenuOpen: false,
+    mobileAccordion: null,
+    hoverTimeout: null,
+    openDropdown(index) {
+      if (this.hoverTimeout) {
+        clearTimeout(this.hoverTimeout);
+        this.hoverTimeout = null;
+      }
+      this.activeDropdown = index;
+    },
+    closeDropdownDelayed() {
+      this.hoverTimeout = setTimeout(() => {
+        this.activeDropdown = null;
+      }, 150);
+    },
+    cancelClose() {
+      if (this.hoverTimeout) {
+        clearTimeout(this.hoverTimeout);
+        this.hoverTimeout = null;
+      }
+    }
+  }`
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <nav class="relative flex h-20 items-center justify-between">
+      {/* Logo - Links */}
+      <a href={lang === "en" ? "/en" : "/"} class="flex items-center shrink-0">
+        <img
+          src="/werner-strauch-logo-weiss.svg"
+          alt="Werner Strauch"
+          class="h-8 w-auto"
+        />
+      </a>
+
+      {/* Desktop Navigation - Mittig */}
+      <div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+        {/* MegaMenu Dropdown Triggers */}
+        {megaMenu.map((category, index) => (
+          <div class="relative">
+            <a
+              href={category.href}
+              class:list={[
+                "group flex items-center gap-1 text-base font-medium transition-colors whitespace-nowrap",
+                headerVariant === "dark" ? "text-white/80 hover:text-white" : "text-foreground/80 hover:text-foreground",
+              ]}
+              x-on:mouseenter={`openDropdown(${index})`}
+              x-on:mouseleave="closeDropdownDelayed()"
+            >
+              {category.title}
+              <Icon
+                name="heroicons:chevron-down-16-solid"
+                class="h-4 w-4 opacity-50 transition-transform duration-200"
+                x-bind:class={`activeDropdown === ${index} ? 'rotate-180 opacity-100' : ''`}
+              />
+            </a>
+          </div>
+        ))}
+
+        {/* Regular Nav Links */}
+        {navLinks.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "text-base font-medium transition-colors hover:text-primary whitespace-nowrap",
+              headerVariant === "dark" ? "text-white/80 hover:text-white" : "text-foreground/80",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      {/* Right Side - Language + Button */}
+      <div class="hidden md:flex items-center gap-4 shrink-0">
+        {/* Language Switcher */}
+        <a
+          href={altUrl}
+          class:list={[
+            "flex items-center gap-1 text-sm transition-colors",
+            headerVariant === "dark" ? "text-white/40 hover:text-white/70" : "text-foreground/40 hover:text-foreground/70",
+          ]}
+          title={lang === "de" ? "Switch to English" : "Auf Deutsch wechseln"}
+        >
+          <span>{LANGUAGES[targetLang].code}</span>
+        </a>
+
+        {/* Contact Button */}
+        <a
+          href={lang === "en" ? "/en/contact" : "/kontakt"}
+          class="nav-contact-btn inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-none transition-all duration-300"
+        >
+          {lang === "en" ? "Contact" : "Kontakt"}
+        </a>
+      </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        type="button"
+        class="md:hidden p-2 -mr-2"
+        aria-label="Menu"
+        @click="mobileMenuOpen = !mobileMenuOpen"
+      >
+        <Icon name="heroicons:bars-3-16-solid" class="h-6 w-6" x-show="!mobileMenuOpen" />
+        <Icon name="heroicons:x-mark-16-solid" class="h-6 w-6" x-show="mobileMenuOpen" x-cloak />
+      </button>
+    </nav>
+  </div>
+
+  {/* Desktop MegaMenu Dropdowns */}
+  {megaMenu.map((category, index) => (
+    <div
+      class="absolute left-1/2 -translate-x-1/2 z-[60] hidden md:block"
+      x-show={`activeDropdown === ${index}`}
+      x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0 -translate-y-2"
+      x-transition:enter-end="opacity-100 translate-y-0"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100 translate-y-0"
+      x-transition:leave-end="opacity-0 -translate-y-2"
+      @mouseenter="cancelClose()"
+      @mouseleave="closeDropdownDelayed()"
+      x-cloak
+    >
+      <div class="mega-menu-dropdown rounded-2xl shadow-2xl overflow-hidden">
+        {category.subcategories && category.subcategories.length > 0 && (
+          <div class="p-6">
+            <div class="flex gap-8">
+              {category.subcategories.map((subcategory) => (
+                <div class="min-w-[240px]">
+                  <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-white/50">
+                    {subcategory.title}
+                  </h3>
+                  <ul class="space-y-1">
+                    {subcategory.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors duration-200 hover:bg-white/5"
+                        >
+                          {link.icon && (
+                            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 transition-colors group-hover:bg-[#c8ff00]/20">
+                              <Icon
+                                name={link.icon}
+                                class="h-4.5 w-4.5 text-[#c8ff00]"
+                              />
+                            </span>
+                          )}
+                          <div class="flex-1">
+                            <div class="flex items-center gap-1 text-[15px] font-medium text-white">
+                              {link.label}
+                              <Icon
+                                name="heroicons:chevron-right-16-solid"
+                                class="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100 text-[#c8ff00]"
+                              />
+                            </div>
+                            {link.description && (
+                              <p class="mt-1 text-sm leading-relaxed text-white/50">
+                                {link.description}
+                              </p>
+                            )}
+                          </div>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            {/* Trust Badges */}
+            {category.trustBadges && category.trustBadges.length > 0 && (
+              <div class="mt-6 flex flex-wrap items-center justify-center gap-4 border-t border-white/10 pt-5">
+                {category.trustBadges.map((badge) => (
+                  <div class="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white">
+                    {badge.icon && (
+                      <Icon
+                        name={badge.icon}
+                        class="h-4 w-4 text-[#c8ff00]"
+                      />
+                    )}
+                    <span>{badge.text}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  ))}
+
+  {/* Mobile Menu */}
+  <div
+    class="md:hidden absolute top-full left-0 right-0 mobile-menu-bg shadow-lg"
+    x-show="mobileMenuOpen"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 -translate-y-2"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-2"
+    @click.away="mobileMenuOpen = false"
+    x-cloak
+  >
+    <div class="px-4 py-4 space-y-2">
+      {/* MegaMenu Accordions */}
+      {megaMenu.map((category, index) => (
+        <div>
+          <button
+            type="button"
+            class="flex w-full items-center justify-between py-3 text-base font-medium text-white/90"
+            @click={`mobileAccordion = mobileAccordion === ${index} ? null : ${index}`}
+          >
+            <span>{category.title}</span>
+            <Icon
+              name="heroicons:chevron-down-16-solid"
+              class="h-4 w-4 transition-transform duration-200"
+              x-bind:class={`mobileAccordion === ${index} ? 'rotate-180' : ''`}
+            />
+          </button>
+          <div
+            x-show={`mobileAccordion === ${index}`}
+            x-collapse
+            x-cloak
+          >
+            <div class="pb-3 pl-4 space-y-4">
+              {category.subcategories?.map((subcategory) => (
+                <div>
+                  <div class="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
+                    {subcategory.title}
+                  </div>
+                  {subcategory.links.map((link) => (
+                    <a
+                      href={link.href}
+                      class="block py-1.5 text-sm text-white/70 hover:text-[#c8ff00]"
+                      @click="mobileMenuOpen = false"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* Regular Nav Links */}
+      {navLinks.map((item) => (
+        <a
+          href={item.href}
+          class="block py-3 text-base font-medium text-white/90 hover:text-[#c8ff00]"
+          @click="mobileMenuOpen = false"
+        >
+          {item.label}
+        </a>
+      ))}
+
+      <div class="border-t border-white/10 pt-3 mt-2">
+        <a
+          href={altUrl}
+          class="flex items-center gap-2 py-2 text-base font-medium text-white/60 hover:text-white"
+        >
+          <Icon name="heroicons:language-16-solid" class="h-5 w-5" />
+          <span>{lang === "de" ? "English" : "Deutsch"}</span>
+        </a>
+        <a
+          href={lang === "en" ? "/en/contact" : "/kontakt"}
+          class="mt-3 block w-full text-center nav-contact-btn px-5 py-3 text-sm font-semibold rounded-none"
+          @click="mobileMenuOpen = false"
+        >
+          {lang === "en" ? "Contact" : "Kontakt"}
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    const header = document.getElementById("main-header");
+
+    const SCROLL_THRESHOLD = 100;
+
+    function updateHeader() {
+      const scrolled = window.scrollY > SCROLL_THRESHOLD;
+
+      if (scrolled) {
+        header?.classList.add("header-scrolled");
+      } else {
+        header?.classList.remove("header-scrolled");
+      }
+    }
+
+    updateHeader();
+
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateHeader();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+
+  initHeader();
+  document.addEventListener("astro:after-swap", initHeader);
+</script>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  [x-cloak] {
+    display: none !important;
+  }
+
+  #main-header {
+    --header-bg-dark: #0a1628;
+    --header-primary: #c8ff00;
+  }
+
+  #main-header {
+    background-color: transparent;
+  }
+
+  #main-header.header-scrolled {
+    background-color: rgba(10, 22, 40, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  #main-header.header-scrolled {
+    color: white !important;
+  }
+
+  #main-header.header-scrolled a {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  #main-header.header-scrolled a:hover {
+    color: white !important;
+    opacity: 1;
+  }
+
+  .mobile-menu-bg {
+    background-color: var(--header-bg-dark);
+  }
+
+  .mega-menu-dropdown {
+    background-color: var(--header-bg-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-contact-btn {
+    background-color: var(--header-primary);
+    color: var(--header-bg-dark);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--header-primary) 40%, transparent);
+  }
+
+  .nav-contact-btn:hover {
+    box-shadow: 0 0 30px color-mix(in srgb, var(--header-primary) 60%, transparent);
+    transform: scale(1.02);
+  }
+
+  #main-header.header-scrolled .nav-contact-btn {
+    background-color: var(--header-primary);
+    color: var(--header-bg-dark) !important;
+  }
+
+  /* Scrolled state for mega menu links */
+  #main-header.header-scrolled .mega-menu-dropdown {
+    background-color: var(--header-bg-dark);
+  }
+
+  #main-header.header-scrolled .mega-menu-dropdown a {
+    color: white !important;
+  }
+
+  #main-header.header-scrolled .mega-menu-dropdown a:hover {
+    color: var(--header-primary) !important;
+  }
+</style>

@@ -1,0 +1,173 @@
+lang: de
+pageId: shopify-app-entwicklung
+
+meta:
+  title: "Shopify App Entwicklung | Custom Apps für deinen Shop"
+  description: "Individuelle Shopify Apps für spezielle Anforderungen. Private Apps, Custom Apps und Integrationen von erfahrenen Shopify Entwicklern."
+
+slug: "shopify-app-entwicklung"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:code-bracket-16-solid"
+        text: "App Development"
+      headline:
+        line1: "Shopify App"
+        line2: "<em>Entwicklung</em>"
+      subheadline: "Maßgeschneiderte Apps für Funktionen, die es nicht von der Stange gibt. Integrationen, Automatisierungen und individuelle Features."
+      ctas:
+        - text: "Projekt anfragen"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Use Cases"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#usecases"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify API Experten"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Node.js & React"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Polaris UI"
+
+  - id: usecases
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Use Cases"
+      badgeIcon: "heroicons:light-bulb-16-solid"
+      headline: "Wofür Custom <em>Apps?</em>"
+      description: "Typische Anwendungsfälle für individuelle Shopify App Entwicklung."
+      services:
+        - tagline: "Integration"
+          title: "ERP & PIM Anbindung"
+          description: "Nahtlose Integration von ERP-Systemen, PIMs und anderen Business-Tools."
+          icon: "heroicons:arrow-path-rounded-square"
+        - tagline: "Checkout"
+          title: "Checkout Extensions"
+          description: "Erweitere den Checkout mit Custom Fields, Validierungen oder Upsells."
+          icon: "heroicons:shopping-cart"
+        - tagline: "Backend"
+          title: "Admin Extensions"
+          description: "Custom Admin-Oberflächen für spezielle Workflows und Prozesse."
+          icon: "heroicons:cog-6-tooth"
+        - tagline: "Storefront"
+          title: "Theme App Extensions"
+          description: "Wiederverwendbare Frontend-Komponenten für Theme-Integration."
+          icon: "heroicons:squares-2x2"
+
+  - id: tech
+    enabled: true
+    order: 3
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+    content:
+      variant: light
+      badge: "Technologie"
+      badgeIcon: "heroicons:cpu-chip-16-solid"
+      headline: "Unser <em>Tech Stack</em>"
+      description: "Moderne Technologien für performante und wartbare Apps."
+      steps:
+        - title: "Shopify APIs"
+          description: "GraphQL Admin API, Storefront API, Checkout API und Webhooks."
+        - title: "Node.js & Remix"
+          description: "Server-Side mit Node.js und dem offiziellen Shopify Remix Template."
+        - title: "React & Polaris"
+          description: "Frontend mit React und Shopifys Design System für konsistente UX."
+        - title: "Cloud Hosting"
+          description: "Deployment auf AWS, Vercel oder Shopify App Hosting."
+
+  - id: seo-content
+    enabled: true
+    order: 4
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "Shopify App Entwicklung: <em>Custom Apps für individuelle Anforderungen</em>"
+      tagline: "Wenn es keine App von der Stange gibt, entwickeln wir sie. Maßgeschneiderte Lösungen für komplexe Geschäftslogik und nahtlose Integrationen."
+      leftColumn:
+        - type: text
+          content: "Die <strong>Shopify App Entwicklung</strong> erweitert die Möglichkeiten deines Shops weit über die Standard-Funktionen hinaus. Ob komplexe Produktkonfiguration, individuelle Checkout-Logik oder ERP-Integration."
+        - type: text
+          content: "Wir entwickeln <strong>Private Apps</strong> exklusiv für deinen Shop sowie <strong>Custom Apps</strong> mit Admin UI für eine nahtlose Integration in dein Shopify Backend."
+        - type: headline
+          content: "Arten von Shopify Apps"
+        - type: bullets
+          content:
+            - "<strong>Admin Extensions</strong> – Custom UI im Shopify Admin"
+            - "<strong>Checkout Extensions</strong> – Erweiterte Checkout-Funktionen"
+            - "<strong>Theme App Extensions</strong> – Frontend-Komponenten für Themes"
+            - "<strong>Webhooks & APIs</strong> – Echtzeit-Datenanbindungen"
+            - "<strong>Shopify Functions</strong> – Custom Backend-Logik"
+      rightColumn:
+        - type: text
+          content: "Unser Tech Stack basiert auf <strong>Node.js</strong>, <strong>Remix</strong> (dem offiziellen Shopify App Framework) und <strong>React</strong> mit Shopifys Polaris Design System für konsistente User Experience."
+        - type: text
+          content: "Jede App wird nach Shopify Best Practices entwickelt, inklusive OAuth-Authentifizierung, GDPR-Compliance und sicherer Datenspeicherung."
+        - type: headline
+          content: "FAQ zur Shopify App Entwicklung"
+        - type: faq
+          content:
+            - question: "Wie lange dauert die Entwicklung einer Custom App?"
+              answer: "Je nach Komplexität zwischen 4-12 Wochen. Eine einfache Integration ist schneller umsetzbar als eine App mit umfangreicher Admin-Oberfläche."
+            - question: "Kann ich die App auch im App Store veröffentlichen?"
+              answer: "Ja, wir können Public Apps für den Shopify App Store entwickeln. Beachte jedoch den Reviewprozess und die Umsatzbeteiligung von Shopify."
+            - question: "Was kostet eine Custom Shopify App?"
+              answer: "Die Kosten hängen vom Umfang ab. Einfache Integrationen starten bei ca. 3.000€, komplexe Apps können 10.000€+ kosten."
+
+  - id: cta
+    enabled: true
+    order: 5
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Individuelle <em>App gesucht?</em>"
+      description: "Erzähl uns von deinen Anforderungen – wir finden die beste Lösung."
+      buttonText: "Projekt besprechen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

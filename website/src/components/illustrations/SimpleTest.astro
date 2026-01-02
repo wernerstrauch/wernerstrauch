@@ -1,0 +1,34 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+}
+
+const { variant = "light" } = Astro.props;
+---
+
+<div class="test-illustration" data-variant={variant}>
+  <svg viewBox="0 0 400 400" class="w-full h-full">
+    <circle cx="200" cy="200" r="100" fill="none" stroke="currentColor" stroke-width="4" />
+    <circle cx="200" cy="200" r="50" fill="currentColor" opacity="0.3" />
+    <text x="200" y="200" text-anchor="middle" dominant-baseline="middle" fill="currentColor" font-size="20">TEST</text>
+  </svg>
+</div>
+
+<style>
+  .test-illustration {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  [data-variant="light"] {
+    color: #4f3ca2;
+    opacity: 0.8;
+  }
+
+  [data-variant="dark"] {
+    color: #b4e565;
+    opacity: 0.8;
+  }
+</style>

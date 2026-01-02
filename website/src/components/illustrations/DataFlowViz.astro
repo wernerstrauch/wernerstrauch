@@ -1,0 +1,397 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+  class?: string;
+}
+
+const { variant = "light", class: className = "" } = Astro.props;
+
+// Generate unique IDs for gradients to avoid conflicts
+const uniqueId = `dataflow-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div
+  class:list={["illustration-wrapper absolute inset-0 overflow-hidden pointer-events-none", className]}
+  data-variant={variant}
+>
+  <svg
+    viewBox="0 0 400 600"
+    class="w-full h-full"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      {/* Node Glow Gradient */}
+      <radialGradient id={`nodeGlow-${uniqueId}`}>
+        <stop offset="0%" stop-color="var(--illustration-primary)" stop-opacity="0.8" />
+        <stop offset="50%" stop-color="var(--illustration-primary)" stop-opacity="0.4" />
+        <stop offset="100%" stop-color="var(--illustration-primary)" stop-opacity="0" />
+      </radialGradient>
+
+      {/* Path Gradient */}
+      <linearGradient id={`pathGradient-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--illustration-primary)" stop-opacity="0.3" />
+        <stop offset="50%" stop-color="var(--illustration-secondary)" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="var(--illustration-tertiary)" stop-opacity="0.3" />
+      </linearGradient>
+    </defs>
+
+    {/* Main Data Paths - Flowing curved connections */}
+
+    {/* Path 1: Top-left to center */}
+    <path
+      class="data-path path-1"
+      d="M 50,80 Q 120,120 200,180 T 300,280"
+      fill="none"
+      stroke={`url(#pathGradient-${uniqueId})`}
+      stroke-width="2"
+      stroke-linecap="round"
+      pathLength="100"
+    />
+
+    {/* Path 2: Top-right to center-left */}
+    <path
+      class="data-path path-2"
+      d="M 350,100 Q 280,150 220,200 T 120,320"
+      fill="none"
+      stroke={`url(#pathGradient-${uniqueId})`}
+      stroke-width="2"
+      stroke-linecap="round"
+      pathLength="100"
+    />
+
+    {/* Path 3: Center to bottom */}
+    <path
+      class="data-path path-3"
+      d="M 200,240 Q 240,320 200,400 T 180,520"
+      fill="none"
+      stroke={`url(#pathGradient-${uniqueId})`}
+      stroke-width="2"
+      stroke-linecap="round"
+      pathLength="100"
+    />
+
+    {/* Path 4: Center-right diagonal */}
+    <path
+      class="data-path path-4"
+      d="M 280,200 Q 320,260 300,340 T 260,460"
+      fill="none"
+      stroke={`url(#pathGradient-${uniqueId})`}
+      stroke-width="2"
+      stroke-linecap="round"
+      pathLength="100"
+    />
+
+    {/* Path 5: Left side curve */}
+    <path
+      class="data-path path-5"
+      d="M 80,180 Q 60,260 90,340 T 140,480"
+      fill="none"
+      stroke={`url(#pathGradient-${uniqueId})`}
+      stroke-width="2"
+      stroke-linecap="round"
+      pathLength="100"
+    />
+
+    {/* Data Nodes - Connection points */}
+
+    {/* Node 1: Top-left hub */}
+    <g class="node node-1">
+      <circle cx="50" cy="80" r="20" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="50" cy="80" r="8" fill="var(--illustration-primary)" opacity="0.6" />
+      <circle class="node-pulse" cx="50" cy="80" r="8" fill="none" stroke="var(--illustration-primary)" stroke-width="2" />
+    </g>
+
+    {/* Node 2: Top-right hub */}
+    <g class="node node-2">
+      <circle cx="350" cy="100" r="18" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="350" cy="100" r="7" fill="var(--illustration-primary)" opacity="0.6" />
+      <circle class="node-pulse" cx="350" cy="100" r="7" fill="none" stroke="var(--illustration-primary)" stroke-width="2" />
+    </g>
+
+    {/* Node 3: Center main hub (larger) */}
+    <g class="node node-3">
+      <circle cx="200" cy="240" r="28" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="200" cy="240" r="12" fill="var(--illustration-primary)" opacity="0.7" />
+      <circle class="node-pulse" cx="200" cy="240" r="12" fill="none" stroke="var(--illustration-primary)" stroke-width="2.5" />
+    </g>
+
+    {/* Node 4: Center-right */}
+    <g class="node node-4">
+      <circle cx="280" cy="200" r="16" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="280" cy="200" r="6" fill="var(--illustration-primary)" opacity="0.6" />
+      <circle class="node-pulse" cx="280" cy="200" r="6" fill="none" stroke="var(--illustration-primary)" stroke-width="2" />
+    </g>
+
+    {/* Node 5: Left side */}
+    <g class="node node-5">
+      <circle cx="80" cy="180" r="15" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="80" cy="180" r="6" fill="var(--illustration-primary)" opacity="0.6" />
+      <circle class="node-pulse" cx="80" cy="180" r="6" fill="none" stroke="var(--illustration-primary)" stroke-width="2" />
+    </g>
+
+    {/* Node 6: Bottom-left */}
+    <g class="node node-6">
+      <circle cx="140" cy="480" r="17" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="140" cy="480" r="7" fill="var(--illustration-primary)" opacity="0.6" />
+      <circle class="node-pulse" cx="140" cy="480" r="7" fill="none" stroke="var(--illustration-primary)" stroke-width="2" />
+    </g>
+
+    {/* Node 7: Bottom-center */}
+    <g class="node node-7">
+      <circle cx="180" cy="520" r="19" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="180" cy="520" r="8" fill="var(--illustration-primary)" opacity="0.6" />
+      <circle class="node-pulse" cx="180" cy="520" r="8" fill="none" stroke="var(--illustration-primary)" stroke-width="2" />
+    </g>
+
+    {/* Node 8: Bottom-right */}
+    <g class="node node-8">
+      <circle cx="260" cy="460" r="16" fill={`url(#nodeGlow-${uniqueId})`} />
+      <circle cx="260" cy="460" r="6" fill="var(--illustration-primary)" opacity="0.6" />
+      <circle class="node-pulse" cx="260" cy="460" r="6" fill="none" stroke="var(--illustration-primary)" stroke-width="2" />
+    </g>
+
+    {/* Animated Data Particles - Moving along paths */}
+
+    {/* Particles on Path 1 */}
+    <circle class="particle particle-1a" r="3" fill="var(--illustration-primary)" opacity="0.9" />
+    <circle class="particle particle-1b" r="2.5" fill="var(--illustration-secondary)" opacity="0.8" />
+
+    {/* Particles on Path 2 */}
+    <circle class="particle particle-2a" r="3" fill="var(--illustration-primary)" opacity="0.9" />
+    <circle class="particle particle-2b" r="2.5" fill="var(--illustration-tertiary)" opacity="0.8" />
+
+    {/* Particles on Path 3 */}
+    <circle class="particle particle-3a" r="3.5" fill="var(--illustration-primary)" opacity="0.9" />
+    <circle class="particle particle-3b" r="2" fill="var(--illustration-secondary)" opacity="0.8" />
+
+    {/* Particles on Path 4 */}
+    <circle class="particle particle-4a" r="3" fill="var(--illustration-primary)" opacity="0.9" />
+
+    {/* Particles on Path 5 */}
+    <circle class="particle particle-5a" r="2.5" fill="var(--illustration-tertiary)" opacity="0.8" />
+  </svg>
+</div>
+
+<style>
+  .illustration-wrapper {
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Theme Color Variables */
+  [data-variant="light"] {
+    --illustration-primary: #4f3ca2;
+    --illustration-secondary: #6b5bb5;
+    --illustration-tertiary: #a090d0;
+  }
+
+  [data-variant="dark"] {
+    --illustration-primary: #b4e565;
+    --illustration-secondary: #9dd84f;
+    --illustration-tertiary: #7fbf3a;
+  }
+
+  /* Base opacity per variant */
+  [data-variant="light"] {
+    opacity: 0.4;
+  }
+
+  [data-variant="dark"] {
+    opacity: 0.5;
+  }
+
+  /* Hover state - increase opacity */
+  :global(.bento-card:hover) [data-variant="light"] {
+    opacity: 0.6;
+  }
+
+  :global(.bento-card:hover) [data-variant="dark"] {
+    opacity: 0.7;
+  }
+
+  /* Data Path Animations - Stroke drawing effect */
+  .data-path {
+    stroke-dasharray: 5 95;
+    stroke-dashoffset: 0;
+    animation: pathFlow 8s ease-in-out infinite;
+  }
+
+  .path-1 {
+    animation-delay: 0s;
+    animation-duration: 10s;
+  }
+
+  .path-2 {
+    animation-delay: 2s;
+    animation-duration: 12s;
+  }
+
+  .path-3 {
+    animation-delay: 4s;
+    animation-duration: 9s;
+  }
+
+  .path-4 {
+    animation-delay: 1s;
+    animation-duration: 11s;
+  }
+
+  .path-5 {
+    animation-delay: 3s;
+    animation-duration: 10s;
+  }
+
+  @keyframes pathFlow {
+    0% {
+      stroke-dashoffset: -10;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 100;
+      opacity: 0;
+    }
+  }
+
+  /* Node Pulse Animations */
+  .node-pulse {
+    animation: nodePulse 3s ease-in-out infinite;
+  }
+
+  .node-1 .node-pulse {
+    animation-delay: 0s;
+  }
+
+  .node-2 .node-pulse {
+    animation-delay: 0.4s;
+  }
+
+  .node-3 .node-pulse {
+    animation-delay: 0.8s;
+    animation-duration: 2.5s;
+  }
+
+  .node-4 .node-pulse {
+    animation-delay: 1.2s;
+  }
+
+  .node-5 .node-pulse {
+    animation-delay: 0.2s;
+  }
+
+  .node-6 .node-pulse {
+    animation-delay: 1.6s;
+  }
+
+  .node-7 .node-pulse {
+    animation-delay: 2s;
+  }
+
+  .node-8 .node-pulse {
+    animation-delay: 1.4s;
+  }
+
+  @keyframes nodePulse {
+    0%, 100% {
+      r: 8;
+      opacity: 0.8;
+    }
+    50% {
+      r: 16;
+      opacity: 0;
+    }
+  }
+
+  /* Particle Animations - Moving along paths */
+  .particle {
+    will-change: transform;
+  }
+
+  /* Path 1 particles */
+  .particle-1a {
+    offset-path: path("M 50,80 Q 120,120 200,180 T 300,280");
+    animation: particleMove 8s linear infinite;
+  }
+
+  .particle-1b {
+    offset-path: path("M 50,80 Q 120,120 200,180 T 300,280");
+    animation: particleMove 8s linear infinite;
+    animation-delay: 4s;
+  }
+
+  /* Path 2 particles */
+  .particle-2a {
+    offset-path: path("M 350,100 Q 280,150 220,200 T 120,320");
+    animation: particleMove 9s linear infinite;
+    animation-delay: 1s;
+  }
+
+  .particle-2b {
+    offset-path: path("M 350,100 Q 280,150 220,200 T 120,320");
+    animation: particleMove 9s linear infinite;
+    animation-delay: 5.5s;
+  }
+
+  /* Path 3 particles */
+  .particle-3a {
+    offset-path: path("M 200,240 Q 240,320 200,400 T 180,520");
+    animation: particleMove 10s linear infinite;
+    animation-delay: 2s;
+  }
+
+  .particle-3b {
+    offset-path: path("M 200,240 Q 240,320 200,400 T 180,520");
+    animation: particleMove 10s linear infinite;
+    animation-delay: 7s;
+  }
+
+  /* Path 4 particles */
+  .particle-4a {
+    offset-path: path("M 280,200 Q 320,260 300,340 T 260,460");
+    animation: particleMove 11s linear infinite;
+    animation-delay: 3s;
+  }
+
+  /* Path 5 particles */
+  .particle-5a {
+    offset-path: path("M 80,180 Q 60,260 90,340 T 140,480");
+    animation: particleMove 12s linear infinite;
+    animation-delay: 1.5s;
+  }
+
+  @keyframes particleMove {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .data-path,
+    .node-pulse,
+    .particle {
+      animation: none !important;
+    }
+
+    .data-path {
+      stroke-dasharray: none;
+      opacity: 0.5;
+    }
+  }
+</style>

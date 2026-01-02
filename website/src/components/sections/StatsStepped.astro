@@ -1,0 +1,606 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Stat {
+  value: number | string;
+  suffix?: string;
+  title: string;
+  description: string;
+  cardVariant?: "light" | "dark" | "primary";
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  stats?: Stat[];
+}
+
+const {
+  sectionVariant = "white",
+  badge,
+  badgeIcon = "heroicons:chart-pie-16-solid",
+  headline = "Zahlen, die <em>überzeugen</em>",
+  description = "Mit datengetriebenen Strategien und bewährten Methoden helfen wir dir, deinen E-Commerce-Erfolg nachhaltig zu steigern.",
+  stats = [
+    {
+      value: 35,
+      suffix: "+",
+      title: "Betreute Shops",
+      description: "E-Commerce Kunden vertrauen auf unsere Expertise",
+      cardVariant: "light",
+    },
+    {
+      value: "€50M+",
+      title: "Generierter Umsatz für unsere Kunden",
+      description: "Nachweisbarer Erfolg durch datengetriebenes Marketing",
+      cardVariant: "dark",
+    },
+    {
+      value: 4,
+      suffix: "x",
+      title: "Durchschn. ROAS",
+      description: "Return on Ad Spend - messbare Ergebnisse für dein Business",
+      cardVariant: "primary",
+    },
+  ],
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Card sizing and gap classes based on index
+const cardClasses = [
+  "sm:w-3/4 sm:max-w-md lg:w-72 lg:max-w-none lg:flex-none",
+  "lg:w-full lg:max-w-sm lg:flex-auto lg:gap-y-44",
+  "sm:w-11/12 sm:max-w-xl lg:w-full lg:max-w-none lg:flex-auto lg:gap-y-28",
+];
+---
+
+<div data-variant={sectionVariant}>
+  <Container>
+    {/* Header */}
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      {/* Badge */}
+      {
+        badge && (
+          <div class="blur-in mb-4 flex">
+            <div class="shadow-inner-blur stats-stepped__badge flex items-center rounded-full">
+              <div class="stats-stepped__badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                <Icon
+                  name={badgeIcon}
+                  class="stats-stepped__badge-icon h-4 w-4"
+                />
+                <span class="stats-stepped__badge-text text-sm font-medium">
+                  {badge}
+                </span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {/* Headline */}
+      <h2
+        class="stats-stepped__headline scale-up text-3xl leading-tight font-bold tracking-tight text-pretty sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+
+      {/* Description */}
+      {
+        description && (
+          <p
+            class="stats-stepped__description fade-up mt-6 text-base/7"
+            style="transition-delay: 150ms;"
+          >
+            {description}
+          </p>
+        )
+      }
+    </div>
+
+    {/* Stats Grid */}
+    <div
+      class="stats-stepped mx-auto mt-16 flex max-w-2xl flex-col gap-8 lg:mx-0 lg:mt-20 lg:max-w-none lg:flex-row lg:items-end"
+    >
+      {
+        stats.map((stat, index) => {
+          const cardVariant =
+            stat.cardVariant ||
+            (index === 0 ? "light" : index === 1 ? "dark" : "primary");
+          const sizeClass = cardClasses[index] || cardClasses[2];
+
+          return (
+            <div
+              class:list={[
+                "stat-card flex flex-col-reverse justify-between gap-x-16 gap-y-8 rounded-2xl p-8 sm:flex-row-reverse sm:items-end lg:flex-col lg:items-start",
+                sizeClass,
+              ]}
+              data-card-variant={cardVariant}
+              style={`--card-delay: ${index * 200}ms;`}
+            >
+              <p class="stats-stepped__stat-value stat-card__value flex-none text-4xl font-bold tracking-tight sm:text-5xl">
+                {typeof stat.value === "number" ? (
+                  <>
+                    <span class="counter" data-target={stat.value}>
+                      0
+                    </span>
+                    {stat.suffix && <span>{stat.suffix}</span>}
+                  </>
+                ) : (
+                  <span>{stat.value}</span>
+                )}
+              </p>
+              <div class="stat-card__text sm:w-80 sm:shrink lg:w-auto lg:flex-none">
+                <p class="stats-stepped__stat-label text-lg font-semibold tracking-tight lg:text-xl">
+                  {stat.title}
+                </p>
+                <p class="stats-stepped__stat-description mt-2 text-base/7 lg:text-lg/8">
+                  {stat.description}
+                </p>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  // Observe stat cards for animation
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 },
+  );
+
+  document.querySelectorAll(".stat-card").forEach((card) => {
+    cardObserver.observe(card);
+  });
+
+  // Counter animation with Apple-like easing
+  function animateCounter(
+    element: HTMLElement,
+    target: number,
+    duration: number = 2000,
+  ): void {
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime: number): void {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Apple-like ease-out-expo
+      const easeOutExpo = 1 - Math.pow(2, -10 * progress);
+      const current = Math.floor(start + (target - start) * easeOutExpo);
+
+      element.textContent = current.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = target.toString();
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Observe counters
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          const target = parseInt(element.dataset.target || "0", 10);
+
+          // Add slight delay based on index for stagger effect
+          const parent = element.closest("[class*='fade-up']");
+          const siblings = parent?.parentElement?.children;
+          let index = 0;
+          if (siblings && parent) {
+            index = Array.from(siblings).indexOf(parent);
+          }
+
+          setTimeout(() => {
+            animateCounter(element, target);
+          }, index * 150);
+
+          counterObserver.unobserve(element);
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  document.querySelectorAll(".stats-stepped .counter").forEach((element) => {
+    counterObserver.observe(element);
+  });
+</script>
+
+<style>
+  /* CSS Variables for theming */
+  [data-variant="white"] {
+    --section-text: #1c1c1e;
+    --section-text-muted: #6b7280;
+    --section-accent: var(--color-primary);
+  }
+
+  [data-variant="light"] {
+    --section-text: #1c1c1e;
+    --section-text-muted: #6b7280;
+    --section-accent: var(--color-primary);
+  }
+
+  [data-variant="dark"] {
+    --section-text: var(--color-white);
+    --section-text-muted: var(--color-gray-300);
+    --section-accent: var(--primary-light);
+  }
+
+  [data-variant="primary"] {
+    --section-text: #ffffff;
+    --section-text-muted: rgba(255, 255, 255, 0.8);
+    --section-accent: #ffffff;
+  }
+
+  /* Badge styles */
+  .stats-stepped__badge {
+    background-color: color-mix(
+      in srgb,
+      var(--section-accent) 10%,
+      transparent
+    );
+  }
+
+  .stats-stepped__badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  [data-variant="dark"] .stats-stepped__badge {
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  [data-variant="dark"] .stats-stepped__badge-inner {
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  }
+
+  [data-variant="primary"] .stats-stepped__badge {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  [data-variant="primary"] .stats-stepped__badge-inner {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .stats-stepped__badge-icon {
+    color: var(--section-accent);
+  }
+
+  .stats-stepped__badge-text {
+    color: var(--section-text);
+  }
+
+  /* Text styles */
+  .stats-stepped__headline {
+    color: var(--section-text);
+  }
+
+  .stats-stepped__description {
+    color: var(--section-text-muted);
+  }
+
+  /* Card styles based on card variant and section variant */
+  /* Light card variant */
+  [data-variant="white"] .stat-card[data-card-variant="light"] {
+    background-color: #f9fafb;
+  }
+
+  [data-variant="light"] .stat-card[data-card-variant="light"] {
+    background-color: #ffffff;
+    box-shadow: 0 0 0 1px #e5e7eb;
+  }
+
+  [data-variant="dark"] .stat-card[data-card-variant="light"] {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 1px inset rgba(255, 255, 255, 0.1);
+  }
+
+  [data-variant="primary"] .stat-card[data-card-variant="light"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 1px inset rgba(255, 255, 255, 0.2);
+  }
+
+  /* Dark card variant */
+  [data-variant="white"] .stat-card[data-card-variant="dark"],
+  [data-variant="light"] .stat-card[data-card-variant="dark"] {
+    background-color: #1c1c1e;
+  }
+
+  [data-variant="dark"] .stat-card[data-card-variant="dark"] {
+    background-color: #1f2937;
+    box-shadow: 0 0 0 1px inset rgba(255, 255, 255, 0.1);
+  }
+
+  [data-variant="primary"] .stat-card[data-card-variant="dark"] {
+    background-color: #1c1c1e;
+    box-shadow: 0 0 0 1px inset rgba(255, 255, 255, 0.1);
+  }
+
+  /* Primary card variant */
+  [data-variant="white"] .stat-card[data-card-variant="primary"],
+  [data-variant="light"] .stat-card[data-card-variant="primary"] {
+    background-color: var(--color-primary);
+  }
+
+  [data-variant="dark"] .stat-card[data-card-variant="primary"] {
+    background-color: var(--primary);
+  }
+
+  [data-variant="primary"] .stat-card[data-card-variant="primary"] {
+    background-color: #ffffff;
+  }
+
+  /* Stat value colors */
+  [data-variant="white"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-value,
+  [data-variant="light"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-value {
+    color: #1c1c1e;
+  }
+
+  [data-variant="dark"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-value,
+  [data-variant="primary"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-value {
+    color: #ffffff;
+  }
+
+  [data-variant="white"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-value,
+  [data-variant="light"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-value,
+  [data-variant="dark"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-value,
+  [data-variant="primary"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-value {
+    color: #ffffff;
+  }
+
+  [data-variant="white"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-value,
+  [data-variant="light"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-value {
+    color: #ffffff;
+  }
+
+  [data-variant="dark"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-value {
+    color: #ffffff;
+  }
+
+  [data-variant="primary"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-value {
+    color: var(--color-primary);
+  }
+
+  /* Stat label colors */
+  [data-variant="white"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-label,
+  [data-variant="light"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-label {
+    color: #1c1c1e;
+  }
+
+  [data-variant="dark"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-label,
+  [data-variant="primary"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-label {
+    color: #ffffff;
+  }
+
+  [data-variant="white"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-label,
+  [data-variant="light"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-label,
+  [data-variant="dark"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-label,
+  [data-variant="primary"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-label {
+    color: #ffffff;
+  }
+
+  [data-variant="white"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-label,
+  [data-variant="light"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-label {
+    color: #ffffff;
+  }
+
+  [data-variant="dark"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-label {
+    color: #ffffff;
+  }
+
+  [data-variant="primary"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-label {
+    color: #1c1c1e;
+  }
+
+  /* Stat description colors */
+  [data-variant="white"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-description,
+  [data-variant="light"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-description {
+    color: #6b7280;
+  }
+
+  [data-variant="dark"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-description {
+    color: #d1d5db;
+  }
+
+  [data-variant="primary"]
+    .stat-card[data-card-variant="light"]
+    .stats-stepped__stat-description {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  [data-variant="white"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-description,
+  [data-variant="light"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-description {
+    color: #9ca3af;
+  }
+
+  [data-variant="dark"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-description,
+  [data-variant="primary"]
+    .stat-card[data-card-variant="dark"]
+    .stats-stepped__stat-description {
+    color: #d1d5db;
+  }
+
+  [data-variant="white"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-description,
+  [data-variant="light"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-description {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  [data-variant="dark"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-description {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  [data-variant="primary"]
+    .stat-card[data-card-variant="primary"]
+    .stats-stepped__stat-description {
+    color: #6b7280;
+  }
+
+  .counter {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Card grow animation from bottom */
+  @keyframes cardGrow {
+    0% {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  /* Text fade in animation */
+  @keyframes textFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stat-card {
+    transform-origin: bottom;
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  .stat-card.animate {
+    animation: cardGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--card-delay, 0ms);
+  }
+
+  .stat-card__value,
+  .stat-card__text {
+    opacity: 0;
+  }
+
+  .stat-card.animate .stat-card__value,
+  .stat-card.animate .stat-card__text {
+    animation: textFadeIn 0.5s ease-out forwards;
+    /* Text appears after card animation completes (0.6s) + card delay */
+    animation-delay: calc(var(--card-delay, 0ms) + 0.5s);
+  }
+
+  .stat-card.animate .stat-card__value {
+    animation-delay: calc(var(--card-delay, 0ms) + 0.5s);
+  }
+
+  .stat-card.animate .stat-card__text {
+    animation-delay: calc(var(--card-delay, 0ms) + 0.6s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stat-card {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+    .stat-card__value,
+    .stat-card__text {
+      opacity: 1;
+    }
+    .stat-card.animate,
+    .stat-card.animate .stat-card__value,
+    .stat-card.animate .stat-card__text {
+      animation: none;
+    }
+  }
+</style>

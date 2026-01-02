@@ -1,0 +1,48 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  overlay?: boolean;
+  overlayColor?: string;
+  overlayOpacity?: number;
+  position?: "center" | "top" | "bottom";
+  blur?: boolean;
+}
+
+const {
+  src,
+  alt = "",
+  overlay = true,
+  overlayColor = "#1c1c1e",
+  overlayOpacity = 0.6,
+  position = "center",
+  blur = false,
+} = Astro.props;
+
+const positionStyles = {
+  center: "object-center",
+  top: "object-top",
+  bottom: "object-bottom",
+};
+---
+
+<div class="absolute inset-0">
+  <img
+    src={src}
+    alt={alt}
+    class:list={[
+      "h-full w-full object-cover",
+      positionStyles[position],
+      blur && "scale-105 blur-sm",
+    ]}
+    loading="lazy"
+  />
+  {
+    overlay && (
+      <div
+        class="absolute inset-0"
+        style={`background-color: ${overlayColor}; opacity: ${overlayOpacity};`}
+      />
+    )
+  }
+</div>

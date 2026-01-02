@@ -1,0 +1,96 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline: string;
+  features: Feature[];
+}
+
+const { sectionVariant = "white", headline, features = [] } = Astro.props;
+
+// Process headline: replace <em> tags with accent-colored spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<Container>
+  <div
+    class="feature-offset-grid mx-auto grid max-w-2xl grid-cols-1 gap-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-5"
+    data-variant={sectionVariant}
+  >
+    {/* Headline */}
+    <h2
+      class="fade-up headline col-span-2 text-4xl font-semibold tracking-tight text-pretty sm:text-5xl"
+      set:html={processedHeadline}
+    />
+
+    {/* Features Grid */}
+    <dl class="col-span-3 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2">
+      {
+        features.map((feature, index) => (
+          <div
+            class="fade-up"
+            style={`transition-delay: ${(index + 1) * 100}ms;`}
+          >
+            <dt class="feature-title text-base/7 font-semibold">
+              <div class="icon-bg mb-6 flex size-10 items-center justify-center rounded-lg">
+                <Icon name={feature.icon} class="icon-color size-6" />
+              </div>
+              {feature.title}
+            </dt>
+            <dd class="feature-description mt-1 text-base/7">
+              {feature.description}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</Container>
+
+<style>
+  /* Use section CSS variables from Section.astro */
+  .feature-offset-grid {
+    --headline-color: var(--section-text);
+    --feature-title-color: var(--section-text);
+    --feature-description-color: var(--section-text-muted);
+    --icon-bg: var(--section-accent);
+    --icon-color: var(--section-bg);
+  }
+
+  .headline {
+    color: var(--headline-color);
+  }
+
+  .feature-title {
+    color: var(--feature-title-color);
+  }
+
+  .feature-description {
+    color: var(--feature-description-color);
+  }
+
+  .icon-bg {
+    background-color: var(--icon-bg);
+  }
+
+  .icon-color {
+    color: var(--icon-color);
+  }
+</style>
+
+<script>
+  import "@scripts/animations";
+</script>

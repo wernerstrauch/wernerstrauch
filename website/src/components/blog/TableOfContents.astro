@@ -1,0 +1,78 @@
+---
+/**
+ * Table of Contents Component
+ *
+ * Displays a navigation list of article headings.
+ * Styled like Ramp's blog sidebar TOC.
+ */
+
+interface Props {
+  headings: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
+}
+
+const { headings } = Astro.props;
+
+// Filter to only h2 (first level)
+const tocHeadings = headings.filter((h) => h.depth === 2);
+---
+
+{
+  tocHeadings.length > 0 && (
+    <nav class="blog-toc">
+      <h2 class="blog-toc__title">In diesem Artikel</h2>
+      <div class="blog-toc__divider" />
+      <ul class="blog-toc__list">
+        {tocHeadings.map((heading) => (
+          <li>
+            <a href={`#${heading.slug}`} class="blog-toc__link">
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .blog-toc {
+    /* No background, minimal design like Ramp */
+  }
+
+  .blog-toc__title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-gray-900);
+  }
+
+  .blog-toc__divider {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--primary);
+  }
+
+  .blog-toc__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .blog-toc__link {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-gray-500);
+    transition: color 0.15s ease;
+  }
+
+  .blog-toc__link:hover {
+    color: var(--color-gray-900);
+    text-decoration: underline;
+  }
+</style>

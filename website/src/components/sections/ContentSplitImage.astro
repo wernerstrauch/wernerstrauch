@@ -1,0 +1,375 @@
+---
+import { Icon } from "astro-icon/components";
+import Button from "@components/shared/Button.astro";
+import type { SectionVariant } from "../../types";
+
+// Content Block Types
+interface TextBlock {
+  type: "text";
+  content: string | string[];
+}
+
+interface LeadBlock {
+  type: "lead";
+  content: string;
+}
+
+interface HeadingBlock {
+  type: "heading";
+  content: string;
+}
+
+interface FeaturesBlock {
+  type: "features";
+  items: {
+    icon: string;
+    title: string;
+    description: string;
+  }[];
+}
+
+interface ButtonBlock {
+  type: "button";
+  text: string;
+  href?: string;
+  variant?: "primary" | "secondary" | "secondary-dark" | "tertiary" | "white";
+  icon?: string;
+  dataOpenFunnel?: boolean;
+}
+
+type ContentBlock =
+  | TextBlock
+  | LeadBlock
+  | HeadingBlock
+  | FeaturesBlock
+  | ButtonBlock;
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  content?: ContentBlock[];
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: "left" | "right";
+}
+
+const {
+  sectionVariant = "white",
+  badge = "Unsere Expertise",
+  badgeIcon = "heroicons:rocket-launch-16-solid",
+  headline = "Wir bringen deinen <em>Online-Shop</em> auf das nächste Level",
+  content = [
+    {
+      type: "lead",
+      content:
+        "Mit datengetriebenen Strategien und bewährten Methoden helfen wir dir, deinen E-Commerce-Erfolg nachhaltig zu steigern.",
+    },
+    {
+      type: "text",
+      content:
+        "Unser Team aus erfahrenen E-Commerce-Experten kombiniert strategisches Denken mit technischer Exzellenz. Wir verstehen die Herausforderungen des modernen Online-Handels und entwickeln maßgeschneiderte Lösungen für dein Wachstum.",
+    },
+    {
+      type: "features",
+      items: [
+        {
+          icon: "heroicons:chart-bar-16-solid",
+          title: "Datengetriebene Strategien",
+          description:
+            "Wir analysieren deine Daten und entwickeln Strategien, die auf messbaren Ergebnissen basieren.",
+        },
+        {
+          icon: "heroicons:cog-6-tooth-16-solid",
+          title: "Technische Exzellenz",
+          description:
+            "Modernste Tools und Technologien für maximale Performance und Effizienz.",
+        },
+        {
+          icon: "heroicons:users-16-solid",
+          title: "Persönliche Betreuung",
+          description:
+            "Ein dediziertes Team, das deine Ziele versteht und mit dir zusammenarbeitet.",
+        },
+      ],
+    },
+    {
+      type: "heading",
+      content: "Bereit für den nächsten Schritt?",
+    },
+    {
+      type: "text",
+      content:
+        "Lass uns gemeinsam deine E-Commerce-Ziele erreichen. Wir freuen uns auf ein unverbindliches Gespräch.",
+    },
+    {
+      type: "button",
+      text: "Jetzt Kontakt aufnehmen",
+      href: "/kontakt",
+      variant: "primary",
+    },
+  ],
+  image = "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&q=80",
+  imageAlt = "",
+  imagePosition = "left",
+} = Astro.props;
+
+// Determine if dark variant for button styling
+const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
+
+// Get button variant based on section variant (like Hero.astro)
+const getButtonVariant = (
+  blockVariant?:
+    | "primary"
+    | "secondary"
+    | "secondary-dark"
+    | "tertiary"
+    | "white",
+): "primary" | "secondary" | "secondary-dark" | "tertiary" | "white" => {
+  let buttonVariant = blockVariant || "primary";
+  if (sectionVariant === "primary" && buttonVariant === "primary") {
+    buttonVariant = "white";
+  } else if (isDarkVariant && buttonVariant === "secondary") {
+    buttonVariant = "secondary-dark";
+  }
+  return buttonVariant;
+};
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline =
+  headline?.replace(
+    /<em>(.*?)<\/em>/g,
+    `<span style="${highlightStyle}">$1</span>`,
+  ) ?? "";
+
+const isImageLeft = imagePosition === "left";
+
+// Calculate animation delays for content blocks
+let delayIndex = 0;
+const getDelay = () => {
+  const delay = 150 + delayIndex * 50;
+  delayIndex++;
+  return delay;
+};
+---
+
+<div class="relative">
+  <div
+    class:list={[
+      "mx-auto max-w-(--breakpoint-xl) lg:flex lg:justify-between lg:px-8",
+      isImageLeft ? "xl:justify-end" : "xl:justify-start",
+    ]}
+  >
+    {/* Image Section */}
+    <div
+      class:list={[
+        "lg:flex lg:w-1/2 lg:shrink lg:grow-0",
+        isImageLeft
+          ? "xl:absolute xl:inset-y-0 xl:right-1/2 xl:w-1/2"
+          : "xl:absolute xl:inset-y-0 xl:left-1/2 xl:w-1/2",
+      ]}
+    >
+      <div
+        class:list={[
+          "relative h-80 lg:h-auto lg:w-full lg:grow",
+          isImageLeft ? "lg:-ml-8 xl:ml-0" : "lg:-mr-8 xl:mr-0",
+        ]}
+      >
+        <img
+          src={image}
+          alt={imageAlt}
+          class="absolute inset-0 size-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    {/* Content Section */}
+    <div class="px-5 sm:px-6 lg:contents">
+      <div
+        class:list={[
+          "mx-auto max-w-2xl pt-16 pb-24 sm:pt-20 sm:pb-32 lg:w-full lg:max-w-lg lg:flex-none lg:pt-32 xl:w-1/2",
+          isImageLeft ? "lg:mr-0 lg:ml-8" : "lg:mr-8 lg:ml-0",
+        ]}
+      >
+        {/* Badge */}
+        {
+          badge && (
+            <div class="blur-in mb-4 flex">
+              <div class="shadow-inner-blur content-split__badge flex items-center rounded-full">
+                <div class="flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                  <Icon
+                    name={badgeIcon}
+                    class="content-split__badge-icon h-4 w-4"
+                  />
+                  <span class="content-split__badge-text text-sm font-medium">
+                    {badge}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )
+        }
+
+        {/* Headline */}
+        <h2
+          class="content-split__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+
+        {/* Dynamic Content Blocks */}
+        {
+          content &&
+            content.map((block) => {
+              const delay = getDelay();
+
+              // Lead Block
+              if (block.type === "lead") {
+                return (
+                  <p
+                    class="content-split__lead fade-up mt-6 text-xl/8"
+                    style={`transition-delay: ${delay}ms;`}
+                  >
+                    {block.content}
+                  </p>
+                );
+              }
+
+              // Text Block
+              if (block.type === "text") {
+                const textContent = Array.isArray(block.content)
+                  ? block.content.join("")
+                  : block.content;
+                return (
+                  <div
+                    class="content-split__text fade-up mt-8 max-w-xl space-y-4 text-base/7 lg:max-w-none"
+                    style={`transition-delay: ${delay}ms;`}
+                    set:html={textContent}
+                  />
+                );
+              }
+
+              // Heading Block
+              if (block.type === "heading") {
+                return (
+                  <h3
+                    class="content-split__heading fade-up mt-12 text-2xl font-bold tracking-tight"
+                    style={`transition-delay: ${delay}ms;`}
+                  >
+                    {block.content}
+                  </h3>
+                );
+              }
+
+              // Features Block
+              if (block.type === "features") {
+                return (
+                  <ul role="list" class="mt-8 space-y-8">
+                    {block.items.map((feature, featureIndex) => (
+                      <li
+                        class="fade-up flex gap-x-3"
+                        style={`transition-delay: ${delay + featureIndex * 50}ms;`}
+                      >
+                        <Icon
+                          name={feature.icon}
+                          class="content-split__feature-icon mt-1 h-5 w-5 flex-none"
+                        />
+                        <span class="content-split__feature-text">
+                          <strong class="content-split__feature-title font-semibold">
+                            {feature.title}.
+                          </strong>{" "}
+                          {feature.description}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                );
+              }
+
+              // Button Block
+              if (block.type === "button") {
+                const buttonVariant = getButtonVariant(block.variant);
+                return (
+                  <div
+                    class="fade-up mt-10"
+                    style={`transition-delay: ${delay}ms;`}
+                  >
+                    <Button
+                      href={block.href}
+                      variant={buttonVariant}
+                      size="lg"
+                      data-open-funnel={block.dataOpenFunnel}
+                    >
+                      {block.icon && <Icon name={block.icon} class="h-4 w-4" />}
+                      <span>{block.text}</span>
+                    </Button>
+                  </div>
+                );
+              }
+
+              return null;
+            })
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Badge */
+  .content-split__badge {
+    background: var(--section-badge-bg);
+  }
+
+  .content-split__badge > div {
+    border-color: var(--section-badge-border);
+  }
+
+  .content-split__badge-icon {
+    color: var(--section-accent);
+  }
+
+  .content-split__badge-text {
+    color: var(--section-text);
+  }
+
+  /* Headline */
+  .content-split__headline {
+    color: var(--section-text);
+  }
+
+  /* Lead */
+  .content-split__lead {
+    color: var(--section-text-muted);
+  }
+
+  /* Text */
+  .content-split__text {
+    color: var(--section-text-muted);
+  }
+
+  .content-split__text :global(strong) {
+    color: var(--section-text);
+  }
+
+  /* Features */
+  .content-split__feature-icon {
+    color: var(--section-accent);
+  }
+
+  .content-split__feature-title {
+    color: var(--section-text);
+  }
+
+  .content-split__feature-text {
+    color: var(--section-text-muted);
+  }
+
+  /* Heading */
+  .content-split__heading {
+    color: var(--section-text);
+  }
+</style>

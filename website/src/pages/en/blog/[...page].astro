@@ -1,0 +1,237 @@
+---
+export const prerender = true;
+
+import RootLayout from "@layouts/RootLayout.astro";
+import Container from "@components/shared/Container.astro";
+import PageHeroCompact from "@components/shared/PageHeroCompact.astro";
+import Footer from "@components/sections/Footer.astro";
+import BlogCard from "@components/blog/BlogCard.astro";
+import CategoryFilter from "@components/blog/CategoryFilter.astro";
+import Pagination from "@components/blog/Pagination.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { type SupportedLanguage } from "@lib/i18n";
+import { SITE } from "@config";
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 12;
+  const allPosts = await getCollection(
+    "blog",
+    ({ data }: CollectionEntry<"blog">) => !data.draft && data.lang === "en",
+  );
+
+  const sortedPosts = allPosts.sort(
+    (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+      b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+  );
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(sortedPosts.length / POSTS_PER_PAGE),
+  );
+  const paths = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    const start = (i - 1) * POSTS_PER_PAGE;
+    const end = start + POSTS_PER_PAGE;
+    const pagePosts = sortedPosts.slice(start, end);
+
+    paths.push({
+      params: { page: i === 1 ? undefined : String(i) },
+      props: {
+        posts: pagePosts,
+        currentPage: i,
+        totalPages,
+        allPosts: sortedPosts,
+      },
+    });
+  }
+
+  return paths;
+}
+
+interface Props {
+  posts: CollectionEntry<"blog">[];
+  currentPage: number;
+  totalPages: number;
+  allPosts: CollectionEntry<"blog">[];
+}
+
+const { posts, currentPage, totalPages, allPosts } = Astro.props;
+
+// i18n setup
+const lang: SupportedLanguage = "en";
+const hreflangEntries = [
+  { lang: "de", url: `${SITE.website}/blog` },
+  { lang: "en", url: `${SITE.website}/en/blog` },
+  { lang: "x-default", url: `${SITE.website}/blog` },
+];
+// alternateUrl for language switcher reserved for future use
+
+// Get featured posts (only show on first page)
+const featuredPosts =
+  currentPage === 1
+    ? allPosts.filter((post: CollectionEntry<"blog">) => post.data.featured)
+    : [];
+
+// Category counts (based on all posts)
+const categoryConfig = [
+  { value: "tutorial", label: "Tutorial" },
+  { value: "vergleich", label: "Comparison" },
+  { value: "news", label: "News" },
+  { value: "case-study", label: "Case Study" },
+];
+
+const categories = categoryConfig.map((cat) => ({
+  ...cat,
+  count: allPosts.filter(
+    (post: CollectionEntry<"blog">) => post.data.category === cat.value,
+  ).length,
+}));
+---
+
+<RootLayout
+  title={currentPage === 1
+    ? "Blog & Insights | Shop Marketing"
+    : `Blog & Insights - Page ${currentPage} | Shop Marketing`}
+  description="Latest articles, tutorials and insights about AI agents, chatbots and Generative AI. Learn about the latest developments in AI automation."
+  lang={lang}
+  hreflangEntries={hreflangEntries}
+>
+  <main class="blog-index bg-gray-50">
+    <PageHeroCompact
+      sectionVariant="white"
+      icon="heroicons:newspaper"
+      title="Blog & Insights"
+      description="Latest articles, tutorials and insights about AI agents, chatbots and automation. Stay up to date with the latest developments."
+      breadcrumbs={[{ label: "Blog", href: "/en/blog" }]}
+    />
+
+    {/* Category Filter */}
+    <section class="py-8">
+      <Container>
+        <CategoryFilter categories={categories} />
+      </Container>
+    </section>
+
+    {/* Featured Posts (only on first page) */}
+    {
+      featuredPosts.length > 0 && currentPage === 1 && (
+        <>
+          <section class="pb-8" x-data>
+            <Container>
+              <h2 class="blog-index__section-title mb-6 text-sm font-semibold tracking-wider uppercase">
+                Featured
+              </h2>
+              <div class="grid gap-6 lg:grid-cols-2">
+                {featuredPosts
+                  .slice(0, 2)
+                  .map((post: CollectionEntry<"blog">) => (
+                    <div data-category={post.data.category} class="blog-item">
+                      <BlogCard post={post} featured={true} />
+                    </div>
+                  ))}
+              </div>
+            </Container>
+          </section>
+        </>
+      )
+    }
+
+    {/* All Posts Grid */}
+    <section class="py-8 sm:py-12" x-data>
+      <Container>
+        {
+          posts.length > 0 ? (
+            <>
+              <div
+                class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                x-ref="blogGrid"
+                x-on:filter-category.window={`
+                  const category = $event.detail.category;
+                  const items = $refs.blogGrid.querySelectorAll('.blog-item');
+                  items.forEach(item => {
+                    if (category === 'alle' || item.dataset.category === category) {
+                      item.style.display = '';
+                    } else {
+                      item.style.display = 'none';
+                    }
+                  });
+                `}
+              >
+                {posts.map((post: CollectionEntry<"blog">) => (
+                  <div data-category={post.data.category} class="blog-item">
+                    <BlogCard post={post} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              <div class="mt-12">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  baseUrl="/en/blog"
+                />
+              </div>
+            </>
+          ) : (
+            <div class="py-12 text-center">
+              <p class="text-lg text-gray-600">
+                No blog articles available yet.
+              </p>
+              <p class="mt-2 text-sm text-gray-500">Check back soon!</p>
+            </div>
+          )
+        }
+      </Container>
+    </section>
+
+    {/* Newsletter CTA */}
+    <section class="py-16 sm:py-20">
+      <Container class="max-w-2xl text-center">
+        <h2 class="blog-index__headline text-2xl font-bold sm:text-3xl">
+          Stay Informed
+        </h2>
+        <p class="blog-index__text mt-4">
+          Get the latest articles and insights directly to your inbox.
+        </p>
+        <a
+          href="/en/contact"
+          class="blog-index__cta-button mt-6 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white transition-colors"
+        >
+          Get in Touch
+        </a>
+      </Container>
+    </section>
+  </main>
+
+  <Footer />
+</RootLayout>
+
+<style>
+  @reference "../../../styles/styles.css";
+
+  /* Section titles */
+  .blog-index__section-title {
+    color: var(--primary);
+  }
+
+  /* Headlines */
+  .blog-index__headline {
+    color: var(--color-gray-900);
+  }
+
+  /* Text */
+  .blog-index__text {
+    color: var(--color-gray-600);
+  }
+
+  /* CTA Button */
+  .blog-index__cta-button {
+    background-color: var(--primary);
+  }
+
+  .blog-index__cta-button:hover {
+    background-color: var(--primary-dark);
+  }
+</style>

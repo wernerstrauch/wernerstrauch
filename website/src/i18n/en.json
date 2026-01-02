@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Articles about e-commerce, marketing and digital strategy",
+    "readMore": "Read more",
+    "readingTime": "{minutes} min read",
+    "publishedAt": "Published on",
+    "updatedAt": "Updated on",
+    "categories": "Categories",
+    "tags": "Tags",
+    "relatedPosts": "Related articles",
+    "allPosts": "All articles",
+    "noPostsFound": "No articles found",
+    "page": "Page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "imprint": "Imprint",
+    "privacy": "Privacy Policy"
+  },
+  "contact": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send message",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Error sending message. Please try again."
+  },
+  "cookie": {
+    "title": "Cookie Settings",
+    "description": "This website uses cookies to provide you with the best experience.",
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject all",
+    "settings": "Settings",
+    "necessary": "Necessary",
+    "analytics": "Analytics",
+    "marketing": "Marketing"
+  },
+  "language": {
+    "switch": "Switch language",
+    "de": "Deutsch",
+    "en": "English"
+  }
+}

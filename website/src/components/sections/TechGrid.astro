@@ -1,0 +1,193 @@
+---
+import { Icon } from "astro-icon/components";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type TechnologyEntry = CollectionEntry<"technologies">;
+
+interface Props {
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  filterCategory?: string;
+}
+
+const {
+  badge = "Tools",
+  badgeIcon = "heroicons:rectangle-stack",
+  headline = "Alle Technologien im Überblick",
+  filterCategory,
+} = Astro.props;
+
+// Technologien aus Content Collection laden
+let technologies: TechnologyEntry[] = await getCollection("technologies");
+
+// Optional nach Kategorie filtern
+if (filterCategory) {
+  technologies = technologies.filter((t) => t.data.category === filterCategory);
+}
+
+// Nach Order sortieren
+technologies = technologies.sort((a, b) => a.data.order - b.data.order);
+---
+
+<div class="tech-grid">
+  <div class="mb-12 text-center">
+    <div class="blur-in mb-4 flex justify-center">
+      <div
+        class="tech-grid__badge shadow-inner-blur flex items-center rounded-full"
+      >
+        <div
+          class="tech-grid__badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5"
+        >
+          <Icon name={badgeIcon} class="tech-grid__badge-icon h-4 w-4" />
+          <span class="tech-grid__badge-text text-sm font-medium">{badge}</span>
+        </div>
+      </div>
+    </div>
+    <h2
+      class="tech-grid__headline scale-up text-3xl font-bold tracking-tight sm:text-4xl"
+      style="transition-delay: 100ms;"
+    >
+      {headline}
+    </h2>
+  </div>
+
+  <div class="stagger-children grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      technologies.map((tech: TechnologyEntry) => (
+        <a
+          href={`/technologien/${tech.data.slug}`}
+          class="tech-grid__card group relative overflow-hidden rounded-2xl border p-6 transition-all duration-300"
+        >
+          <div class="flex items-start gap-4">
+            <div
+              class="tech-grid__icon-box flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border transition-colors"
+              style={
+                tech.data.color
+                  ? `border-color: ${tech.data.color}30; background-color: ${tech.data.color}15;`
+                  : ""
+              }
+            >
+              <Icon
+                name={tech.data.icon}
+                class="tech-grid__icon h-7 w-7"
+                style={tech.data.color ? `color: ${tech.data.color};` : ""}
+              />
+            </div>
+            <div class="flex-1">
+              <h3 class="tech-grid__title text-lg font-semibold transition-colors">
+                {tech.data.name}
+              </h3>
+              <p class="tech-grid__tagline mt-1 text-sm">{tech.data.tagline}</p>
+            </div>
+          </div>
+          <p class="tech-grid__description mt-4 line-clamp-2 text-sm leading-relaxed">
+            {tech.data.description}
+          </p>
+          <div class="tech-grid__link mt-4 flex items-center gap-2 text-sm font-medium transition-colors">
+            Mehr erfahren
+            <Icon
+              name="heroicons:arrow-right"
+              class="h-4 w-4 transition-transform group-hover:translate-x-1"
+            />
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .tech-grid__badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .tech-grid__badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .tech-grid__badge-icon {
+    color: var(--section-accent);
+  }
+
+  .tech-grid__badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .tech-grid__headline {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .tech-grid__card {
+    border-color: var(--section-card-border);
+    background: var(--section-card-bg);
+  }
+
+  .tech-grid__card:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 50%, transparent);
+  }
+
+  /* ========================================
+     Icon styles (fallback when no tech.data.color)
+     ======================================== */
+  .tech-grid__icon-box {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  }
+
+  .tech-grid__card:hover .tech-grid__icon-box {
+    border-color: color-mix(in srgb, var(--section-accent) 40%, transparent);
+  }
+
+  .tech-grid__icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .tech-grid__title {
+    color: var(--section-text);
+  }
+
+  .tech-grid__card:hover .tech-grid__title {
+    color: var(--section-accent);
+  }
+
+  .tech-grid__tagline {
+    color: color-mix(
+      in srgb,
+      var(--section-accent) 80%,
+      var(--section-text-muted)
+    );
+  }
+
+  .tech-grid__description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Link styles
+     ======================================== */
+  .tech-grid__link {
+    color: var(--section-accent);
+  }
+
+  .tech-grid__card:hover .tech-grid__link {
+    color: var(--section-text);
+  }
+</style>

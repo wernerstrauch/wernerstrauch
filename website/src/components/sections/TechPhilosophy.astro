@@ -1,0 +1,225 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  features?: Feature[];
+  sectionVariant?: "white" | "light" | "dark" | "primary";
+}
+
+const {
+  badge = "Unsere Philosophie",
+  badgeIcon = "heroicons:check-badge",
+  headline = "Warum diese Technologien?",
+  description = "Wir wählen unsere Tools sorgfältig aus und setzen auf Lösungen, die zuverlässig, skalierbar und zukunftssicher sind.",
+  features = [
+    {
+      icon: "heroicons:shield-check",
+      title: "Erprobt & Stabil",
+      description:
+        "Wir setzen auf bewährte Technologien mit aktiver Community und langfristigem Support.",
+    },
+    {
+      icon: "heroicons:arrows-pointing-out",
+      title: "Skalierbar",
+      description:
+        "Von Prototyp bis Enterprise - unsere Tools wachsen mit Ihren Anforderungen.",
+    },
+    {
+      icon: "heroicons:puzzle-piece",
+      title: "Integrierbar",
+      description:
+        "Alle Technologien arbeiten nahtlos zusammen und integrieren sich in Ihre Systeme.",
+    },
+    {
+      icon: "heroicons:currency-euro",
+      title: "Kosteneffizient",
+      description:
+        "Transparente Kosten und optimaler ROI durch kluge Technologiewahl.",
+    },
+  ],
+  sectionVariant = "dark",
+} = Astro.props;
+---
+
+<div class="tech-philosophy" data-variant={sectionVariant}>
+  <div class="grid items-center gap-12 lg:grid-cols-2">
+    <div>
+      <span
+        class="tech-philosophy__badge inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium"
+      >
+        <Icon name={badgeIcon} class="h-4 w-4" />
+        {badge}
+      </span>
+      <h2
+        class="tech-philosophy__headline mt-4 text-3xl font-bold tracking-tight sm:text-4xl"
+      >
+        {headline}
+      </h2>
+      {
+        description && (
+          <p class="tech-philosophy__description mt-4 text-lg leading-relaxed">
+            {description}
+          </p>
+        )
+      }
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        features.map((feature) => (
+          <div class="tech-philosophy__card rounded-xl border p-5">
+            <Icon name={feature.icon} class="tech-philosophy__icon h-8 w-8" />
+            <h3 class="tech-philosophy__title mt-3 font-semibold">
+              {feature.title}
+            </h3>
+            <p class="tech-philosophy__text mt-2 text-sm">
+              {feature.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  /* Dark variant */
+  .tech-philosophy[data-variant="dark"] .tech-philosophy__badge {
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    color: var(--primary-light);
+  }
+
+  .tech-philosophy[data-variant="dark"] .tech-philosophy__headline {
+    color: var(--color-gray-50);
+  }
+
+  .tech-philosophy[data-variant="dark"] .tech-philosophy__description {
+    color: var(--color-zinc-400);
+  }
+
+  .tech-philosophy[data-variant="dark"] .tech-philosophy__card {
+    border-color: rgb(255 255 255 / 6%);
+    background: rgb(255 255 255 / 1%);
+  }
+
+  .tech-philosophy[data-variant="dark"] .tech-philosophy__icon {
+    color: var(--primary);
+  }
+
+  .tech-philosophy[data-variant="dark"] .tech-philosophy__title {
+    color: var(--color-gray-100);
+  }
+
+  .tech-philosophy[data-variant="dark"] .tech-philosophy__text {
+    color: var(--color-zinc-400);
+  }
+
+  /* White variant */
+  .tech-philosophy[data-variant="white"] .tech-philosophy__badge {
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    color: var(--primary);
+  }
+
+  .tech-philosophy[data-variant="white"] .tech-philosophy__headline {
+    color: var(--color-gray-900);
+  }
+
+  .tech-philosophy[data-variant="white"] .tech-philosophy__description {
+    color: var(--color-gray-600);
+  }
+
+  .tech-philosophy[data-variant="white"] .tech-philosophy__card {
+    border-color: var(--color-gray-200);
+    background: white;
+  }
+
+  .tech-philosophy[data-variant="white"] .tech-philosophy__icon {
+    color: var(--primary);
+  }
+
+  .tech-philosophy[data-variant="white"] .tech-philosophy__title {
+    color: var(--color-gray-900);
+  }
+
+  .tech-philosophy[data-variant="white"] .tech-philosophy__text {
+    color: var(--color-gray-600);
+  }
+
+  /* Light variant */
+  .tech-philosophy[data-variant="light"] .tech-philosophy__badge {
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    color: var(--primary);
+  }
+
+  .tech-philosophy[data-variant="light"] .tech-philosophy__headline {
+    color: var(--color-gray-900);
+  }
+
+  .tech-philosophy[data-variant="light"] .tech-philosophy__description {
+    color: var(--color-gray-600);
+  }
+
+  .tech-philosophy[data-variant="light"] .tech-philosophy__card {
+    border-color: var(--color-gray-200);
+    background: white;
+  }
+
+  .tech-philosophy[data-variant="light"] .tech-philosophy__icon {
+    color: var(--primary);
+  }
+
+  .tech-philosophy[data-variant="light"] .tech-philosophy__title {
+    color: var(--color-gray-900);
+  }
+
+  .tech-philosophy[data-variant="light"] .tech-philosophy__text {
+    color: var(--color-gray-600);
+  }
+
+  /* Primary variant */
+  .tech-philosophy[data-variant="primary"] .tech-philosophy__badge {
+    border-color: rgb(255 255 255 / 20%);
+    background: rgb(255 255 255 / 10%);
+    color: white;
+  }
+
+  .tech-philosophy[data-variant="primary"] .tech-philosophy__headline {
+    color: white;
+  }
+
+  .tech-philosophy[data-variant="primary"] .tech-philosophy__description {
+    color: rgb(255 255 255 / 80%);
+  }
+
+  .tech-philosophy[data-variant="primary"] .tech-philosophy__card {
+    border-color: rgb(255 255 255 / 10%);
+    background: rgb(255 255 255 / 5%);
+  }
+
+  .tech-philosophy[data-variant="primary"] .tech-philosophy__icon {
+    color: white;
+  }
+
+  .tech-philosophy[data-variant="primary"] .tech-philosophy__title {
+    color: white;
+  }
+
+  .tech-philosophy[data-variant="primary"] .tech-philosophy__text {
+    color: rgb(255 255 255 / 70%);
+  }
+</style>

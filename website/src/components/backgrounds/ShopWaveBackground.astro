@@ -1,0 +1,377 @@
+---
+/**
+ * ShopWaveBackground - E-Commerce Network Visualization
+ * Multiple overlapping waves with floating Shopify icons
+ */
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  waveCount?: number;
+  accentColor?: string;
+  lineColor?: string;
+  bgColor?: string;
+  showIcons?: boolean;
+}
+
+const {
+  waveCount = 5,
+  accentColor = "#95BF47",
+  lineColor = "rgba(255, 255, 255, 0.15)",
+  bgColor = "#151515",
+  showIcons = true,
+} = Astro.props;
+---
+
+<div
+  class="shop-wave-background absolute inset-0 overflow-hidden"
+  style={`background-color: ${bgColor};`}
+  data-wave-count={waveCount}
+  data-accent-color={accentColor}
+  data-line-color={lineColor}
+>
+  <canvas class="shop-wave-canvas absolute inset-0 h-full w-full"></canvas>
+
+  {
+    showIcons && (
+      <div class="shop-wave-icons pointer-events-none absolute inset-0">
+        <div class="shop-wave-icon" data-wave-index="0" data-x-position="0.15">
+          <Icon
+            name="simple-icons:shopify"
+            class="icon-svg"
+            style={`color: ${accentColor};`}
+          />
+        </div>
+        <div class="shop-wave-icon" data-wave-index="2" data-x-position="0.40">
+          <Icon
+            name="simple-icons:shopify"
+            class="icon-svg"
+            style={`color: ${accentColor};`}
+          />
+        </div>
+        <div class="shop-wave-icon" data-wave-index="1" data-x-position="0.65">
+          <Icon
+            name="simple-icons:shopify"
+            class="icon-svg"
+            style={`color: ${accentColor};`}
+          />
+        </div>
+        <div class="shop-wave-icon" data-wave-index="4" data-x-position="0.90">
+          <Icon
+            name="simple-icons:shopify"
+            class="icon-svg"
+            style={`color: ${accentColor};`}
+          />
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  interface Wave {
+    baseYRatio: number;
+    amp1: number;
+    freq1: number;
+    speed1: number;
+    amp2: number;
+    freq2: number;
+    speed2: number;
+  }
+
+  interface IconElement {
+    element: HTMLElement;
+    waveIndex: number;
+    xPosition: number;
+    direction: number; // 1 = right, -1 = left
+    speed: number;
+    minX: number;
+    maxX: number;
+  }
+
+  function initShopWaveBackground() {
+    const container = document.querySelector(
+      ".shop-wave-background",
+    ) as HTMLElement;
+    if (!container) return;
+
+    const canvas = container.querySelector(
+      ".shop-wave-canvas",
+    ) as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Get config from data attributes
+    const waveCount = parseInt(container.dataset.waveCount || "5");
+    // accentColor reserved for future icon coloring (read from container.dataset.accentColor)
+    const lineColor =
+      container.dataset.lineColor || "rgba(255, 255, 255, 0.15)";
+
+    let width = 0;
+    let height = 0;
+    let time = 0;
+    let animationId: number;
+    let isVisible = true;
+    let hasRenderedFirstFrame = false;
+
+    // Wave definitions - varied base positions and slower speeds
+    const waveConfigs: Wave[] = [
+      // Wave 1: Upper area, slow and large
+      {
+        baseYRatio: 0.35,
+        amp1: 250,
+        freq1: 0.0015,
+        speed1: 0.0008,
+        amp2: 80,
+        freq2: 0.003,
+        speed2: 0.0015,
+      },
+      // Wave 2: Lower area, gentle movement
+      {
+        baseYRatio: 0.65,
+        amp1: 200,
+        freq1: 0.0025,
+        speed1: -0.001,
+        amp2: 100,
+        freq2: 0.001,
+        speed2: 0.0004,
+      },
+      // Wave 3: Center, highest amplitude
+      {
+        baseYRatio: 0.5,
+        amp1: 300,
+        freq1: 0.001,
+        speed1: 0.0012,
+        amp2: 60,
+        freq2: 0.004,
+        speed2: -0.0006,
+      },
+      // Wave 4: Upper-center
+      {
+        baseYRatio: 0.42,
+        amp1: 180,
+        freq1: 0.003,
+        speed1: 0.0006,
+        amp2: 120,
+        freq2: 0.0015,
+        speed2: 0.001,
+      },
+      // Wave 5: Lower-center, wide swinging
+      {
+        baseYRatio: 0.58,
+        amp1: 350,
+        freq1: 0.0012,
+        speed1: -0.0006,
+        amp2: 90,
+        freq2: 0.005,
+        speed2: 0.0004,
+      },
+    ];
+
+    // Use only the configured number of waves
+    const waves = waveConfigs.slice(0, waveCount);
+
+    // Collect icon elements with movement properties
+    const iconElements: IconElement[] = [];
+    const icons = container.querySelectorAll(".shop-wave-icon");
+    const iconSpeeds = [0.00008, 0.00012, 0.0001, 0.00009]; // Different speeds for variety
+    const iconRanges = [
+      { min: 0.08, max: 0.35 }, // Icon 1: left section
+      { min: 0.3, max: 0.55 }, // Icon 2: left-center
+      { min: 0.5, max: 0.75 }, // Icon 3: right-center
+      { min: 0.7, max: 0.92 }, // Icon 4: right section
+    ];
+
+    icons.forEach((icon, index) => {
+      const el = icon as HTMLElement;
+      const waveIndex = parseInt(el.dataset.waveIndex || "0");
+      const range = iconRanges[index] || { min: 0.1, max: 0.9 };
+      const xPosition = parseFloat(el.dataset.xPosition || "0.5");
+
+      iconElements.push({
+        element: el,
+        waveIndex,
+        xPosition,
+        direction: index % 2 === 0 ? 1 : -1, // Alternate directions
+        speed: iconSpeeds[index] || 0.0001,
+        minX: range.min,
+        maxX: range.max,
+      });
+    });
+
+    function getWaveY(wave: Wave, x: number, t: number): number {
+      const baseY = height * wave.baseYRatio;
+      const y1 = Math.sin(x * wave.freq1 + t * wave.speed1) * wave.amp1;
+      const y2 = Math.cos(x * wave.freq2 + t * wave.speed2) * wave.amp2;
+      return baseY + y1 + y2;
+    }
+
+    function resize() {
+      const rect = container.getBoundingClientRect();
+      width = Math.floor(rect.width);
+      height = Math.floor(rect.height);
+
+      if (width === 0 || height === 0 || !ctx) return;
+
+      const pixelRatio = Math.min(window.devicePixelRatio, 2);
+      canvas.width = width * pixelRatio;
+      canvas.height = height * pixelRatio;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.scale(pixelRatio, pixelRatio);
+    }
+
+    function animate() {
+      animationId = requestAnimationFrame(animate);
+
+      if (!isVisible || !ctx) return;
+
+      // Clear canvas (transparent to show CSS background)
+      ctx.clearRect(0, 0, width, height);
+
+      time += 1;
+
+      // Draw waves
+      ctx.lineWidth = 2;
+
+      waves.forEach((wave) => {
+        // Create gradient for depth effect
+        const gradient = ctx.createLinearGradient(0, 0, width, 0);
+        gradient.addColorStop(0, "rgba(255,255,255,0.02)");
+        gradient.addColorStop(0.5, lineColor);
+        gradient.addColorStop(1, "rgba(255,255,255,0.02)");
+
+        ctx.strokeStyle = gradient;
+        ctx.beginPath();
+
+        for (let x = 0; x <= width; x += 5) {
+          const y = getWaveY(wave, x, time);
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      });
+
+      // Update icon positions - move along waves
+      iconElements.forEach((item) => {
+        if (item.waveIndex >= waves.length) return;
+
+        // Move icon along its range
+        item.xPosition += item.speed * item.direction;
+
+        // Reverse direction at boundaries
+        if (item.xPosition >= item.maxX) {
+          item.xPosition = item.maxX;
+          item.direction = -1;
+        } else if (item.xPosition <= item.minX) {
+          item.xPosition = item.minX;
+          item.direction = 1;
+        }
+
+        const wave = waves[item.waveIndex];
+        const xPixel = width * item.xPosition;
+        const yPixel = getWaveY(wave, xPixel, time);
+
+        // Use transform for GPU-accelerated smooth animation
+        item.element.style.transform = `translate(${xPixel}px, ${yPixel}px)`;
+      });
+
+      // Show canvas after first render
+      if (!hasRenderedFirstFrame) {
+        hasRenderedFirstFrame = true;
+        canvas.classList.add("is-ready");
+        container.querySelector(".shop-wave-icons")?.classList.add("is-ready");
+      }
+    }
+
+    // ResizeObserver for container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      requestAnimationFrame(resize);
+    });
+    resizeObserver.observe(container);
+
+    // Visibility observer - pause when off-screen
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting;
+      },
+      { threshold: 0 },
+    );
+    visibilityObserver.observe(canvas);
+
+    // Initial setup
+    resize();
+    animationId = requestAnimationFrame(animate);
+
+    // Cleanup on navigation
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        cancelAnimationFrame(animationId);
+        resizeObserver.disconnect();
+        visibilityObserver.disconnect();
+      },
+      { once: true },
+    );
+  }
+
+  // Deferred initialization
+  function deferredInit() {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(() => initShopWaveBackground(), { timeout: 2000 });
+    } else {
+      setTimeout(initShopWaveBackground, 100);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", deferredInit);
+  } else {
+    deferredInit();
+  }
+  document.addEventListener("astro:after-swap", deferredInit);
+</script>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .shop-wave-background {
+    background-color: var(--color-zinc-900);
+  }
+
+  .shop-wave-canvas {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+
+  .shop-wave-canvas.is-ready {
+    opacity: 1;
+  }
+
+  .shop-wave-icons {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+
+  .shop-wave-icons.is-ready {
+    opacity: 1;
+  }
+
+  .shop-wave-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 20px rgba(149, 191, 71, 0.4));
+  }
+
+  .icon-svg {
+    width: 34px;
+    height: 34px;
+    /* Center the icon on the wave point */
+    margin-left: -17px;
+    margin-top: -17px;
+  }
+</style>

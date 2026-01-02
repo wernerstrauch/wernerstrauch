@@ -1,0 +1,104 @@
+---
+import { Icon } from "astro-icon/components";
+import { SITE, getSiteConfig } from "@config";
+import type { SupportedLanguage } from "@lib/i18n";
+import deTranslations from "@i18n/de.json";
+import enTranslations from "@i18n/en.json";
+
+interface Props {
+  lang?: SupportedLanguage;
+}
+
+const { lang = "de" } = Astro.props;
+const siteConfig = getSiteConfig(lang);
+const t = lang === "en" ? enTranslations : deTranslations;
+
+const footerNavigation = {
+  main: [
+    { name: t.nav.blog, href: lang === "en" ? "/en/blog" : "/blog" },
+    { name: t.nav.about, href: lang === "en" ? "/en/about" : "/ueber-mich" },
+    { name: t.nav.services, href: lang === "en" ? "/en/services" : "/leistungen" },
+    { name: t.nav.contact, href: lang === "en" ? "/en/contact" : "/kontakt" },
+  ],
+  legal: [
+    { name: t.footer.imprint, href: lang === "en" ? "/en/imprint" : "/impressum" },
+    { name: t.footer.privacy, href: lang === "en" ? "/en/privacy" : "/datenschutz" },
+  ],
+};
+---
+
+<footer class="bg-foreground text-white">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      {/* Brand */}
+      <div class="space-y-4">
+        <a href={lang === "en" ? "/en" : "/"} class="flex items-center gap-2 font-bold text-xl">
+          <span class="text-primary">WS</span>
+          <span>Werner Strauch</span>
+        </a>
+        <p class="text-sm text-white/60 max-w-xs">
+          {siteConfig.description}
+        </p>
+        {/* Social Links */}
+        <div class="flex gap-4">
+          {siteConfig.socials.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/60 hover:text-primary transition-colors"
+              aria-label={social.name}
+            >
+              <Icon name={social.icon} class="h-5 w-5" />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <div class="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div>
+          <h3 class="text-sm font-semibold text-white/40 uppercase tracking-wider">
+            Navigation
+          </h3>
+          <ul class="mt-4 space-y-3">
+            {footerNavigation.main.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-white/80 hover:text-white transition-colors"
+                >
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/40 uppercase tracking-wider">
+            Legal
+          </h3>
+          <ul class="mt-4 space-y-3">
+            {footerNavigation.legal.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-white/80 hover:text-white transition-colors"
+                >
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {/* Copyright */}
+    <div class="mt-12 border-t border-white/10 pt-8">
+      <p class="text-sm text-white/40 text-center">
+        © {new Date().getFullYear()} {siteConfig.author}. {t.footer.copyright}.
+      </p>
+    </div>
+  </div>
+</footer>

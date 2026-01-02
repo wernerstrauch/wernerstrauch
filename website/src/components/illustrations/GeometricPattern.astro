@@ -1,0 +1,412 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+  class?: string;
+}
+
+const { variant = "light", class: className = "" } = Astro.props;
+
+// Generate unique IDs for gradients
+const uniqueId = `geometric-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div
+  class:list={["illustration-wrapper absolute inset-0 overflow-hidden pointer-events-none", className]}
+  data-variant={variant}
+>
+  <svg
+    viewBox="0 0 400 400"
+    class="w-full h-full"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      {/* Shape Gradients */}
+      <linearGradient id={`shapeGradient1-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--illustration-primary)" stop-opacity="0.6" />
+        <stop offset="100%" stop-color="var(--illustration-secondary)" stop-opacity="0.3" />
+      </linearGradient>
+
+      <linearGradient id={`shapeGradient2-${uniqueId}`} x1="100%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--illustration-secondary)" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="var(--illustration-tertiary)" stop-opacity="0.4" />
+      </linearGradient>
+
+      <radialGradient id={`circleGradient-${uniqueId}`}>
+        <stop offset="0%" stop-color="var(--illustration-primary)" stop-opacity="0.7" />
+        <stop offset="100%" stop-color="var(--illustration-primary)" stop-opacity="0.1" />
+      </radialGradient>
+    </defs>
+
+    {/* Background layer - Large rotating hexagon */}
+    <g class="shape-layer layer-bg">
+      <polygon
+        class="shape hexagon-bg"
+        points="200,40 320,110 320,250 200,320 80,250 80,110"
+        fill={`url(#shapeGradient1-${uniqueId})`}
+        stroke="var(--illustration-primary)"
+        stroke-width="1"
+        opacity="0.3"
+      />
+    </g>
+
+    {/* Middle layer - Rotating triangles constellation */}
+    <g class="shape-layer layer-mid">
+      {/* Triangle 1 - Top */}
+      <polygon
+        class="shape triangle-1"
+        points="200,80 240,150 160,150"
+        fill="none"
+        stroke={`url(#shapeGradient2-${uniqueId})`}
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+
+      {/* Triangle 2 - Right */}
+      <polygon
+        class="shape triangle-2"
+        points="280,200 340,240 280,280"
+        fill="none"
+        stroke="var(--illustration-secondary)"
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+
+      {/* Triangle 3 - Left */}
+      <polygon
+        class="shape triangle-3"
+        points="120,200 60,240 120,280"
+        fill="none"
+        stroke="var(--illustration-tertiary)"
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+
+      {/* Triangle 4 - Bottom */}
+      <polygon
+        class="shape triangle-4"
+        points="200,320 160,250 240,250"
+        fill="none"
+        stroke={`url(#shapeGradient1-${uniqueId})`}
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+    </g>
+
+    {/* Center rotating squares */}
+    <g class="shape-layer layer-center">
+      {/* Outer square */}
+      <rect
+        class="shape square-outer"
+        x="140"
+        y="140"
+        width="120"
+        height="120"
+        fill="none"
+        stroke="var(--illustration-primary)"
+        stroke-width="2"
+        rx="4"
+      />
+
+      {/* Inner square */}
+      <rect
+        class="shape square-inner"
+        x="170"
+        y="170"
+        width="60"
+        height="60"
+        fill="none"
+        stroke="var(--illustration-secondary)"
+        stroke-width="2"
+        rx="3"
+      />
+    </g>
+
+    {/* Orbiting circles */}
+    <g class="orbit-system">
+      <circle
+        class="orbit-circle circle-1"
+        r="8"
+        fill="var(--illustration-primary)"
+        opacity="0.8"
+      />
+      <circle
+        class="orbit-circle circle-2"
+        r="6"
+        fill="var(--illustration-secondary)"
+        opacity="0.7"
+      />
+      <circle
+        class="orbit-circle circle-3"
+        r="7"
+        fill="var(--illustration-tertiary)"
+        opacity="0.8"
+      />
+      <circle
+        class="orbit-circle circle-4"
+        r="5"
+        fill="var(--illustration-primary)"
+        opacity="0.6"
+      />
+    </g>
+
+    {/* Corner accent shapes */}
+    <g class="corner-accents">
+      {/* Top-left diamond */}
+      <polygon
+        class="accent accent-1"
+        points="60,60 80,40 100,60 80,80"
+        fill="none"
+        stroke="var(--illustration-primary)"
+        stroke-width="1.5"
+      />
+
+      {/* Top-right star-like */}
+      <path
+        class="accent accent-2"
+        d="M 340,60 L 350,70 L 360,60 L 350,50 Z M 340,80 L 350,70 L 360,80 L 350,90 Z"
+        fill="none"
+        stroke="var(--illustration-secondary)"
+        stroke-width="1.5"
+      />
+
+      {/* Bottom-left plus */}
+      <path
+        class="accent accent-3"
+        d="M 60,340 L 60,360 M 50,350 L 70,350"
+        stroke="var(--illustration-tertiary)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+
+      {/* Bottom-right circle */}
+      <circle
+        class="accent accent-4"
+        cx="340"
+        cy="340"
+        r="12"
+        fill="none"
+        stroke="var(--illustration-primary)"
+        stroke-width="1.5"
+      />
+    </g>
+
+    {/* Connecting lines - subtle grid */}
+    <g class="connection-lines" opacity="0.2">
+      <line x1="200" y1="80" x2="200" y2="320" stroke="var(--illustration-primary)" stroke-width="0.5" stroke-dasharray="4 4" />
+      <line x1="80" y1="200" x2="320" y2="200" stroke="var(--illustration-primary)" stroke-width="0.5" stroke-dasharray="4 4" />
+      <line x1="120" y1="120" x2="280" y2="280" stroke="var(--illustration-secondary)" stroke-width="0.5" stroke-dasharray="4 4" />
+      <line x1="280" y1="120" x2="120" y2="280" stroke="var(--illustration-tertiary)" stroke-width="0.5" stroke-dasharray="4 4" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .illustration-wrapper {
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Theme Color Variables */
+  [data-variant="light"] {
+    --illustration-primary: #4f3ca2;
+    --illustration-secondary: #6b5bb5;
+    --illustration-tertiary: #a090d0;
+  }
+
+  [data-variant="dark"] {
+    --illustration-primary: #b4e565;
+    --illustration-secondary: #9dd84f;
+    --illustration-tertiary: #7fbf3a;
+  }
+
+  /* Base opacity per variant */
+  [data-variant="light"] {
+    opacity: 0.35;
+  }
+
+  [data-variant="dark"] {
+    opacity: 0.45;
+  }
+
+  /* Hover state - increase opacity */
+  :global(.bento-card:hover) [data-variant="light"] {
+    opacity: 0.55;
+  }
+
+  :global(.bento-card:hover) [data-variant="dark"] {
+    opacity: 0.65;
+  }
+
+  /* Background hexagon rotation */
+  .hexagon-bg {
+    transform-origin: 200px 200px;
+    animation: rotateClockwise 30s linear infinite;
+  }
+
+  @keyframes rotateClockwise {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Triangle constellation - orbit rotation */
+  .layer-mid {
+    transform-origin: 200px 200px;
+    animation: rotateCounterClockwise 25s linear infinite;
+  }
+
+  @keyframes rotateCounterClockwise {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  /* Individual triangle pulsing */
+  .triangle-1 {
+    animation: shapePulse 4s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .triangle-2 {
+    animation: shapePulse 4s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .triangle-3 {
+    animation: shapePulse 4s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  .triangle-4 {
+    animation: shapePulse 4s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+
+  @keyframes shapePulse {
+    0%, 100% {
+      stroke-opacity: 0.6;
+      stroke-width: 2;
+    }
+    50% {
+      stroke-opacity: 1;
+      stroke-width: 2.5;
+    }
+  }
+
+  /* Center squares - counter rotation */
+  .square-outer {
+    transform-origin: 200px 200px;
+    animation: rotateClockwise 20s linear infinite;
+  }
+
+  .square-inner {
+    transform-origin: 200px 200px;
+    animation: rotateCounterClockwise 15s linear infinite;
+  }
+
+  /* Orbiting circles */
+  .orbit-circle {
+    transform-origin: 200px 200px;
+  }
+
+  .circle-1 {
+    offset-path: path("M 200,200 m -100,0 a 100,100 0 1,0 200,0 a 100,100 0 1,0 -200,0");
+    animation: orbit 12s linear infinite;
+  }
+
+  .circle-2 {
+    offset-path: path("M 200,200 m -80,0 a 80,80 0 1,0 160,0 a 80,80 0 1,0 -160,0");
+    animation: orbit 10s linear infinite reverse;
+    animation-delay: 2s;
+  }
+
+  .circle-3 {
+    offset-path: path("M 200,200 m -60,0 a 60,60 0 1,0 120,0 a 60,60 0 1,0 -120,0");
+    animation: orbit 8s linear infinite;
+    animation-delay: 1s;
+  }
+
+  .circle-4 {
+    offset-path: path("M 200,200 m -40,0 a 40,40 0 1,0 80,0 a 40,40 0 1,0 -80,0");
+    animation: orbit 6s linear infinite reverse;
+    animation-delay: 3s;
+  }
+
+  @keyframes orbit {
+    from {
+      offset-distance: 0%;
+    }
+    to {
+      offset-distance: 100%;
+    }
+  }
+
+  /* Corner accents - subtle pulse */
+  .accent {
+    animation: accentPulse 5s ease-in-out infinite;
+  }
+
+  .accent-1 {
+    animation-delay: 0s;
+  }
+
+  .accent-2 {
+    animation-delay: 1.25s;
+  }
+
+  .accent-3 {
+    animation-delay: 2.5s;
+  }
+
+  .accent-4 {
+    animation-delay: 3.75s;
+  }
+
+  @keyframes accentPulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+
+  /* Connection lines animation */
+  .connection-lines {
+    animation: fadeInOut 8s ease-in-out infinite;
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .hexagon-bg,
+    .layer-mid,
+    .square-outer,
+    .square-inner,
+    .orbit-circle,
+    .accent,
+    .connection-lines {
+      animation: none !important;
+    }
+
+    .shape {
+      opacity: 0.5;
+    }
+  }
+</style>

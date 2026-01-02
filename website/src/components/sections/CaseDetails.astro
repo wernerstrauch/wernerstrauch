@@ -1,0 +1,352 @@
+---
+/**
+ * CaseDetails Section Component
+ *
+ * Project details table with key information like client name, duration,
+ * services, apps used, and live website link. Includes optional device mockup.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: CaseDetails
+ * content:
+ *   headline: "Lorem Ipsum"
+ *   description: "Lorem ipsum dolor sit amet..."
+ *   details:
+ *     - label: "Kunde"
+ *       value: "koawach"
+ *     - label: "Projektlaufzeit"
+ *       value: "2 Monate"
+ *     - label: "Unsere Leistungen"
+ *       tags:
+ *         - "UI/UX Design"
+ *         - "Animationen"
+ *         - "Migration"
+ *     - label: "Apps"
+ *       tags:
+ *         - "Klaviyo"
+ *         - "Judge.me"
+ *     - label: "Live Website"
+ *       link:
+ *         text: "Website besuchen"
+ *         href: "https://koawach.de"
+ *   phoneImage: "mockup_sprenger-mobile-home_detail"
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+import type { ImageMetadata } from "astro";
+
+interface DetailItem {
+  label: string;
+  value?: string;
+  tags?: string[];
+  link?: {
+    text: string;
+    href: string;
+  };
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  description?: string;
+  details?: DetailItem[];
+  phoneImage?: string; // Mockup name (without .png) from mockups/rendered/
+}
+
+const {
+  sectionVariant = "light",
+  headline,
+  description,
+  details = [],
+  phoneImage,
+} = Astro.props;
+
+// Dynamic import for phone mockup images
+const mockupImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/digitalsprung/phones/mockups/rendered/*.png",
+);
+
+let phoneImageData: ImageMetadata | string | null = null;
+if (phoneImage) {
+  // If it's a full path (starts with /), use as-is for backwards compatibility
+  if (phoneImage.startsWith("/")) {
+    phoneImageData = phoneImage;
+  } else {
+    // Otherwise, load from mockups/rendered/
+    const path = `/src/assets/digitalsprung/phones/mockups/rendered/${phoneImage}.png`;
+    const loader = mockupImages[path];
+    if (loader) {
+      const module = await loader();
+      phoneImageData = module.default;
+    }
+  }
+}
+
+// Helper to check if image is ImageMetadata (for Astro Image) or string (for img)
+const isImageMetadata = (
+  img: ImageMetadata | string | null,
+): img is ImageMetadata => img !== null && typeof img !== "string";
+---
+
+<div class="case-details" data-variant={sectionVariant}>
+  <Container>
+    <div class="flex flex-col gap-16">
+      {/* Header */}
+      {
+        (headline || description) && (
+          <div class="flex flex-col items-center gap-6 text-center">
+            {headline && (
+              <h2 class="case-details__headline scale-up text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[52px]">
+                {headline}
+              </h2>
+            )}
+            {description && (
+              <p
+                class="case-details__description fade-up max-w-3xl text-lg leading-relaxed sm:text-xl"
+                style="transition-delay: 100ms;"
+              >
+                {description}
+              </p>
+            )}
+          </div>
+        )
+      }
+
+      {/* Details Table with optional 3D Phone */}
+      <div class="case-details__wrapper relative">
+        {/* Details Card */}
+        <div
+          class="case-details__card fade-up rounded-xl p-6 shadow-lg sm:p-10 lg:pr-[35%]"
+          style="transition-delay: 200ms;"
+        >
+          <div class="flex flex-col gap-6">
+            {
+              /* First two items (Kunde, Projektlaufzeit) - Two columns on mobile */
+            }
+            {
+              details.length >= 2 && (
+                <div class="grid grid-cols-2 gap-4 sm:contents">
+                  {details.slice(0, 2).map((detail, index) => (
+                    <>
+                      {/* Show divider only on sm+ where it's single column */}
+                      {index > 0 && (
+                        <div class="case-details__divider hidden h-px w-full sm:block" />
+                      )}
+                      <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                        <span class="case-details__label text-base font-semibold sm:text-xl">
+                          {detail.label}
+                        </span>
+                        {detail.value && (
+                          <span class="case-details__value text-base sm:w-2/3 sm:text-xl">
+                            {detail.value}
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  ))}
+                </div>
+              )
+            }
+
+            {/* Remaining items - Normal single column layout */}
+            {
+              details.slice(2).map((detail) => (
+                <>
+                  <div class="case-details__divider h-px w-full" />
+                  <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <span class="case-details__label text-base font-semibold sm:text-xl">
+                      {detail.label}
+                    </span>
+
+                    {/* Simple Value */}
+                    {detail.value && (
+                      <span class="case-details__value text-base sm:w-2/3 sm:text-xl">
+                        {detail.value}
+                      </span>
+                    )}
+
+                    {/* Tags */}
+                    {detail.tags && detail.tags.length > 0 && (
+                      <div class="flex flex-wrap gap-2 sm:w-2/3 sm:gap-3">
+                        {detail.tags.map((tag) => (
+                          <span class="case-details__tag rounded-full px-2.5 py-0.5 text-sm sm:px-3 sm:py-1 sm:text-base">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Link */}
+                    {detail.link && (
+                      <a
+                        href={detail.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="case-details__link group flex items-center gap-2 text-base sm:text-xl"
+                      >
+                        <span>{detail.link.text}</span>
+                        <Icon
+                          name="heroicons:arrow-up-right-16-solid"
+                          class="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                      </a>
+                    )}
+                  </div>
+                </>
+              ))
+            }
+          </div>
+
+          {/* Phone Image - Inside card on mobile, absolute on desktop */}
+          {
+            phoneImageData && isImageMetadata(phoneImageData) ? (
+              <div class="case-details__phone-container pointer-events-none relative z-10 mt-6 flex justify-center lg:absolute lg:top-1/2 lg:-right-12 lg:mt-0 lg:-translate-y-1/2">
+                <Image
+                  src={phoneImageData}
+                  alt="Phone Mockup"
+                  class="case-details__phone h-auto w-[280px] object-contain sm:w-[340px] lg:w-[460px]"
+                  loading="lazy"
+                  widths={[280, 340, 460, 560, 680, 920]}
+                  sizes="(max-width: 640px) 280px, (max-width: 1024px) 340px, 460px"
+                />
+              </div>
+            ) : phoneImageData ? (
+              <div class="case-details__phone-container pointer-events-none relative z-10 mt-6 flex justify-center lg:absolute lg:top-1/2 lg:-right-12 lg:mt-0 lg:-translate-y-1/2">
+                <img
+                  src={phoneImageData}
+                  alt="Phone Mockup"
+                  class="case-details__phone h-auto w-[280px] object-contain sm:w-[340px] lg:w-[460px]"
+                  loading="lazy"
+                />
+              </div>
+            ) : null
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Base Colors - Light variant
+     ======================================== */
+  .case-details {
+    --details-headline: #1c1c1e;
+    --details-description: #6d6b76;
+    --details-card-bg: #ffffff;
+    --details-divider: rgba(0, 0, 0, 0.1);
+    --details-label: #000000;
+    --details-value: #000000;
+    --details-tag-bg: rgba(86, 86, 86, 0.3);
+    --details-tag-text: #1c1c1e;
+    --details-link: #1c1c1e;
+  }
+
+  .case-details[data-variant="white"] {
+    --details-card-bg: #f9f9f9;
+  }
+
+  .case-details[data-variant="dark"] {
+    --details-headline: #ffffff;
+    --details-description: #b1adbf;
+    --details-card-bg: #262626;
+    --details-divider: rgba(255, 255, 255, 0.1);
+    --details-label: #ffffff;
+    --details-value: #ffffff;
+    --details-tag-bg: #565656;
+    --details-tag-text: #ffffff;
+    --details-link: #ffffff;
+  }
+
+  /* ========================================
+     Apply Colors
+     ======================================== */
+  .case-details__headline {
+    color: var(--details-headline);
+  }
+
+  .case-details__description {
+    color: var(--details-description);
+  }
+
+  .case-details__card {
+    background: var(--details-card-bg);
+  }
+
+  .case-details__divider {
+    background: var(--details-divider);
+  }
+
+  .case-details__label {
+    color: var(--details-label);
+  }
+
+  .case-details__value {
+    color: var(--details-value);
+  }
+
+  .case-details__tag {
+    background: var(--details-tag-bg);
+    color: var(--details-tag-text);
+  }
+
+  .case-details__link {
+    color: var(--details-link);
+  }
+
+  .case-details__link:hover {
+    opacity: 0.8;
+  }
+
+  /* Shadow */
+  .case-details__card {
+    box-shadow: 0px 4px 48.6px 9px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Phone Image Container */
+  .case-details__phone-container {
+    z-index: 20;
+  }
+
+  .case-details__phone {
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.25));
+    animation: float-detail 5.5s ease-in-out infinite;
+  }
+
+  /* Phone extends beyond card on mobile */
+  @media (max-width: 1023px) {
+    .case-details__card {
+      overflow: visible;
+    }
+
+    .case-details__phone {
+      margin-bottom: -80px;
+    }
+  }
+
+  @keyframes float-detail {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .case-details__phone,
+    .case-details__link {
+      transition: none;
+    }
+
+    .case-details__phone {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,171 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import { CLIENTS } from "@config";
+import type { SectionVariant } from "../../types";
+
+interface Logo {
+  name: string;
+  src: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  logos?: Logo[];
+}
+
+const {
+  sectionVariant = "dark",
+  headline = "Vertrauen von innovativen Unternehmen",
+  logos,
+} = Astro.props;
+
+// Dynamisch Bilder aus src/assets laden
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,svg,webp}",
+);
+
+// Logos aus YAML oder Fallback auf CLIENTS
+let resolvedLogos: { name: string; logo: ImageMetadata | string }[] = [];
+
+if (logos && logos.length > 0) {
+  // Logos aus YAML verwenden
+  for (const logo of logos) {
+    if (logo.src.startsWith("/src/assets/")) {
+      // Asset-Pfad - dynamisch importieren
+      const imageLoader = allImages[logo.src];
+      if (imageLoader) {
+        const image = await imageLoader();
+        resolvedLogos.push({ name: logo.name, logo: image.default });
+      }
+    } else {
+      // Externer/Public Pfad - als String verwenden
+      resolvedLogos.push({ name: logo.name, logo: logo.src });
+    }
+  }
+} else {
+  // Fallback auf globale CLIENTS
+  resolvedLogos = CLIENTS.map((c) => ({ name: c.name, logo: c.logo }));
+}
+---
+
+<Container>
+  <div class="trustbar" data-variant={sectionVariant}>
+    <div class="relative mx-auto max-w-5xl overflow-hidden">
+      <p
+        class="trustbar__headline text-center text-[13px] font-bold tracking-wide uppercase sm:text-sm sm:font-extrabold sm:tracking-wider"
+      >
+        {headline}
+      </p>
+
+      {/* Logos Carousel */}
+      <div
+        class="relative mt-8 overflow-hidden [mask:linear-gradient(90deg,_transparent,_white_20%,_white_80%,_transparent)]"
+      >
+        <div
+          class="animate-infiniteScroll flex w-max items-center justify-around"
+        >
+          {
+            [...Array(2)].map(() => (
+              <div class="flex w-1/2 items-center">
+                {resolvedLogos.map((client) =>
+                  typeof client.logo === "string" ? (
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      class="trustbar__logo mx-3 h-8 w-auto scale-90 object-contain transition-all duration-300 sm:mx-6 sm:h-10 sm:scale-100"
+                    />
+                  ) : (
+                    <Image
+                      src={client.logo}
+                      alt={client.name}
+                      class="trustbar__logo mx-3 scale-90 transition-all duration-300 sm:mx-6 sm:scale-100"
+                    />
+                  ),
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</Container>
+
+<style>
+  .trustbar {
+    /* Headline colors - improved contrast */
+    --headline-color-white: rgb(82 82 91); /* #52525b - better contrast */
+    --headline-color-light: rgb(82 82 91); /* #52525b - better contrast */
+    --headline-color-dark: rgb(237 233 254 / 0.9);
+    --headline-color-primary: rgb(255 255 255 / 0.9);
+
+    /* Logo opacity */
+    --logo-opacity-white: 0.6;
+    --logo-opacity-light: 0.6;
+    --logo-opacity-dark: 0.7;
+    --logo-opacity-primary: 0.7;
+
+    /* Logo filters */
+    --logo-filter-white: brightness(0);
+    --logo-filter-light: brightness(0);
+    --logo-filter-dark: none;
+    --logo-filter-primary: brightness(0) invert(1);
+  }
+
+  /* Headline variants */
+  .trustbar[data-variant="white"] .trustbar__headline {
+    color: var(--headline-color-white);
+  }
+
+  .trustbar[data-variant="light"] .trustbar__headline {
+    color: var(--headline-color-light);
+  }
+
+  .trustbar[data-variant="dark"] .trustbar__headline {
+    color: var(--headline-color-dark);
+  }
+
+  .trustbar[data-variant="primary"] .trustbar__headline {
+    color: var(--headline-color-primary);
+  }
+
+  /* Logo variants */
+  .trustbar[data-variant="white"] .trustbar__logo {
+    opacity: var(--logo-opacity-white);
+    filter: var(--logo-filter-white);
+  }
+
+  .trustbar[data-variant="white"] .trustbar__logo:hover {
+    opacity: 1;
+  }
+
+  .trustbar[data-variant="light"] .trustbar__logo {
+    opacity: var(--logo-opacity-light);
+    filter: var(--logo-filter-light);
+  }
+
+  .trustbar[data-variant="light"] .trustbar__logo:hover {
+    opacity: 1;
+  }
+
+  .trustbar[data-variant="dark"] .trustbar__logo {
+    opacity: var(--logo-opacity-dark);
+    filter: var(--logo-filter-dark);
+  }
+
+  .trustbar[data-variant="dark"] .trustbar__logo:hover {
+    opacity: 1;
+  }
+
+  .trustbar[data-variant="primary"] .trustbar__logo {
+    opacity: var(--logo-opacity-primary);
+    filter: var(--logo-filter-primary);
+  }
+
+  .trustbar[data-variant="primary"] .trustbar__logo:hover {
+    opacity: 1;
+  }
+</style>

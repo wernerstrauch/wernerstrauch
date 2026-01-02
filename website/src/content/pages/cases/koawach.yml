@@ -1,0 +1,186 @@
+lang: de
+pageId: case-koawach
+
+meta:
+  title: "Koawach Case Study | digitalsprung - Shopify Agentur"
+  description: "Wie wir Koawach mit Shopify Migration und UX/UI Relaunch zu +45% höherer Conversionrate verholfen haben. Die Marke für gesunden Koffein-Kakao neu aufgestellt."
+
+slug: "cases/koawach"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # Hero Section
+  - id: case-hero
+    enabled: true
+    order: 1
+    component: CaseHero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+      overflow: visible
+    background:
+      type: GridBackground
+      color: "#795aff"
+      glowColor: "#795aff"
+      opacity: 0.1
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      title: "Koawach"
+      description: "Die Marke für gesunden Koffein-Kakao - wir haben den Onlineshop zu Shopify migriert und mit einem umfassenden UX/UI Relaunch neu aufgestellt. Das Ergebnis: mehr Performance, eine verbesserte Customer Experience und nachhaltiges Wachstum."
+      tags:
+        - "UI/UX Design"
+        - "Shopify Migration"
+      kpis:
+        - value: "+45%"
+          label: "höhere Conversionrate"
+        - value: "+40%"
+          label: "Umsatzwachstum"
+      phoneImages:
+        left: "mockup_koawach-mobile-pdp_left"
+        right: "mockup_koawach-mobile-home_right"
+
+  # Challenge Section (Problem/Ziel/Lösung)
+  - id: case-challenge
+    enabled: true
+    order: 2
+    component: CaseChallenge
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Case Study: Koawach"
+      headlineAccent: "im Detail"
+      description: "Koawach steht für die Kakao-Revolution – fair produziert, nachhaltig gedacht und mit der Extraportion Koffein. Damit die Marke auch digital ihre ganze Energie entfalten kann, haben wir den Onlineshop zu <a href='/leistungen/shopify-migration'>Shopify migriert</a>, ein frisches UX/UI Design entwickelt und die Customer Experience neu gedacht."
+      blocks:
+        - icon: "heroicons:chat-bubble-left-ellipsis"
+          title: "Problem"
+          description: "Koawach ist die bekannte Marke für fair produzierten Koffein-Kakao, die sich erfolgreich als Alternative zu Kaffee etabliert hat. Doch der alte Onlineshop war nicht mehr zeitgemäß: fehlende Skalierbarkeit, langsame Ladezeiten und ein Design, das die Marke nicht mehr authentisch widerspiegelte. Auch wichtige Marketing Tools und Schnittstellen waren nur unzureichend integriert. Das führte zu unnötigem Mehraufwand und <strong>verpassten Wachstumschancen</strong>."
+        - icon: "heroicons:flag"
+          title: "Ziel"
+          description: "Koawach wollte einen <strong>Shopify Onlineshop</strong>, der die Marke mit einem modernen <a href='/leistungen/ux-ui-design'>UX/UI Design</a> klar transportiert, auf Mobile und Desktop optimal performt, eine stabile Basis für Marketing, Tracking und Skalierung schafft und gleichzeitig die Customer Experience verbessert – vom ersten Kontakt bis zum Checkout."
+        - icon: "heroicons:light-bulb"
+          title: "Lösung"
+          description: "Gemeinsam mit Koawach haben wir die komplette <strong>Migration zu Shopify</strong> umgesetzt und den Shop neu aufgestellt: Strategie & Beratung mit Analyse der bestehenden Prozesse und SEO-Check. UX/UI Design für ein conversionoptimiertes Design, das die Markenwelt von Koawach digital erlebbar macht. Technische Umsetzung inkl. Produkt- und Kategoriedaten, Einbindung von Facebook Pixel & Google Analytics sowie individuelle Anpassungen."
+
+  # Services Section - Our services for this project
+  - id: case-services
+    enabled: true
+    order: 2.5
+    component: CaseServices
+    wrapper:
+      variant: white
+      padding: sm
+      container: false
+    content:
+      headline: "Unsere Leistungen"
+      headlineAccent: "im Projekt"
+      services:
+        - icon: "heroicons:chart-bar"
+          title: "Strategie"
+          description: "Unsere Strategie für Koawach setzte auf eine klare Customer Journey: Vom ersten Klick bis zum Checkout begleiten Micro-Conversions (z. B. Probierpakete oder Newsletter-Opt-ins) die Nutzer. Gleichzeitig wurde der Shop so strukturiert, dass er leicht skalierbar bleibt – für neue Produkte, Kampagnen und Märkte."
+          tags:
+            - "Conversion Rate Optimization"
+            - "Customer Journey"
+        - icon: "heroicons:paint-brush"
+          title: "Design"
+          description: "Das neue UX/UI Design stellt die Marke Koawach in den Mittelpunkt: kräftige Farben, klare Bildsprache und eine Nutzerführung, die Lust aufs Ausprobieren macht. Egal ob mobil oder am Desktop – das responsive Design sorgt für eine konsistente User Experience, die Vertrauen schafft und den Warenkorbwert steigert."
+          tags:
+            - "UI/UX Design"
+            - "Responsive Design"
+        - icon: "heroicons:code-bracket"
+          title: "Entwicklung"
+          description: "Technisch wurde der Shop von Grund auf auf Shopify migriert. Dabei haben wir individuelle Funktionen entwickelt, Schnittstellen integriert und die Performance optimiert. So entstand ein stabiler, zukunftsfähiger Onlineshop, der nahtlos mit ERP- und Marketing-Tools zusammenarbeitet und auf weitere Expansion vorbereitet ist."
+          tags:
+            - "Shopify Migration"
+            - "Schnittstellen & API"
+            - "Shopify Development"
+      columns: 3
+
+  # Project Details Section
+  - id: case-details
+    enabled: true
+    order: 3
+    component: CaseDetails
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Projektdaten"
+      headlineAccent: "im Überblick"
+      description: "Jedes Projekt bringt eigene Anforderungen mit – von der technischen Migration bis zum Design-Feinschliff. Hier sind die wichtigsten Eckdaten zum Koawach-Shop im Überblick."
+      details:
+        - label: "Kunde"
+          value: "Koawach"
+        - label: "Projektlaufzeit"
+          value: "4 Monate"
+        - label: "Unsere Leistungen"
+          tags:
+            - "Shopify Migration"
+            - "UX/UI Design"
+            - "Schnittstellen-Integration"
+            - "Shopify Relaunch"
+        - label: "Apps"
+          tags:
+            - "Klaviyo"
+            - "Judge.me"
+            - "Google Analytics"
+            - "Facebook Pixel"
+        - label: "Live Website"
+          link:
+            text: "Website besuchen"
+            href: "https://www.koawach.de"
+      phoneImage: "mockup_koawach-mobile-home_detail"
+  # Screenshots Section - Detailed Page Views
+  - id: case-screenshots
+    enabled: true
+    order: 5
+    component: CaseScreenshots
+    wrapper:
+      variant: dark
+      padding: lg
+      container: false
+    content:
+      headline: "Shop-Erlebnis"
+      headlineAccent: "im Überblick"
+      description: "Von der ersten Inspiration bis zum Kaufabschluss – jede Seite wurde für maximale Conversion und ein nahtloses Nutzererlebnis optimiert."
+      items:
+        - title: "Startseite"
+          description: "Der erste Eindruck zählt: Eine klare Hero-Section mit den Bestsellern, Trust-Elemente und eine intuitive Navigation führen Besucher direkt zu den Produkten. Storytelling und Markenwerte werden visuell transportiert."
+          image:
+            src: "/images/cases/koawach/koawach-mobile-home.png"
+            alt: "Koawach Startseite"
+        - title: "Produktdetailseite"
+          description: "Alle wichtigen Informationen auf einen Blick: hochwertige Produktbilder, Nährwertangaben, Kundenbewertungen und ein prominenter Add-to-Cart Button. Cross-Selling Elemente erhöhen den Warenkorbwert."
+          image:
+            src: "/images/cases/koawach/koawach-mobile-pdp.png"
+            alt: "Koawach Produktdetailseite"
+  # CTA Section
+  - id: cta
+    enabled: true
+    order: 8
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Dein Projekt könnte das <em>nächste</em> sein"
+      description: "Lass uns gemeinsam deine Erfolgsgeschichte schreiben. In einem kostenlosen Erstgespräch besprechen wir deine Vision und zeigen dir, wie wir sie umsetzen können."
+      buttonText: "Jetzt kontaktieren"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

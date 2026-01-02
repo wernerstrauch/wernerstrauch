@@ -1,0 +1,314 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+  icon?: "meta" | "google-ads" | "shopify" | "klaviyo";
+}
+
+const { variant = "light", icon = "meta" } = Astro.props;
+const uniqueId = `three-${icon}-${Math.random().toString(36).substring(2, 9)}`;
+
+// Icon Konfigurationen mit Farben
+const iconConfigs = {
+  meta: {
+    color: "#0081FB",
+    logo: "/images/meta-logo.svg", // Fallback, wird in Three.js gemalt
+  },
+  "google-ads": {
+    color: "#4285F4",
+    logo: "/images/google-ads-logo.svg",
+  },
+  shopify: {
+    color: "#96BF48",
+    logo: "/images/shopify-logo.svg",
+  },
+  klaviyo: {
+    color: "#000000",
+    logo: "/images/klaviyo-logo.svg",
+  },
+};
+
+const config = iconConfigs[icon];
+---
+
+<div
+  class="pointer-events-none absolute inset-0 overflow-hidden"
+  data-variant={variant}
+>
+  <canvas id={uniqueId} class="h-full w-full"></canvas>
+</div>
+
+<script
+  is:inline
+  define:vars={{ uniqueId, iconColor: config.color, iconType: icon }}
+>
+  // Three.js dynamisch importieren
+  import * as THREE from "three";
+
+  function initThreeIcon() {
+    const canvas = document.getElementById(uniqueId);
+    if (!canvas) return;
+
+    // Scene Setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      canvas.clientWidth / canvas.clientHeight,
+      0.1,
+      1000,
+    );
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      alpha: true,
+      antialias: true,
+    });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight1.position.set(5, 5, 5);
+    scene.add(directionalLight1);
+
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+    directionalLight2.position.set(-5, -5, -5);
+    scene.add(directionalLight2);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+    pointLight.position.set(0, 0, 10);
+    scene.add(pointLight);
+
+    // Erstelle 3D Icon basierend auf Typ
+    const iconGroup = new THREE.Group();
+
+    if (iconType === "meta") {
+      // Meta Logo - stilisiertes "M" mit Tiefe
+      const shape = new THREE.Shape();
+
+      // "M" Form zeichnen
+      shape.moveTo(-1, -1);
+      shape.lineTo(-0.6, 1);
+      shape.lineTo(-0.2, -0.5);
+      shape.lineTo(0.2, 1);
+      shape.lineTo(0.6, -0.5);
+      shape.lineTo(1, 1);
+      shape.lineTo(1, -1);
+      shape.lineTo(0.5, -1);
+      shape.lineTo(0.2, 0.3);
+      shape.lineTo(0, -0.3);
+      shape.lineTo(-0.2, 0.3);
+      shape.lineTo(-0.5, -1);
+      shape.lineTo(-1, -1);
+
+      const extrudeSettings = {
+        depth: 0.4,
+        bevelEnabled: true,
+        bevelThickness: 0.1,
+        bevelSize: 0.05,
+        bevelSegments: 5,
+      };
+
+      const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      const material = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(iconColor),
+        metalness: 0.3,
+        roughness: 0.4,
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      iconGroup.add(mesh);
+    } else if (iconType === "google-ads") {
+      // Google Ads - "G" mit farbigen Segmenten
+      const circleGeometry = new THREE.TorusGeometry(
+        1,
+        0.3,
+        16,
+        100,
+        Math.PI * 1.5,
+      );
+      const blueMaterial = new THREE.MeshStandardMaterial({
+        color: new THREE.Color("#4285F4"),
+        metalness: 0.3,
+        roughness: 0.4,
+      });
+      const blueTorus = new THREE.Mesh(circleGeometry, blueMaterial);
+      blueTorus.rotation.z = Math.PI * 0.25;
+      iconGroup.add(blueTorus);
+
+      // Horizontale Linie
+      const barGeometry = new THREE.BoxGeometry(1.2, 0.3, 0.3);
+      const barMesh = new THREE.Mesh(barGeometry, blueMaterial);
+      barMesh.position.set(0.3, 0, 0);
+      iconGroup.add(barMesh);
+    } else if (iconType === "shopify") {
+      // Shopify - Einkaufstasche mit 3D Tiefe
+      const bagShape = new THREE.Shape();
+
+      // Tasche zeichnen
+      bagShape.moveTo(-0.8, 0.5);
+      bagShape.lineTo(-1, -1);
+      bagShape.lineTo(1, -1);
+      bagShape.lineTo(0.8, 0.5);
+      bagShape.lineTo(-0.8, 0.5);
+
+      const extrudeSettings = {
+        depth: 0.5,
+        bevelEnabled: true,
+        bevelThickness: 0.08,
+        bevelSize: 0.05,
+        bevelSegments: 3,
+      };
+
+      const geometry = new THREE.ExtrudeGeometry(bagShape, extrudeSettings);
+      const material = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(iconColor),
+        metalness: 0.2,
+        roughness: 0.5,
+      });
+
+      const bag = new THREE.Mesh(geometry, material);
+      iconGroup.add(bag);
+
+      // Handle
+      const handleGeometry = new THREE.TorusGeometry(0.5, 0.1, 8, 32, Math.PI);
+      const handle = new THREE.Mesh(handleGeometry, material);
+      handle.rotation.z = Math.PI;
+      handle.position.y = 0.5;
+      handle.position.z = 0.25;
+      iconGroup.add(handle);
+    } else if (iconType === "klaviyo") {
+      // Klaviyo - Brief/Envelope mit 3D
+      const envelopeShape = new THREE.Shape();
+
+      // Briefumschlag
+      envelopeShape.moveTo(-1, -0.6);
+      envelopeShape.lineTo(1, -0.6);
+      envelopeShape.lineTo(1, 0.6);
+      envelopeShape.lineTo(-1, 0.6);
+      envelopeShape.lineTo(-1, -0.6);
+
+      const extrudeSettings = {
+        depth: 0.2,
+        bevelEnabled: true,
+        bevelThickness: 0.05,
+        bevelSize: 0.03,
+        bevelSegments: 2,
+      };
+
+      const geometry = new THREE.ExtrudeGeometry(
+        envelopeShape,
+        extrudeSettings,
+      );
+      const material = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(iconColor),
+        metalness: 0.4,
+        roughness: 0.3,
+      });
+
+      const envelope = new THREE.Mesh(geometry, material);
+      iconGroup.add(envelope);
+
+      // Flap (Klappe)
+      const flapGeometry = new THREE.BufferGeometry();
+      const vertices = new Float32Array([
+        -1, 0.6, 0.2, 0, -0.2, 0.2, 1, 0.6, 0.2,
+      ]);
+      flapGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(vertices, 3),
+      );
+      flapGeometry.computeVertexNormals();
+
+      const flapMaterial = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(iconColor).multiplyScalar(0.8),
+        metalness: 0.4,
+        roughness: 0.3,
+        side: THREE.DoubleSide,
+      });
+
+      const flap = new THREE.Mesh(flapGeometry, flapMaterial);
+      iconGroup.add(flap);
+    }
+
+    scene.add(iconGroup);
+
+    // Animation
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+
+    canvas.addEventListener("mousemove", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Smooth rotation based on mouse
+      targetRotationY = mouseX * 0.5;
+      targetRotationX = mouseY * 0.5;
+
+      iconGroup.rotation.y += (targetRotationY - iconGroup.rotation.y) * 0.05;
+      iconGroup.rotation.x += (targetRotationX - iconGroup.rotation.x) * 0.05;
+
+      // Continuous slow rotation
+      iconGroup.rotation.y += 0.003;
+
+      // Floating animation
+      iconGroup.position.y = Math.sin(Date.now() * 0.001) * 0.1;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Handle resize
+    const resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+
+      const width = entry.contentRect.width;
+      const height = entry.contentRect.height;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+
+    resizeObserver.observe(canvas);
+
+    // Cleanup on page transition
+    document.addEventListener("astro:before-swap", () => {
+      resizeObserver.disconnect();
+      renderer.dispose();
+      scene.clear();
+    });
+  }
+
+  // Initialize
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initThreeIcon);
+  } else {
+    initThreeIcon();
+  }
+
+  // Re-initialize on page transitions
+  document.addEventListener("astro:page-load", initThreeIcon);
+</script>
+
+<style>
+  canvas {
+    display: block;
+  }
+
+  [data-variant="dark"] canvas {
+    filter: brightness(1.1);
+  }
+</style>

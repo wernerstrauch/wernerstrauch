@@ -1,0 +1,298 @@
+---
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+// Import iPhone frame
+import iphoneFrame from "@assets/digitalsprung/phones/frames/iphone-13.png";
+
+interface PhoneScreen {
+  src: string;
+  alt?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  screens?: PhoneScreen[];
+  rotation?: number;
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Mobile First",
+  badgeIcon = "heroicons:device-phone-mobile-16-solid",
+  headline = "E-Commerce auf allen <em>Geräten</em>",
+  description = "Moderne Onlineshops müssen auf jedem Gerät perfekt funktionieren. Wir entwickeln responsive Lösungen, die auf Desktop, Tablet und Smartphone überzeugen.",
+  ctaText = "Jetzt Projekt starten",
+  ctaHref = "/kontakt",
+  screens = [],
+  rotation = -15,
+} = Astro.props;
+
+// Process headline for <em> tags
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Import screens dynamically
+const screenImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+
+// Resolve screen images
+const resolvedScreens = await Promise.all(
+  screens.map(async (screen) => {
+    if (screen.src.startsWith("/src/")) {
+      const imageModule = screenImages[screen.src];
+      if (imageModule) {
+        const resolved = await imageModule();
+        return { ...screen, image: resolved.default };
+      }
+    }
+    return { ...screen, image: null };
+  }),
+);
+
+// Create a grid pattern of phones (3 rows, multiple columns)
+// Each row is offset to create the diagonal pattern
+const rows = 3;
+const phonesPerRow = 6;
+---
+
+<div
+  class="phone-flatlay-section relative w-full overflow-hidden"
+  data-variant={sectionVariant}
+>
+  {/* Content */}
+  <Container>
+    <div class="relative z-20 py-16 text-center md:py-24 lg:py-32">
+      {/* Badge */}
+      {
+        badge && (
+          <div class="mb-6 flex justify-center">
+            <span class="phone-flatlay-badge inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-sm">
+              {badgeIcon && <Icon name={badgeIcon} class="h-4 w-4" />}
+              {badge}
+            </span>
+          </div>
+        )
+      }
+
+      {/* Headline */}
+      <h2
+        class="phone-flatlay-headline mx-auto max-w-4xl text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl"
+        set:html={processedHeadline}
+      />
+
+      {/* Description */}
+      {
+        description && (
+          <p class="phone-flatlay-description mx-auto mt-4 max-w-2xl text-base opacity-80 md:mt-6 md:text-lg">
+            {description}
+          </p>
+        )
+      }
+
+      {/* CTA */}
+      {
+        ctaText && ctaHref && (
+          <div class="mt-8 flex justify-center">
+            <Button
+              href={ctaHref}
+              variant={sectionVariant === "dark" ? "white" : "primary"}
+              size="lg"
+            >
+              {ctaText}
+            </Button>
+          </div>
+        )
+      }
+    </div>
+  </Container>
+
+  {/* Phone Grid Background */}
+  <div
+    class="phone-flatlay-grid absolute inset-0 z-10"
+    style={`transform: rotate(${rotation}deg) scale(1.5);`}
+  >
+    {
+      Array.from({ length: rows }).map((_, rowIndex) => {
+        // Offset each row for diagonal effect
+        const rowOffset = rowIndex * 50;
+
+        return (
+          <div
+            class="phone-flatlay-row flex gap-10 md:gap-14 lg:gap-20"
+            style={`
+            transform: translateX(${-rowOffset}px);
+            margin-bottom: 2.5rem;
+          `}
+          >
+            {Array.from({ length: phonesPerRow }).map((_, phoneIndex) => {
+              // Determine if this phone should be empty (white screen)
+              // Pattern: every 3rd phone in alternating rows
+              const isEmptyPhone = (rowIndex + phoneIndex) % 3 === 0;
+
+              // Cycle through available screens for non-empty phones
+              const screenIndex =
+                (rowIndex * phonesPerRow + phoneIndex) %
+                Math.max(resolvedScreens.length, 1);
+              const screen = isEmptyPhone ? null : resolvedScreens[screenIndex];
+
+              return (
+                <div
+                  class="phone-flatlay-phone shrink-0"
+                  style="width: clamp(100px, 15vw, 180px);"
+                  data-row={rowIndex}
+                  data-index={phoneIndex}
+                >
+                  <div class="phone-wrapper relative">
+                    {/* iPhone Frame */}
+                    <Image
+                      src={iphoneFrame}
+                      alt=""
+                      class="relative z-10 h-auto w-full"
+                      loading="lazy"
+                    />
+
+                    {/* Screen Content - either image or white background */}
+                    {screen?.image ? (
+                      <div class="phone-screen absolute top-[3%] right-[5%] left-[5%] z-[1] overflow-hidden rounded-[1rem] md:rounded-[1.5rem]">
+                        <Image
+                          src={screen.image}
+                          alt={screen.alt || ""}
+                          class="h-full w-full object-cover object-top"
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : (
+                      <div class="phone-screen phone-screen--empty absolute top-[3%] right-[5%] left-[5%] z-[1] overflow-hidden rounded-[1rem] bg-white md:rounded-[1.5rem]" />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })
+    }
+  </div>
+
+  {/* Gradient Overlay for readability */}
+  <div class="phone-flatlay-overlay absolute inset-0 z-[15]"></div>
+</div>
+
+<style>
+  .phone-flatlay-section {
+    --section-bg: var(--color-surface-light);
+    --section-text: var(--color-text-dark);
+    --section-text-muted: var(--color-text-muted);
+    --section-accent: var(--color-primary);
+    --section-border: var(--color-border-light);
+    --overlay-color: rgba(255, 255, 255, 0.85);
+    background: var(--section-bg);
+    color: var(--section-text);
+    min-height: 500px;
+  }
+
+  .phone-flatlay-section[data-variant="dark"] {
+    --section-bg: var(--color-surface-dark);
+    --section-text: var(--color-text-light);
+    --section-text-muted: var(--color-text-light-muted);
+    --section-accent: var(--color-accent);
+    --section-border: var(--color-border-dark);
+    --overlay-color: rgba(21, 21, 21, 0.85);
+  }
+
+  .phone-flatlay-section[data-variant="white"] {
+    --section-bg: white;
+    --section-text: var(--color-text-dark);
+    --section-text-muted: var(--color-text-muted);
+    --section-accent: var(--color-primary);
+    --section-border: var(--color-border-light);
+    --overlay-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .phone-flatlay-section[data-variant="primary"] {
+    --section-bg: var(--color-primary);
+    --section-text: white;
+    --section-text-muted: rgba(255, 255, 255, 0.8);
+    --section-accent: white;
+    --section-border: rgba(255, 255, 255, 0.2);
+    --overlay-color: rgba(121, 90, 255, 0.9);
+  }
+
+  .phone-flatlay-badge {
+    background: var(--section-bg);
+    border-color: var(--section-border);
+    color: var(--section-accent);
+  }
+
+  .phone-flatlay-headline {
+    color: var(--section-text);
+  }
+
+  .phone-flatlay-description {
+    color: var(--section-text-muted);
+  }
+
+  .phone-flatlay-grid {
+    transform-origin: center center;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  .phone-flatlay-row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .phone-flatlay-overlay {
+    background: radial-gradient(
+      ellipse at center,
+      var(--overlay-color) 0%,
+      var(--overlay-color) 40%,
+      transparent 80%
+    );
+  }
+
+  .phone-screen {
+    aspect-ratio: 9/19.5;
+  }
+
+  /* Subtle animation on phones */
+  @media (prefers-reduced-motion: no-preference) {
+    .phone-flatlay-phone {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .phone-flatlay-phone[data-row="1"] {
+      animation-delay: -2s;
+    }
+
+    .phone-flatlay-phone[data-row="2"] {
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+  }
+</style>

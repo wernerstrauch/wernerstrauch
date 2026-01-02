@@ -1,0 +1,195 @@
+lang: de
+pageId: case-club-of-comfort
+
+meta:
+  title: "Club of Comfort Case Study | digitalsprung - Shopify Agentur"
+  description: "Wie wir Club of Comfort mit Shopify Migration und UX/UI Relaunch zu mehr Performance und Conversion verholfen haben. Die Traditionsmarke für Herrenhosen modern inszeniert."
+
+slug: "cases/club-of-comfort"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # Hero Section
+  - id: case-hero
+    enabled: true
+    order: 1
+    component: CaseHero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+      overflow: visible
+    background:
+      type: GridBackground
+      color: "#1e3a5f"
+      glowColor: "#1e3a5f"
+      opacity: 0.1
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      title: "Club of Comfort"
+      description: "Die Marke für hochwertige Männermode mit Tragekomfort – wir haben den Onlineshop zu Shopify migriert und mit einem umfassenden UX/UI Relaunch neu aufgestellt. Das Ergebnis: mehr Performance, eine verbesserte Customer Experience und nachhaltiges Wachstum."
+      tags:
+        - "UI/UX Design"
+        - "Shopify Migration"
+      kpis:
+        - value: "+45%"
+          label: "höhere Conversionrate"
+        - value: "+40%"
+          label: "Umsatzwachstum"
+      phoneImages:
+        left: "mockup_club-of-comfort-mobile-pdp_left"
+        right: "mockup_club-of-comfort-mobile-home_right"
+
+  # Challenge Section (Problem/Ziel/Lösung)
+  - id: case-challenge
+    enabled: true
+    order: 2
+    component: CaseChallenge
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Case Study: Club of Comfort"
+      headlineAccent: "im Detail"
+      description: "Club of Comfort steht für Hosen mit echtem Mehrwert – modern, funktional und bequem. Damit diese Werte auch digital spürbar werden, haben wir den Onlineshop von WooCommerce zu <a href='/leistungen/shopify-migration'>Shopify migriert</a>, ein individuelles UX/UI Design entwickelt und die Customer Journey komplett neu gedacht."
+      blocks:
+        - icon: "heroicons:chat-bubble-left-ellipsis"
+          title: "Problem"
+          description: "Club of Comfort ist eine etablierte Marke mit jahrzehntelanger Tradition. Doch der alte WooCommerce-Shop war technisch überholt: fehlende Skalierbarkeit, langsame Ladezeiten und ein Design, das die Marke nicht mehr zeitgemäß repräsentierte. Schnittstellen zu JTL-Wawi und Marketing-Tools waren unzureichend angebunden, was zu Mehraufwand im Alltag führte. Wichtige Features wie interaktive <strong>Größenberater</strong> oder inspirierende <strong>Lookbooks</strong> fehlten – dadurch gingen wertvolle Chancen zur Conversion-Steigerung verloren."
+        - icon: "heroicons:flag"
+          title: "Ziel"
+          description: "Die Marke wollte einen <strong>Shopify Onlineshop</strong>, der mit modernem <a href='/leistungen/ux-ui-design'>UX/UI Design</a> die Werte von Komfort und Qualität sichtbar macht, mobil und am Desktop optimale Performance liefert, Schnittstellen zu JTL-Wawi, Fashioncloud, InteX und relevanten Marktplätzen bietet, durch Tools wie Größenberater, Lookbook und Liveshopping das Einkaufserlebnis verbessert, und mit Tracking-Integrationen eine solide Basis für Marketing und Skalierung schafft."
+        - icon: "heroicons:light-bulb"
+          title: "Lösung"
+          description: "Gemeinsam mit Club of Comfort haben wir den kompletten Relaunch umgesetzt – von der <strong>Migration zu Shopify</strong> bis zur Implementierung individueller Features: Strategie & Beratung mit Analyse bestehender Systeme und Konzeption der Migration. UX/UI Design mit Lookbook, Showroom und interaktiven Elementen. Entwicklung & Implementierung inkl. JTL-Wawi, InteX, Fashioncloud, Google Tag Manager, Facebook/Pinterest/TikTok Pixel. Besondere Features wie Storelocator, Liveshopping, animierte Hosendarstellung, Produktberater und erweiterte Reviews."
+
+  # Services Section - Our services for this project
+  - id: case-services
+    enabled: true
+    order: 2.5
+    component: CaseServices
+    wrapper:
+      variant: white
+      padding: sm
+      container: false
+    content:
+      headline: "Unsere Leistungen"
+      headlineAccent: "im Projekt"
+      services:
+        - icon: "heroicons:chart-bar"
+          title: "Strategie"
+          description: "Wir haben für Club of Comfort eine klare Customer Journey entwickelt, die konsequent auf Conversion ausgelegt ist. Von Produktberatern und Größenratgebern bis hin zu Micro-Conversions wie Newsletter-Opt-ins oder Probierpaketen – jeder Schritt wurde so gestaltet, dass Nutzer:innen intuitiv geführt werden. Ergänzt durch die Integration relevanter Marketing-Tools entstand eine Strategie, die sowohl kurzfristige Ergebnisse liefert als auch langfristig Wachstum sichert."
+          tags:
+            - "Conversion Rate Optimization"
+            - "Customer Journey"
+        - icon: "heroicons:paint-brush"
+          title: "Design"
+          description: "Das neue UX/UI Design ist modern, inspiriert von Premium-Brands und bringt die Werte von Club of Comfort – Komfort, Qualität und Nachhaltigkeit – digital auf den Punkt. Neben einem Lookbook und Showroom sorgen interaktive ATF-Bereiche, Videos und detailreiche Produktpräsentationen dafür, dass die Marke online emotional erlebbar wird. Ein konsistentes Responsive Design garantiert, dass Nutzer:innen auf jedem Gerät eine optimale Experience haben."
+          tags:
+            - "UI/UX Design"
+            - "Responsive Design"
+        - icon: "heroicons:code-bracket"
+          title: "Entwicklung"
+          description: "Technisch wurde der Shop komplett zu Shopify migriert und mit zentralen Systemen wie JTL-Wawi, Fashioncloud und InteX verbunden. Darüber hinaus haben wir Anbindungen an Amazon, eBay und Social Shopping-Kanäle wie Google Shopping oder den Facebook/Instagram Shop umgesetzt. Über individuelle API-Schnittstellen konnten zusätzliche Features wie Liveshopping, ein Storelocator und automatisierte Prozesse integriert werden."
+          tags:
+            - "Shopify Migration"
+            - "Schnittstellen & API"
+            - "Shopify Development"
+      columns: 3
+
+  # Project Details Section
+  - id: case-details
+    enabled: true
+    order: 3
+    component: CaseDetails
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Projektdaten"
+      headlineAccent: "im Überblick"
+      description: "Bei Club of Comfort stand neben dem Design vor allem die Integration zahlreicher Systeme im Fokus – damit die Traditionsmarke ihre hochwertigen Herrenhosen online so komfortabel verkaufen kann, wie sie getragen werden."
+      details:
+        - label: "Kunde"
+          value: "Club of Comfort"
+        - label: "Projektlaufzeit"
+          value: "6 Monate"
+        - label: "Unsere Leistungen"
+          tags:
+            - "Shopify Migration"
+            - "Schnittstellen & API"
+            - "UX/UI Design"
+            - "Conversion Rate Optimization"
+            - "JTL-Wawi Anbindung"
+        - label: "Apps & Integrationen"
+          tags:
+            - "Google Tag Manager"
+            - "Fashioncloud"
+            - "Amazon Schnittstelle"
+            - "JTL-Wawi"
+            - "InteX"
+        - label: "Live Website"
+          link:
+            text: "Website besuchen"
+            href: "https://club-of-comfort.de/"
+      phoneImage: "mockup_club-of-comfort-mobile-home_detail"
+
+  # Screenshots Section - Detailed Page Views
+  - id: case-screenshots
+    enabled: true
+    order: 5
+    component: CaseScreenshots
+    wrapper:
+      variant: dark
+      padding: lg
+      container: false
+    content:
+      headline: "Shop-Erlebnis"
+      headlineAccent: "im Überblick"
+      description: "Von der inspirierenden Startseite über das interaktive Lookbook bis zur conversionoptimierten Produktdetailseite – jede Seite wurde für maximale Performance und ein Premium-Markenerlebnis konzipiert."
+      items:
+        - title: "Startseite"
+          description: "Ein einladender Einstieg mit dynamischen ATF-Bereichen, Videos und Slider-Effekten. Die Hero-Section transportiert die Markenwerte von Komfort und Qualität sofort spürbar."
+          image:
+            src: "/images/cases/club-of-comfort/club-of-comfort-mobile-home.png"
+            alt: "Club of Comfort Startseite"
+        - title: "Kategorieseite"
+          description: "Übersichtliche Produktfilter und klare Darstellung der Kollektion. Die Kategorieseite führt Besucher intuitiv zu den passenden Produkten."
+          image:
+            src: "/images/cases/club-of-comfort/club-of-comfort-mobile-cat.png"
+            alt: "Club of Comfort Kategorieseite"
+        - title: "Produktdetailseite"
+          description: "Alle wichtigen Informationen auf einen Blick: Hochwertige Produktbilder, individuelle Größenauswahl mit Größenberater, erweiterte Reviews mit Foto & Fit-Angaben und ein prominenter Add-to-Cart Button."
+          image:
+            src: "/images/cases/club-of-comfort/club-of-comfort-mobile-pdp.png"
+            alt: "Club of Comfort Produktdetailseite"
+
+  # CTA Section
+  - id: cta
+    enabled: true
+    order: 8
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Dein Projekt könnte das <em>nächste</em> sein"
+      description: "Lass uns gemeinsam deine Erfolgsgeschichte schreiben. In einem kostenlosen Erstgespräch besprechen wir deine Vision und zeigen dir, wie wir sie umsetzen können."
+      buttonText: "Jetzt kontaktieren"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

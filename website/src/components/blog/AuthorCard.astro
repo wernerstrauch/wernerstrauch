@@ -1,0 +1,111 @@
+---
+/**
+ * AuthorCard Component
+ *
+ * Displays author information with avatar, name, and title.
+ * Used in blog post headers and author listings.
+ */
+import { Image } from "astro:assets";
+import { getAuthorByName, type Author } from "../../config/authors";
+
+interface Props {
+  /** Author name (legacy) or author ID */
+  author: string;
+  /** Show author bio text */
+  showBio?: boolean;
+  /** Size variant */
+  size?: "sm" | "md" | "lg";
+  /** Make the card a link to author profile */
+  linkToProfile?: boolean;
+}
+
+const {
+  author,
+  showBio = false,
+  size = "md",
+  linkToProfile = false,
+} = Astro.props;
+
+// Get author data (supports both legacy names and new IDs)
+const authorData: Author = getAuthorByName(author);
+
+// Size configurations
+const sizeConfig = {
+  sm: {
+    avatarSize: 32,
+    avatarClass: "size-8",
+    name: "text-sm",
+    title: "text-xs",
+  },
+  md: {
+    avatarSize: 40,
+    avatarClass: "size-10",
+    name: "text-base",
+    title: "text-sm",
+  },
+  lg: {
+    avatarSize: 48,
+    avatarClass: "size-12",
+    name: "text-lg",
+    title: "text-base",
+  },
+};
+
+const config = sizeConfig[size];
+---
+
+<div class="author-card flex items-center gap-3">
+  <Image
+    src={authorData.avatar}
+    alt={authorData.name}
+    width={config.avatarSize}
+    height={config.avatarSize}
+    loading="lazy"
+    decoding="async"
+    class:list={[
+      "author-card__avatar rounded-full object-cover",
+      config.avatarClass,
+    ]}
+  />
+  <div class="author-card__info flex flex-col">
+    {
+      linkToProfile ? (
+        <a
+          href={`/autoren/${authorData.id}`}
+          class:list={[
+            "author-card__name hover:text-primary font-medium transition-colors",
+            config.name,
+          ]}
+        >
+          {authorData.name}
+        </a>
+      ) : (
+        <span class:list={["author-card__name font-medium", config.name]}>
+          {authorData.name}
+        </span>
+      )
+    }
+    <span class:list={["author-card__title text-gray-500", config.title]}>
+      {authorData.title}
+    </span>
+    {
+      showBio && authorData.bio && (
+        <p class="author-card__bio mt-2 line-clamp-2 text-sm text-gray-600">
+          {authorData.bio}
+        </p>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .author-card__name {
+    color: var(--color-gray-900);
+  }
+
+  .author-card__name:hover {
+    color: var(--primary);
+  }
+</style>

@@ -1,0 +1,388 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+  class?: string;
+}
+
+const { variant = "light", class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={["illustration-wrapper absolute inset-0 overflow-hidden pointer-events-none", className]}
+  data-variant={variant}
+>
+  <svg
+    viewBox="0 0 400 400"
+    class="w-full h-full"
+    preserveAspectRatio="xMidYMid slice"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      {/* Wave Gradients */}
+      <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--illustration-primary)" stop-opacity="0.6" />
+        <stop offset="100%" stop-color="var(--illustration-secondary)" stop-opacity="0.2" />
+      </linearGradient>
+
+      <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--illustration-secondary)" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="var(--illustration-tertiary)" stop-opacity="0.3" />
+      </linearGradient>
+
+      <linearGradient id="waveGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--illustration-tertiary)" stop-opacity="0.4" />
+        <stop offset="100%" stop-color="var(--illustration-primary)" stop-opacity="0.2" />
+      </linearGradient>
+
+      {/* Blur filter for depth */}
+      <filter id="softBlur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+      </filter>
+    </defs>
+
+    {/* Wave Layer 1 - Back (most blurred) */}
+    <g class="wave-layer layer-1" filter="url(#softBlur)">
+      <path
+        class="wave wave-1"
+        d="M 0,200 Q 100,150 200,180 T 400,200 L 400,400 L 0,400 Z"
+        fill="url(#waveGradient1)"
+        opacity="0.3"
+      />
+    </g>
+
+    {/* Wave Layer 2 */}
+    <g class="wave-layer layer-2">
+      <path
+        class="wave wave-2"
+        d="M 0,220 Q 80,260 160,240 T 320,220 T 400,240 L 400,400 L 0,400 Z"
+        fill="url(#waveGradient2)"
+        opacity="0.4"
+      />
+    </g>
+
+    {/* Wave Layer 3 */}
+    <g class="wave-layer layer-3">
+      <path
+        class="wave wave-3"
+        d="M 0,260 Q 100,220 200,240 T 400,280 L 400,400 L 0,400 Z"
+        fill="url(#waveGradient3)"
+        opacity="0.5"
+      />
+    </g>
+
+    {/* Wave Layer 4 - Front (sharpest) */}
+    <g class="wave-layer layer-4">
+      <path
+        class="wave wave-4"
+        d="M 0,300 Q 120,260 240,280 T 400,320 L 400,400 L 0,400 Z"
+        fill="url(#waveGradient1)"
+        opacity="0.6"
+      />
+    </g>
+
+    {/* Flowing stroke waves - Top area */}
+    <g class="stroke-waves">
+      <path
+        class="stroke-wave stroke-1"
+        d="M -100,100 Q 0,80 100,100 T 300,100 T 500,100"
+        fill="none"
+        stroke="var(--illustration-primary)"
+        stroke-width="2"
+        stroke-linecap="round"
+        opacity="0.6"
+      />
+
+      <path
+        class="stroke-wave stroke-2"
+        d="M -100,140 Q 50,110 150,140 T 350,140 T 500,140"
+        fill="none"
+        stroke="var(--illustration-secondary)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        opacity="0.5"
+      />
+
+      <path
+        class="stroke-wave stroke-3"
+        d="M -100,180 Q 80,150 180,180 T 380,180 T 500,180"
+        fill="none"
+        stroke="var(--illustration-tertiary)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        opacity="0.4"
+      />
+    </g>
+
+    {/* Floating particles/bubbles */}
+    <g class="particles">
+      <circle class="particle bubble-1" cx="80" cy="150" r="4" fill="var(--illustration-primary)" opacity="0.5" />
+      <circle class="particle bubble-2" cx="150" cy="120" r="3" fill="var(--illustration-secondary)" opacity="0.6" />
+      <circle class="particle bubble-3" cx="250" cy="160" r="5" fill="var(--illustration-tertiary)" opacity="0.4" />
+      <circle class="particle bubble-4" cx="320" cy="130" r="3.5" fill="var(--illustration-primary)" opacity="0.5" />
+      <circle class="particle bubble-5" cx="180" cy="200" r="4" fill="var(--illustration-secondary)" opacity="0.5" />
+      <circle class="particle bubble-6" cx="290" cy="210" r="3" fill="var(--illustration-tertiary)" opacity="0.6" />
+    </g>
+
+    {/* Curved accent lines */}
+    <g class="accent-curves" opacity="0.3">
+      <path
+        class="curve curve-1"
+        d="M 50,80 Q 100,60 150,80"
+        fill="none"
+        stroke="var(--illustration-primary)"
+        stroke-width="1"
+        stroke-linecap="round"
+      />
+      <path
+        class="curve curve-2"
+        d="M 280,90 Q 320,70 360,85"
+        fill="none"
+        stroke="var(--illustration-secondary)"
+        stroke-width="1"
+        stroke-linecap="round"
+      />
+      <path
+        class="curve curve-3"
+        d="M 140,50 Q 200,30 260,50"
+        fill="none"
+        stroke="var(--illustration-tertiary)"
+        stroke-width="0.8"
+        stroke-linecap="round"
+      />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .illustration-wrapper {
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Theme Color Variables */
+  [data-variant="light"] {
+    --illustration-primary: #4f3ca2;
+    --illustration-secondary: #6b5bb5;
+    --illustration-tertiary: #a090d0;
+  }
+
+  [data-variant="dark"] {
+    --illustration-primary: #b4e565;
+    --illustration-secondary: #9dd84f;
+    --illustration-tertiary: #7fbf3a;
+  }
+
+  /* Base opacity per variant */
+  [data-variant="light"] {
+    opacity: 0.4;
+  }
+
+  [data-variant="dark"] {
+    opacity: 0.5;
+  }
+
+  /* Hover state - increase opacity */
+  :global(.bento-card:hover) [data-variant="light"] {
+    opacity: 0.6;
+  }
+
+  :global(.bento-card:hover) [data-variant="dark"] {
+    opacity: 0.7;
+  }
+
+  /* Wave animations - Vertical flow */
+  .wave-1 {
+    animation: waveFlow1 12s ease-in-out infinite;
+  }
+
+  .wave-2 {
+    animation: waveFlow2 10s ease-in-out infinite;
+  }
+
+  .wave-3 {
+    animation: waveFlow3 14s ease-in-out infinite;
+  }
+
+  .wave-4 {
+    animation: waveFlow4 11s ease-in-out infinite;
+  }
+
+  /* Wave 1 - Deep slow movement */
+  @keyframes waveFlow1 {
+    0%, 100% {
+      d: path("M 0,200 Q 100,150 200,180 T 400,200 L 400,400 L 0,400 Z");
+    }
+    25% {
+      d: path("M 0,190 Q 100,160 200,170 T 400,210 L 400,400 L 0,400 Z");
+    }
+    50% {
+      d: path("M 0,210 Q 100,140 200,190 T 400,190 L 400,400 L 0,400 Z");
+    }
+    75% {
+      d: path("M 0,195 Q 100,155 200,175 T 400,205 L 400,400 L 0,400 Z");
+    }
+  }
+
+  /* Wave 2 - Medium movement */
+  @keyframes waveFlow2 {
+    0%, 100% {
+      d: path("M 0,220 Q 80,260 160,240 T 320,220 T 400,240 L 400,400 L 0,400 Z");
+    }
+    33% {
+      d: path("M 0,230 Q 80,250 160,250 T 320,210 T 400,250 L 400,400 L 0,400 Z");
+    }
+    66% {
+      d: path("M 0,210 Q 80,270 160,230 T 320,230 T 400,230 L 400,400 L 0,400 Z");
+    }
+  }
+
+  /* Wave 3 - Dynamic movement */
+  @keyframes waveFlow3 {
+    0%, 100% {
+      d: path("M 0,260 Q 100,220 200,240 T 400,280 L 400,400 L 0,400 Z");
+    }
+    30% {
+      d: path("M 0,250 Q 100,230 200,250 T 400,270 L 400,400 L 0,400 Z");
+    }
+    60% {
+      d: path("M 0,270 Q 100,210 200,230 T 400,290 L 400,400 L 0,400 Z");
+    }
+  }
+
+  /* Wave 4 - Front wave */
+  @keyframes waveFlow4 {
+    0%, 100% {
+      d: path("M 0,300 Q 120,260 240,280 T 400,320 L 400,400 L 0,400 Z");
+    }
+    40% {
+      d: path("M 0,310 Q 120,270 240,270 T 400,310 L 400,400 L 0,400 Z");
+    }
+    80% {
+      d: path("M 0,290 Q 120,250 240,290 T 400,330 L 400,400 L 0,400 Z");
+    }
+  }
+
+  /* Stroke waves - Horizontal sliding */
+  .stroke-wave {
+    animation: slideHorizontal 15s linear infinite;
+  }
+
+  .stroke-1 {
+    animation-duration: 18s;
+  }
+
+  .stroke-2 {
+    animation-duration: 20s;
+    animation-delay: 3s;
+  }
+
+  .stroke-3 {
+    animation-duration: 22s;
+    animation-delay: 6s;
+  }
+
+  @keyframes slideHorizontal {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100px);
+    }
+  }
+
+  /* Floating particles */
+  .particle {
+    animation: floatBubble 8s ease-in-out infinite;
+  }
+
+  .bubble-1 {
+    animation-duration: 10s;
+    animation-delay: 0s;
+  }
+
+  .bubble-2 {
+    animation-duration: 12s;
+    animation-delay: 2s;
+  }
+
+  .bubble-3 {
+    animation-duration: 9s;
+    animation-delay: 1s;
+  }
+
+  .bubble-4 {
+    animation-duration: 11s;
+    animation-delay: 3s;
+  }
+
+  .bubble-5 {
+    animation-duration: 13s;
+    animation-delay: 1.5s;
+  }
+
+  .bubble-6 {
+    animation-duration: 10.5s;
+    animation-delay: 2.5s;
+  }
+
+  @keyframes floatBubble {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.5;
+    }
+    25% {
+      transform: translateY(-20px) scale(1.1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(-40px) scale(0.9);
+      opacity: 0.6;
+    }
+    75% {
+      transform: translateY(-20px) scale(1.05);
+      opacity: 0.8;
+    }
+  }
+
+  /* Accent curves - Gentle pulse */
+  .curve {
+    animation: curvePulse 6s ease-in-out infinite;
+  }
+
+  .curve-1 {
+    animation-delay: 0s;
+  }
+
+  .curve-2 {
+    animation-delay: 2s;
+  }
+
+  .curve-3 {
+    animation-delay: 4s;
+  }
+
+  @keyframes curvePulse {
+    0%, 100% {
+      stroke-opacity: 0.3;
+      stroke-width: 1;
+    }
+    50% {
+      stroke-opacity: 0.7;
+      stroke-width: 1.5;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .wave,
+    .stroke-wave,
+    .particle,
+    .curve {
+      animation: none !important;
+    }
+
+    .wave {
+      opacity: 0.4 !important;
+    }
+  }
+</style>

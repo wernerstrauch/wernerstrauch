@@ -1,0 +1,459 @@
+---
+/**
+ * Services Section Component
+ *
+ * A grid of service cards with optional badge, headline, and description.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: Services
+ * content:
+ *   badge: "Unsere Leistungen"
+ *   badgeIcon: "heroicons:squares-2x2-16-solid"
+ *   headline: "Unsere <em>Services</em>"
+ *   description: "Optional description text"
+ *   services:
+ *     - tagline: "Category"  # Optional
+ *       title: "Service Name"
+ *       description: "Service description"
+ *       icon: "heroicons:chart-bar"
+ *       features:  # Optional list of features
+ *         - "Feature 1"
+ *         - "Feature 2"
+ *       href: "/link"  # Optional link
+ * ```
+ *
+ * All content fields are required from YAML - no defaults are provided.
+ */
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Service {
+  tagline?: string;
+  title: string;
+  description?: string;
+  paragraphs?: string[]; // Alternative to description for longer content
+  icon?: string;
+  features?: string[];
+  href?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  heading?: string; // Alias for headline (backwards compatibility with AboutMissionVision)
+  description?: string;
+  services?: Service[];
+  cards?: Service[]; // Alias for services (backwards compatibility with AboutMissionVision)
+}
+
+const {
+  sectionVariant = "light",
+  badge,
+  badgeIcon,
+  headline: headlineFromProps,
+  heading,
+  description,
+  services: servicesFromProps,
+  cards,
+} = Astro.props;
+
+// Use heading as alias for headline (backwards compatibility with AboutMissionVision)
+const headline = headlineFromProps || heading;
+
+// Use cards as alias for services (backwards compatibility with AboutMissionVision)
+const services = servicesFromProps || cards || [];
+
+// Determine grid layout based on item count
+const gridCols =
+  {
+    1: "max-w-md mx-auto",
+    2: "md:grid-cols-2",
+    3: "md:grid-cols-3",
+    4: "sm:grid-cols-2 lg:grid-cols-4",
+  }[Math.min(services.length, 4)] || "sm:grid-cols-2 lg:grid-cols-4";
+
+// Process headline: replace <em> tags with colored spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline
+  ? headline.replace(
+      /<em>(.*?)<\/em>/g,
+      `<span style="${highlightStyle}">$1</span>`,
+    )
+  : "";
+
+const isDark = sectionVariant === "dark" || sectionVariant === "primary";
+const buttonVariant =
+  sectionVariant === "primary"
+    ? "white"
+    : isDark
+      ? "secondary-dark"
+      : "secondary";
+---
+
+<div
+  id="leistungen"
+  class="services-section relative"
+  data-variant={sectionVariant}
+>
+  {/* Header */}
+  <div class="relative z-10 mb-16 text-center">
+    {
+      badge && badgeIcon && (
+        <div class="blur-in mb-4 flex justify-center">
+          <div class="services-badge shadow-inner-blur flex items-center rounded-full">
+            <div class="services-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+              <Icon name={badgeIcon} class="services-badge-icon h-4 w-4" />
+              <span class="services-badge-text text-sm font-medium">
+                {badge}
+              </span>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    {
+      headline && (
+        <h2
+          class="services-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+      )
+    }
+    {
+      description && (
+        <p
+          class="services-description fade-up mx-auto mt-4 max-w-2xl text-lg"
+          style="transition-delay: 200ms;"
+        >
+          {description}
+        </p>
+      )
+    }
+  </div>
+
+  {/* Services Grid */}
+  <div
+    class:list={["services-grid stagger-children grid gap-6", gridCols]}
+    data-variant={sectionVariant}
+  >
+    {
+      services.map((service) => (
+        <div
+          class="services__card group relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+          data-variant={sectionVariant}
+        >
+          {/* Spotlight glow effect */}
+          <div class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300" />
+
+          {/* Rotating border glow effect */}
+          <div class="border-glow" />
+
+          <div class="services__card-inner relative z-30 h-full w-full overflow-hidden rounded-2xl">
+            <div class="flex h-full flex-col p-6 lg:p-8">
+              {/* Icon */}
+              {service.icon && (
+                <div class="services__card-icon mb-5 flex h-12 w-12 items-center justify-center rounded-xl border transition-all duration-300">
+                  <Icon name={service.icon} class="h-6 w-6" />
+                </div>
+              )}
+
+              {/* Content */}
+              {service.tagline && (
+                <p class="text-xs font-bold tracking-wide uppercase lg:text-sm">
+                  <span class="services__card-tagline leading-none text-nowrap">
+                    {service.tagline}
+                  </span>
+                </p>
+              )}
+              <h3
+                class:list={[
+                  service.tagline ? "mt-2" : "",
+                  "services__card-title text-xl font-bold lg:text-2xl",
+                ]}
+              >
+                {service.title}
+              </h3>
+              {service.paragraphs ? (
+                service.paragraphs.map((p, idx) => (
+                  <p
+                    class:list={[
+                      "mt-4 leading-relaxed",
+                      idx === 0
+                        ? "services__card-text"
+                        : "services__card-features",
+                    ]}
+                  >
+                    {p}
+                  </p>
+                ))
+              ) : service.description ? (
+                <p class="services__card-text mt-3 flex-grow text-sm leading-relaxed lg:text-base">
+                  {service.description}
+                </p>
+              ) : null}
+
+              {/* Features */}
+              {service.features && service.features.length > 0 && (
+                <ul class="mt-5 space-y-2 lg:space-y-3">
+                  {service.features.map((feature) => (
+                    <li class="services__card-features flex items-center gap-2 text-sm lg:text-base">
+                      <Icon
+                        name="heroicons:check-circle-16-solid"
+                        class="services__check-icon h-4 w-4 flex-shrink-0"
+                      />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {/* CTA - only show if href is provided and not just an anchor link */}
+              {service.href && !service.href.startsWith("#") && (
+                <div class="mt-6">
+                  <Button
+                    href={service.href}
+                    variant={buttonVariant}
+                    size="md"
+                    class="w-full justify-center"
+                  >
+                    <span>Mehr erfahren</span>
+                    <Icon
+                      name="heroicons:chevron-right-16-solid"
+                      class="h-4 w-4"
+                    />
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function initializeServicesHoverEffect(): void {
+    const grids = document.querySelectorAll<HTMLDivElement>(".services-grid");
+
+    grids.forEach((grid) => {
+      const cards = grid.querySelectorAll<HTMLDivElement>(".services__card");
+
+      // Spotlight effect - track mouse on grid, apply to all cards
+      grid.addEventListener("mousemove", (event: MouseEvent) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          // Set CSS variables for glow position
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        });
+      });
+
+      // Reset on mouse leave
+      grid.addEventListener("mouseleave", () => {
+        cards.forEach((card) => {
+          card.classList.remove("is-hovering");
+        });
+      });
+
+      // Track individual card hover
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", () =>
+          card.classList.add("is-hovering"),
+        );
+        card.addEventListener("mouseleave", () =>
+          card.classList.remove("is-hovering"),
+        );
+      });
+    });
+  }
+
+  initializeServicesHoverEffect();
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .services-badge {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  }
+
+  .services-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .services-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .services-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .services-headline {
+    color: var(--section-text);
+  }
+
+  .services-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .services__card {
+    border-color: var(--section-card-border);
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .services__card:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 50%, transparent);
+  }
+
+  .services__card-inner {
+    background: var(--section-card-bg);
+  }
+
+  /* ========================================
+     Icon styles
+     ======================================== */
+  .services__card-icon {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    color: var(--section-accent);
+  }
+
+  .services__card:hover .services__card-icon {
+    background: color-mix(in srgb, var(--section-accent) 20%, transparent);
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .services__card-tagline {
+    color: var(--section-accent);
+  }
+
+  .services__card-title {
+    color: var(--section-text);
+  }
+
+  .services__card-text {
+    color: var(--section-text-muted);
+  }
+
+  .services__card-features {
+    color: color-mix(in srgb, var(--section-text-muted) 80%, transparent);
+  }
+
+  .services__check-icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Glow effects
+     ======================================== */
+  .services__card .card-glow {
+    background: transparent;
+    transition: opacity 0.3s ease;
+  }
+
+  .services__card.is-hovering .card-glow {
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in srgb, var(--section-accent) 15%, transparent),
+      transparent 40%
+    );
+  }
+
+  /* Border glow effect - rotating element approach */
+  .services__card .border-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    border-radius: 1rem;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .services__card:hover .border-glow {
+    opacity: 1;
+  }
+
+  /* Rotating glow element - uses CSS variable for accent color */
+  .services__card .border-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 30deg,
+      color-mix(in srgb, var(--section-accent) 20%, transparent) 50deg,
+      color-mix(in srgb, var(--section-accent) 40%, transparent) 70deg,
+      color-mix(in srgb, var(--section-accent) 70%, transparent) 85deg,
+      var(--section-accent) 90deg,
+      color-mix(in srgb, var(--section-accent) 70%, transparent) 95deg,
+      color-mix(in srgb, var(--section-accent) 40%, transparent) 110deg,
+      color-mix(in srgb, var(--section-accent) 20%, transparent) 130deg,
+      transparent 150deg,
+      transparent 360deg
+    );
+    transform: translate(-50%, -50%);
+    animation: spinGlow 6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  /* Inner mask to create border effect */
+  .services__card .border-glow::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: calc(1rem - 3px);
+    background: var(--section-card-bg);
+  }
+
+  .services__card:hover .border-glow::before {
+    animation-play-state: running;
+  }
+
+  @keyframes spinGlow {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .service-card .border-glow::before {
+      animation: none;
+    }
+  }
+</style>

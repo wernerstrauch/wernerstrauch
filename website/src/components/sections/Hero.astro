@@ -1,0 +1,511 @@
+---
+/**
+ * Hero Section Component
+ *
+ * A full-width hero section with optional badge, headline, rotating words,
+ * subheadline, CTAs, and trust indicators.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: Hero
+ * content:
+ *   badge:
+ *     icon: "heroicons:sparkles-16-solid"  # Optional icon
+ *     text: "Badge text"
+ *   headline:
+ *     line1: "First line"
+ *     line2: "Second line"  # Optional
+ *   rotatingWords:  # Optional - animated word carousel
+ *     - "Word 1"
+ *     - "Word 2"
+ *   subheadline: "Supporting text"
+ *   ctas:
+ *     - text: "Primary CTA"
+ *       icon: "heroicons:arrow-right-16-solid"
+ *       href: "/contact"
+ *       variant: "primary"  # primary | secondary | white
+ *       size: "lg"  # sm | md | lg
+ *       dataOpenFunnel: true  # Optional - opens contact funnel
+ *   trustIndicators:  # Optional
+ *     - icon: "heroicons:check-16-solid"
+ *       text: "Indicator text"
+ * ```
+ *
+ * All content fields are optional - components without content will not render.
+ */
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?:
+    | string
+    | {
+        icon?: string;
+        text: string;
+      };
+  headline?:
+    | string
+    | {
+        line1: string;
+        line2: string;
+      };
+  rotatingWords?: string[];
+  subheadline?: string;
+  ctas?: Array<{
+    text?: string;
+    label?: string;
+    icon?: string;
+    href?: string;
+    variant?: "primary" | "secondary" | "secondary-dark" | "tertiary" | "white";
+    size?: "lg" | "md" | "sm";
+    dataOpenFunnel?: boolean;
+  }>;
+  trustIndicators?: Array<{
+    icon: string;
+    text: string;
+  }>;
+  partnerBadges?: Array<{
+    text: string;
+    icon?: string;
+  }>;
+}
+
+const {
+  sectionVariant = "light",
+  badge: rawBadge,
+  headline: rawHeadline,
+  rotatingWords = [],
+  subheadline,
+  ctas = [],
+  trustIndicators = [],
+  partnerBadges = [],
+} = Astro.props;
+
+// Normalize badge - can be string or object or undefined
+const badge = rawBadge
+  ? typeof rawBadge === "string"
+    ? { icon: "heroicons:sparkles-16-solid", text: rawBadge }
+    : rawBadge
+  : null;
+
+// Normalize headline - can be string or object or undefined
+const headline = rawHeadline
+  ? typeof rawHeadline === "string"
+    ? { line1: rawHeadline, line2: "" }
+    : rawHeadline
+  : null;
+
+// Check if we have rotating words
+const hasRotatingWords = rotatingWords && rotatingWords.length > 0;
+
+// Variant-based styles for button logic
+const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
+
+// Unique ID for this instance
+const uniqueId = `hero-${Math.random().toString(36).slice(2, 11)}`;
+---
+
+<div
+  id="hero"
+  class="hero-section relative isolate"
+  data-variant={sectionVariant}
+>
+  <Container class="pt-32 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-28">
+    <div class="flex flex-col items-center text-center">
+      {/* Badge - Blur In Animation */}
+      {
+        badge && (
+          <div class="hero-badge blur-in shadow-inner-blur flex items-center rounded-full">
+            <div class="hero-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+              {badge.icon && (
+                <Icon name={badge.icon} class="hero-badge-icon h-4 w-4" />
+              )}
+              <span class="hero-badge-text text-sm font-medium">
+                {badge.text}
+              </span>
+            </div>
+          </div>
+        )
+      }
+
+      {/* Headline - Scale Up Animation */}
+      {
+        headline && (
+          <h1
+            class="hero-headline scale-up mt-6 max-w-5xl text-4xl leading-[1.1] font-bold sm:text-5xl md:text-6xl lg:text-[64px]"
+            style="transition-delay: 100ms;"
+          >
+            <span class="block">
+              <span set:html={headline.line1} />
+              {headline.line2 && (
+                <>
+                  <br />
+                  <span set:html={headline.line2} />
+                </>
+              )}
+            </span>
+            {hasRotatingWords && (
+              <span class="mt-2 block">
+                <span class="rotating-words-wrapper">
+                  {/* Invisible spacer for width - uses longest word */}
+                  <span class="rotating-words-spacer">
+                    {rotatingWords.reduce((a, b) =>
+                      a.length > b.length ? a : b,
+                    )}
+                  </span>
+                  {/* Animated words list */}
+                  <span class="rotating-words-list" id={`${uniqueId}-list`}>
+                    {rotatingWords.map((word) => (
+                      <span class="rotating-words-item">{word}</span>
+                    ))}
+                  </span>
+                  {/* Shadow layer */}
+                  <span class="rotating-words-shadow" id={`${uniqueId}-shadow`}>
+                    {rotatingWords.map((word) => (
+                      <span class="rotating-words-item">{word}</span>
+                    ))}
+                  </span>
+                </span>
+              </span>
+            )}
+          </h1>
+        )
+      }
+
+      {/* Subheadline - Fade Up Animation */}
+      {
+        subheadline && (
+          <p
+            class="hero-subheadline fade-up mt-6 max-w-2xl text-lg leading-8 sm:text-xl"
+            style="transition-delay: 200ms;"
+            set:html={subheadline}
+          />
+        )
+      }
+
+      {/* CTAs - Fade Up with Stagger */}
+      {
+        ctas.length > 0 && (
+          <div
+            class="fade-up mt-6 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row sm:gap-5"
+            style="transition-delay: 300ms;"
+          >
+            {ctas.map((cta, index) => {
+              // Determine button variant based on section variant
+              let buttonVariant = cta.variant;
+              if (sectionVariant === "primary" && cta.variant === "primary") {
+                buttonVariant = "white";
+              } else if (isDarkVariant && cta.variant === "secondary") {
+                buttonVariant = "secondary-dark";
+              }
+              // Hide secondary buttons on mobile
+              const isSecondary = index > 0;
+              return (
+                <Button
+                  href={cta.href}
+                  variant={buttonVariant}
+                  size={cta.size}
+                  data-open-funnel={cta.dataOpenFunnel}
+                  class={isSecondary ? "hidden sm:inline-flex" : ""}
+                >
+                  {cta.icon && <Icon name={cta.icon} class="h-4 w-4" />}
+                  <span>{cta.text}</span>
+                </Button>
+              );
+            })}
+          </div>
+        )
+      }
+
+      {/* Trust indicators - Desktop: show all, Mobile: rotate */}
+      {
+        trustIndicators.length > 0 && (
+          <>
+            {/* Desktop version - show all */}
+            <div class="hero-trust-indicators stagger-children mt-12 hidden items-center justify-center gap-6 text-sm sm:flex">
+              {trustIndicators.map((indicator) => (
+                <div class="flex items-center gap-2">
+                  <Icon name={indicator.icon} class="hero-trust-icon h-5 w-5" />
+                  <span>{indicator.text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile version - rotating */}
+            <div
+              class="hero-trust-indicators fade-up mt-12 flex items-center justify-center text-sm sm:hidden"
+              style="transition-delay: 400ms;"
+            >
+              <div class="trust-indicators-wrapper" id={`${uniqueId}-trust`}>
+                {trustIndicators.map((indicator, index) => (
+                  <div
+                    class:list={[
+                      "trust-indicators-item",
+                      index === 0 ? "is-active" : "",
+                    ]}
+                  >
+                    <Icon
+                      name={indicator.icon}
+                      class="hero-trust-icon mr-2 h-5 w-5 shrink-0"
+                    />
+                    <span>{indicator.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )
+      }
+
+      {/* Partner Badges - Alternative to trust indicators */}
+      {
+        partnerBadges.length > 0 && (
+          <div
+            class="hero-partner-badges fade-up mt-12 flex flex-wrap items-center justify-center gap-3"
+            style="transition-delay: 400ms;"
+          >
+            {partnerBadges.map((badge) => (
+              <div class="hero-partner-badge flex items-center gap-2 rounded-full border px-4 py-2">
+                {badge.icon && (
+                  <Icon
+                    name={badge.icon}
+                    class="hero-partner-badge-icon h-4 w-4"
+                  />
+                )}
+                <span class="text-sm font-medium">{badge.text}</span>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  import "@scripts/animations";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Find all hero instances and set up rotation for each
+    const heroInstances = document.querySelectorAll(
+      '[id^="hero-"][id$="-list"]',
+    );
+
+    heroInstances.forEach((listEl) => {
+      const id = listEl.id.replace("-list", "");
+      const list = listEl as HTMLElement;
+      const shadow = document.getElementById(`${id}-shadow`) as HTMLElement;
+      if (!list || !shadow) return;
+
+      const wordDuration = 2500;
+      const transitionDuration = 500;
+
+      function rotateWords() {
+        list.style.transition = `transform ${transitionDuration}ms ease-in-out`;
+        shadow.style.transition = `transform ${transitionDuration}ms ease-in-out`;
+        list.style.transform = "translateY(-1.15em)";
+        shadow.style.transform = "translateY(-1.15em)";
+
+        setTimeout(() => {
+          list.style.transition = "none";
+          shadow.style.transition = "none";
+
+          const firstItem = list.firstElementChild;
+          const firstShadowItem = shadow.firstElementChild;
+          if (firstItem && firstShadowItem) {
+            list.appendChild(firstItem);
+            shadow.appendChild(firstShadowItem);
+            list.style.transform = "translateY(0)";
+            shadow.style.transform = "translateY(0)";
+          }
+        }, transitionDuration);
+      }
+
+      setTimeout(() => {
+        setInterval(rotateWords, wordDuration);
+      }, 2000);
+    });
+
+    // Set up trust indicator rotation for mobile
+    const trustWrappers = document.querySelectorAll(
+      '[id^="hero-"][id$="-trust"]',
+    );
+
+    trustWrappers.forEach((wrapper) => {
+      const items = wrapper.querySelectorAll(".trust-indicators-item");
+      if (items.length === 0) return;
+
+      let currentIndex = 0;
+      const indicatorDuration = 3000;
+
+      function rotateTrustIndicators() {
+        // Remove active from current
+        items[currentIndex].classList.remove("is-active");
+
+        // Move to next
+        currentIndex = (currentIndex + 1) % items.length;
+
+        // Add active to new current
+        items[currentIndex].classList.add("is-active");
+      }
+
+      setTimeout(() => {
+        setInterval(rotateTrustIndicators, indicatorDuration);
+      }, 2500);
+    });
+  });
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .hero-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .hero-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .hero-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .hero-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .hero-headline {
+    color: var(--section-text);
+  }
+
+  .hero-headline :global(em),
+  .hero-headline :global(strong) {
+    font-style: normal;
+    font-weight: inherit;
+    color: var(--section-accent);
+  }
+
+  .hero-subheadline {
+    color: var(--section-text-muted);
+  }
+
+  .hero-subheadline :global(em),
+  .hero-subheadline :global(strong) {
+    font-style: normal;
+    font-weight: 600;
+    color: white;
+  }
+
+  /* ========================================
+     Trust indicator styles
+     ======================================== */
+  .hero-trust-indicators {
+    color: color-mix(in srgb, var(--section-text) 70%, transparent);
+  }
+
+  .hero-trust-icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Rotating words
+     ======================================== */
+  .rotating-words-wrapper {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    height: 1.15em;
+  }
+
+  .rotating-words-spacer {
+    display: inline-block;
+    visibility: hidden;
+    white-space: nowrap;
+    line-height: 1.15em;
+  }
+
+  .rotating-words-list,
+  .rotating-words-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .rotating-words-shadow {
+    z-index: -1;
+  }
+
+  .rotating-words-item {
+    display: block;
+    white-space: nowrap;
+    line-height: 1.15em;
+    height: 1.15em;
+  }
+
+  /* Rotating words use accent color */
+  .rotating-words-list .rotating-words-item {
+    color: var(--section-accent);
+  }
+
+  .rotating-words-shadow .rotating-words-item {
+    color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  /* ========================================
+     Trust indicators rotation (mobile)
+     ======================================== */
+  .trust-indicators-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+  }
+
+  .trust-indicators-item {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+  }
+
+  .trust-indicators-item.is-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========================================
+     Partner badges styles
+     ======================================== */
+  .hero-partner-badge {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+    color: var(--section-text);
+  }
+
+  .hero-partner-badge-icon {
+    color: var(--section-accent);
+  }
+</style>

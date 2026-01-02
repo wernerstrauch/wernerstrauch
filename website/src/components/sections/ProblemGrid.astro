@@ -1,0 +1,177 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Problem {
+  icon?: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  headline?: string;
+  subheadline?: string;
+  problems?: Problem[];
+}
+
+const {
+  sectionVariant = "dark",
+  badge,
+  headline = "Kommt dir das bekannt vor?",
+  subheadline,
+  problems = [],
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div class="problemgrid-section" data-variant={sectionVariant}>
+  <Container class="relative">
+    {/* Header */}
+    <div class="mb-12 text-center lg:mb-16">
+      {/* Eyebrow */}
+      {badge && (
+        <p class="problemgrid-eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+          {badge}
+        </p>
+      )}
+
+      <h2
+        class="problemgrid-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+
+      {/* Subheadline */}
+      {subheadline && (
+        <p
+          class="problemgrid-subheadline fade-up mx-auto mt-6 max-w-3xl text-lg leading-relaxed lg:text-xl"
+          style="transition-delay: 150ms;"
+        >
+          {subheadline}
+        </p>
+      )}
+    </div>
+
+    {/* Problems Grid */}
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        problems.map((problem, index) => (
+          <div
+            class="problemgrid-card fade-up group relative overflow-hidden border p-6 transition-all duration-300 hover:border-[color:var(--section-accent)]"
+            style={`transition-delay: ${index * 100}ms;`}
+          >
+            {/* Glow effect on hover */}
+            <div class="problemgrid-glow pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+            <div class="relative z-10 flex gap-4">
+              {/* Icon */}
+              {problem.icon && (
+                <div class="problemgrid-icon-wrapper flex h-12 w-12 flex-shrink-0 items-center justify-center">
+                  <Icon
+                    name={problem.icon}
+                    class="problemgrid-icon h-6 w-6"
+                  />
+                </div>
+              )}
+
+              {/* Content */}
+              <div class="flex-1">
+                <h3 class="problemgrid-title mb-2 text-lg font-bold">
+                  {problem.title}
+                </h3>
+                <p class="problemgrid-description text-sm leading-relaxed">
+                  {problem.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  import "@scripts/animations";
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Eyebrow styles
+     ======================================== */
+  .problemgrid-eyebrow {
+    color: var(--section-accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .problemgrid-headline {
+    color: var(--section-text);
+  }
+
+  .problemgrid-subheadline {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Card styles - Glassmorphism
+     ======================================== */
+  .problemgrid-card {
+    background: var(--section-card-bg);
+    border-color: var(--section-card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .problemgrid-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .problemgrid-glow {
+    background: radial-gradient(
+      600px circle at 50% 50%,
+      color-mix(in srgb, var(--section-accent) 8%, transparent),
+      transparent 40%
+    );
+  }
+
+  /* ========================================
+     Icon styles
+     ======================================== */
+  .problemgrid-icon-wrapper {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .problemgrid-icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Text styles
+     ======================================== */
+  .problemgrid-title {
+    color: var(--section-text);
+  }
+
+  .problemgrid-description {
+    color: var(--section-text-muted);
+  }
+</style>

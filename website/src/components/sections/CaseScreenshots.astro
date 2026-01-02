@@ -1,0 +1,1343 @@
+---
+/**
+ * CaseScreenshots Section Component
+ *
+ * Displays page screenshots inside an iPhone mockup with scroll-driven
+ * internal scrolling effect. Left side shows text items (like FeatureShowcase),
+ * right side shows the iPhone with the screenshot that scrolls as user scrolls.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: CaseScreenshots
+ * content:
+ *   headline: "Shop-Erlebnis"
+ *   headlineAccent: "im Überblick"
+ *   items:
+ *     - title: "Startseite"
+ *       description: "Der erste Eindruck zählt..."
+ *       image:
+ *         src: "/screenshots/home.png"
+ *         alt: "Startseite Screenshot"
+ *     - title: "Kategorieseite"
+ *       description: "Übersichtliche Produktfilter..."
+ *       image:
+ *         src: "/screenshots/category.png"
+ *         alt: "Kategorieseite Screenshot"
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import type { SectionVariant } from "../../types";
+
+interface ScreenshotItem {
+  title: string;
+  description?: string;
+  image: {
+    src: string;
+    alt?: string;
+  };
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  headlineAccent?: string;
+  description?: string;
+  items?: ScreenshotItem[];
+}
+
+const {
+  sectionVariant = "light",
+  headline,
+  headlineAccent,
+  description,
+  items = [],
+} = Astro.props;
+
+const uniqueId = `case-screenshots-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div class="case-screenshots" id={uniqueId} data-variant={sectionVariant}>
+  <Container>
+    {/* Section Header */}
+    {
+      (headline || description) && (
+        <div class="mb-12 flex flex-col items-center gap-6 text-center lg:mb-16">
+          {headline && (
+            <h2 class="case-screenshots__headline scale-up text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-[52px]">
+              {headline}
+              {headlineAccent && (
+                <>
+                  <br />
+                  <span class="case-screenshots__headline-divider">–</span>{" "}
+                  <span class="case-screenshots__headline-accent">
+                    {headlineAccent}
+                  </span>
+                </>
+              )}
+            </h2>
+          )}
+          {description && (
+            <p
+              class="case-screenshots__description fade-up max-w-3xl text-lg leading-relaxed sm:text-xl"
+              style="transition-delay: 100ms;"
+            >
+              {description}
+            </p>
+          )}
+        </div>
+      )
+    }
+
+    {/* Main Content - FeatureShowcase-style layout */}
+    {
+      items.length > 0 && (
+        <div class="case-screenshots__layout">
+          {/* Mobile Layout - Stacked cards */}
+          <div class="case-screenshots__mobile lg:hidden">
+            <div class="case-screenshots__mobile-stack relative">
+              {items.map((item, index) => (
+                <div
+                  class:list={[
+                    "case-screenshots__mobile-card overflow-hidden rounded-2xl",
+                    index === 0 ? "is-active relative" : "absolute inset-0",
+                  ]}
+                  data-index={index}
+                >
+                  {/* Title - Above phone */}
+                  <div class="flex flex-col items-center gap-1 px-5 pt-5 pb-2 text-center">
+                    <span class="case-screenshots__number text-sm font-medium tracking-widest uppercase">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 class="case-screenshots__mobile-title text-xl font-semibold">
+                      {item.title}
+                    </h3>
+                  </div>
+                  {/* Phone Mockup */}
+                  <div class="flex justify-center">
+                    <div class="case-screenshots__phone case-screenshots__phone--mobile">
+                      {/* Fixed Status Bar - stays in place */}
+                      <div class="case-screenshots__status-bar-container">
+                        <svg
+                          viewBox="0 0 296 40"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="case-screenshots__status-bar-svg"
+                        >
+                          {/* Dynamic Island - smaller */}
+                          <rect
+                            x="108"
+                            y="8"
+                            width="80"
+                            height="26"
+                            rx="13"
+                            fill="black"
+                          />
+                          {/* Time */}
+                          <text
+                            x="16"
+                            y="25"
+                            fill="black"
+                            font-size="13"
+                            font-weight="600"
+                            font-family="system-ui, -apple-system, sans-serif"
+                          >
+                            9:41
+                          </text>
+                          {/* Signal bars - smaller and more right */}
+                          <g transform="translate(226, 15) scale(0.75)">
+                            <rect
+                              x="0"
+                              y="6"
+                              width="3"
+                              height="5"
+                              rx="1"
+                              fill="black"
+                              opacity="0.4"
+                            />
+                            <rect
+                              x="5"
+                              y="4"
+                              width="3"
+                              height="7"
+                              rx="1"
+                              fill="black"
+                              opacity="0.6"
+                            />
+                            <rect
+                              x="10"
+                              y="2"
+                              width="3"
+                              height="9"
+                              rx="1"
+                              fill="black"
+                              opacity="0.8"
+                            />
+                            <rect
+                              x="15"
+                              y="0"
+                              width="3"
+                              height="11"
+                              rx="1"
+                              fill="black"
+                            />
+                          </g>
+                          {/* WiFi - smaller and more right */}
+                          <g transform="translate(244, 15) scale(0.75)">
+                            <path
+                              d="M6 3C8.5 3 10.8 4 12.5 5.7L11 7.2C9.7 5.9 8 5.2 6 5.2C4 5.2 2.3 5.9 1 7.2L-0.5 5.7C1.2 4 3.5 3 6 3Z"
+                              fill="black"
+                              opacity="0.5"
+                            />
+                            <path
+                              d="M6 6C7.7 6 9.2 6.6 10.3 7.7L8.8 9.2C8.1 8.5 7.1 8.1 6 8.1C4.9 8.1 3.9 8.5 3.2 9.2L1.7 7.7C2.8 6.6 4.3 6 6 6Z"
+                              fill="black"
+                              opacity="0.75"
+                            />
+                            <circle cx="6" cy="11" r="2" fill="black" />
+                          </g>
+                          {/* Battery - smaller and more right */}
+                          <g transform="translate(260, 17) scale(0.75)">
+                            <rect
+                              x="0"
+                              y="0"
+                              width="22"
+                              height="11"
+                              rx="3"
+                              stroke="black"
+                              stroke-width="1"
+                              fill="none"
+                            />
+                            <rect
+                              x="22"
+                              y="3"
+                              width="2"
+                              height="5"
+                              rx="1"
+                              fill="black"
+                              opacity="0.5"
+                            />
+                            <rect
+                              x="2"
+                              y="2"
+                              width="17"
+                              height="7"
+                              rx="1.5"
+                              fill="black"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="case-screenshots__screen-container">
+                        <img
+                          src={item.image.src}
+                          alt={item.image.alt || item.title}
+                          class="case-screenshots__screen-image"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          data-index={index}
+                        />
+                      </div>
+                      <div class="case-screenshots__phone-frame">
+                        <svg
+                          viewBox="0 0 320 650"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="case-screenshots__phone-svg"
+                        >
+                          <defs>
+                            <mask id={`mobile-screen-mask-${index}`}>
+                              <rect width="320" height="650" fill="white" />
+                              <rect
+                                x="12"
+                                y="12"
+                                width="296"
+                                height="626"
+                                rx="38"
+                                fill="black"
+                              />
+                            </mask>
+                          </defs>
+                          <rect
+                            width="320"
+                            height="650"
+                            rx="50"
+                            fill="var(--phone-body)"
+                            mask={`url(#mobile-screen-mask-${index})`}
+                          />
+                          <rect
+                            x="6"
+                            y="6"
+                            width="308"
+                            height="638"
+                            rx="44"
+                            stroke="var(--phone-bezel)"
+                            stroke-width="6"
+                            fill="none"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Navigation Dots */}
+            <div class="mt-4 flex justify-center gap-2">
+              {items.map((_, index) => (
+                <button
+                  class:list={[
+                    "case-screenshots__mobile-dot h-2 w-2 rounded-full transition-all",
+                    index === 0 ? "is-active w-6" : "",
+                  ]}
+                  data-index={index}
+                  aria-label={`Slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Layout - Left text, right phone */}
+          <div class="hidden lg:flex lg:flex-row lg:items-start lg:gap-12">
+            {/* Content Items - Left Side */}
+            <div class="case-screenshots__content flex flex-col lg:w-1/2">
+              {items.map((item, index) => (
+                <div
+                  class="case-screenshots__item-wrapper relative"
+                  data-index={index}
+                >
+                  <div
+                    class:list={[
+                      "case-screenshots__item group cursor-pointer py-6 pl-6 transition-all duration-500",
+                      index === 0 ? "is-active" : "",
+                    ]}
+                  >
+                    <div class="flex flex-col gap-4">
+                      {/* Number */}
+                      <span class="case-screenshots__number text-sm font-medium tracking-widest uppercase">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      {/* Title */}
+                      <h3 class="case-screenshots__title text-xl leading-tight font-semibold tracking-tight transition-colors duration-300 sm:text-2xl lg:text-3xl">
+                        {item.title}
+                      </h3>
+                      {/* Description - collapsible */}
+                      <div
+                        class:list={[
+                          "case-screenshots__item-description-wrapper overflow-hidden transition-all duration-500",
+                          index === 0
+                            ? "max-h-40 opacity-100"
+                            : "max-h-0 opacity-0",
+                        ]}
+                      >
+                        {item.description && (
+                          <p class="case-screenshots__item-description text-base/7 lg:text-lg/8">
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  {/* Bottom Progress Bar */}
+                  <div
+                    class:list={[
+                      "case-screenshots__progress-container absolute right-0 bottom-0 left-6 h-px overflow-visible",
+                      index === 0 ? "opacity-100" : "opacity-0",
+                    ]}
+                  >
+                    <div class="case-screenshots__progress-track absolute inset-0" />
+                    <div
+                      class="case-screenshots__progress-bar absolute top-0 left-0 h-full origin-left"
+                      style="width: 0%"
+                    />
+                    <div
+                      class="case-screenshots__progress-glow pointer-events-none absolute top-1/2 -translate-y-1/2 opacity-0"
+                      style="left: 0%"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Phone Card - Right Side */}
+            <div class="case-screenshots__phone-area relative lg:sticky lg:top-24 lg:w-1/2">
+              <div class="case-screenshots__card overflow-hidden rounded-3xl">
+                <div class="flex items-center justify-center py-8">
+                  <div class="case-screenshots__phone">
+                    {/* Fixed Status Bar - stays in place */}
+                    <div class="case-screenshots__status-bar-container">
+                      <svg
+                        viewBox="0 0 296 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="case-screenshots__status-bar-svg"
+                      >
+                        {/* Dynamic Island - smaller */}
+                        <rect
+                          x="108"
+                          y="8"
+                          width="80"
+                          height="26"
+                          rx="13"
+                          fill="black"
+                        />
+                        {/* Time */}
+                        <text
+                          x="16"
+                          y="25"
+                          fill="black"
+                          font-size="13"
+                          font-weight="600"
+                          font-family="system-ui, -apple-system, sans-serif"
+                        >
+                          9:41
+                        </text>
+                        {/* Signal bars - smaller and more right */}
+                        <g transform="translate(226, 15) scale(0.75)">
+                          <rect
+                            x="0"
+                            y="6"
+                            width="3"
+                            height="5"
+                            rx="1"
+                            fill="black"
+                            opacity="0.4"
+                          />
+                          <rect
+                            x="5"
+                            y="4"
+                            width="3"
+                            height="7"
+                            rx="1"
+                            fill="black"
+                            opacity="0.6"
+                          />
+                          <rect
+                            x="10"
+                            y="2"
+                            width="3"
+                            height="9"
+                            rx="1"
+                            fill="black"
+                            opacity="0.8"
+                          />
+                          <rect
+                            x="15"
+                            y="0"
+                            width="3"
+                            height="11"
+                            rx="1"
+                            fill="black"
+                          />
+                        </g>
+                        {/* WiFi - smaller and more right */}
+                        <g transform="translate(244, 15) scale(0.75)">
+                          <path
+                            d="M6 3C8.5 3 10.8 4 12.5 5.7L11 7.2C9.7 5.9 8 5.2 6 5.2C4 5.2 2.3 5.9 1 7.2L-0.5 5.7C1.2 4 3.5 3 6 3Z"
+                            fill="black"
+                            opacity="0.5"
+                          />
+                          <path
+                            d="M6 6C7.7 6 9.2 6.6 10.3 7.7L8.8 9.2C8.1 8.5 7.1 8.1 6 8.1C4.9 8.1 3.9 8.5 3.2 9.2L1.7 7.7C2.8 6.6 4.3 6 6 6Z"
+                            fill="black"
+                            opacity="0.75"
+                          />
+                          <circle cx="6" cy="11" r="2" fill="black" />
+                        </g>
+                        {/* Battery - smaller and more right */}
+                        <g transform="translate(260, 17) scale(0.75)">
+                          <rect
+                            x="0"
+                            y="0"
+                            width="22"
+                            height="11"
+                            rx="3"
+                            stroke="black"
+                            stroke-width="1"
+                            fill="none"
+                          />
+                          <rect
+                            x="22"
+                            y="3"
+                            width="2"
+                            height="5"
+                            rx="1"
+                            fill="black"
+                            opacity="0.5"
+                          />
+                          <rect
+                            x="2"
+                            y="2"
+                            width="17"
+                            height="7"
+                            rx="1.5"
+                            fill="black"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    {/* Scrollable Screenshot container - below status bar */}
+                    <div class="case-screenshots__screen-container">
+                      {items.map((item, index) => (
+                        <img
+                          src={item.image.src}
+                          alt={item.image.alt || item.title}
+                          class:list={[
+                            "case-screenshots__screen-image",
+                            index === 0 ? "is-active" : "",
+                          ]}
+                          loading={index === 0 ? "eager" : "lazy"}
+                          data-index={index}
+                        />
+                      ))}
+                    </div>
+                    {/* Phone Frame overlay */}
+                    <div class="case-screenshots__phone-frame">
+                      <svg
+                        viewBox="0 0 320 650"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="case-screenshots__phone-svg"
+                      >
+                        <defs>
+                          <mask id="desktop-screen-mask">
+                            <rect width="320" height="650" fill="white" />
+                            <rect
+                              x="12"
+                              y="12"
+                              width="296"
+                              height="626"
+                              rx="40"
+                              fill="black"
+                            />
+                          </mask>
+                        </defs>
+                        <rect
+                          width="320"
+                          height="650"
+                          rx="52"
+                          fill="var(--phone-body)"
+                          mask="url(#desktop-screen-mask)"
+                        />
+                        <rect
+                          x="6"
+                          y="6"
+                          width="308"
+                          height="638"
+                          rx="46"
+                          stroke="var(--phone-bezel)"
+                          stroke-width="6"
+                          fill="none"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  </Container>
+</div>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initCaseScreenshots() {
+    const sections = document.querySelectorAll(".case-screenshots");
+
+    sections.forEach((section) => {
+      const items = section.querySelectorAll(".case-screenshots__item");
+      const itemWrappers = section.querySelectorAll(
+        ".case-screenshots__item-wrapper",
+      );
+      const screenImages = section.querySelectorAll(
+        ".case-screenshots__phone-area .case-screenshots__screen-image",
+      ) as NodeListOf<HTMLImageElement>;
+      const screenContainer = section.querySelector(
+        ".case-screenshots__phone-area .case-screenshots__screen-container",
+      ) as HTMLElement;
+
+      if (items.length === 0 || screenImages.length === 0) return;
+
+      let currentActiveIndex = 0;
+      const imageScrollDistances: number[] = [];
+
+      // Calculate scroll distances for each image once loaded
+      function calculateScrollDistances() {
+        if (!screenContainer) return;
+        // Get the visible height (container height minus status bar padding)
+        const containerHeight = screenContainer.offsetHeight;
+        const statusBarPadding = containerHeight * 0.0615; // 6.15% padding for status bar
+        const visibleHeight = containerHeight - statusBarPadding;
+
+        screenImages.forEach((img, index) => {
+          if (img.complete) {
+            imageScrollDistances[index] = Math.max(
+              0,
+              img.offsetHeight - visibleHeight,
+            );
+          } else {
+            img.addEventListener("load", () => {
+              imageScrollDistances[index] = Math.max(
+                0,
+                img.offsetHeight - visibleHeight,
+              );
+            });
+          }
+        });
+      }
+
+      calculateScrollDistances();
+
+      function updateProgressBar(activeIndex: number, itemProgress: number) {
+        itemWrappers.forEach((wrapper, index) => {
+          const progressContainer = wrapper.querySelector(
+            ".case-screenshots__progress-container",
+          );
+          const progressBar = wrapper.querySelector(
+            ".case-screenshots__progress-bar",
+          ) as HTMLElement;
+          const progressGlow = wrapper.querySelector(
+            ".case-screenshots__progress-glow",
+          ) as HTMLElement;
+
+          if (!progressContainer || !progressBar || !progressGlow) return;
+
+          if (index === activeIndex) {
+            progressContainer.classList.remove("opacity-0");
+            progressContainer.classList.add("opacity-100");
+            const percentage = Math.min(itemProgress * 100, 100);
+            progressBar.style.width = `${percentage}%`;
+            progressGlow.style.left = `calc(${percentage}% - 120px)`;
+            progressGlow.style.opacity = itemProgress > 0.02 ? "1" : "0";
+          } else {
+            progressContainer.classList.add("opacity-0");
+            progressContainer.classList.remove("opacity-100");
+            progressBar.style.width = "0%";
+            progressGlow.style.opacity = "0";
+          }
+        });
+      }
+
+      function setActiveItem(activeIndex: number) {
+        currentActiveIndex = activeIndex;
+
+        items.forEach((item, index) => {
+          const descWrapper = item.querySelector(
+            ".case-screenshots__item-description-wrapper",
+          );
+          const isActive = index === activeIndex;
+
+          if (isActive) {
+            item.classList.add("is-active");
+          } else {
+            item.classList.remove("is-active");
+          }
+
+          if (descWrapper) {
+            if (isActive) {
+              descWrapper.classList.remove("max-h-0", "opacity-0");
+              descWrapper.classList.add("max-h-40", "opacity-100");
+            } else {
+              descWrapper.classList.add("max-h-0", "opacity-0");
+              descWrapper.classList.remove("max-h-40", "opacity-100");
+            }
+          }
+        });
+
+        // Switch active image
+        screenImages.forEach((img, index) => {
+          if (index === activeIndex) {
+            img.classList.add("is-active");
+            gsap.set(img, { y: 0 }); // Reset scroll position
+          } else {
+            img.classList.remove("is-active");
+          }
+        });
+      }
+
+      function scrollActiveImage(progress: number) {
+        const activeImage = screenImages[currentActiveIndex];
+        const scrollDistance = imageScrollDistances[currentActiveIndex] || 0;
+
+        if (activeImage && scrollDistance > 0) {
+          gsap.set(activeImage, {
+            y: -scrollDistance * progress,
+          });
+        }
+      }
+
+      // Set initial state
+      setActiveItem(0);
+      updateProgressBar(0, 0);
+
+      // Calculate scroll weights based on image scroll distances
+      // Longer images need more scroll time
+      let scrollWeights: number[] = [];
+      let totalWeight = 0;
+      const BASE_SCROLL_PER_ITEM = 80; // Base vh for items with no scroll
+      const SCROLL_MULTIPLIER = 0.15; // Additional vh per pixel of scroll distance
+
+      // Declare scrollTriggerInstance early so it can be referenced in calculateScrollWeights
+      let scrollTriggerInstance: ScrollTrigger | null = null;
+
+      function calculateScrollWeights() {
+        scrollWeights = imageScrollDistances.map((distance) => {
+          // Weight = base + proportional to scroll distance
+          return BASE_SCROLL_PER_ITEM + distance * SCROLL_MULTIPLIER;
+        });
+        totalWeight = scrollWeights.reduce((sum, w) => sum + w, 0);
+
+        // Update ScrollTrigger if weights changed significantly
+        if (scrollTriggerInstance && totalWeight > 0) {
+          scrollTriggerInstance.vars.end = `+=${totalWeight}%`;
+          scrollTriggerInstance.refresh();
+        }
+      }
+
+      // Wait for all images to load before calculating weights
+      let loadedCount = 0;
+      screenImages.forEach((img) => {
+        if (img.complete) {
+          loadedCount++;
+        } else {
+          img.addEventListener("load", () => {
+            loadedCount++;
+            if (loadedCount === screenImages.length) {
+              calculateScrollWeights();
+            }
+          });
+        }
+      });
+
+      // Initial calculation (for cached images)
+      if (loadedCount === screenImages.length) {
+        calculateScrollWeights();
+      } else {
+        // Default weights until images load
+        scrollWeights = Array(items.length).fill(BASE_SCROLL_PER_ITEM);
+        totalWeight = scrollWeights.reduce((sum, w) => sum + w, 0);
+      }
+
+      // Helper to convert overall progress to item index and item-specific progress
+      function getItemFromProgress(overallProgress: number): {
+        activeIndex: number;
+        itemProgress: number;
+      } {
+        if (totalWeight === 0 || scrollWeights.length === 0) {
+          const scaledProgress = overallProgress * items.length;
+          return {
+            activeIndex: Math.min(Math.floor(scaledProgress), items.length - 1),
+            itemProgress: scaledProgress - Math.floor(scaledProgress),
+          };
+        }
+
+        const progressInVh = overallProgress * totalWeight;
+        let accumulated = 0;
+
+        for (let i = 0; i < scrollWeights.length; i++) {
+          const itemWeight = scrollWeights[i];
+          if (progressInVh <= accumulated + itemWeight) {
+            const itemProgress = (progressInVh - accumulated) / itemWeight;
+            return { activeIndex: i, itemProgress: Math.min(itemProgress, 1) };
+          }
+          accumulated += itemWeight;
+        }
+
+        return { activeIndex: items.length - 1, itemProgress: 1 };
+      }
+
+      // Create scroll trigger with initial total
+      scrollTriggerInstance = ScrollTrigger.create({
+        trigger: section.querySelector(".case-screenshots__layout"),
+        start: "top 15%",
+        end: `+=${totalWeight || items.length * BASE_SCROLL_PER_ITEM}%`,
+        pin: true,
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const { activeIndex, itemProgress } = getItemFromProgress(
+            self.progress,
+          );
+
+          if (activeIndex !== currentActiveIndex) {
+            setActiveItem(activeIndex);
+          }
+          updateProgressBar(activeIndex, itemProgress);
+          scrollActiveImage(itemProgress);
+        },
+      });
+
+      // Click handlers
+      items.forEach((item, index) => {
+        item.addEventListener("click", () => {
+          setActiveItem(index);
+          updateProgressBar(index, 0);
+        });
+      });
+    });
+  }
+
+  // Mobile card stack
+  function initMobileCardStack() {
+    const sections = document.querySelectorAll(".case-screenshots");
+
+    sections.forEach((section) => {
+      const mobileWrapper = section.querySelector(".case-screenshots__mobile");
+      const mobileCards = section.querySelectorAll(
+        ".case-screenshots__mobile-card",
+      );
+      const mobileDots = section.querySelectorAll(
+        ".case-screenshots__mobile-dot",
+      );
+      const mobileImages = section.querySelectorAll(
+        ".case-screenshots__mobile .case-screenshots__screen-image",
+      ) as NodeListOf<HTMLImageElement>;
+
+      if (!mobileWrapper || mobileCards.length === 0) return;
+
+      let currentIndex = 0;
+      const totalCards = mobileCards.length;
+      const imageScrollDistances: number[] = [];
+
+      // Calculate scroll distances (accounting for status bar padding and bottom cutoff)
+      mobileCards.forEach((card, index) => {
+        const container = card.querySelector(
+          ".case-screenshots__screen-container",
+        ) as HTMLElement;
+        const img = mobileImages[index];
+        if (container && img) {
+          const containerHeight = container.offsetHeight;
+          const statusBarPadding = containerHeight * 0.0615; // 6.15% padding for status bar
+          const bottomCutoff = containerHeight * 0.1; // 10% cut off at bottom
+          const visibleHeight =
+            containerHeight - statusBarPadding - bottomCutoff;
+
+          if (img.complete) {
+            imageScrollDistances[index] = Math.max(
+              0,
+              img.offsetHeight - visibleHeight,
+            );
+          } else {
+            img.addEventListener("load", () => {
+              imageScrollDistances[index] = Math.max(
+                0,
+                img.offsetHeight - visibleHeight,
+              );
+            });
+          }
+        }
+      });
+
+      function updateMobileStack(activeIndex: number) {
+        if (activeIndex === currentIndex) return;
+        currentIndex = activeIndex;
+
+        mobileCards.forEach((card, index) => {
+          const cardEl = card as HTMLElement;
+          const relativeIndex = index - activeIndex;
+
+          if (index === activeIndex) {
+            cardEl.style.transform = "translateX(0) scale(1)";
+            cardEl.style.opacity = "1";
+            cardEl.style.zIndex = String(totalCards);
+            cardEl.classList.add("is-active");
+          } else if (relativeIndex > 0 && relativeIndex <= 2) {
+            const offset = relativeIndex * 12;
+            const scale = 1 - relativeIndex * 0.04;
+            cardEl.style.transform = `translateX(${offset}px) scale(${scale})`;
+            cardEl.style.opacity = String(0.6 - relativeIndex * 0.2);
+            cardEl.style.zIndex = String(totalCards - relativeIndex);
+            cardEl.classList.remove("is-active");
+          } else {
+            cardEl.style.transform =
+              relativeIndex < 0
+                ? "translateX(-40px) scale(0.95)"
+                : "translateX(40px) scale(0.95)";
+            cardEl.style.opacity = "0";
+            cardEl.style.zIndex = "0";
+            cardEl.classList.remove("is-active");
+          }
+        });
+
+        mobileDots.forEach((dot, index) => {
+          const dotEl = dot as HTMLElement;
+          const isActive = index === activeIndex;
+          dotEl.classList.toggle("w-6", isActive);
+          dotEl.classList.toggle("w-2", !isActive);
+          dotEl.classList.toggle("is-active", isActive);
+        });
+
+        // Reset image scroll
+        mobileImages.forEach((img) => {
+          gsap.set(img, { y: 0 });
+        });
+      }
+
+      function scrollMobileImage(progress: number) {
+        const activeImage = mobileImages[currentIndex];
+        const scrollDistance = imageScrollDistances[currentIndex] || 0;
+
+        if (activeImage && scrollDistance > 0) {
+          gsap.set(activeImage, {
+            y: -scrollDistance * progress,
+          });
+        }
+      }
+
+      // Set initial state
+      mobileCards.forEach((card, index) => {
+        const cardEl = card as HTMLElement;
+        if (index === 0) {
+          cardEl.style.transform = "translateX(0) scale(1)";
+          cardEl.style.opacity = "1";
+          cardEl.style.zIndex = String(totalCards);
+          cardEl.classList.add("is-active");
+        } else if (index <= 2) {
+          const offset = index * 12;
+          const scale = 1 - index * 0.04;
+          cardEl.style.transform = `translateX(${offset}px) scale(${scale})`;
+          cardEl.style.opacity = String(0.6 - index * 0.2);
+          cardEl.style.zIndex = String(totalCards - index);
+        } else {
+          cardEl.style.transform = "translateX(40px) scale(0.95)";
+          cardEl.style.opacity = "0";
+          cardEl.style.zIndex = "0";
+        }
+      });
+
+      // Calculate scroll weights based on image scroll distances
+      let scrollWeights: number[] = [];
+      let totalWeight = 0;
+      const BASE_SCROLL_PER_ITEM = 80;
+      const SCROLL_MULTIPLIER = 0.15;
+
+      // Declare mobileScrollTrigger early so it can be referenced in calculateMobileScrollWeights
+      let mobileScrollTrigger: ScrollTrigger | null = null;
+
+      function calculateMobileScrollWeights() {
+        scrollWeights = imageScrollDistances.map((distance) => {
+          return BASE_SCROLL_PER_ITEM + distance * SCROLL_MULTIPLIER;
+        });
+        totalWeight = scrollWeights.reduce((sum, w) => sum + w, 0);
+
+        if (mobileScrollTrigger && totalWeight > 0) {
+          mobileScrollTrigger.vars.end = `+=${totalWeight}%`;
+          mobileScrollTrigger.refresh();
+        }
+      }
+
+      // Wait for images to load
+      let mobileLoadedCount = 0;
+      mobileImages.forEach((img) => {
+        if (img.complete) {
+          mobileLoadedCount++;
+        } else {
+          img.addEventListener("load", () => {
+            mobileLoadedCount++;
+            if (mobileLoadedCount === mobileImages.length) {
+              calculateMobileScrollWeights();
+            }
+          });
+        }
+      });
+
+      if (mobileLoadedCount === mobileImages.length) {
+        calculateMobileScrollWeights();
+      } else {
+        scrollWeights = Array(totalCards).fill(BASE_SCROLL_PER_ITEM);
+        totalWeight = scrollWeights.reduce((sum, w) => sum + w, 0);
+      }
+
+      function getMobileItemFromProgress(overallProgress: number): {
+        activeIndex: number;
+        itemProgress: number;
+      } {
+        if (totalWeight === 0 || scrollWeights.length === 0) {
+          const scaledProgress = overallProgress * totalCards;
+          return {
+            activeIndex: Math.min(Math.floor(scaledProgress), totalCards - 1),
+            itemProgress: scaledProgress - Math.floor(scaledProgress),
+          };
+        }
+
+        const progressInVh = overallProgress * totalWeight;
+        let accumulated = 0;
+
+        for (let i = 0; i < scrollWeights.length; i++) {
+          const itemWeight = scrollWeights[i];
+          if (progressInVh <= accumulated + itemWeight) {
+            const itemProgress = (progressInVh - accumulated) / itemWeight;
+            return { activeIndex: i, itemProgress: Math.min(itemProgress, 1) };
+          }
+          accumulated += itemWeight;
+        }
+
+        return { activeIndex: totalCards - 1, itemProgress: 1 };
+      }
+
+      mobileScrollTrigger = ScrollTrigger.create({
+        trigger: mobileWrapper,
+        start: "top 15%",
+        end: `+=${totalWeight || totalCards * BASE_SCROLL_PER_ITEM}%`,
+        pin: true,
+        scrub: 0.3,
+        onUpdate: (self) => {
+          const { activeIndex, itemProgress } = getMobileItemFromProgress(
+            self.progress,
+          );
+
+          updateMobileStack(activeIndex);
+          scrollMobileImage(itemProgress);
+        },
+      });
+
+      // Dot click handlers
+      mobileDots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          updateMobileStack(index);
+        });
+      });
+    });
+  }
+
+  let currentMode: "desktop" | "mobile" | null = null;
+
+  function initBasedOnScreenSize() {
+    const isDesktop = window.innerWidth >= 1024;
+    const newMode = isDesktop ? "desktop" : "mobile";
+
+    if (newMode === currentMode) return;
+
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const triggerEl = trigger.trigger as HTMLElement;
+      if (triggerEl?.closest(".case-screenshots")) {
+        trigger.kill();
+      }
+    });
+
+    currentMode = newMode;
+
+    if (isDesktop) {
+      initCaseScreenshots();
+    } else {
+      initMobileCardStack();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", initBasedOnScreenSize);
+
+  document.addEventListener("astro:page-load", () => {
+    currentMode = null;
+    initBasedOnScreenSize();
+  });
+
+  let resizeTimeout: ReturnType<typeof setTimeout>;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(initBasedOnScreenSize, 150);
+  });
+</script>
+
+<style>
+  /* ========================================
+     Base Colors
+     ======================================== */
+  .case-screenshots {
+    --screenshots-headline: #1c1c1e;
+    --screenshots-headline-accent: var(--heading-highlight);
+    --screenshots-description: #6d6b76;
+    --screenshots-number: var(--section-accent);
+    --screenshots-title: #6d6b76;
+    --screenshots-title-active: #1c1c1e;
+    --screenshots-item-description: #6d6b76;
+    --screenshots-card-bg: #ffffff;
+    --screenshots-card-border: rgba(0, 0, 0, 0.08);
+    --screenshots-progress-track: rgba(0, 0, 0, 0.1);
+    --screenshots-progress-bar: var(--section-accent);
+    --phone-body: #1c1c1e;
+    --phone-bezel: #2a2a2a;
+    --phone-island: #000000;
+  }
+
+  .case-screenshots[data-variant="dark"] {
+    --screenshots-headline: #ffffff;
+    --screenshots-headline-accent: var(--heading-highlight);
+    --screenshots-description: #b1adbf;
+    --screenshots-number: var(--section-accent);
+    --screenshots-title: #8a8a8e;
+    --screenshots-title-active: #ffffff;
+    --screenshots-item-description: #b1adbf;
+    --screenshots-card-bg: #2a2a2a;
+    --screenshots-card-border: rgba(255, 255, 255, 0.1);
+    --screenshots-progress-track: rgba(255, 255, 255, 0.2);
+    --screenshots-progress-bar: var(--section-accent);
+    --phone-body: #2a2a2a;
+    --phone-bezel: #1c1c1e;
+  }
+
+  /* ========================================
+     Header Styles
+     ======================================== */
+  .case-screenshots__headline {
+    color: var(--screenshots-headline);
+  }
+
+  .case-screenshots__headline-divider {
+    color: var(--screenshots-headline);
+  }
+
+  .case-screenshots__headline-accent {
+    color: var(--screenshots-headline-accent);
+  }
+
+  .case-screenshots__description {
+    color: var(--screenshots-description);
+  }
+
+  /* ========================================
+     Desktop Text Items
+     ======================================== */
+  .case-screenshots__number {
+    color: var(--screenshots-number);
+  }
+
+  .case-screenshots__title {
+    color: var(--screenshots-title);
+  }
+
+  .case-screenshots__item.is-active .case-screenshots__title {
+    color: var(--screenshots-title-active);
+  }
+
+  .case-screenshots__item:hover .case-screenshots__title {
+    opacity: 0.8;
+  }
+
+  .case-screenshots__item.is-active:hover .case-screenshots__title {
+    opacity: 1;
+  }
+
+  .case-screenshots__item-description {
+    color: var(--screenshots-item-description);
+  }
+
+  /* ========================================
+     Progress Bar
+     ======================================== */
+  .case-screenshots__progress-container {
+    overflow-x: hidden;
+  }
+
+  .case-screenshots__progress-track {
+    background: var(--screenshots-progress-track);
+  }
+
+  .case-screenshots__progress-bar {
+    will-change: width;
+    background: var(--screenshots-progress-bar);
+  }
+
+  .case-screenshots__progress-glow {
+    --glow-color: var(--screenshots-progress-bar);
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 10%,
+      var(--glow-color) 70%,
+      var(--glow-color) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      30px 0 10px var(--glow-color),
+      50px 0 20px var(--glow-color),
+      70px 0 35px var(--glow-color);
+    will-change: left, opacity;
+    transition: opacity 0.15s ease;
+  }
+
+  /* ========================================
+     Phone Card
+     ======================================== */
+  .case-screenshots__card {
+    background: var(--screenshots-card-bg);
+    border: 1px solid var(--screenshots-card-border);
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1);
+    overflow: hidden; /* Clip the phone that extends beyond */
+  }
+
+  .case-screenshots__card > div {
+    /* Push the phone down so ~10% extends below the card */
+    padding-bottom: 0;
+    margin-bottom: -10%;
+  }
+
+  /* ========================================
+     Phone Mockup Styles
+     ======================================== */
+  .case-screenshots__phone {
+    position: relative;
+    width: 320px;
+    aspect-ratio: 320 / 650;
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.25));
+  }
+
+  .case-screenshots__phone--mobile {
+    width: 85vw;
+    max-width: 380px;
+  }
+
+  @media (min-width: 640px) {
+    .case-screenshots__phone--mobile {
+      width: 420px;
+      max-width: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .case-screenshots__phone {
+      width: 360px;
+    }
+  }
+
+  .case-screenshots__phone-frame {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .case-screenshots__phone-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Fixed Status Bar Container - overlays top of screen with glassmorphism */
+  .case-screenshots__status-bar-container {
+    position: absolute;
+    left: 3.75%;
+    top: 1.85%;
+    width: 92.5%;
+    z-index: 3;
+    border-radius: 38px 38px 0 0;
+    overflow: hidden;
+    pointer-events: none;
+    /* Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+  }
+
+  .case-screenshots__status-bar-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .case-screenshots__screen-container {
+    position: absolute;
+    left: 3.75%;
+    top: 0.5%;
+    width: 92.5%;
+    height: 96.3%;
+    overflow: hidden;
+    border-radius: 38px;
+    z-index: 1;
+    background: #000;
+    /* Padding for status bar - 40px in 650px phone height = ~6.15% */
+    padding-top: 6.15%;
+  }
+
+  .case-screenshots__screen-image {
+    position: absolute;
+    top: 6.15%; /* Start below status bar area */
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .case-screenshots__screen-image.is-active {
+    opacity: 1;
+  }
+
+  /* Mobile: only one image per card, always visible */
+  .case-screenshots__mobile .case-screenshots__screen-image {
+    position: relative;
+    opacity: 1;
+  }
+
+  /* ========================================
+     Mobile Card Styles
+     ======================================== */
+  .case-screenshots__mobile-card {
+    transform-origin: bottom center;
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transition:
+      transform 0.4s ease-out,
+      opacity 0.4s ease-out;
+    background: var(--screenshots-card-bg);
+    border: 1px solid var(--screenshots-card-border);
+    overflow: hidden;
+  }
+
+  /* Phone mockup extends past card bottom */
+  .case-screenshots__mobile-card .case-screenshots__phone--mobile {
+    margin-bottom: -10%;
+  }
+
+  .case-screenshots__mobile-card:not(.is-active) {
+    pointer-events: none;
+  }
+
+  .case-screenshots__mobile-title {
+    color: var(--screenshots-title-active);
+  }
+
+  .case-screenshots__mobile-text {
+    color: var(--screenshots-item-description);
+  }
+
+  /* ========================================
+     Mobile Dots
+     ======================================== */
+  .case-screenshots__mobile-dot {
+    cursor: pointer;
+    background: var(--screenshots-progress-track);
+  }
+
+  .case-screenshots__mobile-dot.is-active {
+    background: var(--screenshots-progress-bar);
+  }
+
+  /* ========================================
+     Dark variant shadow
+     ======================================== */
+  .case-screenshots[data-variant="dark"] .case-screenshots__phone {
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.4));
+  }
+
+  /* ========================================
+     Reduced motion
+     ======================================== */
+  @media (prefers-reduced-motion: reduce) {
+    .case-screenshots__screen-image,
+    .case-screenshots__mobile-card {
+      transition: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,981 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { SectionVariant } from "../../types";
+
+// Canvas Components
+import ShopifyEcosystemCanvas from "@components/canvas/ShopifyEcosystemCanvas.astro";
+import MarketingChannelsCanvas from "@components/canvas/MarketingChannelsCanvas.astro";
+import AppDevelopmentCanvas from "@components/canvas/AppDevelopmentCanvas.astro";
+import MarketingOrbitCanvas from "@components/canvas/MarketingOrbitCanvas.astro";
+import BrowserMockupCanvas from "@components/canvas/BrowserMockupCanvas.astro";
+import TechStackCanvas from "@components/canvas/TechStackCanvas.astro";
+
+// Import all images from assets for dynamic resolution
+const assetImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+
+interface FeatureItem {
+  icon: string;
+  title: string;
+  description: string;
+  linkText?: string;
+  linkHref?: string;
+  image?: string;
+  imageAlt?: string;
+  canvasId?:
+    | "shopify-canvas"
+    | "marketing-canvas"
+    | "app-development-canvas"
+    | "marketing-orbit-canvas"
+    | "browser-mockup-canvas"
+    | "tech-stack-canvas";
+  canvasBackground?: string; // e.g. "white", "transparent", "#f5f5f5"
+  screenshotUrl?: string; // For browser-mockup-canvas
+  browserUrl?: string; // URL text shown in browser bar
+  browserPosition?: "center" | "left" | "right"; // Position of browser mockup
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  items?: FeatureItem[];
+  imagePosition?: "left" | "right";
+}
+
+const {
+  sectionVariant = "dark",
+  imagePosition = "right",
+  items = [
+    {
+      icon: "heroicons:paint-brush-16-solid",
+      title: "Individuelles Design",
+      description:
+        "Maßgeschneiderte Designs, die deine Marke widerspiegeln. In enger Zusammenarbeit bringen wir deine Vision zum Leben.",
+      linkText: "Jetzt starten",
+      linkHref: "/design",
+      image:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=900&fit=crop",
+    },
+    {
+      icon: "heroicons:rocket-launch-16-solid",
+      title: "Shopify Plus Lösungen",
+      description:
+        "Ob Shopify, Shopify Plus oder Headless? Wir beraten dich umfangreich zu den Angeboten für optimale skalierbare Lösungen.",
+      linkText: "Jetzt starten",
+      linkHref: "/shopify-plus",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=900&fit=crop",
+    },
+    {
+      icon: "heroicons:puzzle-piece-16-solid",
+      title: "App-Entwicklung & Integrationen",
+      description:
+        "Mehr Funktionen, mehr Möglichkeiten: Wir entwickeln individuelle Apps und Integrationen für deinen Shopify-Store.",
+      linkText: "Jetzt starten",
+      linkHref: "/app-entwicklung",
+      image:
+        "https://images.unsplash.com/photo-1555421689-d68471e189f2?w=800&h=900&fit=crop",
+    },
+    {
+      icon: "heroicons:megaphone-16-solid",
+      title: "SEO & Marketing",
+      description:
+        "Wir beraten dich zu SEO, Ads, E-Mail- und Social-Media-Marketing und entwickeln individuelle Strategien für dein Business.",
+      linkText: "Jetzt starten",
+      linkHref: "/marketing",
+      image:
+        "https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800&h=900&fit=crop",
+    },
+    {
+      icon: "heroicons:arrows-right-left-16-solid",
+      title: "Shopify Migration",
+      description:
+        "Wir begleiten dich beim Umzug zu Shopify. Alle Daten werden sicher übertragen, damit dein Shop reibungslos online geht.",
+      linkText: "Jetzt starten",
+      linkHref: "/migration",
+      image:
+        "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=900&fit=crop",
+    },
+  ],
+} = Astro.props;
+
+const isImageLeft = imagePosition === "left";
+const uniqueId = `feature-showcase-${Math.random().toString(36).substring(2, 11)}`;
+
+// Resolve images from src/assets
+interface ResolvedItem extends FeatureItem {
+  resolvedImage?: ImageMetadata;
+}
+
+const resolvedItems: ResolvedItem[] = await Promise.all(
+  items.map(async (item) => {
+    if (item.image?.startsWith("/src/")) {
+      const imageModule = assetImages[item.image];
+      if (imageModule) {
+        const resolved = await imageModule();
+        return { ...item, resolvedImage: resolved.default };
+      }
+    }
+    return { ...item };
+  }),
+);
+---
+
+<div
+  class="feature-showcase relative"
+  id={uniqueId}
+  data-variant={sectionVariant}
+  data-image-position={imagePosition}
+>
+  <Container class="max-w-screen-2xl px-0 sm:px-6 lg:px-8">
+    {/* Mobile Cards - poker stack layout */}
+    <div class="feature-showcase__mobile-wrapper px-5 sm:px-0 lg:hidden">
+      {/* Card Stack */}
+      <div class="feature-showcase__mobile-stack relative">
+        {
+          resolvedItems.map((item, index) => (
+            <div
+              class:list={[
+                "feature-showcase__mobile-card overflow-hidden",
+                index === 0 ? "relative" : "absolute inset-0",
+                index === 0 ? "is-active" : "",
+              ]}
+              data-index={index}
+            >
+              {/* Image or Canvas */}
+              <div
+                class="aspect-[4/3] overflow-hidden"
+                style={
+                  item.canvasId && item.canvasBackground
+                    ? `background: ${item.canvasBackground}`
+                    : undefined
+                }
+              >
+                {item.canvasId === "shopify-canvas" ? (
+                  <ShopifyEcosystemCanvas
+                    id={`mobile-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "marketing-canvas" ? (
+                  <MarketingChannelsCanvas
+                    id={`mobile-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "app-development-canvas" ? (
+                  <AppDevelopmentCanvas
+                    id={`mobile-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "marketing-orbit-canvas" ? (
+                  <MarketingOrbitCanvas
+                    id={`mobile-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "browser-mockup-canvas" &&
+                  item.screenshotUrl ? (
+                  <BrowserMockupCanvas
+                    id={`mobile-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                    screenshotUrl={item.screenshotUrl}
+                    urlText={item.browserUrl}
+                  />
+                ) : item.canvasId === "tech-stack-canvas" ? (
+                  <TechStackCanvas
+                    id={`mobile-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.resolvedImage ? (
+                  <Image
+                    src={item.resolvedImage}
+                    alt={item.imageAlt || item.title}
+                    class="h-full w-full object-cover"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt || item.title}
+                    class="h-full w-full object-cover"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                )}
+              </div>
+              {/* Content */}
+              <div class="flex flex-col gap-3 p-5">
+                <h3 class="feature-showcase__mobile-title text-lg font-semibold">
+                  {item.title}
+                </h3>
+                <p class="feature-showcase__mobile-text text-sm/6">
+                  {item.description}
+                </p>
+                {item.linkHref && item.linkText && (
+                  <a
+                    href={item.linkHref}
+                    class="feature-showcase__mobile-link inline-flex items-center gap-2 text-sm font-bold transition-colors"
+                  >
+                    <span>{item.linkText}</span>
+                    <Icon
+                      name="heroicons:arrow-right-16-solid"
+                      class="h-4 w-4"
+                    />
+                  </a>
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      {/* Navigation Dots */}
+      <div class="mt-4 flex justify-center gap-2">
+        {
+          resolvedItems.map((_, index) => (
+            <button
+              class:list={[
+                "feature-showcase__mobile-dot h-2 w-2 rounded-full transition-all",
+                index === 0 ? "is-active w-6" : "",
+              ]}
+              data-index={index}
+              aria-label={`Slide ${index + 1}`}
+            />
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Desktop Layout */}
+    <div
+      class:list={[
+        "hidden gap-4 sm:gap-8 lg:flex lg:flex-row lg:items-start lg:gap-12",
+        isImageLeft && "lg:flex-row-reverse",
+      ]}
+    >
+      {/* Content Items */}
+      <div
+        class="feature-showcase__content flex flex-col px-5 sm:px-0 lg:w-1/2"
+      >
+        {
+          resolvedItems.map((item, index) => (
+            <div
+              class="feature-showcase__item-wrapper relative"
+              data-index={index}
+            >
+              <div
+                class:list={[
+                  "feature-showcase__item group cursor-pointer py-4 pl-0 transition-all duration-500 sm:py-6 sm:pl-6",
+                  index === 0 ? "is-active" : "",
+                ]}
+              >
+                <div class="flex flex-col gap-4">
+                  {/* Title */}
+                  <h3 class="feature-showcase__title text-xl leading-tight font-semibold tracking-tight transition-colors duration-300 sm:text-2xl lg:text-3xl">
+                    {item.title}
+                  </h3>
+
+                  {/* Description - collapsible */}
+                  <div
+                    class:list={[
+                      "feature-showcase__description overflow-hidden transition-all duration-500",
+                      index === 0
+                        ? "max-h-40 opacity-100"
+                        : "max-h-0 opacity-0",
+                    ]}
+                  >
+                    <p class="feature-showcase__description-text text-base/7 lg:text-lg/8">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* Link - collapsible */}
+                  {item.linkHref && item.linkText && (
+                    <div
+                      class:list={[
+                        "feature-showcase__link-wrapper overflow-hidden transition-all duration-500",
+                        index === 0
+                          ? "max-h-12 opacity-100"
+                          : "max-h-0 opacity-0",
+                      ]}
+                    >
+                      <a
+                        href={item.linkHref}
+                        class="feature-showcase__link inline-flex items-center gap-2 font-bold transition-colors"
+                      >
+                        <span>{item.linkText}</span>
+                        <Icon
+                          name="heroicons:arrow-right-16-solid"
+                          class="h-4 w-4"
+                        />
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Bottom Progress/Glow Bar */}
+              <div
+                class:list={[
+                  "feature-showcase__progress-container absolute right-0 bottom-0 left-0 h-px overflow-visible sm:left-6",
+                  index === 0 ? "opacity-100" : "opacity-0",
+                ]}
+              >
+                <div class="feature-showcase__progress-track absolute inset-0" />
+                <div
+                  class="feature-showcase__progress-bar absolute top-0 left-0 h-full origin-left"
+                  style="width: 0%"
+                />
+                <div
+                  class="feature-showcase__progress-glow pointer-events-none absolute top-1/2 -translate-y-1/2 opacity-0"
+                  style="left: 0%"
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      {/* Image Area */}
+      <div
+        class="feature-showcase__images relative hidden px-5 sm:px-0 lg:sticky lg:top-24 lg:block lg:w-1/2"
+      >
+        <div
+          class="feature-showcase__card-stack relative aspect-video sm:aspect-[4/5]"
+        >
+          {
+            resolvedItems.map((item, index) => (
+              <div
+                class:list={[
+                  "feature-showcase__card absolute inset-0 overflow-hidden",
+                  index === 0 ? "is-active" : "",
+                  item.canvasId &&
+                    !item.canvasBackground &&
+                    "feature-showcase__canvas-card",
+                ]}
+                data-index={index}
+                style={
+                  item.canvasId && item.canvasBackground
+                    ? `background: ${item.canvasBackground}`
+                    : undefined
+                }
+              >
+                {item.canvasId === "shopify-canvas" ? (
+                  <ShopifyEcosystemCanvas
+                    id={`desktop-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "marketing-canvas" ? (
+                  <MarketingChannelsCanvas
+                    id={`desktop-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "app-development-canvas" ? (
+                  <AppDevelopmentCanvas
+                    id={`desktop-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "marketing-orbit-canvas" ? (
+                  <MarketingOrbitCanvas
+                    id={`desktop-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.canvasId === "browser-mockup-canvas" &&
+                  item.screenshotUrl ? (
+                  <BrowserMockupCanvas
+                    id={`desktop-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                    screenshotUrl={item.screenshotUrl}
+                    urlText={item.browserUrl}
+                  />
+                ) : item.canvasId === "tech-stack-canvas" ? (
+                  <TechStackCanvas
+                    id={`desktop-${item.canvasId}-${index}`}
+                    class="h-full w-full"
+                  />
+                ) : item.resolvedImage ? (
+                  <Image
+                    src={item.resolvedImage}
+                    alt={item.imageAlt || item.title}
+                    class="feature-showcase__image h-full w-full object-cover"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt || item.title}
+                    class="feature-showcase__image h-full w-full object-cover"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initFeatureShowcase() {
+    const showcases = document.querySelectorAll(".feature-showcase");
+
+    showcases.forEach((showcase) => {
+      const items = showcase.querySelectorAll(".feature-showcase__item");
+      const itemWrappers = showcase.querySelectorAll(
+        ".feature-showcase__item-wrapper",
+      );
+      const cards = showcase.querySelectorAll(".feature-showcase__card");
+
+      if (items.length === 0) return;
+
+      let currentActiveIndex = 0;
+
+      // No longer need style mappings - using CSS classes with is-active state
+
+      function updateProgressBar(activeIndex: number, itemProgress: number) {
+        itemWrappers.forEach((wrapper, index) => {
+          const progressContainer = wrapper.querySelector(
+            ".feature-showcase__progress-container",
+          );
+          const progressBar = wrapper.querySelector(
+            ".feature-showcase__progress-bar",
+          ) as HTMLElement;
+          const progressGlow = wrapper.querySelector(
+            ".feature-showcase__progress-glow",
+          ) as HTMLElement;
+
+          if (!progressContainer || !progressBar || !progressGlow) return;
+
+          if (index === activeIndex) {
+            // Active item: show progress bar and animate
+            progressContainer.classList.remove("opacity-0");
+            progressContainer.classList.add("opacity-100");
+            const percentage = Math.min(itemProgress * 100, 100);
+            progressBar.style.width = `${percentage}%`;
+            // Position glow at the leading edge (120px width, so offset by that amount)
+            progressGlow.style.left = `calc(${percentage}% - 120px)`;
+            progressGlow.style.opacity = itemProgress > 0.02 ? "1" : "0";
+          } else {
+            // Non-active items: hide completely
+            progressContainer.classList.add("opacity-0");
+            progressContainer.classList.remove("opacity-100");
+            progressBar.style.width = "0%";
+            progressGlow.style.opacity = "0";
+          }
+        });
+      }
+
+      function setActiveItem(activeIndex: number, animate: boolean = true) {
+        const previousIndex = currentActiveIndex;
+        currentActiveIndex = activeIndex;
+
+        items.forEach((item, index) => {
+          const description = item.querySelector(
+            ".feature-showcase__description",
+          );
+          const linkWrapper = item.querySelector(
+            ".feature-showcase__link-wrapper",
+          );
+          const isActive = index === activeIndex;
+
+          // Update active state - CSS handles colors via .is-active class
+          if (isActive) {
+            item.classList.add("is-active");
+          } else {
+            item.classList.remove("is-active");
+          }
+
+          // Toggle description visibility
+          if (description) {
+            if (isActive) {
+              description.classList.remove("max-h-0", "opacity-0");
+              description.classList.add("max-h-40", "opacity-100");
+            } else {
+              description.classList.add("max-h-0", "opacity-0");
+              description.classList.remove("max-h-40", "opacity-100");
+            }
+          }
+
+          // Toggle link visibility
+          if (linkWrapper) {
+            if (isActive) {
+              linkWrapper.classList.remove("max-h-0", "opacity-0");
+              linkWrapper.classList.add("max-h-12", "opacity-100");
+            } else {
+              linkWrapper.classList.add("max-h-0", "opacity-0");
+              linkWrapper.classList.remove("max-h-12", "opacity-100");
+            }
+          }
+        });
+
+        // Update cards with poker stack animation
+        updateCardStack(activeIndex, animate && previousIndex !== activeIndex);
+      }
+
+      function updateCardStack(activeIndex: number, animate: boolean = true) {
+        const totalCards = cards.length;
+
+        cards.forEach((card, index) => {
+          const cardEl = card as HTMLElement;
+          const relativeIndex = index - activeIndex;
+
+          if (index === activeIndex) {
+            // Active card: front and center
+            if (animate) {
+              gsap.to(cardEl, {
+                x: 0,
+                y: 0,
+                rotate: 0,
+                scale: 1,
+                opacity: 1,
+                zIndex: totalCards,
+                duration: 0.5,
+                ease: "power2.out",
+              });
+            } else {
+              gsap.set(cardEl, {
+                x: 0,
+                y: 0,
+                rotate: 0,
+                scale: 1,
+                opacity: 1,
+                zIndex: totalCards,
+              });
+            }
+          } else if (relativeIndex > 0 && relativeIndex <= 2) {
+            // Next cards: stacked behind, slightly rotated (poker card effect)
+            const stackOffset = relativeIndex;
+            const rotation = stackOffset * 3; // 3 degrees per card
+            const xOffset = stackOffset * 15; // 15px offset per card
+            const yOffset = stackOffset * -5; // slight upward offset
+            const scaleReduction = 1 - stackOffset * 0.03; // slight scale reduction
+
+            if (animate) {
+              gsap.to(cardEl, {
+                x: xOffset,
+                y: yOffset,
+                rotate: rotation,
+                scale: scaleReduction,
+                opacity: 0.6 - stackOffset * 0.15,
+                zIndex: totalCards - stackOffset,
+                duration: 0.5,
+                ease: "power2.out",
+              });
+            } else {
+              gsap.set(cardEl, {
+                x: xOffset,
+                y: yOffset,
+                rotate: rotation,
+                scale: scaleReduction,
+                opacity: 0.6 - stackOffset * 0.15,
+                zIndex: totalCards - stackOffset,
+              });
+            }
+          } else {
+            // Other cards: hidden
+            if (animate) {
+              gsap.to(cardEl, {
+                x: relativeIndex < 0 ? -50 : 50,
+                y: 0,
+                rotate: relativeIndex < 0 ? -5 : 5,
+                scale: 0.9,
+                opacity: 0,
+                zIndex: 0,
+                duration: 0.3,
+                ease: "power2.in",
+              });
+            } else {
+              gsap.set(cardEl, {
+                x: relativeIndex < 0 ? -50 : 50,
+                y: 0,
+                rotate: relativeIndex < 0 ? -5 : 5,
+                scale: 0.9,
+                opacity: 0,
+                zIndex: 0,
+              });
+            }
+          }
+        });
+      }
+
+      // Set initial state
+      setActiveItem(0, false);
+      updateProgressBar(0, 0);
+      updateCardStack(0, false);
+
+      // Create scroll triggers for each item
+      const totalScrollDistance = items.length * 100; // vh per item
+
+      ScrollTrigger.create({
+        trigger: showcase,
+        start: "top 20%",
+        end: `+=${totalScrollDistance}%`,
+        pin: true,
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const scaledProgress = progress * items.length;
+          const activeIndex = Math.min(
+            Math.floor(scaledProgress),
+            items.length - 1,
+          );
+          const itemProgress = scaledProgress - activeIndex;
+
+          if (activeIndex !== currentActiveIndex) {
+            setActiveItem(activeIndex);
+          }
+          updateProgressBar(activeIndex, itemProgress);
+        },
+      });
+
+      // Click handlers for manual selection
+      items.forEach((item, index) => {
+        item.addEventListener("click", () => {
+          setActiveItem(index);
+          updateProgressBar(index, 0);
+        });
+      });
+    });
+  }
+
+  // Mobile card stack management with scroll
+  function initMobileCardStack() {
+    const showcases = document.querySelectorAll(".feature-showcase");
+
+    showcases.forEach((showcase) => {
+      const mobileWrapper = showcase.querySelector(
+        ".feature-showcase__mobile-wrapper",
+      );
+      const mobileCards = showcase.querySelectorAll(
+        ".feature-showcase__mobile-card",
+      );
+      const mobileDots = showcase.querySelectorAll(
+        ".feature-showcase__mobile-dot",
+      );
+
+      if (!mobileWrapper || mobileCards.length === 0) return;
+
+      let currentIndex = 0;
+      const totalCards = mobileCards.length;
+
+      function updateMobileStack(activeIndex: number) {
+        if (activeIndex === currentIndex) return;
+        currentIndex = activeIndex;
+
+        mobileCards.forEach((card, index) => {
+          const cardEl = card as HTMLElement;
+          const relativeIndex = index - activeIndex;
+
+          if (index === activeIndex) {
+            // Active card
+            cardEl.style.transform = "translateX(0) scale(1)";
+            cardEl.style.opacity = "1";
+            cardEl.style.zIndex = String(totalCards);
+            cardEl.classList.add("is-active");
+          } else if (relativeIndex > 0 && relativeIndex <= 2) {
+            // Next cards - stacked behind
+            const offset = relativeIndex * 12;
+            const scale = 1 - relativeIndex * 0.04;
+            cardEl.style.transform = `translateX(${offset}px) scale(${scale})`;
+            cardEl.style.opacity = String(0.6 - relativeIndex * 0.2);
+            cardEl.style.zIndex = String(totalCards - relativeIndex);
+            cardEl.classList.remove("is-active");
+          } else {
+            // Hidden cards
+            cardEl.style.transform =
+              relativeIndex < 0
+                ? "translateX(-40px) scale(0.95)"
+                : "translateX(40px) scale(0.95)";
+            cardEl.style.opacity = "0";
+            cardEl.style.zIndex = "0";
+            cardEl.classList.remove("is-active");
+          }
+        });
+
+        // Update dots - CSS handles colors via is-active class
+        mobileDots.forEach((dot, index) => {
+          const dotEl = dot as HTMLElement;
+          const isActive = index === activeIndex;
+
+          dotEl.classList.toggle("w-6", isActive);
+          dotEl.classList.toggle("w-2", !isActive);
+          dotEl.classList.toggle("is-active", isActive);
+        });
+      }
+
+      // Set initial state immediately (before any scroll)
+      mobileCards.forEach((card, index) => {
+        const cardEl = card as HTMLElement;
+        if (index === 0) {
+          cardEl.style.transform = "translateX(0) scale(1)";
+          cardEl.style.opacity = "1";
+          cardEl.style.zIndex = String(totalCards);
+          cardEl.classList.add("is-active");
+        } else if (index <= 2) {
+          const offset = index * 12;
+          const scale = 1 - index * 0.04;
+          cardEl.style.transform = `translateX(${offset}px) scale(${scale})`;
+          cardEl.style.opacity = String(0.6 - index * 0.2);
+          cardEl.style.zIndex = String(totalCards - index);
+        } else {
+          cardEl.style.transform = "translateX(40px) scale(0.95)";
+          cardEl.style.opacity = "0";
+          cardEl.style.zIndex = "0";
+        }
+      });
+
+      // Scroll-based card switching - shorter distance for mobile
+      const totalScrollDistance = totalCards * 40; // vh per card (reduced from 80)
+
+      ScrollTrigger.create({
+        trigger: mobileWrapper,
+        start: "top 15%",
+        end: `+=${totalScrollDistance}%`,
+        pin: true,
+        scrub: 0.3,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const scaledProgress = progress * totalCards;
+          const activeIndex = Math.min(
+            Math.floor(scaledProgress),
+            totalCards - 1,
+          );
+          updateMobileStack(activeIndex);
+        },
+      });
+
+      // Dot click handlers
+      mobileDots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          updateMobileStack(index);
+        });
+      });
+    });
+  }
+
+  let currentMode: "desktop" | "mobile" | null = null;
+
+  function initBasedOnScreenSize() {
+    const isDesktop = window.innerWidth >= 1024;
+    const newMode = isDesktop ? "desktop" : "mobile";
+
+    // Only reinitialize if mode changed
+    if (newMode === currentMode) return;
+
+    // Kill existing ScrollTriggers for feature-showcase
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const triggerEl = trigger.trigger as HTMLElement;
+      if (
+        triggerEl?.closest(".feature-showcase") ||
+        triggerEl?.classList.contains("feature-showcase__mobile-wrapper")
+      ) {
+        trigger.kill();
+      }
+    });
+
+    currentMode = newMode;
+
+    if (isDesktop) {
+      initFeatureShowcase();
+    } else {
+      initMobileCardStack();
+    }
+  }
+
+  // Initialize on page load
+  document.addEventListener("DOMContentLoaded", initBasedOnScreenSize);
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", () => {
+    currentMode = null;
+    initBasedOnScreenSize();
+  });
+
+  // Handle window resize with debounce
+  let resizeTimeout: ReturnType<typeof setTimeout>;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(initBasedOnScreenSize, 150);
+  });
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Mobile Card Styles
+     ======================================== */
+  .feature-showcase__mobile-card {
+    transform-origin: bottom center;
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transition:
+      transform 0.4s ease-out,
+      opacity 0.4s ease-out;
+    background: var(--section-card-bg);
+    border: 1px solid var(--section-card-border);
+  }
+
+  /* First card - active and straight */
+  .feature-showcase__mobile-card:nth-child(1) {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 10;
+  }
+
+  /* Second card - stacked behind */
+  .feature-showcase__mobile-card:nth-child(2) {
+    opacity: 0.5;
+    transform: translateX(12px) scale(0.96);
+    z-index: 9;
+  }
+
+  /* Third card - stacked further behind */
+  .feature-showcase__mobile-card:nth-child(3) {
+    opacity: 0.3;
+    transform: translateX(24px) scale(0.92);
+    z-index: 8;
+  }
+
+  /* Rest hidden */
+  .feature-showcase__mobile-card:nth-child(n + 4) {
+    opacity: 0;
+    transform: translateX(36px) scale(0.88);
+    z-index: 0;
+  }
+
+  .feature-showcase__mobile-card:not(.is-active) {
+    pointer-events: none;
+  }
+
+  .feature-showcase__mobile-title {
+    color: var(--section-text);
+  }
+
+  .feature-showcase__mobile-text {
+    color: var(--section-text-muted);
+  }
+
+  .feature-showcase__mobile-link {
+    color: var(--section-text);
+  }
+
+  .feature-showcase__mobile-link:hover {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Mobile Dot Styles
+     ======================================== */
+  .feature-showcase__mobile-dot {
+    cursor: pointer;
+    background: color-mix(in srgb, var(--section-text) 30%, transparent);
+  }
+
+  .feature-showcase__mobile-dot.is-active {
+    background: var(--section-accent);
+  }
+
+  /* ========================================
+     Desktop Item Styles
+     ======================================== */
+  .feature-showcase__item {
+    cursor: pointer;
+  }
+
+  .feature-showcase__item:hover .feature-showcase__title {
+    opacity: 0.8;
+  }
+
+  .feature-showcase__item.is-active:hover .feature-showcase__title {
+    opacity: 1;
+  }
+
+  /* Title styles */
+  .feature-showcase__title {
+    color: var(--section-text-muted);
+  }
+
+  .feature-showcase__item.is-active .feature-showcase__title {
+    color: var(--section-text);
+  }
+
+  /* Description styles */
+  .feature-showcase__description-text {
+    color: var(--section-text-muted);
+  }
+
+  /* Link styles */
+  .feature-showcase__link {
+    color: var(--section-text);
+  }
+
+  .feature-showcase__link:hover {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Card Stack Container
+     ======================================== */
+  .feature-showcase__card-stack {
+    perspective: 1000px;
+    overflow: visible;
+  }
+
+  .feature-showcase__card {
+    transform-origin: bottom center;
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  .feature-showcase__canvas-card {
+    background: white;
+  }
+
+  /* ========================================
+     Progress Bar Styles
+     ======================================== */
+  .feature-showcase__progress-container {
+    overflow-x: hidden;
+  }
+
+  .feature-showcase__progress-track {
+    background: color-mix(in srgb, var(--section-text) 20%, transparent);
+  }
+
+  .feature-showcase__progress-bar {
+    will-change: width;
+    background: var(--section-accent);
+  }
+
+  .feature-showcase__progress-glow {
+    --glow-color: var(--section-accent);
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 10%,
+      var(--glow-color) 70%,
+      var(--glow-color) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      30px 0 10px var(--glow-color),
+      50px 0 20px var(--glow-color),
+      70px 0 35px var(--glow-color);
+    will-change: left, opacity;
+    transition: opacity 0.15s ease;
+  }
+</style>

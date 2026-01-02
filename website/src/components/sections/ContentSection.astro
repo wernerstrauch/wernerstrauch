@@ -1,0 +1,261 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface ContentBlock {
+  type:
+    | "text"
+    | "headline"
+    | "subheadline"
+    | "bullets"
+    | "numberedList"
+    | "faq";
+  content: string | string[] | FaqItem[];
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  tagline?: string;
+  content?: ContentBlock[];
+}
+
+const {
+  sectionVariant = "white",
+  headline,
+  tagline,
+  content = [],
+} = Astro.props;
+
+// Process headline with CSS variable highlight
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline?.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Unique ID for Alpine.js
+const uniqueId = `content-section-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div class="content-section" data-variant={sectionVariant}>
+  <Container class="max-w-4xl">
+    <div class="flex flex-col gap-8 lg:gap-10">
+      {/* Header Section */}
+      {
+        (headline || tagline) && (
+          <div class="flex flex-col gap-6">
+            {headline && (
+              <h2
+                class="content-section__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+                style="transition-delay: 100ms;"
+                set:html={processedHeadline}
+              />
+            )}
+
+            {tagline && (
+              <div
+                class="content-section__tagline fade-up border-l-4 py-3 pl-6"
+                style="transition-delay: 150ms;"
+              >
+                <p class="text-base/7 lg:text-lg/8">{tagline}</p>
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      {/* Content Blocks */}
+      <div
+        class="fade-up flex flex-col gap-4"
+        style="transition-delay: 200ms;"
+        x-data={`{ activeItem: null }`}
+        id={uniqueId}
+      >
+        {
+          content.map((block, blockIndex) => {
+            if (block.type === "text") {
+              return (
+                <p
+                  class="content-section__text text-base/7 lg:text-lg/8"
+                  set:html={block.content as string}
+                />
+              );
+            }
+
+            if (block.type === "headline") {
+              return (
+                <h3 class="content-section__subheadline mt-6 text-xl font-bold lg:text-2xl">
+                  {block.content as string}
+                </h3>
+              );
+            }
+
+            if (block.type === "subheadline") {
+              return (
+                <h4 class="content-section__subheadline mt-4 text-lg font-semibold lg:text-xl">
+                  {block.content as string}
+                </h4>
+              );
+            }
+
+            if (block.type === "bullets") {
+              return (
+                <ul class="mt-2 flex flex-col gap-2">
+                  {(block.content as string[]).map((item) => (
+                    <li class="flex items-start gap-3">
+                      <Icon
+                        name="heroicons:check-16-solid"
+                        class="content-section__icon mt-1 h-4 w-4 shrink-0"
+                      />
+                      <span
+                        class="content-section__text text-base/7"
+                        set:html={item}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              );
+            }
+
+            if (block.type === "numberedList") {
+              return (
+                <ol class="mt-2 flex flex-col gap-3">
+                  {(block.content as string[]).map((item, idx) => (
+                    <li class="flex items-start gap-3">
+                      <span class="content-section__number flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
+                        {idx + 1}
+                      </span>
+                      <span
+                        class="content-section__text text-base/7"
+                        set:html={item}
+                      />
+                    </li>
+                  ))}
+                </ol>
+              );
+            }
+
+            if (block.type === "faq") {
+              return (
+                <div class="mt-4">
+                  {(block.content as FaqItem[]).map((item, index) => {
+                    const itemId = `${uniqueId}-${blockIndex}-${index}`;
+                    return (
+                      <div class="content-section__faq-item border-t">
+                        <button
+                          type="button"
+                          class="flex w-full items-center justify-between py-4 text-left"
+                          x-on:click={`activeItem = activeItem === '${itemId}' ? null : '${itemId}'`}
+                        >
+                          <span class="content-section__faq-question pr-4 font-medium">
+                            {item.question}
+                          </span>
+                          <Icon
+                            name="heroicons:plus-16-solid"
+                            class="content-section__icon h-5 w-5 shrink-0 transition-transform duration-200"
+                            x-bind:class={`{ 'rotate-45': activeItem === '${itemId}' }`}
+                          />
+                        </button>
+                        <div
+                          x-show={`activeItem === '${itemId}'`}
+                          x-collapse
+                          class="overflow-hidden"
+                        >
+                          <p
+                            class="content-section__text pb-4 text-base/7"
+                            set:html={item.answer}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <div class="content-section__faq-item border-t" />
+                </div>
+              );
+            }
+
+            return null;
+          })
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Headline & Tagline
+     ======================================== */
+  .content-section__headline {
+    color: var(--section-text);
+  }
+
+  .content-section__tagline {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    border-color: var(--section-accent);
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Content Elements
+     ======================================== */
+  .content-section__text {
+    color: var(--section-text-muted);
+  }
+
+  .content-section__subheadline {
+    color: var(--section-text);
+  }
+
+  .content-section__icon {
+    color: var(--section-accent);
+  }
+
+  .content-section__number {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     FAQ Styles
+     ======================================== */
+  .content-section__faq-item {
+    border-color: var(--section-card-border);
+  }
+
+  .content-section__faq-question {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Link & Strong Text Styling
+     ======================================== */
+  .content-section :global(a) {
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+    color: var(--section-accent);
+  }
+
+  .content-section :global(a:hover) {
+    opacity: 0.8;
+  }
+
+  .content-section :global(strong) {
+    color: var(--section-text);
+    font-weight: 600;
+  }
+</style>

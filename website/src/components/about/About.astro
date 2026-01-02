@@ -1,0 +1,350 @@
+---
+import Container from "@components/shared/Container.astro";
+import PageHeroSplit from "@components/shared/PageHeroSplit.astro";
+import Divider from "@components/shared/Divider.astro";
+import Cta from "@components/sections/Cta.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Value {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface MissionVisionCard {
+  icon: string;
+  title: string;
+  paragraphs: string[];
+}
+
+interface Props {
+  // Hero Section
+  hero?: {
+    title?: string;
+    description?: string;
+    image?: string;
+    imageAlt?: string;
+    breadcrumbs?: { label: string; href: string }[];
+    ctaText?: string;
+    ctaHref?: string;
+  };
+
+  // Story Section
+  story?: {
+    badge?: string;
+    heading?: string;
+    highlightedText?: string;
+    paragraphs?: string[];
+    valuesTitle?: string;
+    values?: Value[];
+  };
+
+  // Mission & Vision Section
+  missionVision?: {
+    badge?: string;
+    heading?: string;
+    highlightedText?: string;
+    backgroundImage?: string;
+    cards?: MissionVisionCard[];
+  };
+
+  // Stats Section
+  stats?: {
+    badge?: string;
+    heading?: string;
+    highlightedText?: string;
+    description?: string;
+    items?: Stat[];
+  };
+
+  // CTA Section
+  showCta?: boolean;
+}
+
+const { hero, story, missionVision, stats, showCta = true } = Astro.props;
+
+// Resolve image imports
+const images = import.meta.glob("../../images/**/*.{png,jpg,jpeg,webp}");
+
+let heroImage;
+if (hero?.image) {
+  const imagePath = `../../images/${hero.image}`;
+  if (images[imagePath]) {
+    heroImage = await images[imagePath]().then(
+      (m) => (m as { default: ImageMetadata }).default,
+    );
+  }
+}
+
+let backgroundImage;
+if (missionVision?.backgroundImage) {
+  const imagePath = `../../images/${missionVision.backgroundImage}`;
+  if (images[imagePath]) {
+    backgroundImage = await images[imagePath]().then(
+      (m) => (m as { default: ImageMetadata }).default,
+    );
+  }
+}
+---
+
+{
+  hero && (
+    <PageHeroSplit
+      title={hero.title || ""}
+      description={hero.description || ""}
+      image={heroImage!}
+      imageAlt={hero.imageAlt || ""}
+      breadcrumbs={hero.breadcrumbs}
+      ctaText={hero.ctaText}
+      ctaHref={hero.ctaHref}
+    />
+  )
+}
+
+<Divider />
+
+{
+  story && (
+    <>
+      <section id="story" class="relative py-20 sm:py-24 lg:py-28">
+        <Container>
+          <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              {story.badge && (
+                <div class="blur-in mb-4 flex">
+                  <div class="shadow-inner-blur bg-accent/10 flex items-center rounded-full">
+                    <div class="border-accent/30 flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                      <Icon
+                        name="heroicons:building-office-2-16-solid"
+                        class="text-accent h-4 w-4"
+                      />
+                      <span class="text-sm font-medium text-[#1c1c1e]">
+                        {story.badge}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <h2
+                class="scale-up text-3xl leading-tight font-bold text-[#1c1c1e] sm:text-4xl"
+                style="transition-delay: 100ms;"
+              >
+                {story.heading}{" "}
+                {story.highlightedText && (
+                  <span class="relative inline-block">
+                    <span class="text-accent relative z-10">
+                      {story.highlightedText}
+                    </span>
+                    <span class="text-accent/40 absolute -top-px left-0 -z-10">
+                      {story.highlightedText}
+                    </span>
+                  </span>
+                )}
+              </h2>
+              {story.paragraphs && (
+                <div
+                  class="fade-up mt-6 space-y-4 leading-relaxed text-gray-600"
+                  style="transition-delay: 200ms;"
+                  set:html={story.paragraphs.join("")}
+                />
+              )}
+            </div>
+
+            <div class="space-y-6">
+              {story.valuesTitle && (
+                <p class="text-sm font-medium tracking-wider text-gray-500 uppercase">
+                  {story.valuesTitle}
+                </p>
+              )}
+              {story.values && (
+                <div class="stagger-children space-y-4">
+                  {story.values.map((value) => (
+                    <div class="group hover:border-accent/50 rounded-xl border border-gray-200 bg-white p-5 transition-all duration-300">
+                      <div class="flex items-start gap-4">
+                        <div class="border-accent/30 bg-accent/10 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-110">
+                          <Icon name={value.icon} class="text-accent h-5 w-5" />
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-[#1c1c1e] transition-colors group-hover:text-gray-900">
+                            {value.title}
+                          </h3>
+                          <p class="mt-1 text-sm leading-relaxed text-gray-500">
+                            {value.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <Divider />
+    </>
+  )
+}
+
+{
+  missionVision && (
+    <>
+      <section
+        id="mission"
+        class="relative overflow-hidden py-20 sm:py-24 lg:py-28"
+      >
+        {backgroundImage && (
+          <div class="absolute -top-80 -right-56 -left-56 sm:-right-48 sm:-left-48 md:left-1/2 md:w-full md:max-w-6xl md:-translate-x-1/2 lg:-top-96">
+            <Image
+              src={backgroundImage}
+              alt=""
+              class="h-full w-full object-contain opacity-50"
+            />
+          </div>
+        )}
+
+        <Container>
+          <div class="relative z-10 mb-16 text-center">
+            {missionVision.badge && (
+              <div class="blur-in mb-4 flex justify-center">
+                <div class="shadow-inner-blur bg-accent/10 flex items-center rounded-full">
+                  <div class="border-accent/30 flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                    <Icon
+                      name="heroicons:rocket-launch-16-solid"
+                      class="text-accent h-4 w-4"
+                    />
+                    <span class="text-sm font-medium text-[#1c1c1e]">
+                      {missionVision.badge}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+            <h2
+              class="scale-up text-3xl leading-tight font-bold text-[#1c1c1e] sm:text-4xl lg:text-5xl"
+              style="transition-delay: 100ms;"
+            >
+              {missionVision.heading}{" "}
+              {missionVision.highlightedText && (
+                <span class="relative inline-block">
+                  <span class="text-accent relative z-10">
+                    {missionVision.highlightedText}
+                  </span>
+                  <span class="text-accent/40 absolute -top-px left-0 -z-10">
+                    {missionVision.highlightedText}
+                  </span>
+                </span>
+              )}
+            </h2>
+          </div>
+
+          {missionVision.cards && (
+            <div class="stagger-children grid gap-8 md:grid-cols-2">
+              {missionVision.cards.map((card) => (
+                <div class="group hover:border-accent/50 relative rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-300">
+                  <div class="border-accent/30 bg-accent/10 mb-6 flex h-14 w-14 items-center justify-center rounded-xl border">
+                    <Icon name={card.icon} class="text-accent h-7 w-7" />
+                  </div>
+                  <h3 class="text-2xl font-bold text-[#1c1c1e]">
+                    {card.title}
+                  </h3>
+                  {card.paragraphs.map((p, idx) => (
+                    <p
+                      class:list={[
+                        "leading-relaxed",
+                        idx === 0 ? "mt-4 text-gray-600" : "mt-4 text-gray-500",
+                      ]}
+                    >
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </Container>
+      </section>
+
+      <Divider />
+    </>
+  )
+}
+
+{
+  stats && (
+    <section class="relative py-20 sm:py-24 lg:py-28">
+      <Container>
+        <div class="mb-16 text-center">
+          {stats.badge && (
+            <div class="blur-in mb-4 flex justify-center">
+              <div class="shadow-inner-blur bg-accent/10 flex items-center rounded-full">
+                <div class="border-accent/30 flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                  <Icon
+                    name="heroicons:chart-bar-16-solid"
+                    class="text-accent h-4 w-4"
+                  />
+                  <span class="text-sm font-medium text-[#1c1c1e]">
+                    {stats.badge}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+          <h2
+            class="scale-up text-3xl leading-tight font-bold text-[#1c1c1e] sm:text-4xl lg:text-5xl"
+            style="transition-delay: 100ms;"
+          >
+            {stats.heading}{" "}
+            {stats.highlightedText && (
+              <span class="relative inline-block">
+                <span class="text-accent relative z-10">
+                  {stats.highlightedText}
+                </span>
+                <span class="text-accent/40 absolute -top-px left-0 -z-10">
+                  {stats.highlightedText}
+                </span>
+              </span>
+            )}
+          </h2>
+          {stats.description && (
+            <p
+              class="fade-up mx-auto mt-4 max-w-2xl text-lg text-gray-600"
+              style="transition-delay: 200ms;"
+            >
+              {stats.description}
+            </p>
+          )}
+        </div>
+
+        {stats.items && (
+          <div class="stagger-children grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.items.map((stat) => (
+              <div class="group hover:border-accent/50 rounded-2xl border border-gray-200 bg-white p-8 text-center transition-all duration-300 hover:scale-[1.02]">
+                <div class="text-accent text-5xl font-bold transition-transform duration-300 group-hover:scale-110">
+                  {stat.value}
+                </div>
+                <p class="mt-3 text-lg font-medium text-[#1c1c1e]">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </Container>
+    </section>
+  )
+}
+
+{showCta && <Cta />}
+
+<script>
+  import "@scripts/animations";
+</script>

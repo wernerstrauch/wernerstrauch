@@ -1,0 +1,311 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Background {
+  company: string;
+  role: string;
+  since: string;
+  focus: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  name?: string;
+  role?: string;
+  bio?: string;
+  approach?: string;
+  expertise?: string[];
+  background?: Background;
+  image?: string;
+}
+
+const {
+  sectionVariant = "light",
+  headline = "Über mich",
+  name = "",
+  role = "",
+  bio = "",
+  approach = "",
+  expertise = [],
+  background,
+  image,
+} = Astro.props;
+
+// Process headline:
+// - <em> tags become circled words with animated SVG
+// - <mark> tags become colored text only (no circle)
+let emIndex = 0;
+let processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  (_match: string, content: string) => {
+    const index = emIndex++;
+    return `<span class="circled-word" data-circled-index="${index}">${content}<svg class="circled-word__svg" viewBox="0 0 800 350" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="circled-word__path" d="M253,-161 C253,-161 -284.789,-201.46 -376,-21 C-469,163 67.623,174.21 256,121 C564,34 250.829,-141.693 19.107,-116.936" transform="translate(400, 179) scale(0.9791)" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" pathLength="1"/></svg></span>`;
+  },
+);
+processedHeadline = processedHeadline.replace(
+  /<mark>(.*?)<\/mark>/g,
+  `<span class="highlighted-word">$1</span>`,
+);
+---
+
+<div class="about-section" data-variant={sectionVariant}>
+  <Container class="relative">
+    <div class="grid gap-12 lg:grid-cols-5 lg:gap-16">
+      {/* Content - takes 3 columns */}
+      <div class="lg:col-span-3">
+        {/* Header */}
+        <div class="mb-8">
+          <h2
+            class="about-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+            set:html={processedHeadline}
+          />
+        </div>
+
+        {/* Name & Role */}
+        <div class="fade-up mb-6">
+          <h3 class="about-name text-2xl font-bold">{name}</h3>
+          <p class="about-role text-lg">{role}</p>
+        </div>
+
+        {/* Bio */}
+        <p class="about-bio fade-up mb-6 text-lg leading-relaxed">
+          {bio}
+        </p>
+
+        {/* Approach */}
+        {
+          approach && (
+            <p class="about-approach fade-up mb-8 leading-relaxed italic">
+              {approach}
+            </p>
+          )
+        }
+
+        {/* Expertise Tags */}
+        {
+          expertise.length > 0 && (
+            <div class="fade-up mb-8">
+              <h4 class="about-expertise-title mb-4 text-sm font-semibold uppercase tracking-wider">
+                Expertise
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                {expertise.map((item) => (
+                  <span class="about-expertise-tag inline-flex items-center border px-3 py-1.5 text-sm font-medium">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )
+        }
+
+        {/* Background Info */}
+        {
+          background && (
+            <div class="about-background fade-up border p-5">
+              <div class="flex items-center gap-3 mb-3">
+                <Icon
+                  name="heroicons:building-office-2-16-solid"
+                  class="about-background-icon h-5 w-5"
+                />
+                <span class="about-background-company font-semibold">
+                  {background.company}
+                </span>
+              </div>
+              <div class="grid gap-2 text-sm sm:grid-cols-3">
+                <div>
+                  <span class="about-background-label">Rolle:</span>
+                  <span class="about-background-value ml-1">{background.role}</span>
+                </div>
+                <div>
+                  <span class="about-background-label">Seit:</span>
+                  <span class="about-background-value ml-1">{background.since}</span>
+                </div>
+                <div class="sm:col-span-1">
+                  <span class="about-background-label">Fokus:</span>
+                  <span class="about-background-value ml-1">{background.focus}</span>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      {/* Image - takes 2 columns */}
+      <div class="lg:col-span-2">
+        {
+          image ? (
+            <div class="about-image-wrapper fade-up relative aspect-[3/4] overflow-hidden">
+              <img
+                src={image}
+                alt={name}
+                class="h-full w-full object-cover"
+              />
+              {/* Overlay gradient */}
+              <div class="about-image-overlay absolute inset-0" />
+            </div>
+          ) : (
+            <div class="about-placeholder fade-up relative aspect-[3/4] overflow-hidden">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <Icon
+                  name="heroicons:user-circle"
+                  class="about-placeholder-icon h-32 w-32"
+                />
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import "@scripts/animations";
+</script>
+
+<style>
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .about-headline {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Circled Word Animation
+     ======================================== */
+  .about-headline :global(.circled-word) {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--section-text); /* Adapts to section theme */
+  }
+
+  .about-headline :global(.circled-word__svg) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .about-headline :global(.circled-word__path) {
+    stroke: #c8ff00;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .about-headline.is-visible :global(.circled-word__path) {
+    stroke-dashoffset: 0;
+  }
+
+  .about-headline.is-visible :global(.circled-word[data-circled-index="0"]) :global(.circled-word__path) {
+    transition-delay: 0.5s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-headline :global(.circled-word__path) {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  .about-headline :global(.highlighted-word) {
+    color: var(--section-accent); /* Lime on dark, adapts to theme */
+  }
+
+  /* ========================================
+     Name & Role styles
+     ======================================== */
+  .about-name {
+    color: var(--section-text);
+  }
+
+  .about-role {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .about-bio {
+    color: var(--section-text-muted);
+  }
+
+  .about-approach {
+    color: var(--section-text-muted);
+    border-left: 2px solid var(--section-accent);
+    padding-left: 1rem;
+  }
+
+  /* ========================================
+     Expertise styles
+     ======================================== */
+  .about-expertise-title {
+    color: var(--section-accent);
+  }
+
+  .about-expertise-tag {
+    background: color-mix(in srgb, var(--section-accent) 8%, transparent);
+    border-color: color-mix(in srgb, var(--section-accent) 20%, transparent);
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Background info styles - Glassmorphism
+     ======================================== */
+  .about-background {
+    background: var(--section-card-bg);
+    border-color: var(--section-card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .about-background-icon {
+    color: var(--section-accent);
+  }
+
+  .about-background-company {
+    color: var(--section-text);
+  }
+
+  .about-background-label {
+    color: var(--section-text-muted);
+  }
+
+  .about-background-value {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Image styles
+     ======================================== */
+  .about-image-wrapper {
+    border: 1px solid var(--section-card-border);
+  }
+
+  .about-image-overlay {
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--section-accent) 20%, transparent),
+      transparent 50%
+    );
+  }
+
+  .about-placeholder {
+    background: #0a1628;
+    border: 1px solid var(--section-card-border);
+  }
+
+  .about-placeholder-icon {
+    color: color-mix(in srgb, #c8ff00 30%, transparent);
+  }
+</style>

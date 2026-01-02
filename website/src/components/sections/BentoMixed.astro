@@ -1,0 +1,294 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { SectionVariant } from "../../types";
+
+// Import all images from assets for dynamic resolution
+const assetImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+
+interface HeroCard {
+  type: "hero";
+  headline: string;
+  description?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  /** Background variant */
+  variant?: "primary" | "accent" | "dark";
+}
+
+interface ImageCard {
+  type: "image";
+  src: string;
+  alt: string;
+}
+
+interface SmallImageCard {
+  type: "small-image";
+  src: string;
+  alt: string;
+}
+
+interface StatementCard {
+  type: "statement";
+  headline: string;
+  description?: string;
+  /** Background variant (theme colors only) */
+  variant?: "primary" | "accent" | "light" | "dark";
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  /** Hero card - large statement with CTA (top-left, spans 2 cols) */
+  heroCard?: HeroCard;
+  /** Feature image - large image (right side, spans 2 rows) */
+  featureImage?: ImageCard;
+  /** Small image card (bottom-left) */
+  smallImage?: SmallImageCard;
+  /** Statement card (bottom-right of left section) */
+  statementCard?: StatementCard;
+  gap?: "sm" | "md" | "lg";
+  rounded?: "lg" | "xl" | "2xl" | "3xl";
+}
+
+const {
+  sectionVariant = "white",
+  heroCard = {
+    type: "hero",
+    headline: "Wir sind digitalsprung",
+    description:
+      "Eine inhabergeführte E-Commerce Agentur mit Leidenschaft für Shopify und datengetriebenes Marketing.",
+    ctaText: "Mehr erfahren",
+    ctaHref: "/kontakt",
+    variant: "primary",
+  },
+  featureImage = {
+    type: "image",
+    src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=1000&fit=crop",
+    alt: "Team collaboration",
+  },
+  smallImage = {
+    type: "small-image",
+    src: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=400&fit=crop",
+    alt: "Modern workspace",
+  },
+  statementCard = {
+    type: "statement",
+    headline: "Qualität vor Quantität",
+    description: "Bei jedem Projekt.",
+    variant: "accent",
+  },
+  gap = "md",
+  rounded = "2xl",
+} = Astro.props;
+
+// Resolve images
+let resolvedFeatureImage: ImageMetadata | undefined;
+let resolvedSmallImage: ImageMetadata | undefined;
+
+if (featureImage.src?.startsWith("/src/")) {
+  const imageModule = assetImages[featureImage.src];
+  if (imageModule) {
+    resolvedFeatureImage = (await imageModule()).default;
+  }
+}
+
+if (smallImage.src?.startsWith("/src/")) {
+  const imageModule = assetImages[smallImage.src];
+  if (imageModule) {
+    resolvedSmallImage = (await imageModule()).default;
+  }
+}
+
+// Gap classes
+const gapClasses = {
+  sm: "gap-3 sm:gap-4",
+  md: "gap-4 sm:gap-5",
+  lg: "gap-5 sm:gap-6",
+};
+
+// Rounded classes
+const roundedClasses = {
+  lg: "rounded-lg",
+  xl: "rounded-xl",
+  "2xl": "rounded-2xl",
+  "3xl": "rounded-3xl",
+};
+
+// Hero card variants (large statement)
+const heroVariants = {
+  primary: "bg-primary",
+  accent: "bg-accent",
+  dark: "bg-gray-900",
+};
+
+// Statement card variants (using theme colors only)
+const statementVariants = {
+  primary: "bg-primary text-white",
+  accent: "bg-accent text-white",
+  light: "bg-gray-100 text-gray-900",
+  dark: "bg-gray-900 text-white",
+};
+---
+
+<div class="bento-mixed" data-variant={sectionVariant}>
+  <Container class="max-w-screen-2xl">
+    <div
+      class:list={[
+        "bento-mixed__grid grid grid-cols-1 lg:grid-cols-12 lg:grid-rows-2",
+        gapClasses[gap],
+      ]}
+    >
+      {/* Hero Card - Top Left (spans 5 cols, 1 row on desktop) */}
+      <div
+        class:list={[
+          "bento-mixed__hero fade-up relative overflow-hidden lg:col-span-5 lg:row-span-1",
+          roundedClasses[rounded],
+          heroVariants[heroCard.variant || "primary"],
+        ]}
+        style="transition-delay: 100ms;"
+      >
+        <div class="flex h-full flex-col justify-between p-6 sm:p-8 lg:p-10">
+          <div>
+            <h2
+              class="bento-mixed__hero-headline text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl"
+            >
+              {heroCard.headline}
+            </h2>
+            {
+              heroCard.description && (
+                <p class="mt-4 text-base text-white/80 sm:text-lg lg:mt-6">
+                  {heroCard.description}
+                </p>
+              )
+            }
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Image - Right Side (spans 7 cols, 2 rows on desktop) */}
+      <div
+        class:list={[
+          "bento-mixed__feature fade-up relative overflow-hidden lg:col-span-7 lg:row-span-2",
+          roundedClasses[rounded],
+        ]}
+        style="transition-delay: 200ms;"
+      >
+        <div class="relative h-64 w-full sm:h-80 lg:h-full lg:min-h-[500px]">
+          {
+            resolvedFeatureImage ? (
+              <Image
+                src={resolvedFeatureImage}
+                alt={featureImage.alt}
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <img
+                src={featureImage.src}
+                alt={featureImage.alt}
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+            )
+          }
+        </div>
+      </div>
+
+      {/* Small Image - Bottom Left (spans ~2.5 cols on desktop) */}
+      <div
+        class:list={[
+          "bento-mixed__small-image fade-up relative overflow-hidden lg:col-span-2",
+          roundedClasses[rounded],
+        ]}
+        style="transition-delay: 300ms;"
+      >
+        <div class="relative h-48 w-full sm:h-56 lg:h-full lg:min-h-[180px]">
+          {
+            resolvedSmallImage ? (
+              <Image
+                src={resolvedSmallImage}
+                alt={smallImage.alt}
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <img
+                src={smallImage.src}
+                alt={smallImage.alt}
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+            )
+          }
+        </div>
+      </div>
+
+      {/* Statement Card - Bottom Middle-Left (spans ~2.5 cols on desktop) */}
+      <div
+        class:list={[
+          "bento-mixed__statement fade-up relative overflow-hidden lg:col-span-3",
+          roundedClasses[rounded],
+          statementVariants[statementCard.variant || "accent"],
+        ]}
+        style="transition-delay: 400ms;"
+      >
+        <div
+          class="flex h-full flex-col justify-center p-5 sm:p-6 lg:min-h-[180px]"
+        >
+          <h3 class="text-xl leading-tight font-bold sm:text-2xl">
+            {statementCard.headline}
+          </h3>
+          {
+            statementCard.description && (
+              <p class="mt-2 text-sm opacity-90 sm:text-base">
+                {statementCard.description}
+              </p>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  .bento-mixed__hero,
+  .bento-mixed__feature,
+  .bento-mixed__small-image,
+  .bento-mixed__statement {
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .bento-mixed__hero:hover,
+  .bento-mixed__statement:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  .bento-mixed__feature:hover,
+  .bento-mixed__small-image:hover {
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  .bento-mixed__feature:hover img,
+  .bento-mixed__small-image:hover img {
+    transform: scale(1.05);
+  }
+
+  .bento-mixed__feature img,
+  .bento-mixed__small-image img {
+    transition: transform 0.5s ease;
+  }
+</style>

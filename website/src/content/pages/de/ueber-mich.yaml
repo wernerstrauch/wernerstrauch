@@ -1,0 +1,179 @@
+lang: de
+pageId: about
+slug: ueber-mich
+
+meta:
+  title: "Über mich | Werner Strauch – E-Commerce Berater & Stratege"
+  description: "20+ Jahre E-Commerce-Erfahrung. 7 Jahre Geschäftsführung. Führung von Teams bis 20 Personen. Diplom-Betriebswirt mit technischem Tiefgang und strategischer Beratungskompetenz."
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # Hero Section
+  - id: hero
+    enabled: true
+    order: 1
+    component: PageHeroCompact
+    wrapper:
+      variant: dark
+      padding: lg
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.08
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.06
+        gridSize: 60
+        glowLines: 4
+        vignette: true
+        vignetteColor: "#0a1628"
+    content:
+      icon: "heroicons:user-16-solid"
+      title: "Der Mensch hinter der Beratung"
+      description: "Diplom-Betriebswirt mit technischem Tiefgang. 20+ Jahre Erfahrung in E-Commerce und digitaler Transformation. 7 Jahre Geschäftsführung. Führung von Teams bis 20 Personen."
+      breadcrumbs:
+        - label: "Über mich"
+          href: "/ueber-mich"
+
+  # Story Section
+  - id: story
+    enabled: true
+    order: 2
+    component: AboutStory
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Mein Weg"
+      badgeIcon: "heroicons:academic-cap-16-solid"
+      heading: "Vom Entwickler zum <em>Strategen</em>"
+      paragraphs:
+        - "<p>Meine Karriere begann dort, wo Technik und Business aufeinandertreffen: im Code. Über 20 Jahre Erfahrung in der Umsetzung von Webprojekten haben mir ein tiefes Verständnis dafür gegeben, was unter der Haube funktionieren muss, damit E-Commerce-Systeme skalieren.</p>"
+        - "<p>Als Geschäftsführer habe ich in den letzten <strong>7 Jahren</strong> gelernt, was es bedeutet, strategische Entscheidungen zu treffen und ein Unternehmen zu führen. In einem früheren Kontext habe ich ein <strong>20-köpfiges Team</strong> geleitet – heute führe ich bei digitalsprung ein <strong>15-köpfiges Agentur-Team</strong>.</p>"
+        - "<p>Parallel dazu habe ich 7 Jahre im Online-Marketing in der Finanzbranche gearbeitet – eine Schule in Sachen Performance, Conversion und datengetriebener Entscheidungen. Diese Kombination aus <strong>technischer Tiefe, Führungserfahrung und strategischem Weitblick</strong> prägt heute meine Beratung.</p>"
+        - "<p>Als Diplom-Betriebswirt mit Schwerpunkt Wirtschaftsinformatik verbinde ich alle Welten: Ich verstehe die Sprache der Entwickler, kenne die Herausforderungen der Teamführung und die Anforderungen der Geschäftsführung. Das macht mich zum Übersetzer zwischen IT, Team und Business.</p>"
+      valuesTitle: "Was mich antreibt"
+      values:
+        - icon: "heroicons:light-bulb"
+          title: "Klarheit schaffen"
+          description: "Komplexe Systeme verständlich machen und den Überblick behalten – auch wenn es technisch wird."
+        - icon: "heroicons:arrow-trending-up"
+          title: "Wirkung erzielen"
+          description: "Keine Theorie ohne Praxis. Jede Empfehlung muss messbare Ergebnisse liefern."
+        - icon: "heroicons:users"
+          title: "Teams entwickeln"
+          description: "Menschen befähigen, eigenständig zu arbeiten und über sich hinauszuwachsen."
+        - icon: "heroicons:hand-raised"
+          title: "Befähigen statt binden"
+          description: "Mein Ziel ist Ihre Unabhängigkeit. Ich baue Systeme, die Sie selbst steuern können."
+
+  # Expertise Section
+  - id: expertise
+    enabled: true
+    order: 3
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Ergebnisse statt Versprechen"
+      badgeIcon: "heroicons:chart-bar-16-solid"
+      headline: "Zahlen, die <em>überzeugen</em>"
+      stats:
+        - value: "200"
+          suffix: "+"
+          label: "E-Commerce-Projekte"
+          description: "begleitet"
+          icon: "heroicons:shopping-cart"
+        - value: "20"
+          suffix: "+"
+          label: "Jahre Erfahrung"
+          description: "im E-Commerce"
+          icon: "heroicons:calendar"
+        - value: "7"
+          label: "Jahre"
+          description: "Geschäftsführung"
+          icon: "heroicons:briefcase"
+        - value: "20"
+          label: "Personen"
+          description: "größtes geführtes Team"
+          icon: "heroicons:users"
+
+  # Qualifications
+  - id: qualifications
+    enabled: true
+    order: 4
+    component: ContentSection
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      headline: "Fundierte <em>Ausbildung</em>"
+      tagline: "Akademische Grundlage und offizielle Zertifizierungen"
+      content:
+        - type: "headline"
+          content: "Diplom-Betriebswirt (FH)"
+        - type: "text"
+          content: "Schwerpunkt Wirtschaftsinformatik – Hochschule Pforzheim | 2004 – 2010"
+        - type: "headline"
+          content: "BAFA-zertifizierter Berater"
+        - type: "text"
+          content: "Förderfähige Unternehmensberatung – Bundesamt für Wirtschaft und Ausfuhrkontrolle"
+
+  # Skills/Expertise Grid
+  - id: skills
+    enabled: true
+    order: 5
+    component: ProblemGrid
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      headline: "Meine <em>Kernkompetenzen</em>"
+      problems:
+        - icon: "heroicons:shopping-cart"
+          title: "E-Commerce Strategie"
+          description: "Shop-Architektur, Plattform-Auswahl, Migrations-Planung und technische Skalierung für nachhaltiges Wachstum."
+        - icon: "heroicons:briefcase"
+          title: "Geschäftsführung & Leadership"
+          description: "7 Jahre Erfahrung in der Unternehmensführung. Aufbau und Leitung von Teams bis 20 Personen."
+        - icon: "heroicons:circle-stack"
+          title: "ERP & Prozesse"
+          description: "Systemauswahl, Integration und Optimierung von Warenwirtschaft, Fulfillment und Logistik."
+        - icon: "heroicons:code-bracket"
+          title: "Technische Architektur"
+          description: "API-Design, Microservices, Cloud-Infrastruktur und skalierbare Systemlandschaften."
+
+  # CTA
+  - id: cta
+    enabled: true
+    order: 6
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    background:
+      type: GridBackground
+      color: "#c8ff00"
+      glowColor: "#c8ff00"
+      opacity: 0.06
+      gridSize: 60
+      glowLines: 4
+      vignette: true
+      vignetteColor: "#0a1628"
+    content:
+      headline: "Lassen Sie uns <em>sprechen</em>"
+      description: "Sie haben ein E-Commerce-Projekt, das strategische Unterstützung braucht? Ich freue mich auf den Austausch."
+      buttonText: "Kontakt aufnehmen"
+      buttonHref: "/kontakt"
+      emailLabel: "Oder direkt per E-Mail"
+      email: "kontakt@wernerstrauch.de"

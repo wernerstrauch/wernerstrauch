@@ -1,0 +1,302 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Logo {
+  name: string;
+  svg: string; // Inline SVG string
+  maxWidth?: string; // e.g., "75%", "40%", "65%"
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  logos?: Logo[];
+  speed?: number; // Animation duration in seconds
+  pauseOnHover?: boolean;
+}
+
+const {
+  sectionVariant = "dark",
+  badge = "Partner",
+  badgeIcon = "heroicons:building-office-2-16-solid",
+  headline = "Vertraut von führenden <em>Marken</em>",
+  description,
+  logos = [],
+  speed = 40,
+  pauseOnHover = true,
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Duplicate logos for seamless infinite scroll
+const duplicatedLogos = [...logos, ...logos];
+---
+
+<div class="logo-marquee" data-variant={sectionVariant}>
+  {/* Header Section */}
+  <Container class="mb-8 lg:mb-16">
+    <div class="text-center">
+      {/* Badge */}
+      {
+        badge && (
+          <div class="blur-in mb-4 flex justify-center">
+            <div class="logo-marquee__badge shadow-inner-blur flex items-center rounded-full">
+              <div class="logo-marquee__badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                {badgeIcon && (
+                  <Icon
+                    name={badgeIcon}
+                    class="logo-marquee__badge-icon h-4 w-4"
+                  />
+                )}
+                <span class="logo-marquee__badge-text text-sm font-medium">
+                  {badge}
+                </span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {/* Headline */}
+      <h2
+        class="logo-marquee__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+
+      {/* Description */}
+      {
+        description && (
+          <p
+            class="logo-marquee__description fade-up mx-auto mt-4 max-w-2xl text-lg"
+            style="transition-delay: 200ms;"
+          >
+            {description}
+          </p>
+        )
+      }
+    </div>
+  </Container>
+
+  {/* Marquee Rows */}
+  <div
+    class="logo-marquee__wrapper"
+    data-pause-on-hover={pauseOnHover}
+    style={`--marquee-speed: ${speed}s;`}
+  >
+    {/* Row 1 - Left to Right */}
+    <div class="logo-marquee__row mb-4 lg:mb-10">
+      <div class="logo-marquee__track" data-direction="left">
+        {
+          duplicatedLogos.map((logo) => (
+            <div class="logo-marquee__card">
+              <div class="logo-marquee__card-inner">
+                <div
+                  class="logo-marquee__logo"
+                  style={`max-width: ${logo.maxWidth || "75%"};`}
+                  set:html={logo.svg}
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Row 2 - Right to Left */}
+    <div class="logo-marquee__row">
+      <div class="logo-marquee__track" data-direction="right">
+        {
+          duplicatedLogos.map((logo) => (
+            <div class="logo-marquee__card">
+              <div class="logo-marquee__card-inner">
+                <div
+                  class="logo-marquee__logo"
+                  style={`max-width: ${logo.maxWidth || "75%"};`}
+                  set:html={logo.svg}
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ========================================
+     Base styles
+     ======================================== */
+  .logo-marquee {
+    --card-size: 10.5rem; /* 168px = size-42 */
+    --card-size-md: 13.75rem; /* 220px = size-55 */
+    --gap: 1rem;
+    --gap-lg: 2.5rem;
+
+    overflow: hidden;
+  }
+
+  /* ========================================
+     Badge styles (using --section-* variables)
+     ======================================== */
+  .logo-marquee__badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .logo-marquee__badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .logo-marquee__badge-icon {
+    color: var(--section-accent);
+  }
+
+  .logo-marquee__badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline & description
+     ======================================== */
+  .logo-marquee__headline {
+    color: var(--section-text);
+  }
+
+  .logo-marquee__description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Marquee wrapper & row
+     ======================================== */
+  .logo-marquee__wrapper {
+    width: 100%;
+  }
+
+  .logo-marquee__row {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* ========================================
+     Marquee track with infinite animation
+     ======================================== */
+  .logo-marquee__track {
+    display: flex;
+    gap: var(--gap);
+    animation: marquee-scroll var(--marquee-speed) linear infinite;
+  }
+
+  @media (min-width: 1024px) {
+    .logo-marquee__track {
+      gap: var(--gap-lg);
+    }
+  }
+
+  /* Direction variants */
+  .logo-marquee__track[data-direction="left"] {
+    animation-name: marquee-scroll-left;
+  }
+
+  .logo-marquee__track[data-direction="right"] {
+    animation-name: marquee-scroll-right;
+  }
+
+  /* Pause on hover */
+  .logo-marquee__wrapper[data-pause-on-hover="true"]:hover
+    .logo-marquee__track {
+    animation-play-state: paused;
+  }
+
+  /* ========================================
+     Keyframes
+     ======================================== */
+  @keyframes marquee-scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-scroll-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* ========================================
+     Logo cards
+     ======================================== */
+  .logo-marquee__card {
+    flex-shrink: 0;
+    width: var(--card-size);
+    height: var(--card-size);
+    border-radius: 0.5rem;
+    border: 1px solid
+      var(
+        --section-border,
+        color-mix(in srgb, var(--section-text) 20%, transparent)
+      );
+    background-color: inherit;
+    transition: border-color 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .logo-marquee__card {
+      width: var(--card-size-md);
+      height: var(--card-size-md);
+    }
+  }
+
+  .logo-marquee__card:hover {
+    border-color: var(--section-accent);
+  }
+
+  .logo-marquee__card-inner {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  /* ========================================
+     Logo SVG styling
+     ======================================== */
+  .logo-marquee__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--section-text);
+  }
+
+  .logo-marquee__logo :global(svg) {
+    height: 100%;
+    width: 100%;
+    fill: currentColor;
+    max-height: 9rem;
+    max-width: 9rem;
+  }
+
+  .logo-marquee__logo :global(svg path) {
+    fill: currentColor;
+  }
+</style>

@@ -1,0 +1,472 @@
+---
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  color?: string;
+  glowColor?: string;
+  opacity?: number;
+  gridSize?: number;
+  glowLines?: number;
+  rotate?: number;
+  vignette?: boolean;
+  vignetteColor?: string;
+  icons?: ImageMetadata[];
+  iconCount?: number;
+  iconOpacity?: number;
+}
+
+const {
+  color = "var(--primary)",
+  glowColor = "var(--primary-light)",
+  opacity = 0.08,
+  gridSize = 160,
+  glowLines = 6,
+  rotate = -15,
+  // vignette and vignetteColor accepted for API consistency but not implemented
+  vignette: _vignette = false,
+  vignetteColor: _vignetteColor = "transparent",
+  icons = [],
+  iconCount = 8,
+  iconOpacity = 0.4,
+} = Astro.props;
+
+// Suppress unused variable warnings
+void _vignette;
+void _vignetteColor;
+
+// Icon URLs für JavaScript
+const iconUrls = icons.map((icon) => icon.src);
+
+// Generate random grid line indices for glow lines
+const horizontalGlows = Array.from(
+  { length: Math.ceil(glowLines / 2) },
+  (_, i) => ({
+    id: `h-${i}`,
+    delay: Math.random() * 15,
+    duration: 8 + Math.random() * 12,
+    gridLine: Math.floor(Math.random() * 8) + 3,
+  }),
+);
+
+const verticalGlows = Array.from(
+  { length: Math.floor(glowLines / 2) },
+  (_, i) => ({
+    id: `v-${i}`,
+    delay: Math.random() * 15,
+    duration: 8 + Math.random() * 12,
+    gridLine: Math.floor(Math.random() * 12) + 4,
+  }),
+);
+---
+
+<div
+  class="icon-grid-background absolute inset-0 overflow-hidden"
+  data-icon-count={iconCount}
+  data-icon-opacity={iconOpacity}
+  data-grid-size={gridSize}
+  data-icons={JSON.stringify(iconUrls)}
+>
+  {/* Rotated Grid Pattern + Icons */}
+  <div
+    class="grid-container absolute inset-[-50%] h-[200%] w-[200%]"
+    style={`transform: rotate(${rotate}deg);`}
+  >
+    {/* Static Grid */}
+    <div
+      class="absolute inset-0"
+      style={`
+        --grid-color: ${color};
+        --grid-opacity: ${opacity};
+        --grid-size: ${gridSize}px;
+        background-image:
+          linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+        background-size: var(--grid-size) var(--grid-size);
+        opacity: var(--grid-opacity);
+      `}
+    >
+    </div>
+
+    {/* Horizontal Glow Lines */}
+    {
+      horizontalGlows.map((glow) => (
+        <div
+          class="glow-line-h absolute left-0 h-px w-full"
+          style={`
+          --glow-color: ${glowColor};
+          --delay: ${glow.delay}s;
+          --duration: ${glow.duration}s;
+          top: ${glow.gridLine * gridSize}px;
+        `}
+        >
+          <div class="glow-pulse-h" />
+        </div>
+      ))
+    }
+
+    {/* Vertical Glow Lines */}
+    {
+      verticalGlows.map((glow) => (
+        <div
+          class="glow-line-v absolute top-0 h-full w-px"
+          style={`
+          --glow-color: ${glowColor};
+          --delay: ${glow.delay}s;
+          --duration: ${glow.duration}s;
+          left: ${glow.gridLine * gridSize}px;
+        `}
+        >
+          <div class="glow-pulse-v" />
+        </div>
+      ))
+    }
+
+    {/* Icons container - inside rotated grid, hidden on mobile */}
+    <div class="icons-container hidden lg:block"></div>
+  </div>
+
+  {/* Vignette Overlay - smooth fade to edges */}
+  <div
+    class="pointer-events-none absolute inset-0 z-20"
+    style="background: radial-gradient(ellipse farthest-corner at center, transparent 0%, transparent 40%, rgba(255,255,255,0.3) 55%, rgba(255,255,255,0.6) 70%, rgba(255,255,255,0.85) 85%, white 100%);"
+  >
+  </div>
+</div>
+
+<style is:global>
+  .icons-container {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+  }
+
+  .grid-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition:
+      opacity 1.5s ease-in-out,
+      transform 1.5s ease-in-out;
+    transform: translate(-50%, -50%) scale(0.8);
+    z-index: 10;
+  }
+
+  .grid-icon.visible {
+    opacity: var(--icon-opacity, 0.5);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .grid-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Glow Lines */
+  .glow-line-h,
+  .glow-line-v {
+    pointer-events: none;
+  }
+
+  .glow-pulse-h {
+    position: absolute;
+    width: 250px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 10%,
+      var(--glow-color) 70%,
+      var(--glow-color) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      50px 0 15px var(--glow-color),
+      80px 0 30px var(--glow-color),
+      100px 0 50px var(--glow-color);
+    opacity: 0;
+    animation: glowMoveH var(--duration) ease-in-out var(--delay) infinite;
+  }
+
+  .glow-pulse-v {
+    position: absolute;
+    width: 1px;
+    height: 250px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 10%,
+      var(--glow-color) 70%,
+      var(--glow-color) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      0 50px 15px var(--glow-color),
+      0 80px 30px var(--glow-color),
+      0 100px 50px var(--glow-color);
+    opacity: 0;
+    animation: glowMoveV var(--duration) ease-in-out var(--delay) infinite;
+  }
+
+  @keyframes glowMoveH {
+    0% {
+      left: -150px;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes glowMoveV {
+    0% {
+      top: -150px;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    class IconGridManager {
+      container!: HTMLElement;
+      icons!: string[];
+      iconCount!: number;
+      iconOpacity!: number;
+      gridSize!: number;
+      wrapper!: HTMLElement;
+      occupiedCells: Map<string, number> = new Map();
+      activeIcons: Map<string, HTMLElement> = new Map();
+      activeIconTypes: Set<string> = new Set();
+      minCooldown = 5000;
+      padding = 80;
+
+      constructor(wrapper: HTMLElement) {
+        const containerEl = wrapper.querySelector(".icons-container");
+        if (!containerEl) return;
+
+        this.wrapper = wrapper;
+        this.container = containerEl as HTMLElement;
+
+        try {
+          this.icons = JSON.parse(wrapper.dataset.icons || "[]");
+        } catch {
+          this.icons = [];
+        }
+
+        this.iconCount = parseInt(wrapper.dataset.iconCount || "8");
+        this.iconOpacity = parseFloat(wrapper.dataset.iconOpacity || "0.4");
+        this.gridSize = parseInt(wrapper.dataset.gridSize || "160");
+
+        if (this.icons.length === 0) return;
+
+        this.start();
+      }
+
+      getCellKey(x: number, y: number): string {
+        return `${x},${y}`;
+      }
+
+      isCellAvailable(cellX: number, cellY: number): boolean {
+        const key = this.getCellKey(cellX, cellY);
+        const releaseTime = this.occupiedCells.get(key);
+        if (!releaseTime) return true;
+        return Date.now() >= releaseTime;
+      }
+
+      getRandomFreePosition(): {
+        x: number;
+        y: number;
+        cellX: number;
+        cellY: number;
+      } | null {
+        // Sichtbarer Bereich (Viewport)
+        const rect = this.wrapper.getBoundingClientRect();
+        const viewWidth = rect.width;
+        const viewHeight = rect.height;
+
+        // Der rotierte Container ist 200% groß und startet bei -50%
+        // Die Mitte des Containers entspricht der Mitte des Viewports
+        const containerWidth = viewWidth * 2;
+        const containerHeight = viewHeight * 2;
+        const centerX = containerWidth / 2;
+        const centerY = containerHeight / 2;
+
+        // Berechne welche Grid-Zellen im sichtbaren Bereich liegen (mit Padding)
+        const visibleCellsX = Math.floor(
+          (viewWidth - 2 * this.padding) / this.gridSize,
+        );
+        const visibleCellsY = Math.floor(
+          (viewHeight - 2 * this.padding) / this.gridSize,
+        );
+
+        // Offset zur Mitte (welche Zelle ist in der Mitte des Containers?)
+        const centerCellX = Math.floor(centerX / this.gridSize);
+        const centerCellY = Math.floor(centerY / this.gridSize);
+
+        // Start-Zellen (zentriert um die Mitte)
+        const startCellX = centerCellX - Math.floor(visibleCellsX / 2);
+        const startCellY = centerCellY - Math.floor(visibleCellsY / 2);
+
+        // Alle freien Zellen sammeln
+        const freeCells: { cellX: number; cellY: number }[] = [];
+        for (let cx = 0; cx < visibleCellsX; cx++) {
+          for (let cy = 0; cy < visibleCellsY; cy++) {
+            const actualCellX = startCellX + cx;
+            const actualCellY = startCellY + cy;
+            if (this.isCellAvailable(actualCellX, actualCellY)) {
+              freeCells.push({ cellX: actualCellX, cellY: actualCellY });
+            }
+          }
+        }
+
+        if (freeCells.length === 0) return null;
+
+        // Zufällige freie Zelle wählen
+        const cell = freeCells[Math.floor(Math.random() * freeCells.length)];
+
+        // Pixel-Position berechnen (Mitte der Zelle im Container-Koordinatensystem)
+        const x = cell.cellX * this.gridSize + this.gridSize / 2;
+        const y = cell.cellY * this.gridSize + this.gridSize / 2;
+
+        return { x, y, cellX: cell.cellX, cellY: cell.cellY };
+      }
+
+      occupyCell(cellX: number, cellY: number): void {
+        const key = this.getCellKey(cellX, cellY);
+        this.occupiedCells.set(key, Infinity);
+      }
+
+      releaseCell(cellX: number, cellY: number): void {
+        const key = this.getCellKey(cellX, cellY);
+        this.occupiedCells.set(key, Date.now() + this.minCooldown);
+        this.activeIcons.delete(key);
+      }
+
+      getAvailableIconUrl(): string | null {
+        // Finde ein Icon das noch nicht aktiv ist
+        const availableIcons = this.icons.filter(
+          (url) => !this.activeIconTypes.has(url),
+        );
+        if (availableIcons.length === 0) return null;
+        return availableIcons[
+          Math.floor(Math.random() * availableIcons.length)
+        ];
+      }
+
+      getIconSizeMultiplier(iconUrl: string): number {
+        // Icon-spezifische Größen-Anpassungen
+        if (iconUrl.includes("shopify")) return 1.4; // 40% größer
+        if (iconUrl.includes("klaviyo")) return 1.2; // 20% größer
+        if (iconUrl.includes("google-ads")) return 0.9; // 10% kleiner
+        return 1.0;
+      }
+
+      createIcon(pos: {
+        x: number;
+        y: number;
+        cellX: number;
+        cellY: number;
+      }): void {
+        const key = this.getCellKey(pos.cellX, pos.cellY);
+        const iconUrl = this.getAvailableIconUrl();
+        if (!iconUrl) return;
+
+        const baseSize = 48 + Math.random() * 24;
+        const size = baseSize * this.getIconSizeMultiplier(iconUrl);
+
+        this.activeIconTypes.add(iconUrl);
+
+        const iconEl = document.createElement("div");
+        iconEl.className = "grid-icon";
+        iconEl.dataset.iconUrl = iconUrl;
+        iconEl.dataset.cellX = String(pos.cellX);
+        iconEl.dataset.cellY = String(pos.cellY);
+        iconEl.style.cssText = `
+          left: ${pos.x}px;
+          top: ${pos.y}px;
+          width: ${size}px;
+          height: ${size}px;
+          --icon-opacity: ${this.iconOpacity};
+        `;
+
+        const img = document.createElement("img");
+        img.src = iconUrl;
+        img.alt = "";
+        iconEl.appendChild(img);
+
+        this.container.appendChild(iconEl);
+        this.activeIcons.set(key, iconEl);
+        this.occupyCell(pos.cellX, pos.cellY);
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            iconEl.classList.add("visible");
+          });
+        });
+
+        const displayDuration = 4000 + Math.random() * 4000;
+        setTimeout(() => {
+          this.hideIcon(iconEl);
+        }, displayDuration);
+      }
+
+      hideIcon(iconEl: HTMLElement): void {
+        iconEl.classList.remove("visible");
+        setTimeout(() => {
+          const iconUrl = iconEl.dataset.iconUrl;
+          const cellX = parseInt(iconEl.dataset.cellX || "0");
+          const cellY = parseInt(iconEl.dataset.cellY || "0");
+
+          if (iconUrl) {
+            this.activeIconTypes.delete(iconUrl);
+          }
+          iconEl.remove();
+          this.releaseCell(cellX, cellY);
+        }, 1500);
+      }
+
+      trySpawnIcon(): void {
+        const currentActive = this.activeIcons.size;
+        if (currentActive >= this.iconCount) return;
+
+        const pos = this.getRandomFreePosition();
+        if (pos) {
+          this.createIcon(pos);
+        }
+      }
+
+      start(): void {
+        for (let i = 0; i < Math.min(3, this.iconCount); i++) {
+          setTimeout(() => this.trySpawnIcon(), i * 2000);
+        }
+        setInterval(() => {
+          this.trySpawnIcon();
+        }, 1500);
+      }
+    }
+
+    document.querySelectorAll(".icon-grid-background").forEach((wrapper) => {
+      new IconGridManager(wrapper as HTMLElement);
+    });
+  });
+</script>

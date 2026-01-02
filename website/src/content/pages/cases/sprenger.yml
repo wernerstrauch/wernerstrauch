@@ -1,0 +1,192 @@
+lang: de
+pageId: case-sprenger
+
+meta:
+  title: "Sprenger Case Study | digitalsprung - Shopify Agentur"
+  description: "Wie wir Sprenger mit Shopify Migration und UX/UI Relaunch zu mehr Performance und Conversion verholfen haben. Der führende Hersteller für Reitsport- und Hundesportausrüstung."
+
+slug: "cases/sprenger"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # Hero Section
+  - id: case-hero
+    enabled: true
+    order: 1
+    component: CaseHero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+      overflow: visible
+    background:
+      type: GridBackground
+      color: "#1e5f74"
+      glowColor: "#1e5f74"
+      opacity: 0.1
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      title: "Sprenger"
+      description: "Der führende Hersteller für Reitsport- und Hundesportausrüstung – wir haben den Onlineshop zu Shopify migriert und mit einem umfassenden UX/UI Relaunch neu aufgestellt. Das Ergebnis: mehr Performance, eine verbesserte Customer Experience und nachhaltiges Wachstum."
+      tags:
+        - "UI/UX Design"
+        - "Shopify Migration"
+      kpis:
+        - value: "+38%"
+          label: "höhere Conversionrate"
+        - value: "+52%"
+          label: "Mobile Revenue"
+      phoneImages:
+        left: "mockup_sprenger-mobile-pdp_left"
+        right: "mockup_sprenger-mobile-home_right"
+
+  # Challenge Section (Problem/Ziel/Lösung)
+  - id: case-challenge
+    enabled: true
+    order: 2
+    component: CaseChallenge
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Case Study: Sprenger"
+      headlineAccent: "im Detail"
+      description: "Sprenger steht für höchste Qualität im Reitsport- und Hundesportbereich – Made in Germany seit 1872. Damit die Traditionsmarke auch digital ihre Premium-Positionierung unterstreicht, haben wir den Onlineshop zu <a href='/leistungen/shopify-migration'>Shopify migriert</a>, ein modernes UX/UI Design entwickelt und die Customer Experience optimiert."
+      blocks:
+        - icon: "heroicons:chat-bubble-left-ellipsis"
+          title: "Problem"
+          description: "Sprenger ist eine etablierte Premium-Marke mit über 150 Jahren Tradition. Doch der alte Onlineshop war technisch veraltet: langsame Ladezeiten, komplexe Navigation durch das große Produktsortiment und ein Design, das die Marke nicht mehr zeitgemäß repräsentierte. Die <strong>mobile Experience</strong> war besonders verbesserungswürdig."
+        - icon: "heroicons:flag"
+          title: "Ziel"
+          description: "Sprenger wollte einen <strong>Shopify Onlineshop</strong>, der die Premium-Qualität der Produkte widerspiegelt, mit modernem <a href='/leistungen/ux-ui-design'>UX/UI Design</a> Reiter und Hundebesitzer gleichermaßen anspricht, eine intuitive Produktnavigation durch das umfangreiche Sortiment bietet und auf allen Geräten optimal performt."
+        - icon: "heroicons:light-bulb"
+          title: "Lösung"
+          description: "Gemeinsam mit Sprenger haben wir die komplette <strong>Migration zu Shopify</strong> umgesetzt: Strategie & Beratung mit Analyse der Zielgruppen und Customer Journeys. UX/UI Design mit klarer Kategorisierung nach Reitsport und Hundesport. Entwicklung & Implementierung mit intelligenten Produktfiltern, optimierter Suche und Performance-Fokus."
+
+  # Services Section - Our services for this project
+  - id: case-services
+    enabled: true
+    order: 2.5
+    component: CaseServices
+    wrapper:
+      variant: white
+      padding: sm
+      container: false
+    content:
+      headline: "Unsere Leistungen"
+      headlineAccent: "im Projekt"
+      services:
+        - icon: "heroicons:chart-bar"
+          title: "Strategie"
+          description: "Für Sprenger haben wir eine differenzierte Customer Journey entwickelt, die sowohl Reitsport- als auch Hundesport-Kunden optimal anspricht. Die Strategie setzt auf klare Produktkategorien, inspirierende Inhalte und eine nahtlose Mobile Experience."
+          tags:
+            - "Conversion Rate Optimization"
+            - "Customer Journey"
+        - icon: "heroicons:paint-brush"
+          title: "Design"
+          description: "Das neue UX/UI Design verbindet Tradition mit Moderne: Premium-Ästhetik, hochwertige Produktfotografie und eine klare visuelle Hierarchie. Das responsive Design sorgt dafür, dass Kunden auf jedem Gerät eine erstklassige Experience haben."
+          tags:
+            - "UI/UX Design"
+            - "Responsive Design"
+        - icon: "heroicons:code-bracket"
+          title: "Entwicklung"
+          description: "Technisch wurde der Shop zu Shopify migriert mit Fokus auf Performance und Skalierbarkeit. Intelligente Produktfilter, erweiterte Suchfunktionen und optimierte Produktseiten sorgen für ein effizientes Einkaufserlebnis."
+          tags:
+            - "Shopify Migration"
+            - "Shopify Development"
+            - "Performance Optimization"
+      columns: 3
+
+  # Project Details Section
+  - id: case-details
+    enabled: true
+    order: 3
+    component: CaseDetails
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Projektdaten"
+      headlineAccent: "im Überblick"
+      description: "Von der strategischen Planung bis zum Go-Live – hier sind die wichtigsten Eckdaten zum Sprenger-Shop im Überblick."
+      details:
+        - label: "Kunde"
+          value: "Sprenger"
+        - label: "Projektlaufzeit"
+          value: "5 Monate"
+        - label: "Unsere Leistungen"
+          tags:
+            - "Shopify Migration"
+            - "UX/UI Design"
+            - "Performance Optimization"
+            - "Shopify Development"
+        - label: "Apps"
+          tags:
+            - "Klaviyo"
+            - "Algolia Search"
+            - "Google Analytics"
+        - label: "Live Website"
+          link:
+            text: "Website besuchen"
+            href: "https://www.sprenger.de"
+      phoneImage: "mockup_sprenger-mobile-home_detail"
+
+  # Screenshots Section - Detailed Page Views
+  - id: case-screenshots
+    enabled: true
+    order: 5
+    component: CaseScreenshots
+    wrapper:
+      variant: dark
+      padding: lg
+      container: false
+    content:
+      headline: "Shop-Erlebnis"
+      headlineAccent: "im Überblick"
+      description: "Von der inspirierenden Startseite über die klare Kategoriestruktur bis zur detaillierten Produktseite – jede Ansicht wurde für maximale Performance und ein Premium-Markenerlebnis optimiert."
+      items:
+        - title: "Startseite"
+          description: "Ein einladender Einstieg mit klarer Unterscheidung zwischen Reitsport und Hundesport. Die Hero-Section transportiert die Premium-Qualität der Marke sofort spürbar."
+          image:
+            src: "/images/cases/sprenger/sprenger-mobile-home.png"
+            alt: "Sprenger Startseite"
+        - title: "Kategorieseite"
+          description: "Intelligente Produktfilter und übersichtliche Darstellung des umfangreichen Sortiments. Nutzer finden schnell das passende Produkt für ihren Bedarf."
+          image:
+            src: "/images/cases/sprenger/sprenger-mobile-cat.png"
+            alt: "Sprenger Kategorieseite"
+        - title: "Produktdetailseite"
+          description: "Alle wichtigen Informationen auf einen Blick: Hochwertige Produktbilder, technische Spezifikationen, Größenratgeber und ein prominenter Add-to-Cart Button."
+          image:
+            src: "/images/cases/sprenger/sprenger-mobile-pdp.png"
+            alt: "Sprenger Produktdetailseite"
+
+  # CTA Section
+  - id: cta
+    enabled: true
+    order: 8
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Dein Projekt könnte das <em>nächste</em> sein"
+      description: "Lass uns gemeinsam deine Erfolgsgeschichte schreiben. In einem kostenlosen Erstgespräch besprechen wir deine Vision und zeigen dir, wie wir sie umsetzen können."
+      buttonText: "Jetzt kontaktieren"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

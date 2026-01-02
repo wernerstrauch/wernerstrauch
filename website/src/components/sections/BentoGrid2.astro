@@ -1,0 +1,583 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Innovation trifft Performance",
+  badgeIcon = "heroicons:sparkles-16-solid",
+  headline = "Technologie für <em>Wachstum</em>",
+  description = "Mit intelligenten Tools und bewährten Prozessen machen wir dein Marketing messbar, skalierbar und profitabel.",
+} = Astro.props;
+
+const cards = [
+  {
+    title: "Datengetriebene Entscheidungen",
+    description:
+      "Unsere Analytics-Dashboards zeigen dir in Echtzeit, was funktioniert und wo Optimierungspotenzial liegt. Von Customer Journey Tracking bis ROI-Analyse – alles auf einen Blick.",
+    icon: "heroicons:chart-bar",
+    features: [
+      "Real-time Performance Tracking",
+      "Multi-Touch Attribution",
+      "Predictive Analytics",
+      "Automatisierte Reports",
+    ],
+    large: true,
+    illustration: "dataflow",
+  },
+  {
+    title: "Technologie & Innovation",
+    description:
+      "Wir setzen auf modernste Marketing-Technologien und automatisierte Workflows, um deine Kampagnen effizienter und performanter zu machen.",
+    icon: "heroicons:cpu-chip",
+    features: [
+      "KI-gestützte Optimierung",
+      "Marketing Automation",
+      "A/B Testing Framework",
+    ],
+    large: false,
+    illustration: "geometric",
+  },
+  {
+    title: "Skalierbare Prozesse",
+    description:
+      "Unsere erprobten Prozesse wachsen mit deinem Business. Von der ersten Kampagne bis zum vollständig automatisierten Marketing-System.",
+    icon: "heroicons:arrow-trending-up",
+    features: [
+      "Workflow Automation",
+      "Skalierbare Infrastruktur",
+      "Kontinuierliche Optimierung",
+    ],
+    large: false,
+    illustration: "waves",
+  },
+];
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div class="bento-grid-2-section relative" data-variant={sectionVariant}>
+  <Container class="max-w-[1400px]">
+    {/* Header */}
+    <div class="mb-16 text-center">
+      <div class="blur-in mb-4 flex justify-center">
+        <div class="shadow-inner-blur badge-bg flex items-center rounded-full">
+          <div
+            class="badge-border flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5"
+          >
+            <Icon name={badgeIcon} class="badge-icon h-4 w-4" />
+            <span class="badge-text text-sm font-medium">{badge}</span>
+          </div>
+        </div>
+      </div>
+      <h2
+        class="scale-up section-headline text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+      <p
+        class="fade-up section-description mx-auto mt-4 max-w-2xl text-lg"
+        style="transition-delay: 200ms;"
+      >
+        {description}
+      </p>
+    </div>
+
+    {/* Bento Grid */}
+    <div class="bento-grid grid gap-6 lg:grid-cols-2">
+      {/* Large Card (left) - DataFlow Illustration */}
+      <div
+        class="bento-card group card-border relative row-span-2 overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.01]"
+        data-variant={sectionVariant}
+      >
+        {/* Spotlight glow effect */}
+        <div
+          class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300"
+        >
+        </div>
+        {/* Rotating border glow effect */}
+        <div class="border-glow"></div>
+        <div
+          class="card-bg relative z-30 flex h-full w-full flex-col overflow-hidden rounded-2xl backdrop-blur-[2px]"
+        >
+          <div class="flex flex-1 flex-col p-8 lg:p-10">
+            {/* Icon */}
+            <div
+              class="icon-border icon-bg mb-6 flex h-14 w-14 items-center justify-center rounded-xl border backdrop-blur-sm"
+            >
+              <Icon name={cards[0].icon} class="icon-color h-7 w-7" />
+            </div>
+
+            {/* Content */}
+            <h3 class="card-title text-2xl font-bold lg:text-3xl">
+              {cards[0].title}
+            </h3>
+            <p class="card-description mt-4 flex-grow text-lg">
+              {cards[0].description}
+            </p>
+
+            {/* Features */}
+            <ul class="mt-8 space-y-3">
+              {
+                cards[0].features.map((feature) => (
+                  <li class="feature-text flex items-center gap-3">
+                    <Icon
+                      name="heroicons:check-circle-16-solid"
+                      class="check-icon h-5 w-5 flex-shrink-0"
+                    />
+                    <span>{feature}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Small Card 1 (top right) - Geometric Pattern */}
+      <div
+        class="bento-card group card-border relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+        data-variant={sectionVariant}
+      >
+        {/* Spotlight glow effect */}
+        <div
+          class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300"
+        >
+        </div>
+        {/* Rotating border glow effect */}
+        <div class="border-glow"></div>
+        <div
+          class="card-bg relative z-30 h-full w-full overflow-hidden rounded-2xl backdrop-blur-[2px]"
+        >
+          <div class="flex h-full flex-col p-8">
+            {/* Icon */}
+            <div
+              class="icon-border icon-bg mb-4 flex h-12 w-12 items-center justify-center rounded-xl border backdrop-blur-sm"
+            >
+              <Icon name={cards[1].icon} class="icon-color h-6 w-6" />
+            </div>
+
+            {/* Content */}
+            <h3 class="card-title text-xl font-bold">
+              {cards[1].title}
+            </h3>
+            <p class="card-description mt-3 flex-grow">
+              {cards[1].description}
+            </p>
+
+            {/* Features */}
+            <ul class="mt-6 space-y-2">
+              {
+                cards[1].features.map((feature) => (
+                  <li class="feature-text flex items-center gap-2 text-sm">
+                    <Icon
+                      name="heroicons:check-circle-16-solid"
+                      class="check-icon h-4 w-4 flex-shrink-0"
+                    />
+                    <span>{feature}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Small Card 2 (bottom right) - Organic Waves */}
+      <div
+        class="bento-card group card-border relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+        data-variant={sectionVariant}
+      >
+        {/* Spotlight glow effect */}
+        <div
+          class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300"
+        >
+        </div>
+        {/* Rotating border glow effect */}
+        <div class="border-glow"></div>
+        <div
+          class="card-bg relative z-30 h-full w-full overflow-hidden rounded-2xl backdrop-blur-[2px]"
+        >
+          <div class="flex h-full flex-col p-8">
+            {/* Icon */}
+            <div
+              class="icon-border icon-bg mb-4 flex h-12 w-12 items-center justify-center rounded-xl border backdrop-blur-sm"
+            >
+              <Icon name={cards[2].icon} class="icon-color h-6 w-6" />
+            </div>
+
+            {/* Content */}
+            <h3 class="card-title text-xl font-bold">
+              {cards[2].title}
+            </h3>
+            <p class="card-description mt-3 flex-grow">
+              {cards[2].description}
+            </p>
+
+            {/* Features */}
+            <ul class="mt-6 space-y-2">
+              {
+                cards[2].features.map((feature) => (
+                  <li class="feature-text flex items-center gap-2 text-sm">
+                    <Icon
+                      name="heroicons:check-circle-16-solid"
+                      class="check-icon h-4 w-4 flex-shrink-0"
+                    />
+                    <span>{feature}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  function initializeBentoCardHoverEffect(): void {
+    const grids = document.querySelectorAll<HTMLDivElement>(".bento-grid");
+
+    grids.forEach((grid) => {
+      const cards = grid.querySelectorAll<HTMLDivElement>(".bento-card");
+      const variant = cards[0]?.dataset.variant || "light";
+
+      // Spotlight effect - track mouse on grid, apply to all cards
+      grid.addEventListener("mousemove", (event: MouseEvent) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          // Set CSS variables for rotating border glow
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+
+          // Apply spotlight gradient to card-glow element
+          const glowElement = card.querySelector(".card-glow") as HTMLElement;
+          if (glowElement) {
+            let color = "rgba(79, 60, 162, 0.12)"; // Default: primary purple for white/light
+            if (variant === "dark") {
+              color = "rgba(180, 229, 101, 0.15)"; // Accent green for dark
+            } else if (variant === "primary") {
+              color = "rgba(255, 255, 255, 0.15)"; // White for primary
+            }
+            glowElement.style.background = `radial-gradient(800px circle at ${x}px ${y}px, ${color}, transparent 40%)`;
+          }
+        });
+      });
+
+      // Reset on mouse leave
+      grid.addEventListener("mouseleave", () => {
+        cards.forEach((card) => {
+          const glowElement = card.querySelector(".card-glow") as HTMLElement;
+          if (glowElement) {
+            glowElement.style.background = "none";
+          }
+        });
+      });
+    });
+  }
+
+  // Initialize on load
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializeBentoCardHoverEffect,
+    );
+  } else {
+    initializeBentoCardHoverEffect();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", initializeBentoCardHoverEffect);
+</script>
+
+<style>
+  /* CSS Variables for theming */
+  .bento-grid-2-section {
+    /* Badge styles */
+    --badge-bg: rgba(79, 60, 162, 0.1);
+    --badge-border: rgba(79, 60, 162, 0.3);
+    --badge-text: #1c1c1e;
+    --badge-icon: rgb(79, 60, 162);
+
+    /* Headline and description */
+    --section-headline: #1c1c1e;
+    --section-description: rgb(75, 85, 99);
+    --section-accent: rgb(79, 60, 162);
+
+    /* Card styles */
+    --card-border: rgb(229, 231, 235);
+    --card-border-hover: rgba(79, 60, 162, 0.5);
+    --card-bg: rgba(255, 255, 255, 0.95);
+
+    /* Icon styles */
+    --icon-border: rgba(79, 60, 162, 0.3);
+    --icon-bg: rgba(79, 60, 162, 0.1);
+    --icon-color: rgb(79, 60, 162);
+
+    /* Card content */
+    --card-title: #1c1c1e;
+    --card-description: rgb(75, 85, 99);
+    --feature-text: rgb(75, 85, 99);
+    --check-icon: rgb(79, 60, 162);
+  }
+
+  /* Dark variant */
+  .bento-grid-2-section[data-variant="dark"] {
+    --badge-bg: color-mix(in srgb, var(--primary) 20%, transparent);
+    --badge-border: color-mix(in srgb, var(--primary) 40%, transparent);
+    --badge-text: var(--color-gray-200);
+    --badge-icon: var(--primary-light);
+
+    --section-headline: var(--color-white);
+    --section-description: var(--color-gray-300);
+    --section-accent: var(--primary-light);
+
+    --card-border: var(--color-gray-700);
+    --card-border-hover: color-mix(in srgb, var(--primary) 50%, transparent);
+    --card-bg: rgba(42, 42, 46, 0.95);
+
+    --icon-border: color-mix(in srgb, var(--primary) 40%, transparent);
+    --icon-bg: color-mix(in srgb, var(--primary) 20%, transparent);
+    --icon-color: var(--primary-light);
+
+    --card-title: var(--color-white);
+    --card-description: var(--color-gray-300);
+    --feature-text: var(--color-gray-300);
+    --check-icon: var(--primary-light);
+  }
+
+  /* Primary variant */
+  .bento-grid-2-section[data-variant="primary"] {
+    --badge-bg: rgba(255, 255, 255, 0.1);
+    --badge-border: rgba(255, 255, 255, 0.3);
+    --badge-text: white;
+    --badge-icon: white;
+
+    --section-headline: white;
+    --section-description: rgba(255, 255, 255, 0.8);
+    --section-accent: white;
+
+    --card-border: rgba(255, 255, 255, 0.2);
+    --card-border-hover: rgba(255, 255, 255, 0.4);
+    --card-bg: rgba(255, 255, 255, 0.1);
+
+    --icon-border: rgba(255, 255, 255, 0.3);
+    --icon-bg: rgba(255, 255, 255, 0.1);
+    --icon-color: white;
+
+    --card-title: white;
+    --card-description: rgba(255, 255, 255, 0.7);
+    --feature-text: rgba(255, 255, 255, 0.7);
+    --check-icon: white;
+  }
+
+  /* Apply CSS variables to elements */
+  .badge-bg {
+    background-color: var(--badge-bg);
+  }
+
+  .badge-border {
+    border-color: var(--badge-border);
+  }
+
+  .badge-text {
+    color: var(--badge-text);
+  }
+
+  .badge-icon {
+    color: var(--badge-icon);
+  }
+
+  .section-headline {
+    color: var(--section-headline);
+  }
+
+  .section-description {
+    color: var(--section-description);
+  }
+
+  .card-border {
+    border-color: var(--card-border);
+  }
+
+  .card-border:hover {
+    border-color: var(--card-border-hover);
+  }
+
+  .card-bg {
+    background-color: var(--card-bg);
+  }
+
+  .icon-border {
+    border-color: var(--icon-border);
+  }
+
+  .icon-bg {
+    background-color: var(--icon-bg);
+  }
+
+  .icon-color {
+    color: var(--icon-color);
+  }
+
+  .card-title {
+    color: var(--card-title);
+  }
+
+  .card-description {
+    color: var(--card-description);
+  }
+
+  .feature-text {
+    color: var(--feature-text);
+  }
+
+  .check-icon {
+    color: var(--check-icon);
+  }
+
+  /* Card illustration positioning */
+  .card-illustration {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Border glow effect - rotating element approach */
+  .bento-card .border-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    border-radius: 1rem;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .bento-card:hover .border-glow {
+    opacity: 1;
+  }
+
+  /* Rotating glow element - default uses primary (purple) for white/light variants */
+  .bento-card .border-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 30deg,
+      rgba(79, 60, 162, 0.2) 50deg,
+      rgba(79, 60, 162, 0.4) 70deg,
+      rgba(107, 91, 181, 0.7) 85deg,
+      rgba(160, 144, 208, 1) 90deg,
+      rgba(107, 91, 181, 0.7) 95deg,
+      rgba(79, 60, 162, 0.4) 110deg,
+      rgba(79, 60, 162, 0.2) 130deg,
+      transparent 150deg,
+      transparent 360deg
+    );
+    transform: translate(-50%, -50%);
+    animation: spinGlow 6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  /* Inner mask to create border effect */
+  .bento-card .border-glow::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: calc(1rem - 3px);
+    background: white;
+    opacity: 0.95;
+  }
+
+  /* Dark variant uses accent (green) colors */
+  .bento-card[data-variant="dark"] .border-glow::before {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 30deg,
+      rgba(180, 229, 101, 0.2) 50deg,
+      rgba(180, 229, 101, 0.4) 70deg,
+      rgba(157, 216, 79, 0.7) 85deg,
+      rgba(197, 235, 138, 1) 90deg,
+      rgba(157, 216, 79, 0.7) 95deg,
+      rgba(180, 229, 101, 0.4) 110deg,
+      rgba(180, 229, 101, 0.2) 130deg,
+      transparent 150deg,
+      transparent 360deg
+    );
+  }
+
+  .bento-card[data-variant="dark"] .border-glow::after {
+    background: #2a2a2e;
+    opacity: 0.95;
+  }
+
+  /* Primary variant uses white colors */
+  .bento-card[data-variant="primary"] .border-glow::before {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 30deg,
+      rgba(255, 255, 255, 0.2) 50deg,
+      rgba(255, 255, 255, 0.4) 70deg,
+      rgba(255, 255, 255, 0.7) 85deg,
+      rgba(255, 255, 255, 1) 90deg,
+      rgba(255, 255, 255, 0.7) 95deg,
+      rgba(255, 255, 255, 0.4) 110deg,
+      rgba(255, 255, 255, 0.2) 130deg,
+      transparent 150deg,
+      transparent 360deg
+    );
+  }
+
+  .bento-card[data-variant="primary"] .border-glow::after {
+    background: rgba(79, 60, 162, 0.9);
+    opacity: 0.95;
+  }
+
+  .bento-card:hover .border-glow::before {
+    animation-play-state: running;
+  }
+
+  @keyframes spinGlow {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .bento-card .border-glow::before {
+      animation: none;
+    }
+  }
+</style>

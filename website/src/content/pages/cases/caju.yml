@@ -1,0 +1,197 @@
+lang: de
+pageId: case-caju
+
+meta:
+  title: "caju Case Study | digitalsprung - Shopify Agentur"
+  description: "Wie wir caju mit einem modernen Shopify Shop und frischem UX/UI Design zum Erfolg verholfen haben. Bio-Snacks nachhaltig präsentiert."
+
+slug: "cases/caju"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  # Hero Section
+  - id: case-hero
+    enabled: true
+    order: 1
+    component: CaseHero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+      overflow: visible
+    background:
+      type: GridBackground
+      color: "#7cb342"
+      glowColor: "#7cb342"
+      opacity: 0.1
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      title: "caju"
+      description: "Als neue Marke für nachhaltige Bio-Snacks aus Cashews und natürlichen Zutaten haben wir caju von Grund auf digital aufgebaut - vom Branding über das UX/UI Design bis zum vollständigen Shopify Onlineshop. Das Ergebnis: ein Shop, der die Werte der Marke perfekt transportiert."
+      tags:
+        - "UI/UX Design"
+        - "Shopify Development"
+      kpis:
+        - value: "100%"
+          label: "Bio-zertifiziert"
+        - value: "+35%"
+          label: "Conversion Rate"
+      phoneImages:
+        left: "mockup_caju-mobile-pdp_left"
+        right: "mockup_caju-mobile-home_right"
+
+  # Challenge Section (Problem/Ziel/Lösung)
+  - id: case-challenge
+    enabled: true
+    order: 2
+    component: CaseChallenge
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Case Study: caju"
+      headlineAccent: "im Detail"
+      description: "caju steht für hochwertige Bio-Snacks, fair produziert und mit Leidenschaft für Nachhaltigkeit. Als komplett neue Marke haben wir den digitalen Auftritt von Grund auf entwickelt - einen <a href='/leistungen/shopify-shop-erstellen'>Shopify Onlineshop</a>, der die Markenidentität perfekt transportiert."
+      blocks:
+        - icon: "heroicons:chat-bubble-left-ellipsis"
+          title: "Ausgangslage"
+          description: "caju startete als komplett neue Marke im Bio-Snack-Markt. Die Gründer hatten eine klare Vision: hochwertige, nachhaltige Cashew-Snacks direkt an Endkunden verkaufen. Was fehlte, war ein <strong>digitaler Auftritt</strong>, der diese Werte authentisch vermittelt und Kunden vom ersten Klick an überzeugt."
+        - icon: "heroicons:flag"
+          title: "Ziel"
+          description: "caju brauchte einen <strong>kompletten Shopify Shop</strong> von Grund auf - ein Design, das die Bio-Qualität und Nachhaltigkeit der Produkte visuell transportiert, auf allen Geräten perfekt funktioniert und die Customer Journey vom ersten Kontakt bis zum Checkout optimiert - mit Fokus auf <a href='/leistungen/ux-ui-design'>UX/UI Design</a>."
+        - icon: "heroicons:light-bulb"
+          title: "Lösung"
+          description: "Wir haben den <strong>kompletten Shopify Shop</strong> von Grund auf aufgebaut: Frisches Design mit natürlichen Farben und hochwertiger Produktfotografie. Informative Seiten zur Lieferkette und Nachhaltigkeit. Optimierte Produktdetailseiten mit allen relevanten Bio-Zertifizierungen und Nährwertangaben. Mobile-First Entwicklung für ein nahtloses Einkaufserlebnis."
+
+  # Services Section - Our services for this project
+  - id: case-services
+    enabled: true
+    order: 2.5
+    component: CaseServices
+    wrapper:
+      variant: white
+      padding: sm
+      container: false
+    content:
+      headline: "Unsere Leistungen"
+      headlineAccent: "im Projekt"
+      services:
+        - icon: "heroicons:chart-bar"
+          title: "Strategie"
+          description: "Für caju haben wir eine Customer Journey entwickelt, die den Fokus auf Nachhaltigkeit und Bio-Qualität in den Vordergrund stellt. Trust-Elemente wie Zertifizierungen und Kundenbewertungen wurden strategisch platziert, um Vertrauen aufzubauen."
+          tags:
+            - "Conversion Rate Optimization"
+            - "Customer Journey"
+        - icon: "heroicons:paint-brush"
+          title: "Design"
+          description: "Das UX/UI Design greift die natürlichen Farben der Marke auf: warme Grüntöne, erdige Akzente und eine klare Bildsprache. Die Produktpräsentation wurde optimiert, um die Qualität der Bio-Snacks hervorzuheben."
+          tags:
+            - "UI/UX Design"
+            - "Responsive Design"
+        - icon: "heroicons:code-bracket"
+          title: "Entwicklung"
+          description: "Der Shop wurde auf Shopify entwickelt mit einem angepassten Theme, das perfekt auf die Marke zugeschnitten ist. Performance-Optimierung, SEO-Grundlagen und die Integration von Marketing-Tools sorgen für nachhaltiges Wachstum."
+          tags:
+            - "Shopify Development"
+            - "Theme Customization"
+            - "Performance Optimization"
+      columns: 3
+
+  # Project Details Section
+  - id: case-details
+    enabled: true
+    order: 3
+    component: CaseDetails
+    wrapper:
+      variant: light
+      padding: lg
+      container: false
+      overflow: visible
+    content:
+      headline: "Projektdaten"
+      headlineAccent: "im Überblick"
+      description: "Von der ersten Konzeption bis zum Launch - hier sind die wichtigsten Eckdaten zum caju Shop im Überblick."
+      details:
+        - label: "Kunde"
+          value: "caju"
+        - label: "Projektlaufzeit"
+          value: "3 Monate"
+        - label: "Unsere Leistungen"
+          tags:
+            - "Shopify Development"
+            - "UX/UI Design"
+            - "Theme Customization"
+            - "Performance Optimization"
+        - label: "Apps"
+          tags:
+            - "Klaviyo"
+            - "Judge.me"
+            - "Google Analytics"
+        - label: "Live Website"
+          link:
+            text: "Website besuchen"
+            href: "https://www.caju-bio.de"
+      phoneImage: "mockup_caju-mobile-home_detail"
+
+  # Screenshots Section - Detailed Page Views
+  - id: case-screenshots
+    enabled: true
+    order: 5
+    component: CaseScreenshots
+    wrapper:
+      variant: dark
+      padding: lg
+      container: false
+    content:
+      headline: "Shop-Erlebnis"
+      headlineAccent: "im Überblick"
+      description: "Von der inspirierenden Startseite bis zur transparenten Lieferkette - jede Seite wurde für maximale Conversion und ein authentisches Markenerlebnis optimiert."
+      items:
+        - title: "Startseite"
+          description: "Ein einladender Einstieg mit Hero-Sektion, die die Bio-Philosophie transportiert. Bestseller, Kategorien und Trust-Elemente führen Besucher intuitiv durch das Sortiment."
+          image:
+            src: "/images/cases/caju/caju-bio-home.png"
+            alt: "caju Startseite"
+        - title: "Produktübersicht"
+          description: "Übersichtliche Produktdarstellung mit Filtern und schnellen Ladezeiten. Jedes Produkt zeigt Bio-Zertifizierung und Kundenbewertungen auf einen Blick."
+          image:
+            src: "/images/cases/caju/caju-bio-collection.png"
+            alt: "caju Produktübersicht"
+        - title: "Lieferkette"
+          description: "Transparenz als Markenwert: Die Lieferketten-Seite zeigt die nachhaltige Herkunft der Cashews und die faire Produktion - ein wichtiger Trust-Faktor für bewusste Konsumenten."
+          image:
+            src: "/images/cases/caju/caju-bio-lieferkette.png"
+            alt: "caju Lieferkette und Nachhaltigkeit"
+        - title: "Produktdetailseite"
+          description: "Alle wichtigen Informationen kompakt präsentiert: Hochwertige Produktbilder, Nährwertangaben, Zertifizierungen und ein prominenter Add-to-Cart Button."
+          image:
+            src: "/images/cases/caju/caju-bio-pdp.png"
+            alt: "caju Produktdetailseite"
+
+  # CTA Section
+  - id: cta
+    enabled: true
+    order: 8
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Dein Projekt könnte das <em>nächste</em> sein"
+      description: "Lass uns gemeinsam deine Erfolgsgeschichte schreiben. In einem kostenlosen Erstgespräch besprechen wir deine Vision und zeigen dir, wie wir sie umsetzen können."
+      buttonText: "Jetzt kontaktieren"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

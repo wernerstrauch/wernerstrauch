@@ -1,0 +1,1201 @@
+---
+// ContactFunnel.astro - Multi-step funnel popup for Shop Marketing
+import { Icon } from "astro-icon/components";
+---
+
+<!-- Trigger Button Slot - Use data-open-funnel attribute on any element -->
+<div
+  id="contact-funnel-modal"
+  class="funnel-modal fixed inset-0 z-50 hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="funnel-title"
+>
+  <!-- Backdrop -->
+  <div
+    class="funnel-backdrop absolute inset-0 bg-black/80 backdrop-blur-sm"
+    data-close-funnel
+  >
+  </div>
+
+  <!-- Modal Container -->
+  <div
+    class="relative flex min-h-full items-center justify-center overflow-y-auto p-4"
+  >
+    <div
+      class="funnel-content relative my-auto max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border shadow-2xl"
+    >
+      <!-- Header with Close Button and Progress Bar (sticky on scroll) -->
+      <div class="funnel-header sticky top-0 z-10">
+        <!-- Progress Bar -->
+        <div class="funnel-progress-bg h-1">
+          <div
+            id="funnel-progress"
+            class="funnel-progress-bar h-full transition-all duration-500 ease-out"
+            style="width: 20%"
+          >
+          </div>
+        </div>
+        <!-- Close Button -->
+        <button
+          data-close-funnel
+          class="funnel-close-btn absolute top-4 right-4 rounded-lg p-2 transition-colors"
+          aria-label="Schließen"
+        >
+          <Icon name="heroicons:x-mark" class="h-6 w-6" />
+        </button>
+      </div>
+
+      <!-- Steps Container -->
+      <div class="p-8 pt-12 md:p-12 md:pt-16">
+        <!-- Step 1: Marketing Channel -->
+        <div class="funnel-step" data-step="1">
+          <div class="mb-8 text-center">
+            <div
+              class="funnel-icon-box mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border"
+            >
+              <Icon name="heroicons:megaphone" class="funnel-icon h-8 w-8" />
+            </div>
+            <div
+              id="funnel-title"
+              class="funnel-title mb-3 text-2xl font-bold md:text-3xl"
+            >
+              Welcher Kanal interessiert dich?
+            </div>
+            <p class="funnel-text">
+              Wähle den Marketing-Kanal, bei dem du Unterstützung benötigst.
+            </p>
+          </div>
+
+          <div class="grid gap-3">
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="google-ads"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon
+                  name="heroicons:magnifying-glass"
+                  class="funnel-icon h-6 w-6"
+                />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">Google Ads</div>
+                <div class="funnel-option-desc text-sm">
+                  Shopping, Search, Performance Max
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="meta-ads"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon name="heroicons:users" class="funnel-icon h-6 w-6" />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">Meta Ads</div>
+                <div class="funnel-option-desc text-sm">
+                  Facebook & Instagram Ads
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="email-marketing"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon name="heroicons:envelope" class="funnel-icon h-6 w-6" />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  E-Mail Marketing
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Klaviyo, Flows & Automation
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="full-service"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon name="heroicons:chart-bar" class="funnel-icon h-6 w-6" />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  Performance Marketing
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Full-Service für alle Kanäle
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="unsicher"
+            >
+              <div
+                class="funnel-option-icon funnel-option-icon--neutral flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon
+                  name="heroicons:question-mark-circle"
+                  class="funnel-option-desc h-6 w-6"
+                />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  Noch unsicher
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Ich möchte mich erst beraten lassen
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Goal -->
+        <div class="funnel-step hidden" data-step="2">
+          <div class="mb-8 text-center">
+            <div
+              class="funnel-icon-box mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border"
+            >
+              <Icon name="heroicons:flag" class="funnel-icon h-8 w-8" />
+            </div>
+            <div class="funnel-title mb-3 text-2xl font-bold md:text-3xl">
+              Was ist dein Hauptziel?
+            </div>
+            <p class="funnel-text">
+              Was möchtest du mit deinem Marketing erreichen?
+            </p>
+          </div>
+
+          <div class="grid gap-3">
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="mehr-umsatz"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon
+                  name="heroicons:currency-euro"
+                  class="funnel-icon h-6 w-6"
+                />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  Mehr Umsatz generieren
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Umsatz und Bestellungen steigern
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="roas-verbessern"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon
+                  name="heroicons:arrow-trending-up"
+                  class="funnel-icon h-6 w-6"
+                />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  ROAS verbessern
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Profitabler werben, mehr aus dem Budget holen
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="neukunden"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon name="heroicons:user-plus" class="funnel-icon h-6 w-6" />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  Neukunden gewinnen
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Neue Zielgruppen erschließen
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="bestandskunden"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <Icon name="heroicons:arrow-path" class="funnel-icon h-6 w-6" />
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  Bestandskunden aktivieren
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Wiederkäufe & CLV steigern
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+          </div>
+
+          <button
+            class="funnel-back mt-6 flex items-center gap-2 transition-colors"
+          >
+            <Icon name="heroicons:arrow-left" class="h-4 w-4" />
+            <span>Zurück</span>
+          </button>
+        </div>
+
+        <!-- Step 3: Monthly Ad Spend -->
+        <div class="funnel-step hidden" data-step="3">
+          <div class="mb-8 text-center">
+            <div
+              class="funnel-icon-box mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border"
+            >
+              <Icon name="heroicons:banknotes" class="funnel-icon h-8 w-8" />
+            </div>
+            <div class="funnel-title mb-3 text-2xl font-bold md:text-3xl">
+              Wie hoch ist dein Werbebudget?
+            </div>
+            <p class="funnel-text">
+              Monatliches Budget für Paid Ads (ungefähr)
+            </p>
+          </div>
+
+          <div class="grid gap-3">
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="unter-5k"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-14 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <span
+                  class="funnel-budget-text text-base font-bold whitespace-nowrap"
+                  >&lt;5k</span
+                >
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  Unter 5.000 €
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Wir starten gerade oder testen
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="5k-15k"
+            >
+              <div
+                class="funnel-option-icon flex h-12 w-14 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <span
+                  class="funnel-budget-text text-base font-bold whitespace-nowrap"
+                  >5-15k</span
+                >
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  5.000 € - 15.000 €
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Etabliertes Werbebudget
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="15k-50k"
+            >
+              <div
+                class="funnel-option-icon funnel-option-icon--success flex h-12 w-14 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <span
+                  class="funnel-budget-text--success text-base font-bold whitespace-nowrap"
+                  >15-50k</span
+                >
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  15.000 € - 50.000 €
+                </div>
+                <div class="funnel-option-desc text-sm">Skalierungsphase</div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+
+            <button
+              class="funnel-option group flex items-center gap-4 rounded-xl border p-4 text-left transition-all"
+              data-value="ueber-50k"
+            >
+              <div
+                class="funnel-option-icon funnel-option-icon--success flex h-12 w-14 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-110"
+              >
+                <span
+                  class="funnel-budget-text--success text-base font-bold whitespace-nowrap"
+                  >50k+</span
+                >
+              </div>
+              <div>
+                <div class="funnel-option-title font-semibold">
+                  Über 50.000 €
+                </div>
+                <div class="funnel-option-desc text-sm">
+                  Professionelles Performance Marketing
+                </div>
+              </div>
+              <Icon
+                name="heroicons:chevron-right"
+                class="funnel-chevron ml-auto h-5 w-5 transition-colors"
+              />
+            </button>
+          </div>
+
+          <button
+            class="funnel-back mt-6 flex items-center gap-2 transition-colors"
+          >
+            <Icon name="heroicons:arrow-left" class="h-4 w-4" />
+            <span>Zurück</span>
+          </button>
+        </div>
+
+        <!-- Step 4: Shop Platform -->
+        <div class="funnel-step hidden" data-step="4">
+          <div class="mb-8 text-center">
+            <div
+              class="funnel-icon-box mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border"
+            >
+              <Icon name="heroicons:shopping-bag" class="funnel-icon h-8 w-8" />
+            </div>
+            <div class="funnel-title mb-3 text-2xl font-bold md:text-3xl">
+              Welches Shopsystem nutzt du?
+            </div>
+            <p class="funnel-text">
+              Damit wir die passenden Integrationen empfehlen können.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              class="funnel-option group flex flex-col items-center gap-2 rounded-xl border p-6 text-center transition-all"
+              data-value="shopify"
+            >
+              <span class="funnel-platform-title text-2xl font-bold"
+                >Shopify</span
+              >
+              <span class="funnel-option-desc text-sm">inkl. Shopify Plus</span>
+            </button>
+
+            <button
+              class="funnel-option group flex flex-col items-center gap-2 rounded-xl border p-6 text-center transition-all"
+              data-value="woocommerce"
+            >
+              <span class="funnel-platform-title text-2xl font-bold"
+                >WooCommerce</span
+              >
+              <span class="funnel-option-desc text-sm">WordPress</span>
+            </button>
+
+            <button
+              class="funnel-option group flex flex-col items-center gap-2 rounded-xl border p-6 text-center transition-all"
+              data-value="shopware"
+            >
+              <span class="funnel-platform-title text-2xl font-bold"
+                >Shopware</span
+              >
+              <span class="funnel-option-desc text-sm">5 oder 6</span>
+            </button>
+
+            <button
+              class="funnel-option group flex flex-col items-center gap-2 rounded-xl border p-6 text-center transition-all"
+              data-value="andere"
+            >
+              <span class="funnel-platform-title text-2xl font-bold"
+                >Andere</span
+              >
+              <span class="funnel-option-desc text-sm">Magento, Oxid, etc.</span
+              >
+            </button>
+          </div>
+
+          <button
+            class="funnel-back mt-6 flex items-center gap-2 transition-colors"
+          >
+            <Icon name="heroicons:arrow-left" class="h-4 w-4" />
+            <span>Zurück</span>
+          </button>
+        </div>
+
+        <!-- Step 5: Contact Form -->
+        <div class="funnel-step hidden" data-step="5">
+          <div class="mb-8 text-center">
+            <div
+              class="funnel-icon-box mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border"
+            >
+              <Icon name="heroicons:user-circle" class="funnel-icon h-8 w-8" />
+            </div>
+            <div class="funnel-title mb-3 text-2xl font-bold md:text-3xl">
+              Fast geschafft!
+            </div>
+            <p class="funnel-text">Wie können wir dich erreichen?</p>
+          </div>
+
+          <form id="funnel-form" class="space-y-4">
+            <div class="grid gap-4 md:grid-cols-2">
+              <div>
+                <label
+                  for="firstName"
+                  class="funnel-label mb-2 block text-sm font-medium"
+                  >Vorname *</label
+                >
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  required
+                  class="funnel-input w-full rounded-xl border px-4 py-3 transition-colors"
+                  placeholder="Max"
+                />
+              </div>
+              <div>
+                <label
+                  for="lastName"
+                  class="funnel-label mb-2 block text-sm font-medium"
+                  >Nachname *</label
+                >
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  required
+                  class="funnel-input w-full rounded-xl border px-4 py-3 transition-colors"
+                  placeholder="Mustermann"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="email"
+                class="funnel-label mb-2 block text-sm font-medium"
+                >E-Mail *</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="funnel-input w-full rounded-xl border px-4 py-3 transition-colors"
+                placeholder="max@mein-shop.de"
+              />
+            </div>
+
+            <div>
+              <label
+                for="shopUrl"
+                class="funnel-label mb-2 block text-sm font-medium"
+                >Shop-URL</label
+              >
+              <input
+                type="url"
+                id="shopUrl"
+                name="shopUrl"
+                class="funnel-input w-full rounded-xl border px-4 py-3 transition-colors"
+                placeholder="https://mein-shop.de"
+              />
+            </div>
+
+            <div>
+              <label
+                for="phone"
+                class="funnel-label mb-2 block text-sm font-medium"
+                >Telefon (optional)</label
+              >
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="funnel-input w-full rounded-xl border px-4 py-3 transition-colors"
+                placeholder="+49 123 456789"
+              />
+            </div>
+
+            <div>
+              <label
+                for="message"
+                class="funnel-label mb-2 block text-sm font-medium"
+                >Nachricht (optional)</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="3"
+                class="funnel-input w-full resize-none rounded-xl border px-4 py-3 transition-colors"
+                placeholder="Erzähl uns mehr über deinen Shop und deine Ziele..."
+              ></textarea>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="privacy"
+                name="privacy"
+                required
+                class="funnel-checkbox mt-1 h-4 w-4 rounded"
+              />
+              <label for="privacy" class="funnel-checkbox-label text-sm">
+                Ich stimme der <a
+                  href="/datenschutz"
+                  class="funnel-checkbox-link">Datenschutzerklärung</a
+                > zu. *
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="funnel-submit mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <Icon name="heroicons:paper-airplane" class="h-5 w-5" />
+              <span>Kostenloses Erstgespräch anfragen</span>
+            </button>
+          </form>
+
+          <button
+            class="funnel-back mt-6 flex items-center gap-2 transition-colors"
+          >
+            <Icon name="heroicons:arrow-left" class="h-4 w-4" />
+            <span>Zurück</span>
+          </button>
+        </div>
+
+        <!-- Success Step -->
+        <div class="funnel-step hidden" data-step="success">
+          <div class="py-8 text-center">
+            <div
+              class="funnel-success-icon-box animate-bounce-once mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full border"
+            >
+              <Icon
+                name="heroicons:check-circle"
+                class="funnel-success-icon h-12 w-12"
+              />
+            </div>
+            <div class="funnel-title mb-3 text-2xl font-bold md:text-3xl">
+              Vielen Dank!
+            </div>
+            <p class="funnel-text mb-6">
+              Wir haben deine Anfrage erhalten und melden uns innerhalb von 24
+              Stunden bei dir.
+            </p>
+            <div
+              class="funnel-success-badge inline-flex items-center gap-2 rounded-full border px-4 py-2"
+            >
+              <Icon name="heroicons:clock" class="h-4 w-4" />
+              <span class="text-sm">Antwort innerhalb von 24h</span>
+            </div>
+            <button
+              data-close-funnel
+              class="funnel-close-modal-btn mt-8 inline-flex items-center justify-center gap-2 rounded-xl border px-6 py-3 font-medium transition-colors"
+            >
+              Schließen
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Scroll Indicator (fixed at bottom of modal) -->
+      <div
+        id="scroll-indicator"
+        class="funnel-scroll-indicator pointer-events-none sticky right-0 bottom-0 left-0 flex justify-center pt-8 pb-4 md:hidden"
+      >
+        <div class="flex animate-bounce flex-col items-center gap-1">
+          <span class="text-xs">Nach unten scrollen</span>
+          <Icon name="heroicons:chevron-down" class="h-5 w-5" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  /* Modal animations */
+  .funnel-modal {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  .funnel-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .funnel-modal:not(.active) {
+    display: none;
+  }
+
+  .funnel-modal.active {
+    display: block;
+  }
+
+  .funnel-content {
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.3s ease;
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background-color: var(--color-zinc-900);
+    box-shadow: 0 25px 50px -12px
+      color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .funnel-modal.active .funnel-content {
+    transform: scale(1) translateY(0);
+  }
+
+  .funnel-step {
+    animation: fadeInUp 0.4s ease forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce-once {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-bounce-once {
+    animation: bounce-once 0.6s ease;
+  }
+
+  /* Header */
+  .funnel-header {
+    background-color: var(--color-zinc-900);
+  }
+
+  .funnel-progress-bg {
+    background-color: var(--color-zinc-800);
+  }
+
+  .funnel-progress-bar {
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
+  }
+
+  .funnel-close-btn {
+    color: var(--color-zinc-400);
+  }
+
+  .funnel-close-btn:hover {
+    background-color: var(--color-zinc-800);
+    color: var(--color-white);
+  }
+
+  /* Icon box */
+  .funnel-icon-box {
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .funnel-icon {
+    color: var(--primary-light);
+  }
+
+  /* Title and text */
+  .funnel-title {
+    color: var(--color-white);
+  }
+
+  .funnel-text {
+    color: var(--color-zinc-400);
+  }
+
+  /* Option buttons */
+  .funnel-option {
+    border-color: var(--color-zinc-700);
+  }
+
+  .funnel-option:hover {
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 5%, transparent);
+  }
+
+  .funnel-option.selected {
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .funnel-option-icon {
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .funnel-option-icon--neutral {
+    border-color: var(--color-zinc-600);
+    background-color: color-mix(
+      in srgb,
+      var(--color-zinc-700) 50%,
+      transparent
+    );
+  }
+
+  .funnel-option-icon--success {
+    border-color: color-mix(in srgb, rgb(34 197 94) 20%, transparent);
+    background-color: color-mix(in srgb, rgb(34 197 94) 10%, transparent);
+  }
+
+  .funnel-option-title {
+    color: var(--color-white);
+  }
+
+  .funnel-option-desc {
+    color: var(--color-zinc-400);
+  }
+
+  .funnel-chevron {
+    color: var(--color-zinc-500);
+  }
+
+  .funnel-option:hover .funnel-chevron {
+    color: var(--primary-light);
+  }
+
+  .funnel-platform-title {
+    color: var(--primary-light);
+  }
+
+  /* Back button */
+  .funnel-back {
+    color: var(--color-zinc-400);
+  }
+
+  .funnel-back:hover {
+    color: var(--color-white);
+  }
+
+  /* Form elements */
+  .funnel-label {
+    color: var(--color-zinc-300);
+  }
+
+  .funnel-input {
+    border-color: var(--color-zinc-700);
+    background-color: var(--color-zinc-800);
+    color: var(--color-white);
+  }
+
+  .funnel-input::placeholder {
+    color: var(--color-zinc-500);
+  }
+
+  .funnel-input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--primary);
+  }
+
+  .funnel-checkbox {
+    border-color: var(--color-zinc-600);
+    background-color: var(--color-zinc-800);
+    accent-color: var(--primary);
+  }
+
+  .funnel-checkbox-label {
+    color: var(--color-zinc-400);
+  }
+
+  .funnel-checkbox-link {
+    color: var(--primary-light);
+  }
+
+  .funnel-checkbox-link:hover {
+    color: var(--primary);
+  }
+
+  .funnel-submit {
+    background-color: var(--primary);
+    color: var(--color-white);
+  }
+
+  .funnel-submit:hover {
+    background-color: var(--primary-light);
+  }
+
+  /* Success step */
+  .funnel-success-icon-box {
+    border-color: color-mix(in srgb, rgb(34 197 94) 20%, transparent);
+    background-color: color-mix(in srgb, rgb(34 197 94) 10%, transparent);
+  }
+
+  .funnel-success-icon {
+    color: rgb(74 222 128);
+  }
+
+  .funnel-success-badge {
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+    color: var(--primary-light);
+  }
+
+  .funnel-close-modal-btn {
+    border-color: var(--color-zinc-700);
+    color: var(--color-white);
+  }
+
+  .funnel-close-modal-btn:hover {
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  }
+
+  /* Scroll indicator */
+  .funnel-scroll-indicator {
+    background: linear-gradient(
+      to top,
+      var(--color-zinc-900),
+      color-mix(in srgb, var(--color-zinc-900) 80%, transparent),
+      transparent
+    );
+    color: var(--color-zinc-400);
+  }
+
+  /* Budget text colors */
+  .funnel-budget-text {
+    color: var(--primary-light);
+  }
+
+  .funnel-budget-text--success {
+    color: rgb(74 222 128);
+  }
+</style>
+
+<script>
+  function initContactFunnel(): void {
+    const modal = document.getElementById("contact-funnel-modal");
+    const progressBar = document.getElementById("funnel-progress");
+    const form = document.getElementById("funnel-form") as HTMLFormElement;
+    const scrollIndicator = document.getElementById("scroll-indicator");
+    const funnelContent = document.querySelector(
+      ".funnel-content",
+    ) as HTMLElement;
+
+    // Prevent double initialization
+    if (modal?.hasAttribute("data-initialized")) return;
+    modal?.setAttribute("data-initialized", "true");
+
+    let currentStep: number | string = 1;
+    const totalSteps = 5;
+    const funnelData: Record<string, string> = {};
+
+    // Hide scroll indicator when user scrolls or reaches bottom
+    function checkScrollIndicator() {
+      if (!funnelContent || !scrollIndicator) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = funnelContent;
+      const isScrollable = scrollHeight > clientHeight;
+      const hasScrolled = scrollTop > 20;
+      const isNearBottom = scrollTop + clientHeight >= scrollHeight - 50;
+
+      // Hide if: already scrolled, not scrollable, near bottom, or on success step
+      const isOnSuccessStep = currentStep === "success";
+      if (hasScrolled || !isScrollable || isNearBottom || isOnSuccessStep) {
+        scrollIndicator.classList.add("hidden");
+      } else {
+        scrollIndicator.classList.remove("hidden");
+      }
+    }
+
+    // Listen for scroll events on the modal content
+    funnelContent?.addEventListener("scroll", checkScrollIndicator);
+
+    // Open modal via data attribute
+    document.querySelectorAll("[data-open-funnel]").forEach((trigger) => {
+      trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    // Open modal via custom event (dispatch event)
+    window.addEventListener("openContactFunnel", () => {
+      openModal();
+    });
+
+    // Close modal
+    document.querySelectorAll("[data-close-funnel]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        closeModal();
+      });
+    });
+
+    // Close on escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal?.classList.contains("active")) {
+        closeModal();
+      }
+    });
+
+    // Handle option clicks
+    document.querySelectorAll(".funnel-option").forEach((option) => {
+      option.addEventListener("click", () => {
+        const value = option.getAttribute("data-value");
+        const stepEl = option.closest(".funnel-step");
+        const step = stepEl?.getAttribute("data-step");
+
+        if (step && value) {
+          // Store data
+          funnelData[`step${step}`] = value;
+
+          // Visual feedback
+          option.classList.add("selected");
+
+          // Go to next step
+          setTimeout(() => {
+            if (typeof currentStep === "number") {
+              goToStep(currentStep + 1);
+            }
+          }, 200);
+        }
+      });
+    });
+
+    // Handle back buttons
+    document.querySelectorAll(".funnel-back").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (typeof currentStep === "number") {
+          goToStep(currentStep - 1);
+        }
+      });
+    });
+
+    // Handle form submission
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector(
+        'button[type="submit"]',
+      ) as HTMLButtonElement;
+      const originalText = submitBtn?.innerHTML;
+
+      // Show loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Wird gesendet...</span>
+        `;
+      }
+
+      const formData = new FormData(form);
+      const contactData = {
+        domain: "shop-marketing",
+        ...funnelData,
+        firstName: formData.get("firstName"),
+        lastName: formData.get("lastName"),
+        email: formData.get("email"),
+        shopUrl: formData.get("shopUrl"),
+        phone: formData.get("phone"),
+        message: formData.get("message"),
+      };
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(contactData),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          goToStep("success");
+        } else {
+          console.error("Form submission error:", result.error);
+          alert("Es gab einen Fehler beim Senden. Bitte versuche es erneut.");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+          }
+        }
+      } catch (err) {
+        console.error("Network error:", err);
+        alert("Netzwerkfehler. Bitte überprüfe deine Verbindung.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      }
+    });
+
+    function openModal() {
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      requestAnimationFrame(() => {
+        modal.classList.add("active");
+        // Check scroll indicator after modal animation
+        setTimeout(checkScrollIndicator, 350);
+      });
+      document.body.style.overflow = "hidden";
+      resetFunnel();
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove("active");
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "";
+      }, 300);
+    }
+
+    function goToStep(step: number | string) {
+      // Hide all steps within the modal only
+      modal?.querySelectorAll(".funnel-step").forEach((el) => {
+        el.classList.add("hidden");
+      });
+
+      // Show target step within the modal
+      const targetStep = modal?.querySelector(`[data-step="${step}"]`);
+      if (targetStep) {
+        targetStep.classList.remove("hidden");
+      }
+
+      // Reset scroll position and check indicator
+      if (funnelContent) {
+        funnelContent.scrollTop = 0;
+      }
+      setTimeout(checkScrollIndicator, 100);
+
+      // Update progress and currentStep
+      if (typeof step === "number") {
+        currentStep = step;
+        const progress = (step / totalSteps) * 100;
+        if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+        }
+      } else if (step === "success") {
+        currentStep = "success";
+        if (progressBar) {
+          progressBar.style.width = "100%";
+        }
+        // Hide scroll indicator on success
+        scrollIndicator?.classList.add("hidden");
+      }
+    }
+
+    function resetFunnel() {
+      currentStep = 1;
+      Object.keys(funnelData).forEach((key) => delete funnelData[key]);
+      modal?.querySelectorAll(".funnel-option").forEach((opt) => {
+        opt.classList.remove("selected");
+      });
+      form?.reset();
+      goToStep(1);
+    }
+  }
+
+  // Initialize on DOMContentLoaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initContactFunnel);
+  } else {
+    initContactFunnel();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", initContactFunnel);
+</script>

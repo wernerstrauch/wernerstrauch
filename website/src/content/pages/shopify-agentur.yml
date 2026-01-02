@@ -1,0 +1,217 @@
+lang: de
+pageId: shopify-agentur
+
+meta:
+  title: "Shopify Agentur | E-Commerce Experten für deinen Onlineshop"
+  description: "Zertifizierte Shopify Agentur für Theme-Entwicklung, App-Entwicklung, Shopify Plus und Migration. Wir bringen deinen Shop auf das nächste Level."
+
+slug: "shopify-agentur"
+
+settings:
+  status: published
+  priority: 0.9
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "simple-icons:shopify"
+        text: "Shopify Experten"
+      headline:
+        line1: "Deine Shopify"
+        line2: "<em>Agentur</em>"
+      subheadline: "Von der Theme-Entwicklung bis zur Enterprise-Lösung mit Shopify Plus – wir sind dein Partner für erfolgreichen E-Commerce."
+      ctas:
+        - text: "Kostenloses Erstgespräch"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Unsere Leistungen"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#leistungen"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify Partner"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "100+ Projekte"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "10+ Jahre Erfahrung"
+
+  - id: services
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Leistungen"
+      badgeIcon: "heroicons:squares-2x2-16-solid"
+      headline: "Unsere <em>Shopify Services</em>"
+      description: "Von der Konzeption bis zum Launch – wir begleiten dich bei jedem Schritt."
+      services:
+        - tagline: "Design"
+          title: "Theme Entwicklung"
+          description: "Individuelle Shopify Themes, die deine Marke perfekt repräsentieren und für Conversions optimiert sind."
+          icon: "heroicons:paint-brush"
+          href: "/shopify-theme-entwicklung"
+        - tagline: "Enterprise"
+          title: "Shopify Plus"
+          description: "Für wachsende Brands: Skalierbare Enterprise-Lösungen mit erweiterten Features und Support."
+          icon: "heroicons:rocket-launch"
+          href: "/shopify-plus-agentur"
+        - tagline: "Funktionen"
+          title: "App Entwicklung"
+          description: "Maßgeschneiderte Shopify Apps für individuelle Funktionen und nahtlose Integrationen."
+          icon: "heroicons:code-bracket"
+          href: "/shopify-app-entwicklung"
+        - tagline: "Wechsel"
+          title: "Migration"
+          description: "Reibungsloser Umzug von WooCommerce, Magento oder anderen Plattformen zu Shopify."
+          icon: "heroicons:arrow-path"
+          href: "/shopify-migration"
+
+  - id: process
+    enabled: true
+    order: 3
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+    content:
+      variant: light
+      badge: "Unser Prozess"
+      badgeIcon: "heroicons:arrow-path-16-solid"
+      headline: "So entsteht dein <em>Shopify Shop</em>"
+      description: "Ein strukturierter Prozess für maximale Qualität und Effizienz."
+      steps:
+        - title: "Discovery & Konzept"
+          description: "Wir analysieren deine Anforderungen, Zielgruppe und den Wettbewerb für ein maßgeschneidertes Konzept."
+        - title: "Design & UX"
+          description: "Wireframes und Designs, die deine Brand perfekt darstellen und für Conversions optimiert sind."
+        - title: "Entwicklung"
+          description: "Sauberer, performanter Code nach Shopify Best Practices mit modernen Technologien."
+        - title: "Launch & Support"
+          description: "Gründliche Tests, reibungsloser Launch und kontinuierlicher Support für deinen Erfolg."
+
+  - id: stats
+    enabled: true
+    order: 4
+    component: StatsStepped
+    wrapper:
+      variant: dark
+      padding: lg
+      container: true
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.08
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      variant: dark
+      badge: "Erfahrung"
+      badgeIcon: "heroicons:chart-pie-16-solid"
+      headline: "Zahlen, die <em>sprechen</em>"
+      description: "Unsere Erfahrung als Shopify Agentur in Zahlen."
+      stats:
+        - value: "100+"
+          title: "Shopify Projekte"
+          description: "Erfolgreich umgesetzte Shops und Themes"
+          cardVariant: "light"
+        - value: "10+"
+          title: "Jahre Erfahrung"
+          description: "Im E-Commerce und Shopify Ökosystem"
+          cardVariant: "dark"
+        - value: "50+"
+          title: "Zufriedene Kunden"
+          description: "Die uns weiterempfehlen würden"
+          cardVariant: "primary"
+
+  - id: seo-content
+    enabled: true
+    order: 5
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "Shopify Agentur bedeutet für uns: <em>Partnerschaft auf Augenhöhe</em>"
+      tagline: "Als zertifizierte Shopify Partner Agentur entwickeln wir seit über 10 Jahren erfolgreiche E-Commerce Lösungen für Brands jeder Größe."
+      leftColumn:
+        - type: text
+          content: "Als <strong>Shopify Agentur</strong> aus Deutschland unterstützen wir Unternehmen dabei, das volle Potenzial der weltweit führenden E-Commerce Plattform auszuschöpfen. Von der ersten Konzeption bis zum erfolgreichen Launch und darüber hinaus."
+        - type: text
+          content: "Shopify hat sich als die <strong>E-Commerce Plattform</strong> für wachstumsorientierte Brands etabliert. Mit über 4 Millionen aktiven Shops weltweit bietet Shopify eine skalierbare, sichere und flexible Lösung für jeden Anspruch."
+        - type: headline
+          content: "Unsere Leistungen als Shopify Agentur"
+        - type: bullets
+          content:
+            - '<a href="/shopify-theme-entwicklung">Individuelle Theme Entwicklung</a> – Einzigartige Designs für deine Brand'
+            - '<a href="/shopify-plus-agentur">Shopify Plus</a> – Enterprise-Lösungen für High-Volume Commerce'
+            - '<a href="/shopify-app-entwicklung">Custom App Entwicklung</a> – Maßgeschneiderte Funktionen'
+            - '<a href="/shopify-migration">Migration zu Shopify</a> – Reibungsloser Plattformwechsel'
+            - '<a href="/ecommerce-beratung">E-Commerce Beratung</a> – Strategische Unterstützung'
+      rightColumn:
+        - type: text
+          content: "Was uns als <strong>Shopify Agentur</strong> auszeichnet? Wir verstehen nicht nur die Technik, sondern auch dein Business. Jedes Projekt beginnt mit einer gründlichen Analyse deiner Ziele, Zielgruppe und Wettbewerbssituation."
+        - type: text
+          content: "Mit Sitz in Heinsberg bei Mönchengladbach arbeiten wir mit Kunden aus ganz Deutschland und darüber hinaus. Remote oder vor Ort – wir passen uns deinen Bedürfnissen an."
+        - type: headline
+          content: "Häufige Fragen zu unserer Shopify Agentur"
+        - type: faq
+          content:
+            - question: "Was kostet ein Shopify Shop bei einer Agentur?"
+              answer: "Die Kosten variieren je nach Umfang. Ein einfacher Shop startet bei ca. 5.000€, komplexe Enterprise-Projekte können deutlich mehr kosten. Wir erstellen gerne ein individuelles Angebot."
+            - question: "Wie lange dauert die Entwicklung eines Shopify Shops?"
+              answer: "Ein Standard-Shop ist in 4-8 Wochen umsetzbar. Komplexere Projekte mit individuellem Theme und Integrationen dauern 8-16 Wochen."
+            - question: "Warum sollte ich eine Shopify Agentur beauftragen?"
+              answer: "Eine spezialisierte Agentur bringt Erfahrung, Best Practices und technisches Know-how mit. Das spart Zeit, vermeidet Fehler und führt zu besseren Ergebnissen."
+            - question: "Bietet ihr auch Support nach dem Launch?"
+              answer: "Ja, wir bieten verschiedene Support-Pakete an – von punktueller Unterstützung bis zu umfassenden Wartungsverträgen mit garantierten Reaktionszeiten."
+
+  - id: cta
+    enabled: true
+    order: 6
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Bereit für deinen <em>Shopify Shop?</em>"
+      description: "Lass uns gemeinsam herausfinden, wie wir dein E-Commerce Projekt zum Erfolg führen können."
+      buttonText: "Jetzt Erstgespräch buchen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

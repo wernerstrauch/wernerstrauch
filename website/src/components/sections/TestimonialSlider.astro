@@ -1,0 +1,320 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+import { Image } from "astro:assets";
+import googleLogo from "@images/logos/icons/google.png";
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  stat?: {
+    value: string;
+    label: string;
+  };
+}
+
+interface GoogleRating {
+  reviewCount: string;
+  rating: string;
+  show?: boolean;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  googleRating?: GoogleRating;
+  testimonials?: Testimonial[];
+}
+
+const {
+  sectionVariant = "light",
+  headline = "Qualität garantiert.",
+  googleRating = {
+    reviewCount: "20+",
+    rating: "5,0",
+    show: true,
+  },
+  testimonials = [
+    {
+      quote:
+        "Die Zusammenarbeit war von Anfang an auf Augenhöhe. Unsere Conversion Rate hat sich verdoppelt.",
+      author: "Lisa Müller",
+      role: "CEO 123 GmbH",
+      stat: {
+        value: "2x",
+        label: "Conversion Rate",
+      },
+    },
+    {
+      quote:
+        "Endlich ein Partner, der E-Commerce versteht. Die Ergebnisse sprechen für sich.",
+      author: "Thomas Weber",
+      role: "Founder HomeDecor24",
+      stat: {
+        value: "150%",
+        label: "Mehr Umsatz",
+      },
+    },
+    {
+      quote:
+        "Professionell, transparent und ergebnisorientiert. Genau das, was wir gesucht haben.",
+      author: "Maria Schmidt",
+      role: "E-Commerce Director",
+      stat: {
+        value: "4x",
+        label: "ROAS",
+      },
+    },
+  ],
+} = Astro.props;
+---
+
+<div class="testimonial-slider" data-variant={sectionVariant}>
+  <Container>
+    <div class="flex flex-col items-center gap-8">
+      {/* Header Section */}
+      <div class="flex w-full max-w-7xl flex-col items-start gap-6">
+        <h2
+          class="testimonial-slider__headline scale-up text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl"
+          style="transition-delay: 100ms;"
+        >
+          {headline}
+        </h2>
+
+        {/* Google Rating Badge */}
+        {
+          googleRating?.show !== false && (
+            <div
+              class="fade-up flex items-center gap-4"
+              style="transition-delay: 200ms;"
+            >
+              <Image
+                src={googleLogo}
+                alt="Google"
+                width={36}
+                height={36}
+                class="h-9 w-9"
+              />
+              <div class="testimonial-slider__rating-text flex items-center gap-1 text-base">
+                <span>{googleRating.reviewCount} Bewertungen bei Google –</span>
+                <span>Gesamt</span>
+                <span class="font-semibold">{googleRating.rating}</span>
+                <div class="ml-1 flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map(() => (
+                    <Icon
+                      name="heroicons:star-solid"
+                      class="h-4 w-4 text-[#FBBC04]"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      {/* Slider Section */}
+      <div
+        class="relative flex w-full items-center justify-center gap-6"
+        x-data={`{
+          currentIndex: 0,
+          testimonials: ${JSON.stringify(testimonials)},
+          total: ${testimonials.length},
+          next() { this.currentIndex = (this.currentIndex + 1) % this.total },
+          prev() { this.currentIndex = (this.currentIndex - 1 + this.total) % this.total }
+        }`}
+      >
+        {/* Stacked Cards Container */}
+        <div
+          class="relative h-[350px] w-full max-w-[1188px] sm:h-[380px] lg:h-[400px]"
+        >
+          {
+            testimonials.map((testimonial, index) => (
+              <div
+                class="testimonial-card absolute inset-0 flex items-center gap-6 overflow-hidden rounded-[18px] border border-[#f4ffe3] p-5 shadow-xl transition-all duration-500 ease-out sm:gap-10 sm:p-8 lg:gap-12 lg:p-10"
+                x-show={`currentIndex === ${index}`}
+                x-transition:enter="transform transition-all duration-500 ease-out"
+                x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                x-transition:leave="transform transition-all duration-300 ease-in"
+                x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                x-transition:leave-end="opacity-0 -translate-y-8 scale-95"
+                style={`z-index: ${testimonials.length - index};`}
+              >
+                {/* Stat Side */}
+                {testimonial.stat && (
+                  <div class="testimonial-card__stat flex w-[120px] flex-none flex-col items-center justify-center text-center sm:w-[180px] lg:w-[240px] xl:w-[280px]">
+                    <span class="text-5xl font-semibold tracking-tighter sm:text-6xl lg:text-8xl xl:text-[120px]">
+                      {testimonial.stat.value}
+                    </span>
+                    <span class="text-sm font-semibold tracking-tight sm:text-base lg:text-xl xl:text-2xl">
+                      {testimonial.stat.label}
+                    </span>
+                  </div>
+                )}
+
+                {/* Quote Side */}
+                <div class="flex min-w-0 flex-1 flex-col gap-4">
+                  <div class="flex items-start">
+                    <span class="testimonial-card__quote-mark -mt-1 flex-none text-2xl leading-none font-semibold sm:text-3xl lg:text-4xl">
+                      "
+                    </span>
+                    <div class="flex min-w-0 flex-col gap-3 sm:gap-4 lg:gap-5">
+                      <p class="testimonial-card__quote text-base leading-snug font-semibold tracking-tight sm:text-xl lg:text-2xl xl:text-[32px] xl:leading-[40px]">
+                        {testimonial.quote}"
+                      </p>
+                      <p class="testimonial-card__author text-sm font-semibold sm:text-base lg:text-lg">
+                        {testimonial.author} –{" "}
+                        <span class="font-normal">{testimonial.role}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+
+          {
+            /* Background Cards (stacked effect) - always visible for infinite feel */
+          }
+          <div
+            class="testimonial-card testimonial-card--bg pointer-events-none absolute inset-0 rounded-[18px] border border-[#f4ffe3] shadow-xl"
+            style="transform: translateY(44px) scale(0.936); z-index: -1; opacity: 0.85;"
+          >
+          </div>
+          <div
+            class="testimonial-card testimonial-card--bg pointer-events-none absolute inset-0 rounded-[18px] border border-[#f4ffe3] shadow-xl"
+            style="transform: translateY(88px) scale(0.87); z-index: -2; opacity: 0.7;"
+          >
+          </div>
+        </div>
+
+        {/* Navigation Arrows */}
+        <div class="hidden flex-col gap-4 sm:flex">
+          <button
+            type="button"
+            class="testimonial-slider__nav-btn flex h-7 w-7 items-center justify-center rounded-full transition-opacity hover:opacity-70"
+            x-on:click="prev()"
+            aria-label="Previous testimonial"
+          >
+            <Icon name="heroicons:chevron-up-solid" class="h-7 w-7" />
+          </button>
+          <button
+            type="button"
+            class="testimonial-slider__nav-btn flex h-7 w-7 items-center justify-center rounded-full transition-opacity hover:opacity-70"
+            x-on:click="next()"
+            aria-label="Next testimonial"
+          >
+            <Icon name="heroicons:chevron-down-solid" class="h-7 w-7" />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation Dots */}
+      <div class="flex items-center gap-2 sm:hidden">
+        {
+          testimonials.map((_, index) => (
+            <button
+              type="button"
+              class="testimonial-slider__dot h-2 w-2 rounded-full transition-all"
+              x-bind:class={`currentIndex === ${index} ? 'w-6 bg-[#1c1c1e]' : 'bg-[#1c1c1e]/30'`}
+              x-on:click={`currentIndex = ${index}`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* Base Colors - Light Lime Green Background */
+  .testimonial-slider[data-variant="light"] {
+    --slider-headline: #1c1c1e;
+    --slider-text: #1c1c1e;
+    --slider-card-bg: #b4e565;
+    --slider-card-bg-stack: #a9d95d;
+    --slider-card-border: #f4ffe3;
+    --slider-nav: #1c1c1e;
+  }
+
+  .testimonial-slider[data-variant="white"] {
+    --slider-headline: #1c1c1e;
+    --slider-text: #1c1c1e;
+    --slider-card-bg: #b4e565;
+    --slider-card-bg-stack: #a9d95d;
+    --slider-card-border: #f4ffe3;
+    --slider-nav: #1c1c1e;
+  }
+
+  .testimonial-slider[data-variant="dark"] {
+    --slider-headline: #ffffff;
+    --slider-text: #1c1c1e;
+    --slider-card-bg: #b4e565;
+    --slider-card-bg-stack: #a9d95d;
+    --slider-card-border: #f4ffe3;
+    --slider-nav: #ffffff;
+  }
+
+  .testimonial-slider[data-variant="primary"] {
+    --slider-headline: #ffffff;
+    --slider-text: #1c1c1e;
+    --slider-card-bg: #b4e565;
+    --slider-card-bg-stack: #a9d95d;
+    --slider-card-border: #f4ffe3;
+    --slider-nav: #ffffff;
+  }
+
+  /* Apply Colors */
+  .testimonial-slider__headline {
+    color: var(--slider-headline);
+  }
+
+  .testimonial-slider__rating-text {
+    color: var(--slider-headline);
+  }
+
+  .testimonial-card {
+    background-color: var(--slider-card-bg);
+    border-color: var(--slider-card-border);
+  }
+
+  .testimonial-card--bg {
+    background-color: var(--slider-card-bg-stack);
+  }
+
+  .testimonial-card__stat,
+  .testimonial-card__quote-mark,
+  .testimonial-card__quote,
+  .testimonial-card__author {
+    color: var(--slider-text);
+  }
+
+  .testimonial-slider__nav-btn {
+    color: var(--slider-nav);
+  }
+
+  .testimonial-slider__nav-btn:hover:not(:disabled) {
+    opacity: 0.7;
+  }
+
+  /* Card Shadow */
+  .testimonial-card {
+    box-shadow: 0px 25px 40px -40px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Smooth transitions */
+  .testimonial-card {
+    will-change: transform, opacity;
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-card {
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

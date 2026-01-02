@@ -1,0 +1,322 @@
+---
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+import ShopifyEcosystemCanvas from "@components/canvas/ShopifyEcosystemCanvas.astro";
+import MarketingChannelsCanvas from "@components/canvas/MarketingChannelsCanvas.astro";
+
+interface ServiceCard {
+  image?: string;
+  imageAlt?: string;
+  hoverImage?: string;
+  canvasId?: string; // ID for custom canvas implementation
+  title: string;
+  description: string;
+  linkText?: string;
+  linkHref?: string;
+  cardVariant?: "lime" | "dark" | "primary";
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  description?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  ctaIcon?: string;
+  cards?: [ServiceCard, ServiceCard];
+}
+
+const {
+  sectionVariant = "light",
+  headline = "Unsere Leistungen als <em>Shopify Agentur</em>",
+  description = "digitalsprung liefert alles, was dein Shopify-Business braucht: ansprechendes Design, reibungslose Technik und messbares Marketing. Kurz gesagt: Shops, die Kunden begeistern und Umsatz bringen.",
+  ctaText = "Jetzt durchstarten",
+  ctaHref,
+  ctaIcon = "heroicons:calendar-days-16-solid",
+  cards = [
+    {
+      image:
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
+      hoverImage:
+        "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=800&h=600&fit=crop",
+      title: "Shopify Experten",
+      description:
+        "Mach aus deinem Shopify-Shop ein Erlebnis, das Kunden begeistert.",
+      linkText: "Alle Leistungen",
+      linkHref: "/shopify-agentur",
+      cardVariant: "lime",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+      hoverImage:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+      title: "Marketing Partner",
+      description:
+        "Bring deinen Shop sichtbar nach vorne und gewinne Kunden, die bleiben.",
+      linkText: "Alle Leistungen",
+      linkHref: "/marketing",
+      cardVariant: "dark",
+    },
+  ],
+} = Astro.props;
+
+// Variant-based styles
+const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
+
+// Button variant based on section variant
+const buttonVariant = isDarkVariant ? "white" : "primary";
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<Container
+  class="servicecards-section max-w-screen-2xl"
+  data-variant={sectionVariant}
+>
+  <div
+    class="grid items-start gap-8 lg:grid-cols-[1fr_1.5fr] lg:gap-12 xl:gap-16"
+  >
+    {/* Header Section */}
+    <div class="flex flex-col gap-6">
+      {/* Headline */}
+      <h2
+        class="servicecards-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+
+      {/* Description */}
+      {
+        description && (
+          <p
+            class="servicecards-description fade-up text-base/7 lg:text-lg/8"
+            style="transition-delay: 150ms;"
+          >
+            {description}
+          </p>
+        )
+      }
+
+      {/* CTA Button */}
+      {
+        ctaText && (
+          <div class="fade-up" style="transition-delay: 200ms;">
+            <Button
+              href={ctaHref}
+              variant={buttonVariant}
+              size="lg"
+              data-open-funnel={!ctaHref}
+            >
+              {ctaIcon && <Icon name={ctaIcon} class="h-4 w-4" />}
+              <span>{ctaText}</span>
+            </Button>
+          </div>
+        )
+      }
+    </div>
+
+    {/* Cards Section */}
+    <div class="grid gap-4 sm:grid-cols-2 sm:items-start">
+      {
+        cards.map((card, index) => {
+          const cardVariant =
+            card.cardVariant || (index === 0 ? "lime" : "dark");
+
+          return (
+            <div
+              class:list={[
+                "servicecards-card fade-up group overflow-hidden rounded-2xl sm:rounded-3xl",
+                index === 1 && "sm:mt-12 lg:mt-16",
+              ]}
+              data-card-variant={cardVariant}
+              style={`transition-delay: ${250 + index * 100}ms;`}
+            >
+              {/* Visual Container - Image or Canvas */}
+              <div class="relative aspect-[4/3] overflow-hidden">
+                {card.canvasId === "shopify-canvas" ? (
+                  <ShopifyEcosystemCanvas
+                    id={card.canvasId}
+                    class="absolute inset-0 h-full w-full"
+                  />
+                ) : card.canvasId === "marketing-canvas" ? (
+                  <MarketingChannelsCanvas
+                    id={card.canvasId}
+                    class="absolute inset-0 h-full w-full"
+                  />
+                ) : card.canvasId ? (
+                  /* Fallback for other canvas IDs */
+                  <canvas
+                    id={card.canvasId}
+                    class="servicecard-canvas absolute inset-0 h-full w-full"
+                    data-card-index={index}
+                  />
+                ) : (
+                  /* Default image implementation */
+                  <>
+                    <img
+                      src={card.image}
+                      alt={card.imageAlt || card.title}
+                      class="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                      loading="lazy"
+                    />
+                    {card.hoverImage && (
+                      <img
+                        src={card.hoverImage}
+                        alt={card.imageAlt || card.title}
+                        class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        loading="lazy"
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+
+              {/* Content */}
+              <div class="flex flex-col gap-4 p-6 lg:gap-6 lg:p-8">
+                <p class="servicecards-card-title text-xl leading-tight font-semibold tracking-tight sm:text-2xl">
+                  {card.title}
+                </p>
+
+                <p class="servicecards-card-text text-base/7">
+                  {card.description}
+                </p>
+
+                {card.linkHref && card.linkText && (
+                  <a
+                    href={card.linkHref}
+                    class="servicecards-card-link inline-flex items-center gap-2 font-bold transition-opacity hover:opacity-80"
+                  >
+                    <span>{card.linkText}</span>
+                    <Icon
+                      name="heroicons:arrow-right-16-solid"
+                      class="h-4 w-4"
+                    />
+                  </a>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</Container>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Section Headline & Description
+     ======================================== */
+  .servicecards-headline {
+    color: var(--section-text);
+  }
+
+  .servicecards-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Card Variants - Using data-card-variant attribute
+     The card colors are intentionally fixed (not using CSS variables)
+     as they represent specific design choices per card
+     ======================================== */
+
+  /* Lime variant - fixed green color for visual contrast */
+  .servicecards-card[data-card-variant="lime"] {
+    background: #b4e565;
+  }
+
+  .servicecards-card[data-card-variant="lime"] .servicecards-card-title {
+    color: #1c1c1e;
+  }
+
+  .servicecards-card[data-card-variant="lime"] .servicecards-card-text {
+    color: rgba(28, 28, 30, 0.8);
+  }
+
+  .servicecards-card[data-card-variant="lime"] .servicecards-card-link {
+    color: #1c1c1e;
+  }
+
+  /* Dark variant */
+  .servicecards-card[data-card-variant="dark"] {
+    background: #1c1c1e;
+  }
+
+  .servicecards-card[data-card-variant="dark"] .servicecards-card-title {
+    color: white;
+  }
+
+  .servicecards-card[data-card-variant="dark"] .servicecards-card-text {
+    color: rgb(209 213 219); /* text-gray-300 */
+  }
+
+  .servicecards-card[data-card-variant="dark"] .servicecards-card-link {
+    color: white;
+  }
+
+  /* Primary variant */
+  .servicecards-card[data-card-variant="primary"] {
+    background: var(--primary);
+  }
+
+  .servicecards-card[data-card-variant="primary"] .servicecards-card-title {
+    color: var(--primary-foreground);
+  }
+
+  .servicecards-card[data-card-variant="primary"] .servicecards-card-text {
+    color: color-mix(in srgb, var(--primary-foreground) 80%, transparent);
+  }
+
+  .servicecards-card[data-card-variant="primary"] .servicecards-card-link {
+    color: var(--primary-foreground);
+  }
+
+  /* ========================================
+     Float Animation
+     ======================================== */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .service-card-float {
+    animation: none;
+  }
+
+  @media (min-width: 640px) {
+    .service-card-float {
+      animation: float 4s ease-in-out infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card-float {
+      animation: none;
+    }
+  }
+
+  /* ========================================
+     Canvas Styling
+     ======================================== */
+  .servicecard-canvas {
+    display: block;
+  }
+</style>

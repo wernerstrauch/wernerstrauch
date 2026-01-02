@@ -1,0 +1,180 @@
+---
+import { twMerge } from "tailwind-merge";
+import type { HTMLAttributes } from "astro/types";
+
+interface CustomProps {
+  variant?: "primary" | "secondary" | "secondary-dark" | "tertiary" | "white";
+  href?: string;
+  size?: "lg" | "md" | "sm";
+  innerClass?: string;
+  showArrow?: boolean;
+}
+
+type Props = CustomProps & HTMLAttributes<"a"> & HTMLAttributes<"button">;
+
+const {
+  variant = "primary",
+  size = "lg",
+  innerClass = "",
+  showArrow = true,
+  href,
+  class: className,
+  ...attrs
+} = Astro.props;
+
+const sizeStyles = {
+  smClassName: "px-5 py-2.5 text-sm",
+  mdClassName: "px-6 py-3 text-sm",
+  lgClassName: "px-6 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-[15px]",
+};
+
+const variantStyles = {
+  primaryClassName:
+    "btn-primary relative z-10 text-gray-50 overflow-hidden before:absolute before:w-full before:transition-all before:duration-500 before:-left-full hover:before:left-0 before:rounded-full before:-z-10 before:aspect-square hover:before:scale-150 before:hover:duration-300 isolation-auto shadow-lg transition-all duration-300 hover:scale-[1.02]",
+  secondaryClassName:
+    "btn-secondary relative bg-gray-50 text-gray-900 border border-gray-200 duration-200 ease-in-out hover:bg-blue-50 hover:border-blue-200",
+  "secondary-darkClassName":
+    "btn-secondary-dark relative bg-transparent text-white border border-white/30 duration-200 ease-in-out",
+  tertiaryClassName: "btn-tertiary text-gray-900",
+  whiteClassName:
+    "btn-white relative z-10 bg-white overflow-hidden before:absolute before:w-full before:transition-all before:duration-500 before:-left-full hover:before:left-0 before:rounded-full before:bg-gray-100 before:-z-10 before:aspect-square hover:before:scale-150 before:hover:duration-300 isolation-auto shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]",
+};
+
+const defaultClassName = `cursor-pointer inline-flex items-center font-semibold antialiased leading-none group rounded-none outline-hidden`;
+const innerClassName =
+  "relative z-10 flex w-full items-center justify-center space-x-2 text-nowrap";
+---
+
+{/* Render link if href exists otherwise render button */}
+{
+  href ? (
+    <a
+      href={href}
+      class={twMerge(
+        defaultClassName,
+        variantStyles[`${variant}ClassName`],
+        sizeStyles[`${size}ClassName`],
+        className,
+      )}
+      {...attrs}
+    >
+      <div class={twMerge(innerClassName, innerClass)}>
+        <slot />
+      </div>
+      {(variant === "primary" || variant === "white") && showArrow && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="ml-2 h-5 w-5"
+        >
+          <path
+            d="M5 12h14m0 0l-6-6m6 6l-6 6"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class:list={[
+              "transition-colors duration-300",
+              variant === "white" ? "btn-arrow-white" : "stroke-gray-50",
+            ]}
+          />
+        </svg>
+      )}
+    </a>
+  ) : (
+    <button
+      class={twMerge(
+        defaultClassName,
+        variantStyles[`${variant}ClassName`],
+        sizeStyles[`${size}ClassName`],
+        className,
+      )}
+      {...attrs}
+    >
+      <div class={twMerge(innerClassName, innerClass)}>
+        <slot />
+      </div>
+      {(variant === "primary" || variant === "white") && showArrow && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="ml-2 h-5 w-5"
+        >
+          <path
+            d="M5 12h14m0 0l-6-6m6 6l-6 6"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class:list={[
+              "transition-colors duration-300",
+              variant === "white" ? "btn-arrow-white" : "stroke-gray-50",
+            ]}
+          />
+        </svg>
+      )}
+    </button>
+  )
+}
+
+<style>
+  @reference "../../styles/styles.css";
+
+  /* Brand Colors */
+  .btn-primary,
+  .btn-secondary,
+  .btn-secondary-dark,
+  .btn-white {
+    --btn-lime: #c8ff00;
+    --btn-navy: #0a1628;
+  }
+
+  /* Primary button - Lime background with Navy text */
+  .btn-primary {
+    background-color: var(--btn-lime);
+    color: var(--btn-navy);
+    box-shadow: 0 0 25px color-mix(in srgb, var(--btn-lime) 40%, transparent);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 35px color-mix(in srgb, var(--btn-lime) 60%, transparent);
+  }
+
+  .btn-primary::before {
+    background-color: color-mix(in srgb, var(--btn-lime) 80%, white);
+  }
+
+  /* Primary button arrow - Navy color */
+  .btn-primary svg path {
+    stroke: var(--btn-navy);
+  }
+
+  /* Secondary dark button - transparent with white border */
+  .btn-secondary-dark:hover {
+    background-color: color-mix(in srgb, var(--btn-lime) 15%, transparent);
+    color: var(--btn-lime);
+    border-color: var(--btn-lime);
+  }
+
+  /* Secondary button */
+  .btn-secondary:hover {
+    color: var(--btn-navy);
+    border-color: var(--btn-lime);
+    background-color: color-mix(in srgb, var(--btn-lime) 20%, transparent);
+  }
+
+  /* Tertiary button */
+  .btn-tertiary:hover {
+    color: var(--btn-lime);
+  }
+
+  /* White button - White background with Navy text */
+  .btn-white {
+    color: var(--btn-navy);
+  }
+
+  /* Arrow for white button */
+  .btn-arrow-white {
+    stroke: var(--btn-navy);
+  }
+</style>

@@ -1,0 +1,173 @@
+lang: de
+pageId: shopify-theme-entwicklung
+
+meta:
+  title: "Shopify Theme Entwicklung | Individuelle Themes für deinen Shop"
+  description: "Maßgeschneiderte Shopify Themes, die deine Marke perfekt repräsentieren. Performance-optimiert, conversion-fokussiert und zu 100% anpassbar."
+
+slug: "shopify-theme-entwicklung"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:paint-brush-16-solid"
+        text: "Theme Entwicklung"
+      headline:
+        line1: "Individuelle"
+        line2: "<em>Shopify Themes</em>"
+      subheadline: "Einzigartige Designs, die deine Marke perfekt repräsentieren und für maximale Conversions optimiert sind."
+      ctas:
+        - text: "Projekt besprechen"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Referenzen ansehen"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "/projekte"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify 2.0 Themes"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Performance First"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "100% anpassbar"
+
+  - id: features
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Features"
+      badgeIcon: "heroicons:sparkles-16-solid"
+      headline: "Was unsere Themes <em>auszeichnet</em>"
+      description: "Jedes Theme wird individuell für deine Anforderungen entwickelt."
+      services:
+        - tagline: "Design"
+          title: "Einzigartiges Design"
+          description: "Kein Template von der Stange – wir entwickeln Designs, die deine Brand Identity perfekt widerspiegeln."
+          icon: "heroicons:sparkles"
+        - tagline: "Performance"
+          title: "Blitzschnell"
+          description: "Optimierte Ladezeiten durch moderne Technologien und Best Practices für bessere Rankings und Conversions."
+          icon: "heroicons:bolt"
+        - tagline: "Flexibilität"
+          title: "Theme Customizer"
+          description: "Volle Kontrolle über Farben, Schriften, Layouts und mehr – ohne Code-Kenntnisse."
+          icon: "heroicons:adjustments-horizontal"
+        - tagline: "Mobile"
+          title: "Mobile First"
+          description: "Responsive Designs, die auf jedem Gerät perfekt aussehen und funktionieren."
+          icon: "heroicons:device-phone-mobile"
+
+  - id: process
+    enabled: true
+    order: 3
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+    content:
+      variant: light
+      badge: "Ablauf"
+      badgeIcon: "heroicons:arrow-path-16-solid"
+      headline: "Von der Idee zum <em>fertigen Theme</em>"
+      description: "Unser bewährter Prozess für Theme-Projekte."
+      steps:
+        - title: "Briefing & Analyse"
+          description: "Wir lernen deine Brand, Zielgruppe und Anforderungen kennen."
+        - title: "Wireframes & Design"
+          description: "Konzeption der User Journey und visuelles Design in Figma."
+        - title: "Entwicklung"
+          description: "Umsetzung mit Shopify 2.0, Liquid, JavaScript und modernen CSS-Techniken."
+        - title: "Testing & Launch"
+          description: "Qualitätssicherung auf allen Geräten und reibungsloser Go-Live."
+
+  - id: seo-content
+    enabled: true
+    order: 4
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "Shopify Theme Entwicklung: <em>Dein Shop, dein Design</em>"
+      tagline: "Ein individuelles Shopify Theme ist mehr als nur Design – es ist das Fundament für deine Conversion Rate und das Erlebnis deiner Kunden."
+      leftColumn:
+        - type: text
+          content: "Bei der <strong>Shopify Theme Entwicklung</strong> setzen wir auf modernste Technologien: Shopify 2.0 mit JSON Templates, Section Everywhere, und die aktuellsten Liquid-Features für maximale Flexibilität."
+        - type: text
+          content: "Anders als Standard-Themes aus dem App Store wird ein <strong>individuelles Theme</strong> exakt auf deine Brand, deine Produkte und deine Zielgruppe zugeschnitten. Das Ergebnis: höhere Conversion Rates und ein einzigartiges Markenerlebnis."
+        - type: headline
+          content: "Was macht ein gutes Shopify Theme aus?"
+        - type: bullets
+          content:
+            - "<strong>Performance</strong> – Schnelle Ladezeiten durch optimierten Code"
+            - "<strong>SEO-Optimierung</strong> – Semantisches HTML und strukturierte Daten"
+            - "<strong>Mobile First</strong> – Perfekte Darstellung auf allen Geräten"
+            - "<strong>Barrierefreiheit</strong> – Zugänglich für alle Nutzer"
+            - "<strong>Theme Customizer</strong> – Einfache Anpassungen ohne Code"
+      rightColumn:
+        - type: text
+          content: "Unser Entwicklungsprozess beginnt mit einem <strong>detaillierten Briefing</strong>. Wir verstehen deine Anforderungen, analysieren Best Practices in deiner Branche und entwickeln Wireframes für die optimale User Experience."
+        - type: text
+          content: "Alle unsere Themes werden ausgiebig getestet: Cross-Browser, Mobile-Responsive, Performance-Checks und Accessibility-Audits sind Standard bei jedem Projekt."
+        - type: headline
+          content: "FAQ zur Shopify Theme Entwicklung"
+        - type: faq
+          content:
+            - question: "Kann ich mein bestehendes Theme anpassen lassen?"
+              answer: "Ja, wir bieten auch Theme-Customization an. Je nach Umfang der Änderungen kann es sinnvoller sein, ein neues Theme zu entwickeln."
+            - question: "Wie pflege ich Inhalte im Theme?"
+              answer: "Über den Shopify Theme Customizer kannst du Texte, Bilder und Einstellungen selbst ändern – ganz ohne Programmierkenntnisse."
+            - question: "Ist das Theme auch für Shopify Plus geeignet?"
+              answer: "Ja, wir entwickeln Themes für alle Shopify-Pläne. Bei Plus nutzen wir zusätzlich Checkout Extensions und andere Enterprise-Features."
+
+  - id: cta
+    enabled: true
+    order: 5
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Bereit für ein <em>neues Theme?</em>"
+      description: "Lass uns über dein Projekt sprechen und herausfinden, wie wir deine Vision umsetzen können."
+      buttonText: "Jetzt Projekt besprechen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

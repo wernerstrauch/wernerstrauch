@@ -1,0 +1,149 @@
+---
+import Container from "@components/shared/Container.astro";
+import { marked } from "marked";
+
+interface Section {
+  title: string;
+  content: string;
+}
+
+interface Props {
+  title: string;
+  sections: Section[];
+  variant?: "white" | "dark" | "light" | "primary";
+  sectionVariant?: "white" | "dark" | "light" | "primary";
+}
+
+const { title, sections = [], variant, sectionVariant = "white" } = Astro.props;
+// Support both variant (direct) and sectionVariant (from Section wrapper)
+const effectiveVariant = variant ?? sectionVariant;
+const isDark = effectiveVariant === "dark";
+
+// Configure marked for inline parsing (no wrapping <p> tags)
+marked.use({
+  async: false,
+});
+
+// Parse markdown content
+function parseMarkdown(content: string): string {
+  return marked.parse(content, { async: false }) as string;
+}
+---
+
+<main
+  class:list={[
+    "legal-content pt-16 sm:pt-8",
+    { "legal-content--dark": isDark },
+  ]}
+>
+  <Container class="max-w-4xl">
+    <h1
+      class:list={[
+        "legal-content__title text-4xl font-bold sm:text-5xl",
+        { "legal-content__title--dark": isDark },
+      ]}
+    >
+      {title}
+    </h1>
+
+    <div
+      class:list={[
+        "legal-content__body mt-12 space-y-10",
+        { "legal-content__body--dark": isDark },
+      ]}
+    >
+      {
+        sections.map((section) => (
+          <section>
+            <h2
+              class:list={[
+                "legal-content__section-title mb-4 text-xl font-semibold",
+                { "legal-content__section-title--dark": isDark },
+              ]}
+            >
+              {section.title}
+            </h2>
+            <div
+              class:list={[
+                "legal-content__text prose prose-invert max-w-none",
+                { "legal-content__text--dark": isDark },
+              ]}
+              set:html={parseMarkdown(section.content || "")}
+            />
+          </section>
+        ))
+      }
+    </div>
+  </Container>
+</main>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .legal-content__title {
+    color: var(--primary-light);
+  }
+
+  .legal-content__title--dark {
+    color: white;
+  }
+
+  .legal-content__body {
+    color: var(--color-zinc-300);
+  }
+
+  .legal-content__body--dark {
+    color: white;
+  }
+
+  .legal-content__section-title {
+    color: var(--primary-light);
+  }
+
+  .legal-content__section-title--dark {
+    color: white;
+  }
+
+  .legal-content__text {
+    color: var(--color-zinc-300);
+  }
+
+  .legal-content__text--dark {
+    color: white;
+  }
+
+  .legal-content__text :global(p) {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .legal-content__text :global(strong) {
+    color: var(--color-gray-100);
+    font-weight: 600;
+  }
+
+  .legal-content__text--dark :global(strong) {
+    color: white;
+  }
+
+  .legal-content__text :global(a) {
+    color: var(--primary-light);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .legal-content__text :global(a:hover) {
+    color: var(--primary);
+  }
+
+  .legal-content__text :global(ul),
+  .legal-content__text :global(ol) {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .legal-content__text :global(li) {
+    margin-bottom: 0.25rem;
+  }
+</style>

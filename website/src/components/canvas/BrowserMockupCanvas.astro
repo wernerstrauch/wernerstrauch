@@ -1,0 +1,338 @@
+---
+/**
+ * BrowserMockupCanvas
+ * Canvas showing a browser mockup with a screenshot inside
+ *
+ * Usage:
+ * <BrowserMockupCanvas id="my-browser" class="w-full h-64" screenshotUrl="/images/screenshot.png" position="right" />
+ */
+interface Props {
+  id: string;
+  class?: string;
+  screenshotUrl: string;
+  browserTitle?: string;
+  urlText?: string;
+  position?: "center" | "left" | "right"; // Position of browser (right = cut off on right side)
+}
+
+const {
+  id,
+  class: className = "",
+  screenshotUrl,
+  browserTitle = "Shop",
+  urlText = "shop.example.com",
+  position = "right",
+} = Astro.props;
+---
+
+<canvas
+  id={id}
+  class:list={["browser-mockup-canvas", className]}
+  data-screenshot-url={screenshotUrl}
+  data-browser-title={browserTitle}
+  data-url-text={urlText}
+  data-position={position}></canvas>
+
+<script>
+  interface CanvasState {
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    animationId: number | null;
+    resizeObserver: ResizeObserver;
+    screenshot: HTMLImageElement | null;
+    screenshotLoaded: boolean;
+    screenshotUrl: string;
+    browserTitle: string;
+    urlText: string;
+    position: "center" | "left" | "right";
+  }
+
+  const canvasStates: Map<string, CanvasState> = new Map();
+
+  function drawRoundedRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: number,
+  ) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function draw(state: CanvasState) {
+    const { ctx, canvas, screenshot, screenshotLoaded, position } = state;
+    const rect = canvas.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Browser dimensions - larger than canvas for cut-off effect
+    const padding = Math.min(width, height) * 0.06;
+    const browserWidth = width * 1.15; // Wider than canvas
+    const browserHeight = height - padding * 2;
+
+    // Position based on setting
+    let browserX: number;
+    if (position === "right") {
+      browserX = -width * 0.08; // Shift left so right side is cut off
+    } else if (position === "left") {
+      browserX = width - browserWidth + width * 0.08; // Shift right so left side is cut off
+    } else {
+      browserX = (width - browserWidth) / 2; // Center
+    }
+    const browserY = padding;
+    const cornerRadius = Math.min(browserWidth, browserHeight) * 0.02;
+    const titleBarHeight = Math.max(32, browserHeight * 0.06);
+
+    // Draw browser shadow
+    ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
+    ctx.shadowBlur = 30;
+    ctx.shadowOffsetY = 15;
+
+    // Draw browser frame (dark)
+    ctx.fillStyle = "#1a1a1a";
+    drawRoundedRect(
+      ctx,
+      browserX,
+      browserY,
+      browserWidth,
+      browserHeight,
+      cornerRadius,
+    );
+    ctx.fill();
+
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    // Draw minimalist title bar (just traffic lights)
+    const trafficLightY = browserY + titleBarHeight / 2;
+    const trafficLightStartX = browserX + 18;
+    const trafficLightSpacing = 8;
+    const trafficLightRadius = 5;
+
+    // Traffic lights (subtle, muted colors)
+    ctx.fillStyle = "#ff5f57";
+    ctx.beginPath();
+    ctx.arc(
+      trafficLightStartX,
+      trafficLightY,
+      trafficLightRadius,
+      0,
+      Math.PI * 2,
+    );
+    ctx.fill();
+
+    ctx.fillStyle = "#febc2e";
+    ctx.beginPath();
+    ctx.arc(
+      trafficLightStartX + trafficLightSpacing + trafficLightRadius * 2,
+      trafficLightY,
+      trafficLightRadius,
+      0,
+      Math.PI * 2,
+    );
+    ctx.fill();
+
+    ctx.fillStyle = "#28c840";
+    ctx.beginPath();
+    ctx.arc(
+      trafficLightStartX + (trafficLightSpacing + trafficLightRadius * 2) * 2,
+      trafficLightY,
+      trafficLightRadius,
+      0,
+      Math.PI * 2,
+    );
+    ctx.fill();
+
+    // Draw content area
+    const contentX = browserX;
+    const contentY = browserY + titleBarHeight;
+    const contentWidth = browserWidth;
+    const contentHeight = browserHeight - titleBarHeight;
+
+    // Clip content area with rounded bottom corners
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(contentX, contentY);
+    ctx.lineTo(contentX + contentWidth, contentY);
+    ctx.lineTo(
+      contentX + contentWidth,
+      contentY + contentHeight - cornerRadius,
+    );
+    ctx.quadraticCurveTo(
+      contentX + contentWidth,
+      contentY + contentHeight,
+      contentX + contentWidth - cornerRadius,
+      contentY + contentHeight,
+    );
+    ctx.lineTo(contentX + cornerRadius, contentY + contentHeight);
+    ctx.quadraticCurveTo(
+      contentX,
+      contentY + contentHeight,
+      contentX,
+      contentY + contentHeight - cornerRadius,
+    );
+    ctx.lineTo(contentX, contentY);
+    ctx.closePath();
+    ctx.clip();
+
+    // Draw screenshot or placeholder
+    if (screenshotLoaded && screenshot) {
+      // Calculate aspect ratio to cover the content area
+      const imgAspect = screenshot.width / screenshot.height;
+      const contentAspect = contentWidth / contentHeight;
+
+      let drawWidth, drawHeight, drawX, drawY;
+
+      if (imgAspect > contentAspect) {
+        // Image is wider - fit height, crop width
+        drawHeight = contentHeight;
+        drawWidth = drawHeight * imgAspect;
+        drawX = contentX - (drawWidth - contentWidth) / 2;
+        drawY = contentY;
+      } else {
+        // Image is taller - fit width, crop height (show from top)
+        drawWidth = contentWidth;
+        drawHeight = drawWidth / imgAspect;
+        drawX = contentX;
+        drawY = contentY; // Align to top
+      }
+
+      ctx.drawImage(screenshot, drawX, drawY, drawWidth, drawHeight);
+    } else {
+      // Draw placeholder
+      ctx.fillStyle = "#fafafa";
+      ctx.fillRect(contentX, contentY, contentWidth, contentHeight);
+
+      // Loading indicator
+      ctx.fillStyle = "#cccccc";
+      ctx.font = "14px -apple-system, BlinkMacSystemFont, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(
+        "Loading...",
+        contentX + contentWidth / 2,
+        contentY + contentHeight / 2,
+      );
+    }
+
+    ctx.restore();
+
+    // Draw browser border
+    ctx.strokeStyle = "#e0e0e0";
+    ctx.lineWidth = 1;
+    drawRoundedRect(
+      ctx,
+      browserX,
+      browserY,
+      browserWidth,
+      browserHeight,
+      cornerRadius,
+    );
+    ctx.stroke();
+  }
+
+  function initCanvas(canvas: HTMLCanvasElement) {
+    const id = canvas.id;
+    if (!id || canvasStates.has(id)) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.scale(dpr, dpr);
+
+    const screenshotUrl = canvas.dataset.screenshotUrl || "";
+    const browserTitle = canvas.dataset.browserTitle || "Shop";
+    const urlText = canvas.dataset.urlText || "shop.example.com";
+    const position =
+      (canvas.dataset.position as "center" | "left" | "right") || "right";
+
+    const state: CanvasState = {
+      canvas,
+      ctx,
+      animationId: null,
+      screenshot: null,
+      screenshotLoaded: false,
+      screenshotUrl,
+      browserTitle,
+      urlText,
+      position,
+      resizeObserver: new ResizeObserver(() => {
+        const newRect = canvas.getBoundingClientRect();
+        canvas.width = newRect.width * dpr;
+        canvas.height = newRect.height * dpr;
+        ctx.scale(dpr, dpr);
+        draw(state);
+      }),
+    };
+
+    state.resizeObserver.observe(canvas.parentElement || canvas);
+    canvasStates.set(id, state);
+
+    // Load screenshot
+    if (screenshotUrl) {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        state.screenshot = img;
+        state.screenshotLoaded = true;
+        draw(state);
+      };
+      img.onerror = () => {
+        console.warn(`Failed to load screenshot: ${screenshotUrl}`);
+        draw(state);
+      };
+      img.src = screenshotUrl;
+    }
+
+    // Initial draw
+    draw(state);
+  }
+
+  function initAllCanvases() {
+    document
+      .querySelectorAll<HTMLCanvasElement>(".browser-mockup-canvas")
+      .forEach(initCanvas);
+  }
+
+  function cleanup() {
+    canvasStates.forEach((state) => {
+      if (state.animationId) cancelAnimationFrame(state.animationId);
+      state.resizeObserver.disconnect();
+    });
+    canvasStates.clear();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAllCanvases);
+  } else {
+    initAllCanvases();
+  }
+  document.addEventListener("astro:after-swap", initAllCanvases);
+  document.addEventListener("astro:before-swap", cleanup, { once: true });
+</script>
+
+<style>
+  .browser-mockup-canvas {
+    display: block;
+  }
+</style>

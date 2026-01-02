@@ -1,0 +1,235 @@
+---
+/**
+ * FeaturedBlogCard - Highlight card for featured blog posts
+ *
+ * Larger, more prominent card for showcasing featured articles
+ * at the top of the blog index page.
+ */
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { resolveBlogImage } from "@lib/blog-images";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  /** Layout variant: 'large' for single featured, 'medium' for side-by-side */
+  variant?: "large" | "medium";
+}
+
+const { post, variant = "medium" } = Astro.props;
+const { title, description, publishedAt, readingTime, image } = post.data;
+const slug = post.id.replace(/\.mdx$/, "");
+
+// Resolve image from assets for Astro optimization
+const resolvedImage = image?.src ? resolveBlogImage(image.src) : null;
+
+// Format date in German
+const formattedDate = new Intl.DateTimeFormat("de-DE", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(publishedAt);
+---
+
+<article
+  class:list={[
+    "featured-blog-card group/card relative",
+    variant === "large" ? "lg:flex lg:gap-10" : "",
+  ]}
+>
+  {/* Image */}
+  <a
+    href={`/blog/${slug}`}
+    class:list={[
+      "block overflow-hidden rounded-xl",
+      variant === "large" ? "lg:w-3/5" : "",
+    ]}
+  >
+    <div
+      class:list={[
+        "overflow-hidden rounded-xl",
+        variant === "large" ? "aspect-[16/10]" : "aspect-[610/400]",
+      ]}
+    >
+      {
+        resolvedImage ? (
+          <Image
+            src={resolvedImage}
+            alt={image?.alt || title}
+            class="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover/card:scale-[1.03]"
+            loading="eager"
+            decoding="async"
+          />
+        ) : image ? (
+          <img
+            src={image.src}
+            alt={image.alt || title}
+            class="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover/card:scale-[1.03]"
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+            <Icon name="heroicons:photo" class="h-20 w-20 text-gray-400" />
+          </div>
+        )
+      }
+    </div>
+  </a>
+
+  {/* Content */}
+  <div
+    class:list={[
+      "flex flex-col",
+      variant === "large" ? "mt-6 lg:mt-0 lg:w-2/5 lg:justify-center" : "mt-8",
+    ]}
+  >
+    {/* Badge */}
+    <div class="featured-blog-card__badge mb-4">
+      <span
+        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
+      >
+        <Icon name="heroicons:star-solid" class="size-3.5" />
+        Highlight
+      </span>
+    </div>
+
+    {/* Meta Info */}
+    <div
+      class="featured-blog-card__meta mb-3 flex items-center gap-x-3 text-sm"
+    >
+      <span>
+        <time datetime={publishedAt.toISOString().split("T")[0]}>
+          {formattedDate}
+        </time>
+      </span>
+      {
+        readingTime && (
+          <>
+            <span class="featured-blog-card__dot size-1.5 rounded-full bg-current" />
+            <span>{readingTime} Min. Lesezeit</span>
+          </>
+        )
+      }
+    </div>
+
+    {/* Title */}
+    <h2
+      class:list={[
+        "featured-blog-card__title leading-tight font-semibold text-balance",
+        variant === "large"
+          ? "text-2xl lg:text-3xl xl:text-4xl"
+          : "text-xl lg:text-2xl",
+      ]}
+    >
+      <a
+        href={`/blog/${slug}`}
+        class="before:absolute before:inset-0 before:block"
+      >
+        {title}
+      </a>
+    </h2>
+
+    {/* Description */}
+    {
+      description && (
+        <p
+          class:list={[
+            "featured-blog-card__description mt-4 line-clamp-3",
+            variant === "large" ? "text-base lg:text-lg" : "text-base",
+          ]}
+        >
+          {description}
+        </p>
+      )
+    }
+
+    {/* Read More Link */}
+    <a
+      href={`/blog/${slug}`}
+      class="featured-blog-card__link group/link relative z-10 mt-6 flex items-center gap-2 font-medium"
+    >
+      Artikel lesen
+      <span
+        class="relative flex size-6 flex-none items-center justify-center overflow-hidden"
+      >
+        <Icon
+          name="heroicons:arrow-up-right"
+          class="featured-blog-card__arrow size-5 transition-all duration-500 ease-out group-hover/link:translate-x-full group-hover/link:-translate-y-full group-hover/link:opacity-0"
+        />
+        <Icon
+          name="heroicons:arrow-up-right"
+          class="featured-blog-card__arrow absolute size-5 -translate-x-full translate-y-full opacity-0 transition-all duration-500 ease-out group-hover/link:translate-x-0 group-hover/link:translate-y-0 group-hover/link:opacity-100"
+        />
+      </span>
+    </a>
+  </div>
+</article>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  /* Badge */
+  .featured-blog-card__badge span {
+    background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+    color: var(--primary);
+  }
+
+  /* Meta text */
+  .featured-blog-card__meta {
+    color: var(--color-gray-500);
+  }
+
+  .featured-blog-card__dot {
+    background-color: currentColor;
+  }
+
+  /* Title */
+  .featured-blog-card__title {
+    color: var(--color-gray-900);
+  }
+
+  .featured-blog-card__title a:hover {
+    color: var(--primary);
+  }
+
+  /* Description */
+  .featured-blog-card__description {
+    color: var(--color-gray-600);
+  }
+
+  /* Link */
+  .featured-blog-card__link {
+    color: var(--color-gray-900);
+  }
+
+  .featured-blog-card__arrow {
+    color: var(--primary);
+  }
+
+  /* Dark mode support */
+  :global([data-section-theme="dark"]) .featured-blog-card__badge span {
+    background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    color: var(--primary-light);
+  }
+
+  :global([data-section-theme="dark"]) .featured-blog-card__meta {
+    color: var(--color-gray-400);
+  }
+
+  :global([data-section-theme="dark"]) .featured-blog-card__title {
+    color: var(--color-white);
+  }
+
+  :global([data-section-theme="dark"]) .featured-blog-card__title a:hover {
+    color: var(--primary-light);
+  }
+
+  :global([data-section-theme="dark"]) .featured-blog-card__description {
+    color: var(--color-gray-400);
+  }
+
+  :global([data-section-theme="dark"]) .featured-blog-card__link {
+    color: var(--color-white);
+  }
+</style>

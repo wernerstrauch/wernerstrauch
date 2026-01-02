@@ -1,0 +1,378 @@
+---
+/**
+ * TechStackCanvas
+ * Animated canvas showing tech stack icons floating on static vertical lines
+ * Icons move gently up and down
+ *
+ * Usage:
+ * <TechStackCanvas id="my-tech-canvas" class="w-full h-64" />
+ */
+interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: className = "" } = Astro.props;
+---
+
+<canvas id={id} class:list={["tech-stack-canvas", className]}></canvas>
+
+<script>
+  interface CanvasState {
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    time: number;
+    animationId: number | null;
+    resizeObserver: ResizeObserver;
+  }
+
+  interface TechItem {
+    name: string;
+    color: string;
+    phase: number;
+    baseY: number; // 0-1 relative position
+  }
+
+  const canvasStates: Map<string, CanvasState> = new Map();
+
+  function drawRoundedRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: number,
+  ) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function drawShopifyIcon(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const scale = size / 100;
+    ctx.save();
+    ctx.translate(cx - size / 2, cy - size / 2);
+    ctx.scale(scale, scale);
+
+    // Bag body
+    ctx.beginPath();
+    ctx.moveTo(30, 25);
+    ctx.lineTo(22, 85);
+    ctx.lineTo(78, 85);
+    ctx.lineTo(70, 25);
+    ctx.closePath();
+
+    const gradient = ctx.createLinearGradient(22, 25, 78, 85);
+    gradient.addColorStop(0, "#95BF47");
+    gradient.addColorStop(1, "#5E8E3E");
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Handle
+    ctx.beginPath();
+    ctx.moveTo(38, 25);
+    ctx.quadraticCurveTo(38, 12, 50, 12);
+    ctx.quadraticCurveTo(62, 12, 62, 25);
+    ctx.strokeStyle = "#95BF47";
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.stroke();
+
+    // S
+    ctx.fillStyle = "white";
+    ctx.font = "bold 38px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("S", 50, 55);
+
+    ctx.restore();
+  }
+
+  function drawReactIcon(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.4;
+    ctx.strokeStyle = "#61DAFB";
+    ctx.lineWidth = 2;
+
+    // Three ellipses
+    for (let i = 0; i < 3; i++) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate((i * Math.PI) / 3);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, s * 0.9, s * 0.35, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Center dot
+    ctx.fillStyle = "#61DAFB";
+    ctx.beginPath();
+    ctx.arc(cx, cy, s * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawTypeScriptIcon(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.38;
+
+    // Blue square
+    ctx.fillStyle = "#3178C6";
+    drawRoundedRect(ctx, cx - s, cy - s, s * 2, s * 2, s * 0.15);
+    ctx.fill();
+
+    // TS text
+    ctx.fillStyle = "white";
+    ctx.font = `bold ${s * 0.9}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("TS", cx, cy);
+  }
+
+  function drawApiIcon(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.3;
+    ctx.strokeStyle = "#6366F1";
+    ctx.fillStyle = "#6366F1";
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = "round";
+
+    // Cloud shape
+    ctx.beginPath();
+    ctx.arc(cx - s * 0.4, cy - s * 0.1, s * 0.45, Math.PI * 0.7, Math.PI * 1.8);
+    ctx.arc(cx + s * 0.1, cy - s * 0.4, s * 0.5, Math.PI * 1.1, Math.PI * 2.1);
+    ctx.arc(cx + s * 0.5, cy - s * 0.05, s * 0.4, Math.PI * 1.5, Math.PI * 0.5);
+    ctx.lineTo(cx - s * 0.6, cy + s * 0.25);
+    ctx.stroke();
+
+    // Connection dots
+    ctx.beginPath();
+    ctx.arc(cx - s * 0.3, cy + s * 0.6, s * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx + s * 0.3, cy + s * 0.6, s * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Lines down
+    ctx.beginPath();
+    ctx.moveTo(cx - s * 0.3, cy + s * 0.25);
+    ctx.lineTo(cx - s * 0.3, cy + s * 0.48);
+    ctx.moveTo(cx + s * 0.3, cy + s * 0.25);
+    ctx.lineTo(cx + s * 0.3, cy + s * 0.48);
+    ctx.stroke();
+  }
+
+  function drawLiquidIcon(
+    ctx: CanvasRenderingContext2D,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    const s = size * 0.35;
+
+    // Droplet shape
+    ctx.fillStyle = "#00A1E0";
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - s);
+    ctx.quadraticCurveTo(cx + s * 0.8, cy, cx + s * 0.6, cy + s * 0.5);
+    ctx.quadraticCurveTo(cx + s * 0.3, cy + s, cx, cy + s);
+    ctx.quadraticCurveTo(cx - s * 0.3, cy + s, cx - s * 0.6, cy + s * 0.5);
+    ctx.quadraticCurveTo(cx - s * 0.8, cy, cx, cy - s);
+    ctx.fill();
+
+    // Braces {{ }}
+    ctx.fillStyle = "white";
+    ctx.font = `bold ${s * 0.8}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("{}", cx, cy + s * 0.15);
+  }
+
+  function drawTechIcon(
+    ctx: CanvasRenderingContext2D,
+    tech: string,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    switch (tech) {
+      case "shopify":
+        drawShopifyIcon(ctx, cx, cy, size);
+        break;
+      case "react":
+        drawReactIcon(ctx, cx, cy, size);
+        break;
+      case "typescript":
+        drawTypeScriptIcon(ctx, cx, cy, size);
+        break;
+      case "api":
+        drawApiIcon(ctx, cx, cy, size);
+        break;
+      case "liquid":
+        drawLiquidIcon(ctx, cx, cy, size);
+        break;
+    }
+  }
+
+  function animate(state: CanvasState) {
+    const { ctx, canvas } = state;
+    const rect = canvas.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    state.time += 0.015;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const techStack: TechItem[] = [
+      { name: "shopify", color: "#95BF47", phase: 0, baseY: 0.45 },
+      { name: "react", color: "#61DAFB", phase: 1.2, baseY: 0.55 },
+      { name: "liquid", color: "#00A1E0", phase: 2.4, baseY: 0.4 },
+      { name: "typescript", color: "#3178C6", phase: 3.6, baseY: 0.6 },
+      { name: "api", color: "#6366F1", phase: 4.8, baseY: 0.5 },
+    ];
+
+    const cardSize = Math.min(width, height) * 0.16;
+    const spacing = width / (techStack.length + 1);
+
+    // Draw static vertical lines first (behind icons)
+    techStack.forEach((_, index) => {
+      const x = spacing * (index + 1);
+
+      // Draw full-height vertical line with gradient fade at edges
+      const lineGradient = ctx.createLinearGradient(x, 0, x, height);
+      lineGradient.addColorStop(0, "rgba(255, 255, 255, 0)");
+      lineGradient.addColorStop(0.15, "rgba(255, 255, 255, 0.15)");
+      lineGradient.addColorStop(0.5, "rgba(255, 255, 255, 0.2)");
+      lineGradient.addColorStop(0.85, "rgba(255, 255, 255, 0.15)");
+      lineGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+
+      ctx.strokeStyle = lineGradient;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    });
+
+    // Draw tech icons with floating animation
+    techStack.forEach((tech, index) => {
+      const x = spacing * (index + 1);
+      // Gentle floating motion
+      const floatOffset = Math.sin(state.time + tech.phase) * height * 0.04;
+      const cardY = height * tech.baseY + floatOffset;
+
+      // Draw card shadow
+      ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 4;
+
+      // Draw card background
+      ctx.fillStyle = "white";
+      drawRoundedRect(
+        ctx,
+        x - cardSize / 2,
+        cardY - cardSize / 2,
+        cardSize,
+        cardSize,
+        cardSize * 0.18,
+      );
+      ctx.fill();
+
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+
+      // Draw tech icon
+      drawTechIcon(ctx, tech.name, x, cardY, cardSize);
+    });
+
+    state.animationId = requestAnimationFrame(() => animate(state));
+  }
+
+  function initCanvas(canvas: HTMLCanvasElement) {
+    const id = canvas.id;
+    if (!id || canvasStates.has(id)) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.scale(dpr, dpr);
+
+    const state: CanvasState = {
+      canvas,
+      ctx,
+      time: 0,
+      animationId: null,
+      resizeObserver: new ResizeObserver(() => {
+        const newRect = canvas.getBoundingClientRect();
+        canvas.width = newRect.width * dpr;
+        canvas.height = newRect.height * dpr;
+        ctx.scale(dpr, dpr);
+      }),
+    };
+
+    state.resizeObserver.observe(canvas.parentElement || canvas);
+    canvasStates.set(id, state);
+    animate(state);
+  }
+
+  function initAllCanvases() {
+    document
+      .querySelectorAll<HTMLCanvasElement>(".tech-stack-canvas")
+      .forEach(initCanvas);
+  }
+
+  function cleanup() {
+    canvasStates.forEach((state) => {
+      if (state.animationId) cancelAnimationFrame(state.animationId);
+      state.resizeObserver.disconnect();
+    });
+    canvasStates.clear();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAllCanvases);
+  } else {
+    initAllCanvases();
+  }
+  document.addEventListener("astro:after-swap", initAllCanvases);
+  document.addEventListener("astro:before-swap", cleanup, { once: true });
+</script>
+
+<style>
+  .tech-stack-canvas {
+    display: block;
+  }
+</style>

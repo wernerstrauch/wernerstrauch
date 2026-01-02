@@ -1,0 +1,229 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+  icon?: "facebook" | "google" | "meta" | "shopify" | "klaviyo" | "instagram";
+}
+
+const { variant = "light", icon = "facebook" } = Astro.props;
+
+// Icon configurations mit Farben und Logos
+const iconConfigs = {
+  facebook: {
+    colors: {
+      primary: "#1877F2",
+      secondary: "#0C63D4",
+      dark: "#044C9F"
+    },
+    svg: `<path fill="white" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>`
+  },
+  google: {
+    colors: {
+      primary: "#4285F4",
+      secondary: "#3367D6",
+      dark: "#2451A3"
+    },
+    svg: `<path fill="white" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="white" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="white" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="white" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>`
+  },
+  meta: {
+    colors: {
+      primary: "#0081FB",
+      secondary: "#0066CC",
+      dark: "#004C99"
+    },
+    svg: `<path fill="white" d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>`
+  },
+  shopify: {
+    colors: {
+      primary: "#96BF48",
+      secondary: "#7EA93F",
+      dark: "#5F8130"
+    },
+    svg: `<path fill="white" d="M15.337 2.44c-.012-.055-.043-.075-.087-.075-.044 0-1.075-.019-1.075-.019s-.888-.862-1.012-.987c-.125-.125-.362-.087-.456-.062 0 0-.231.075-.606.187-.05-.156-.125-.337-.225-.531-.3-.6-.737-.918-1.262-.918h-.087c-.1-.125-.212-.237-.337-.237-.9 0-1.331 1.125-1.462 1.7-.375.118-.65.206-.662.212-.206.063-.213.069-.238.256-.019.144-.506 3.9-.506 3.9L12.65 7.2l2.687-.506c0-.012-1.012-4.144-1.012-4.256zM11.3 3.969c-.231.068-.487.143-.756.218.075-.287.206-.575.375-.8.063-.087.162-.194.281-.281.138.206.181.544.1.863zm-.85-1.331c.056 0 .112.012.162.037-.15.119-.3.281-.431.481-.25.4-.425.931-.475 1.344-.281.087-.556.168-.825.25.15-.738.687-2.112 1.569-2.112zm.456 3.656c.031-.006.05-.006.075-.006.093 0 .206.025.331.062.313.094.5.313.5.594 0 .419-.275.719-.675.863-.231.081-.506.081-.731.037.15-.656.344-1.193.5-1.55zm3.481-1.162c-.044-.125-.294-.175-.494-.181-.2-.006-.381.025-.55.075-.169.05-.212.106-.25.2-.037.093-.112.456-.15.606-.038.15-.794 1.825-.994 2.256-.081.175-.175.25-.319.25-.144 0-.25-.1-.375-.2-.3-.256-.556-.419-.956-.5-.4-.081-.794-.044-1.175.118-.381.163-.7.456-.881.825-.181.369-.212.8-.125 1.2.087.4.3.75.6 1.006.3.256.675.4 1.081.444.4.043.794 0 1.144-.119.35-.119.65-.325.875-.587.225-.263.369-.575.431-.919.056-.337.006-.675-.131-.969-.138-.294-.356-.537-.619-.719-.262-.181-.562-.3-.881-.35-.319-.05-.637-.037-.95.044-.062-.137-.112-.275-.144-.419-.037-.156-.044-.312-.006-.469.037-.156.131-.3.268-.387.138-.087.3-.125.469-.118.169.006.331.062.475.15.144.087.256.212.331.356.075.144.1.3.081.456-.019.156-.1.3-.225.4.019.031.044.056.075.087.406.45.969.656 1.525.606.556-.05 1.075-.344 1.419-.794.344-.45.481-1.044.375-1.581z"/>`
+  },
+  klaviyo: {
+    colors: {
+      primary: "#000000",
+      secondary: "#1A1A1A",
+      dark: "#0A0A0A"
+    },
+    svg: `<path fill="white" d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18.5c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm-1-11h2v6h-2v-6zm0 8h2v2h-2v-2z"/>`
+  },
+  instagram: {
+    colors: {
+      primary: "#E4405F",
+      secondary: "#C13584",
+      dark: "#833AB4"
+    },
+    svg: `<path fill="white" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>`
+  }
+};
+
+const config = iconConfigs[icon];
+---
+
+<div class="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center" data-variant={variant}>
+  <div class="icon-3d-container">
+    {/* Back Layer (dunkelste Schicht - Tiefe) */}
+    <div
+      class="icon-layer layer-back"
+      style={`background: linear-gradient(135deg, ${config.colors.dark} 0%, ${config.colors.secondary} 100%);`}
+    >
+      <svg viewBox="0 0 24 24" class="icon-svg" set:html={config.svg} />
+    </div>
+
+    {/* Middle Layer (mittlere Schicht) */}
+    <div
+      class="icon-layer layer-middle"
+      style={`background: linear-gradient(135deg, ${config.colors.secondary} 0%, ${config.colors.primary} 100%);`}
+    >
+      <svg viewBox="0 0 24 24" class="icon-svg" set:html={config.svg} />
+    </div>
+
+    {/* Front Layer (hellste Schicht) */}
+    <div
+      class="icon-layer layer-front"
+      style={`background: linear-gradient(135deg, ${config.colors.primary} 0%, ${config.colors.primary} 100%);`}
+    >
+      <svg viewBox="0 0 24 24" class="icon-svg" set:html={config.svg} />
+    </div>
+
+    {/* Glanz-Overlay */}
+    <div class="shine-overlay"></div>
+  </div>
+</div>
+
+<style>
+  [data-variant="light"] .icon-3d-container {
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15));
+  }
+
+  [data-variant="dark"] .icon-3d-container {
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
+  }
+
+  .icon-3d-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    transform-style: preserve-3d;
+    animation: float3d 6s ease-in-out infinite;
+  }
+
+  .icon-layer {
+    position: absolute;
+    inset: 0;
+    border-radius: 28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+  }
+
+  /* Back Layer - am weitesten hinten */}
+  .layer-back {
+    transform: translateZ(-40px) scale(1.05);
+    opacity: 0.4;
+    filter: blur(2px);
+  }
+
+  /* Middle Layer - mittlere Ebene */}
+  .layer-middle {
+    transform: translateZ(-20px) scale(1.025);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+
+  /* Front Layer - vorne */}
+  .layer-front {
+    transform: translateZ(0px);
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  .icon-svg {
+    width: 60%;
+    height: 60%;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  }
+
+  /* Glanz-Overlay für Glaseffekt */
+  .shine-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 28%;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.1) 40%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    pointer-events: none;
+    transform: translateZ(1px);
+  }
+
+  /* 3D Floating Animation */
+  @keyframes float3d {
+    0%, 100% {
+      transform:
+        perspective(1000px)
+        rotateX(5deg)
+        rotateY(-5deg)
+        rotateZ(0deg)
+        translateY(0px);
+    }
+    25% {
+      transform:
+        perspective(1000px)
+        rotateX(-5deg)
+        rotateY(10deg)
+        rotateZ(2deg)
+        translateY(-15px);
+    }
+    50% {
+      transform:
+        perspective(1000px)
+        rotateX(5deg)
+        rotateY(-10deg)
+        rotateZ(-2deg)
+        translateY(0px);
+    }
+    75% {
+      transform:
+        perspective(1000px)
+        rotateX(-5deg)
+        rotateY(5deg)
+        rotateZ(2deg)
+        translateY(-10px);
+    }
+  }
+
+  /* Hover Effect - verstärkte 3D Rotation */
+  .icon-3d-container:hover {
+    animation-play-state: paused;
+  }
+
+  /* Responsive Größen */
+  @media (max-width: 768px) {
+    .icon-3d-container {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .icon-3d-container {
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .icon-3d-container {
+      animation: none;
+      transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+    }
+  }
+</style>

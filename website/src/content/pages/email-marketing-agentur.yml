@@ -1,0 +1,213 @@
+lang: de
+pageId: email-marketing-agency
+
+meta:
+  title: "E-Mail Marketing Agentur | Newsletter & Automation für E-Commerce"
+  description: "E-Mail Marketing Agentur für Onlineshops. Newsletter, Automation Flows, Segmentierung & Retention Marketing. Mehr Umsatz durch professionelles E-Mail Marketing."
+
+slug: "email-marketing-agentur"
+
+settings:
+  status: published
+  priority: 0.9
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#795aff"
+      glowColor: "#795aff"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:envelope-16-solid"
+        text: "E-Mail Marketing Agentur"
+      headline:
+        line1: "E-Mail Marketing"
+        line2: "das <em>verkauft</em>"
+      subheadline: "Newsletter, automatisierte Flows und Retention Marketing. Mach E-Mail zu deinem profitabelsten Kanal mit bis zu 30% des Gesamtumsatzes."
+      ctas:
+        - text: "E-Mail Strategie besprechen"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Unsere Leistungen"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#leistungen"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Klaviyo Partner"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify Integration"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Bewährte Strategien"
+
+  - id: services
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      id: leistungen
+      variant: light
+      services:
+        - tagline: "Automation"
+          title: "E-Mail Flows"
+          description: "Welcome Series, Abandoned Cart, Post-Purchase, Win-Back und Browse Abandonment. Automatisierte E-Mails, die 24/7 Umsatz generieren."
+          icon: "heroicons:arrow-path"
+        - tagline: "Kampagnen"
+          title: "Newsletter"
+          description: "Segmentierte Newsletter mit hoher Öffnungs- und Klickrate. Von Produktlaunches bis saisonalen Kampagnen – Content, der konvertiert."
+          icon: "heroicons:envelope"
+        - tagline: "Retention"
+          title: "Kundenbindung"
+          description: "VIP-Programme, Reaktivierung und Loyalty Marketing. Mach aus Einmalkäufern treue Stammkunden mit hohem Customer Lifetime Value."
+          icon: "heroicons:heart"
+        - tagline: "Analyse"
+          title: "Performance"
+          description: "Datengetriebene Optimierung durch A/B Tests, Segmentanalyse und Revenue Attribution. Wir tracken jeden Euro."
+          icon: "heroicons:chart-bar"
+
+  - id: stats
+    enabled: true
+    order: 3
+    component: StatsStepped
+    wrapper:
+      variant: dark
+      padding: lg
+      container: true
+    background:
+      type: GridBackground
+      color: "#795aff"
+      glowColor: "#795aff"
+      opacity: 0.08
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      variant: dark
+      badge: "E-Mail Marketing Ergebnisse"
+      badgeIcon: "heroicons:envelope-16-solid"
+      headline: "Der <em>profitabelste</em> Marketing-Kanal"
+      description: "Durchschnittliche Ergebnisse unserer E-Mail Marketing Setups."
+      stats:
+        - value: "30%"
+          title: "E-Mail Revenue"
+          description: "Anteil am Gesamtumsatz durch E-Mail Marketing"
+          cardVariant: "light"
+        - value: "42:1"
+          title: "ROI"
+          description: "Durchschnittlicher Return on Investment"
+          cardVariant: "dark"
+        - value: "25%"
+          title: "Mehr Retention"
+          description: "Steigerung der Wiederkaufsrate"
+          cardVariant: "primary"
+
+  - id: process
+    enabled: true
+    order: 4
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+      container: true
+    content:
+      headline: "Unser E-Mail Marketing <em>Prozess</em>"
+      subheadline: "Von der Strategie bis zur kontinuierlichen Optimierung"
+      steps:
+        - number: "01"
+          title: "Audit & Strategie"
+          description: "Analyse deiner aktuellen E-Mail Performance, Identifikation von Quick Wins und Entwicklung einer maßgeschneiderten Strategie."
+        - number: "02"
+          title: "Setup & Integration"
+          description: "Einrichtung der E-Mail Plattform, Shopify-Integration, Tracking-Setup und Erstellung der ersten Flows und Templates."
+        - number: "03"
+          title: "Content & Flows"
+          description: "Entwicklung von konvertierenden E-Mail-Inhalten, Aufbau automatisierter Flows und Erstellung eines Kampagnenkalenders."
+        - number: "04"
+          title: "Optimierung"
+          description: "Kontinuierliche A/B Tests, Segmentanalyse und Performance-Optimierung für steigende Öffnungs- und Conversion-Raten."
+
+  - id: seo-content
+    enabled: true
+    order: 5
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "E-Mail Marketing Agentur für <em>E-Commerce</em>"
+      tagline: "E-Mail Marketing ist der profitabelste digitale Marketingkanal. Mit durchschnittlich 42:1 ROI schlägt es jeden anderen Kanal – wenn es richtig gemacht wird."
+      leftColumn:
+        - type: text
+          content: "Als spezialisierte <strong>E-Mail Marketing Agentur</strong> für E-Commerce wissen wir, was funktioniert. Wir arbeiten primär mit Klaviyo – der führenden Plattform für Onlineshops – und setzen bewährte Strategien um, die nachweislich Umsatz generieren."
+        - type: text
+          content: "Der Unterschied zu anderen Kanälen: Du zahlst nicht pro Klick oder Impression. Deine E-Mail-Liste gehört dir – und mit jedem Abonnenten wächst ein Asset, das langfristig Wert generiert."
+        - type: headline
+          content: "E-Mail Marketing Leistungen"
+        - type: bullets
+          content:
+            - "<strong>Flow Setup</strong> – Welcome, Abandoned Cart, Post-Purchase, Win-Back, Browse Abandonment"
+            - "<strong>Newsletter Strategie</strong> – Kampagnenplanung, Segmentierung, Content-Erstellung"
+            - "<strong>Template Design</strong> – Conversion-optimierte, mobile-first E-Mail Designs"
+            - "<strong>Retention Marketing</strong> – VIP-Programme, Loyalty Flows, Reaktivierung"
+            - "<strong>SMS Integration</strong> – Ergänzendes SMS Marketing für höhere Reichweite"
+            - "<strong>Performance Tracking</strong> – Revenue Attribution, A/B Testing, Reporting"
+      rightColumn:
+        - type: text
+          content: "Der Schlüssel zu erfolgreichem E-Mail Marketing ist <strong>Relevanz</strong>. Durch präzise Segmentierung basierend auf Kaufverhalten, Engagement und Interessen bekommt jeder Empfänger Inhalte, die für ihn relevant sind."
+        - type: text
+          content: "Wir setzen auf einen <strong>datengetriebenen Ansatz</strong>: Jede E-Mail wird getrackt, jeder Flow analysiert. A/B Tests für Subject Lines, Send Times und Content sorgen für kontinuierliche Verbesserung."
+        - type: headline
+          content: "FAQ zu E-Mail Marketing"
+        - type: faq
+          content:
+            - question: "Welche E-Mail Marketing Plattform empfehlt ihr?"
+              answer: "Für E-Commerce empfehlen wir Klaviyo. Die Shopify-Integration ist tief, die Segmentierung leistungsfähig und E-Commerce-spezifische Features wie Abandoned Cart sind out-of-the-box verfügbar. Für andere Use Cases können auch Mailchimp, ActiveCampaign oder HubSpot sinnvoll sein."
+            - question: "Wie viel Umsatz kann E-Mail Marketing generieren?"
+              answer: "Erfolgreiche E-Commerce Shops generieren 25-30% ihres Umsatzes über E-Mail. Bei einem Shop mit 1 Mio. Jahresumsatz sind das 250.000-300.000 Euro – bei vergleichsweise geringen Kosten."
+            - question: "Wie schnell sehe ich Ergebnisse?"
+              answer: "Die ersten Flows wie Abandoned Cart und Welcome Series zeigen sofort Ergebnisse. Ein vollständiges Setup mit allen Core Flows dauert 2-4 Wochen, danach sehen wir typischerweise 15-20% Umsatzsteigerung im ersten Quartal."
+            - question: "Brauche ich eine große E-Mail-Liste?"
+              answer: "Nein, Qualität schlägt Quantität. Wir haben Shops mit 5.000 Abonnenten, die mehr E-Mail-Revenue generieren als Shops mit 50.000. Wichtig ist eine saubere, engagierte Liste und relevante Kommunikation."
+
+  - id: cta
+    enabled: true
+    order: 6
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Bereit für <em>professionelles E-Mail Marketing?</em>"
+      description: "Lass uns deine E-Mail Strategie besprechen. Ob Neuaufbau, Migration oder Optimierung – wir zeigen dir, wie du E-Mail zu deinem profitabelsten Kanal machst."
+      buttonText: "E-Mail Strategie besprechen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

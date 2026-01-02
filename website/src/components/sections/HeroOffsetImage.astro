@@ -1,0 +1,225 @@
+---
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline: string;
+  subheadline: string;
+  primaryCta?: string;
+  primaryCtaHref?: string;
+  secondaryCta?: string;
+  secondaryCtaHref?: string;
+  image: string;
+  imageAlt?: string;
+}
+
+const {
+  sectionVariant = "white",
+  badge,
+  badgeIcon = "heroicons:sparkles-16-solid",
+  headline,
+  subheadline,
+  primaryCta = "Kostenloses Erstgespräch",
+  primaryCtaHref,
+  secondaryCta = "Mehr erfahren",
+  secondaryCtaHref = "#services",
+  image,
+  imageAlt = "",
+} = Astro.props;
+
+// Variant-based styles
+const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
+
+// Button variants
+const primaryButtonVariant = sectionVariant === "primary" ? "white" : "primary";
+const secondaryButtonVariant = isDarkVariant ? "secondary-dark" : "secondary";
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div
+  id="hero"
+  class="herooffsetimage-section relative isolate overflow-hidden pt-20 sm:pt-24 lg:pt-14"
+  data-variant={sectionVariant}
+>
+  {/* Skewed Background Decoration */}
+  <div
+    aria-hidden="true"
+    class="herooffsetimage-skewed-bg absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] shadow-xl ring-1 sm:-mr-80 lg:-mr-96"
+  >
+  </div>
+
+  <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+    <div
+      class="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-8 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8"
+    >
+      {/* Content Column */}
+      <div class="lg:col-span-2 xl:col-auto">
+        {/* Badge */}
+        {
+          badge && (
+            <div class="herooffsetimage-badge blur-in shadow-inner-blur mb-6 inline-flex items-center rounded-full">
+              <div class="herooffsetimage-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                <Icon
+                  name={badgeIcon}
+                  class="herooffsetimage-badge-icon h-4 w-4"
+                />
+                <span class="herooffsetimage-badge-text text-sm font-medium">
+                  {badge}
+                </span>
+              </div>
+            </div>
+          )
+        }
+
+        {/* Headline */}
+        <h1
+          class="herooffsetimage-headline scale-up max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+      </div>
+
+      {/* Subheadline and CTAs */}
+      <div class="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
+        <p
+          class="herooffsetimage-subheadline fade-up text-lg font-medium text-pretty sm:text-xl/8"
+          style="transition-delay: 200ms;"
+        >
+          {subheadline}
+        </p>
+
+        {/* CTAs */}
+        <div
+          class="fade-up mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6"
+          style="transition-delay: 300ms;"
+        >
+          <Button
+            data-open-funnel={!primaryCtaHref}
+            href={primaryCtaHref}
+            variant={primaryButtonVariant}
+            size="lg"
+          >
+            <Icon name="heroicons:calendar-days-16-solid" class="h-4 w-4" />
+            <span>{primaryCta}</span>
+          </Button>
+          <Button
+            href={secondaryCtaHref}
+            variant={secondaryButtonVariant}
+            size="lg"
+          >
+            <span>{secondaryCta}</span>
+            <Icon name="heroicons:arrow-right-16-solid" class="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Offset Image */}
+      <div
+        class="fade-up mt-10 sm:mt-16 lg:mt-0 xl:row-span-2 xl:row-end-2 xl:mt-36"
+        style="transition-delay: 400ms;"
+      >
+        <img
+          src={image}
+          alt={imageAlt}
+          class="herooffsetimage-image aspect-6/5 w-full max-w-lg rounded-2xl object-cover shadow-lg outline-1 -outline-offset-1 lg:max-w-none"
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* Bottom Gradient Fade */}
+  <div
+    aria-hidden="true"
+    class="herooffsetimage-bottom-gradient absolute inset-x-0 bottom-0 -z-10 h-24 sm:h-32"
+  >
+  </div>
+</div>
+
+<script>
+  import "@scripts/animations";
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Section gradient background
+     ======================================== */
+  .herooffsetimage-section {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--section-accent) 5%, transparent),
+      transparent
+    );
+  }
+
+  /* ========================================
+     Skewed background decoration
+     ======================================== */
+  .herooffsetimage-skewed-bg {
+    background: var(--section-card-bg);
+    --tw-ring-color: var(--section-card-border);
+    --tw-shadow-color: color-mix(
+      in srgb,
+      var(--section-accent) 10%,
+      transparent
+    );
+  }
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .herooffsetimage-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .herooffsetimage-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .herooffsetimage-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .herooffsetimage-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .herooffsetimage-headline {
+    color: var(--section-text);
+  }
+
+  .herooffsetimage-subheadline {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Image styles
+     ======================================== */
+  .herooffsetimage-image {
+    outline-color: color-mix(in srgb, var(--section-text) 5%, transparent);
+  }
+
+  /* ========================================
+     Bottom gradient fade
+     ======================================== */
+  .herooffsetimage-bottom-gradient {
+    background: linear-gradient(to top, var(--section-bg), transparent);
+  }
+</style>

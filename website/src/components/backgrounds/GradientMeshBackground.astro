@@ -1,0 +1,73 @@
+---
+interface Props {
+  colors?: string[];
+  animate?: boolean;
+  opacity?: number;
+}
+
+const {
+  colors = ["#4f3ca2", "#0119ff", "#7b68c4", "#3b82f6"],
+  animate = true,
+  opacity = 0.4,
+} = Astro.props;
+
+const [color1, color2, color3, color4] = colors;
+---
+
+<div class="absolute inset-0" style={`opacity: ${opacity};`}>
+  <div
+    class:list={[
+      "gradient-mesh absolute inset-0",
+      animate && "animate-gradient",
+    ]}
+    style={`--color-1: ${color1}; --color-2: ${color2}; --color-3: ${color3}; --color-4: ${color4};`}
+  >
+  </div>
+</div>
+
+<style>
+  .gradient-mesh {
+    background:
+      radial-gradient(at 0% 0%, var(--color-1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, var(--color-2) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, var(--color-3) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, var(--color-4) 0px, transparent 50%);
+    background-size: 200% 200%;
+  }
+
+  .animate-gradient {
+    animation: gradientShift 15s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%,
+    100% {
+      background-position:
+        0% 0%,
+        100% 0%,
+        100% 100%,
+        0% 100%;
+    }
+    25% {
+      background-position:
+        50% 0%,
+        100% 50%,
+        50% 100%,
+        0% 50%;
+    }
+    50% {
+      background-position:
+        100% 0%,
+        100% 100%,
+        0% 100%,
+        0% 0%;
+    }
+    75% {
+      background-position:
+        50% 50%,
+        50% 50%,
+        50% 50%,
+        50% 50%;
+    }
+  }
+</style>

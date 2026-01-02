@@ -1,0 +1,250 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ImageStat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  heading?: string;
+  subheading?: string;
+  mission?: string;
+  expertise?: string;
+  stats?: ImageStat[];
+  images?: string[];
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Über uns",
+  badgeIcon = "heroicons:users-16-solid",
+  heading = "Performance Marketing mit messbaren Ergebnissen",
+  subheading = "Wir sind eine spezialisierte Performance Marketing Agentur mit Fokus auf E-Commerce. Unser Team kombiniert datengetriebene Strategien mit kreativen Kampagnen für maximalen ROI.",
+  mission = "Wir helfen E-Commerce Brands dabei, profitabel zu wachsen. Durch präzises Tracking, kontinuierliche Optimierung und transparente Kommunikation erreichen wir gemeinsam messbare Erfolge.",
+  expertise = "Unsere Expertise liegt in der Skalierung von Onlineshops durch Google Ads, Meta Ads und E-Mail Marketing. Wir setzen auf eine langfristige Partnerschaft statt kurzfristiger Kampagnen.",
+  stats = [
+    { value: "150+", label: "Erfolgreiche Projekte" },
+    { value: "4.2x", label: "Durchschn. ROAS" },
+    { value: "€25M+", label: "Generierter Umsatz" },
+    { value: "98%", label: "Kundenzufriedenheit" },
+  ],
+  images = [
+    "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=560&h=560&fit=crop&q=90",
+    "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=560&h=560&fit=crop&q=90",
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=560&h=560&fit=crop&q=90",
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=560&h=560&fit=crop&q=90",
+  ],
+} = Astro.props;
+
+// Highlight style for inline use
+const highlightStyle = `color: var(--section-accent);`;
+
+// Parse heading to extract highlighted text
+const headingParts = heading.split(" ");
+const lastTwoWords = headingParts.slice(-2).join(" ");
+const headlineStart = headingParts.slice(0, -2).join(" ");
+---
+
+<div class="imagetiles-section" data-variant={sectionVariant}>
+  <Container>
+    <div class="max-w-4xl">
+      <div class="blur-in mb-4 flex justify-start">
+        <div
+          class="imagetiles-badge shadow-inner-blur flex items-center rounded-full"
+        >
+          <div
+            class="imagetiles-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5"
+          >
+            <Icon name={badgeIcon} class="imagetiles-badge-icon h-4 w-4" />
+            <span class="imagetiles-badge-text text-sm font-medium">
+              {badge}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <h2
+        class="imagetiles__headline scale-up text-3xl leading-tight font-semibold tracking-tight sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+      >
+        {headlineStart}
+        <span
+          class="imagetiles__headline-highlight relative inline-block"
+          set:html={lastTwoWords}
+          style={highlightStyle}
+        />
+      </h2>
+
+      <p
+        class="imagetiles__description fade-up mt-6 text-lg leading-8 sm:text-xl"
+        style="transition-delay: 200ms;"
+      >
+        {subheading}
+      </p>
+    </div>
+
+    <div class="mt-20 grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
+      <!-- Left Column: Mission Text -->
+      <div class="lg:pr-8">
+        <h3 class="imagetiles__name text-2xl font-semibold tracking-tight">
+          Unsere Mission
+        </h3>
+        <p class="imagetiles__role mt-6 text-base leading-7">
+          {mission}
+        </p>
+        <p class="imagetiles__role mt-8 text-base leading-7">
+          {expertise}
+        </p>
+      </div>
+
+      <!-- Right Column: Image Grid -->
+      <div class="lg:row-span-2 lg:-mr-16 xl:mr-auto">
+        <div
+          class="stagger-children -mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 xl:gap-8"
+        >
+          {
+            (images || []).map((src, index) => (
+              <div
+                class:list={[
+                  "imagetiles-image aspect-square overflow-hidden rounded-2xl shadow-xl outline-1 -outline-offset-1 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl",
+                  index % 2 === 1 && "-mt-8 lg:-mt-40",
+                ]}
+              >
+                <img
+                  src={src}
+                  alt={`Team Bild ${index + 1}`}
+                  class="block size-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Stats Section -->
+      <div class="max-lg:mt-16 lg:col-span-1">
+        <p class="imagetiles-stats-label text-base leading-7 font-semibold">
+          Die Zahlen
+        </p>
+        <hr class="imagetiles-stats-border mt-6 border-t" />
+        <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+          {
+            (stats || []).map((stat, index) => (
+              <div
+                class:list={[
+                  "imagetiles-stat-item flex flex-col gap-y-2 border-b border-dotted pb-4",
+                  index >= 2 && "max-sm:border-b-0 max-sm:pb-0",
+                ]}
+              >
+                <dt class="imagetiles-stat-label text-sm leading-6">
+                  {stat.label}
+                </dt>
+                <dd class="imagetiles-stat-value order-first text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                  <span class="imagetiles-stat-value-text">{stat.value}</span>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .imagetiles-badge {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  }
+
+  .imagetiles-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .imagetiles-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .imagetiles-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .imagetiles__headline {
+    color: var(--section-text);
+  }
+
+  .imagetiles__headline-highlight {
+    color: var(--section-accent);
+  }
+
+  .imagetiles__description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Mission text styles
+     ======================================== */
+  .imagetiles__name {
+    color: var(--section-text);
+  }
+
+  .imagetiles__role {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Image grid styles
+     ======================================== */
+  .imagetiles-image {
+    outline-color: color-mix(in srgb, var(--section-text) 10%, transparent);
+  }
+
+  .imagetiles-image:hover {
+    outline-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  /* ========================================
+     Stats section styles
+     ======================================== */
+  .imagetiles-stats-label {
+    color: color-mix(in srgb, var(--section-text) 70%, transparent);
+  }
+
+  .imagetiles-stats-border {
+    border-color: color-mix(in srgb, var(--section-text) 20%, transparent);
+  }
+
+  .imagetiles-stat-item {
+    border-color: color-mix(in srgb, var(--section-text) 20%, transparent);
+  }
+
+  .imagetiles-stat-label {
+    color: var(--section-text-muted);
+  }
+
+  .imagetiles-stat-value {
+    color: var(--section-text);
+  }
+
+  .imagetiles-stat-value-text {
+    /* Use primary color for better contrast instead of accent-highlight */
+    color: var(--primary);
+  }
+</style>

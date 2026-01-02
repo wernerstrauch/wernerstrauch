@@ -1,0 +1,175 @@
+lang: de
+pageId: shopify-migration
+
+meta:
+  title: "Shopify Migration | Umzug zu Shopify ohne Datenverlust"
+  description: "Professionelle Migration zu Shopify von WooCommerce, Magento, JTL und anderen Plattformen. Reibungsloser Umzug ohne SEO-Verluste."
+
+slug: "shopify-migration"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:arrow-path-16-solid"
+        text: "Shop Migration"
+      headline:
+        line1: "Migration zu"
+        line2: "<em>Shopify</em>"
+      subheadline: "Reibungsloser Umzug von deiner aktuellen Plattform zu Shopify – ohne Datenverlust und mit SEO-Erhalt."
+      ctas:
+        - text: "Migration planen"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Ablauf ansehen"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#process"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "SEO-Erhalt"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Datenmigration"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Zero Downtime"
+
+  - id: platforms
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Plattformen"
+      badgeIcon: "heroicons:squares-2x2-16-solid"
+      headline: "Von welcher Plattform <em>migrierst du?</em>"
+      description: "Wir haben Erfahrung mit Migrationen von allen gängigen E-Commerce Systemen."
+      services:
+        - tagline: "WordPress"
+          title: "WooCommerce"
+          description: "Migration von WooCommerce inkl. Produkte, Kunden, Bestellungen und SEO-URLs."
+          icon: "simple-icons:woo"
+        - tagline: "Adobe"
+          title: "Magento"
+          description: "Komplexe Magento-Strukturen sauber nach Shopify überführen."
+          icon: "simple-icons:magento"
+        - tagline: "ERP"
+          title: "JTL Shop"
+          description: "JTL Shop Migration mit Erhalt der JTL-Wawi Anbindung."
+          icon: "heroicons:circle-stack"
+        - tagline: "Andere"
+          title: "Weitere Systeme"
+          description: "Oxid, Gambio, Prestashop und andere – sprich uns an."
+          icon: "heroicons:ellipsis-horizontal"
+
+  - id: process
+    enabled: true
+    order: 3
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+    content:
+      variant: light
+      badge: "Ablauf"
+      badgeIcon: "heroicons:arrow-path-16-solid"
+      headline: "So läuft deine <em>Migration</em>"
+      description: "Ein strukturierter Prozess für einen reibungslosen Plattformwechsel."
+      steps:
+        - title: "Analyse & Planung"
+          description: "Bestandsaufnahme deines aktuellen Shops: Daten, Funktionen, Integrationen und SEO."
+        - title: "Shop Setup"
+          description: "Einrichtung des Shopify Shops mit Theme, Apps und Konfiguration."
+        - title: "Datenmigration"
+          description: "Übertragung von Produkten, Kunden, Bestellhistorie und anderen Daten."
+        - title: "SEO & Redirects"
+          description: "URL-Mapping, 301-Redirects und Sicherstellung des SEO-Erhalts."
+        - title: "Testing & Launch"
+          description: "Umfangreiche Tests und koordinierter Go-Live mit DNS-Umstellung."
+
+  - id: seo-content
+    enabled: true
+    order: 4
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "Shopify Migration: <em>Sicher wechseln, nichts verlieren</em>"
+      tagline: "Der Wechsel zu Shopify muss kein Risiko sein. Mit der richtigen Planung und erfahrenen Partnern läuft die Migration reibungslos."
+      leftColumn:
+        - type: text
+          content: "Eine <strong>Shopify Migration</strong> ist mehr als nur Daten kopieren. Es geht darum, SEO-Rankings zu erhalten, Kundenbeziehungen nicht zu unterbrechen und den Übergang für dein Team so einfach wie möglich zu gestalten."
+        - type: text
+          content: "Wir haben Erfahrung mit Migrationen von <strong>WooCommerce</strong>, <strong>Magento</strong>, <strong>JTL</strong>, <strong>Oxid</strong> und vielen anderen Systemen. Jede Plattform hat ihre Eigenheiten – wir kennen sie."
+        - type: headline
+          content: "Was wird migriert?"
+        - type: bullets
+          content:
+            - "<strong>Produkte</strong> – Inkl. Varianten, Bilder, SEO-Daten"
+            - "<strong>Kunden</strong> – Accounts und Bestellhistorie"
+            - "<strong>Bestellungen</strong> – Für Buchhaltung und Service"
+            - "<strong>Blog & Seiten</strong> – Content und Medien"
+            - "<strong>URL-Struktur</strong> – 301-Redirects für SEO"
+      rightColumn:
+        - type: text
+          content: "Der <strong>SEO-Erhalt</strong> ist bei jeder Migration kritisch. Wir erstellen ein vollständiges URL-Mapping und implementieren 301-Redirects, um deine Rankings zu schützen."
+        - type: text
+          content: "Für den Go-Live planen wir einen koordinierten <strong>Cutover</strong> mit minimalem Risiko. DNS-Umstellung, SSL-Zertifikate und finale Tests – alles durchdacht."
+        - type: headline
+          content: "FAQ zur Shopify Migration"
+        - type: faq
+          content:
+            - question: "Wie lange dauert eine Migration?"
+              answer: "Je nach Datenmenge und Komplexität 2-6 Wochen. Parallelbetrieb während der Migration ist möglich."
+            - question: "Verliere ich meine Google Rankings?"
+              answer: "Bei korrekter Umsetzung mit 301-Redirects bleiben die Rankings erhalten. Ein temporärer Ranking-Dip ist möglich, erholt sich aber schnell."
+            - question: "Kann ich meine bestehenden Apps weiter nutzen?"
+              answer: "Shopify hat ein großes App-Ökosystem. Für die meisten Funktionen gibt es Alternativen. Custom Apps müssen ggf. neu entwickelt werden."
+
+  - id: cta
+    enabled: true
+    order: 5
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Bereit für den <em>Umzug?</em>"
+      description: "Lass uns deine Migration planen – wir analysieren deinen aktuellen Shop und erstellen einen Migrationsplan."
+      buttonText: "Migration planen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

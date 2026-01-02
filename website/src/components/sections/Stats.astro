@@ -1,0 +1,494 @@
+---
+import Container from "@components/shared/Container.astro";
+import type { SectionVariant } from "../../types";
+
+interface Stat {
+  value: number | string;
+  suffix?: string;
+  label: string;
+  description?: string;
+  icon?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  headline?: string;
+  description?: string;
+  stats?: Stat[];
+  items?: Stat[]; // Alias for stats (backwards compatibility)
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Unsere Ergebnisse",
+  headline = "Zahlen, die <em>überzeugen</em>",
+  description: sectionDescription,
+  stats: statsFromProps,
+  items,
+} = Astro.props;
+
+// Use items as alias for stats (backwards compatibility with AboutStats)
+const stats = statsFromProps ||
+  items || [
+    {
+      value: 35,
+      suffix: "+",
+      label: "Betreute Shops",
+      description: "E-Commerce Kunden",
+      icon: "heroicons:building-storefront",
+    },
+    {
+      value: 4,
+      suffix: "x",
+      label: "Durchschn. ROAS",
+      description: "Return on Ad Spend",
+      icon: "heroicons:arrow-trending-up",
+    },
+    {
+      value: 2,
+      suffix: "M+",
+      label: "Ad Spend verwaltet",
+      description: "Euro pro Jahr",
+      icon: "heroicons:currency-euro",
+    },
+    {
+      value: 40,
+      suffix: "%",
+      label: "Mehr Umsatz",
+      description: "Im ersten Jahr",
+      icon: "heroicons:chart-bar",
+    },
+  ];
+
+// Process headline:
+// - <em> tags become circled words with animated SVG
+// - <mark> tags become colored text only (no circle)
+let emIndex = 0;
+let processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  (_match: string, content: string) => {
+    const index = emIndex++;
+    return `<span class="circled-word" data-circled-index="${index}">${content}<svg class="circled-word__svg" viewBox="0 0 800 350" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="circled-word__path" d="M253,-161 C253,-161 -284.789,-201.46 -376,-21 C-469,163 67.623,174.21 256,121 C564,34 250.829,-141.693 19.107,-116.936" transform="translate(400, 179) scale(0.9791)" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" pathLength="1"/></svg></span>`;
+  },
+);
+processedHeadline = processedHeadline.replace(
+  /<mark>(.*?)<\/mark>/g,
+  `<span class="highlighted-word">$1</span>`,
+);
+---
+
+<div class="stats-section stats-section--dark-with-primary-cards relative" data-variant={sectionVariant}>
+  <Container id="stats" class="relative z-10 max-w-[1200px]">
+    {/* Header */}
+    <div class="mb-12 text-center">
+      {badge && (
+        <p class="stats-eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+          {badge}
+        </p>
+      )}
+      <h2
+        class="stats-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+      {
+        sectionDescription && (
+          <p
+            class="stats-description fade-up mx-auto mt-4 max-w-2xl text-lg"
+            style="transition-delay: 200ms;"
+          >
+            {sectionDescription}
+          </p>
+        )
+      }
+    </div>
+
+    {/* Stats Grid - Sharp, modern cards */}
+    <div class="stats-grid grid grid-cols-2 gap-1 sm:gap-1 lg:grid-cols-4">
+      {
+        stats.map((stat, index) => (
+          <div
+            class="stat-card stat-card--primary group relative overflow-hidden p-6 sm:p-8 transition-all duration-500"
+            data-index={index}
+          >
+            {/* Background Signet - subtle white watermark */}
+            <svg
+              class="stat-card-signet absolute -right-4 -bottom-4 h-28 w-28 sm:h-36 sm:w-36 transition-all duration-700 group-hover:scale-110"
+              viewBox="0 0 568.43 423.16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M568.43,0h-189.86c-57.83,0-110.7,36.49-136.56,94.25l-95.13,212.47c-21.25,47.46-58.51,83.55-103.59,100.33L0,423.16h189.86c57.83,0,110.7-36.49,136.56-94.25l95.13-212.47c21.25-47.46,58.51-83.55,103.59-100.33L568.43,0Z"
+                fill="currentColor"
+              />
+            </svg>
+
+            {/* Hover glow */}
+            <div class="stat-glow--primary pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+            {/* Content */}
+            <div class="relative z-10">
+              <span class="block text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                {typeof stat.value === "number" ? (
+                  <>
+                    <span class="counter stat-value--primary" data-target={stat.value}>
+                      0
+                    </span>
+                    {stat.suffix && (
+                      <span class="stat-value--primary">{stat.suffix}</span>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <span class="stat-value--primary">{stat.value}</span>
+                    {stat.suffix && (
+                      <span class="stat-value--primary">{stat.suffix}</span>
+                    )}
+                  </>
+                )}
+              </span>
+              <h3 class="stat-label--primary mt-4 text-base font-bold uppercase tracking-wide sm:text-lg">
+                {stat.label}
+              </h3>
+              <p class="stat-description--primary mt-1 text-sm font-medium opacity-80">
+                {stat.description}
+              </p>
+            </div>
+
+            {/* Bottom accent line */}
+            <div class="stat-card-accent absolute bottom-0 left-0 h-1 w-0 transition-all duration-500 group-hover:w-full"></div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  // Counter animation with Apple-like easing
+  function animateCounter(
+    element: HTMLElement,
+    target: number,
+    duration: number = 2000,
+  ): void {
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime: number): void {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Apple-like ease-out-expo
+      const easeOutExpo = 1 - Math.pow(2, -10 * progress);
+      const current = Math.floor(start + (target - start) * easeOutExpo);
+
+      element.textContent = current.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = target.toString();
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Observe counters
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          const target = parseInt(element.dataset.target || "0", 10);
+
+          // Add slight delay based on index for stagger effect
+          const parent = element.closest(".stat-card");
+          const index = parent
+            ? parseInt(parent.getAttribute("data-index") || "0", 10)
+            : 0;
+
+          setTimeout(() => {
+            animateCounter(element, target);
+          }, index * 150);
+
+          counterObserver.unobserve(element);
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  document.querySelectorAll(".counter").forEach((element) => {
+    counterObserver.observe(element);
+  });
+
+  // Mouse spotlight effect
+  function initStatsSpotlight(): void {
+    const grids = document.querySelectorAll<HTMLDivElement>(".stats-grid");
+
+    grids.forEach((grid) => {
+      const cards = grid.querySelectorAll<HTMLDivElement>(".stat-card");
+
+      grid.addEventListener("mousemove", (event: MouseEvent) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          const glowElement = card.querySelector(".stat-glow") as HTMLElement;
+          if (glowElement) {
+            const accentColor =
+              getComputedStyle(card)
+                .getPropertyValue("--section-accent")
+                .trim() || "#a78bfa";
+            glowElement.style.background = `radial-gradient(600px circle at ${x}px ${y}px, color-mix(in srgb, ${accentColor} 15%, transparent), transparent 40%)`;
+          }
+        });
+      });
+
+      grid.addEventListener("mouseleave", () => {
+        cards.forEach((card) => {
+          const glowElement = card.querySelector(".stat-glow") as HTMLElement;
+          if (glowElement) {
+            glowElement.style.background = "none";
+          }
+        });
+      });
+    });
+  }
+
+  initStatsSpotlight();
+</script>
+
+<style>
+  /* ========================================
+     DARK BACKGROUND WITH PRIMARY CARDS
+     Dark section background, lime/primary cards with navy text
+     ======================================== */
+
+  /* ========================================
+     Eyebrow styles - Simple text only
+     ======================================== */
+  .stats-eyebrow {
+    color: #c8ff00;
+    letter-spacing: 0.1em;
+  }
+
+  /* ========================================
+     Headline styles - Dark theme (white text)
+     ======================================== */
+  .stats-headline {
+    color: #ffffff;
+  }
+
+  .stats-description {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Circled word - lime stroke on dark */
+  .stats-headline :global(.circled-word) {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: #ffffff;
+  }
+
+  .stats-headline :global(.circled-word__svg) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .stats-headline :global(.circled-word__path) {
+    stroke: #c8ff00;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stats-headline.is-visible :global(.circled-word__path) {
+    stroke-dashoffset: 0;
+  }
+
+  .stats-headline.is-visible :global(.circled-word[data-circled-index="0"]) :global(.circled-word__path) {
+    transition-delay: 0.5s;
+  }
+
+  .stats-headline.is-visible :global(.circled-word[data-circled-index="1"]) :global(.circled-word__path) {
+    transition-delay: 0.8s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stats-headline :global(.circled-word__path) {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  .stats-headline :global(.highlighted-word) {
+    color: #c8ff00;
+  }
+
+  /* ========================================
+     Cards - PRIMARY (lime) background with navy text
+     Sharp corners, bold design
+     ======================================== */
+  .stat-card--primary {
+    background: linear-gradient(135deg, #c8ff00 0%, #b8ef00 100%);
+    border-radius: 0; /* Square corners */
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.2),
+      0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-card--primary:hover {
+    background: linear-gradient(135deg, #d4ff33 0%, #c8ff00 100%);
+    transform: translateY(-4px);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.3),
+      0 10px 10px -5px rgba(200, 255, 0, 0.2);
+  }
+
+  /* Background signet - subtle white watermark */
+  .stat-card-signet {
+    color: rgba(255, 255, 255, 0.35);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stat-card--primary:hover .stat-card-signet {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* Hover glow - subtle dark glow */
+  .stat-glow--primary {
+    background: radial-gradient(
+      circle at center,
+      rgba(10, 22, 40, 0.05) 0%,
+      transparent 70%
+    );
+  }
+
+  /* Bottom accent line - navy on lime cards */
+  .stat-card-accent {
+    background: #0a1628;
+  }
+
+  /* ========================================
+     Values - Dark text on white cards
+     ======================================== */
+  .stat-value--primary {
+    color: #0a1628;
+    line-height: 1;
+  }
+
+  .stat-label--primary {
+    color: #0a1628;
+  }
+
+  .stat-description--primary {
+    color: rgba(10, 22, 40, 0.6);
+  }
+
+  /* ========================================
+     Counter animation
+     ======================================== */
+  .counter {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ========================================
+     Legacy styles (for non-primary variants)
+     ======================================== */
+  .stats-section:not(.stats-section--primary) .stats-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-badge-text {
+    color: var(--section-text);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-headline {
+    color: var(--section-text);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-description {
+    color: var(--section-text-muted);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-headline :global(.circled-word) {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--section-text);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-headline :global(.circled-word__svg) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-headline :global(.circled-word__path) {
+    stroke: #c8ff00;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-headline.is-visible :global(.circled-word__path) {
+    stroke-dashoffset: 0;
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-headline :global(.highlighted-word) {
+    color: var(--section-accent);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-card {
+    background: var(--section-card-bg);
+    border-color: var(--section-card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.3),
+      0 0 40px -10px rgba(200, 255, 0, 0.15);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-value {
+    color: var(--section-accent);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-label {
+    color: var(--section-text);
+  }
+
+  .stats-section:not(.stats-section--primary) .stats-stat-description {
+    color: var(--section-text-muted);
+  }
+</style>

@@ -1,0 +1,244 @@
+---
+export const prerender = true;
+
+import { getCollection, type CollectionEntry } from "astro:content";
+import RootLayout from "@layouts/RootLayout.astro";
+import Section from "@components/shared/Section.astro";
+import {
+  type SupportedLanguage,
+  LANGUAGES,
+  getPageHreflangEntries,
+} from "@lib/i18n";
+import { SITE } from "@config";
+
+// Background Components
+import IconGridBackground from "@components/backgrounds/IconGridBackground.astro";
+import GridBackground from "@components/backgrounds/GridBackground.astro";
+import GradientMeshBackground from "@components/backgrounds/GradientMeshBackground.astro";
+import AnimatedRectangles from "@components/backgrounds/AnimatedRectangles.astro";
+import DotsBackground from "@components/backgrounds/DotsBackground.astro";
+import WavesBackground from "@components/backgrounds/WavesBackground.astro";
+import GlowBackground from "@components/backgrounds/GlowBackground.astro";
+import GlowBackgroundAnimated from "@components/backgrounds/GlowBackgroundAnimated.astro";
+import ConcentricShapes from "@components/backgrounds/ConcentricShapes.astro";
+import LightGradientBackground from "@components/backgrounds/LightGradientBackground.astro";
+
+// Section Components
+import Hero from "@components/sections/Hero.astro";
+import HeroSimple from "@components/sections/HeroSimple.astro";
+import HeroWithPortrait from "@components/sections/HeroWithPortrait.astro";
+import HeroSplit from "@components/sections/HeroSplit.astro";
+import HeroBackground from "@components/sections/HeroBackground.astro";
+import HeroOffsetImage from "@components/sections/HeroOffsetImage.astro";
+import LogoCloud from "@components/sections/LogoCloud.astro";
+import ProblemSolution from "@components/sections/ProblemSolution.astro";
+import Services from "@components/sections/Services.astro";
+import ServiceCards from "@components/sections/ServiceCards.astro";
+import FeatureShowcase from "@components/sections/FeatureShowcase.astro";
+import Process from "@components/sections/Process.astro";
+import UseCases from "@components/sections/UseCases.astro";
+import References from "@components/sections/References.astro";
+import LogoMarquee from "@components/sections/LogoMarquee.astro";
+import BentoGrid from "@components/sections/BentoGrid.astro";
+import BentoMixed from "@components/sections/BentoMixed.astro";
+import Stats from "@components/sections/Stats.astro";
+import ImageTiles from "@components/sections/ImageTiles.astro";
+import Faq from "@components/sections/Faq.astro";
+import Cta from "@components/sections/Cta.astro";
+import Divider from "@components/shared/Divider.astro";
+import LegalContent from "@components/legal/LegalContent.astro";
+import Contact from "@components/sections/Contact.astro";
+import Testimonials from "@components/sections/Testimonials.astro";
+import TrustBar from "@components/sections/TrustBar.astro";
+import About from "@components/about/About.astro";
+import AboutStory from "@components/sections/AboutStory.astro";
+import ContentSplitImage from "@components/sections/ContentSplitImage.astro";
+import ContentRichSection from "@components/sections/ContentRichSection.astro";
+import ContentSection from "@components/sections/ContentSection.astro";
+import PageHeroSplit from "@components/shared/PageHeroSplit.astro";
+import PageHeroCompact from "@components/shared/PageHeroCompact.astro";
+import CaseStudyGrid from "@components/sections/CaseStudyGrid.astro";
+import ProblemGrid from "@components/sections/ProblemGrid.astro";
+import ServicesAccordion from "@components/sections/ServicesAccordion.astro";
+import Principles from "@components/sections/Principles.astro";
+import CaseStudies from "@components/sections/CaseStudies.astro";
+import AboutSection from "@components/sections/AboutSection.astro";
+import CtaCentered from "@components/sections/CtaCentered.astro";
+import Quote from "@components/sections/Quote.astro";
+
+// Static Paths for Pre-Rendering
+export async function getStaticPaths() {
+  const pages = await getCollection("pages");
+
+  // Filter out drafts
+  const filteredPages = pages.filter(
+    (page: CollectionEntry<"pages">) => page.data.settings?.status !== "draft",
+  );
+
+  // Generate paths for all pages
+  return filteredPages.map((page: CollectionEntry<"pages">) => {
+    const lang = (page.data.lang as SupportedLanguage) || "de";
+    const prefix = LANGUAGES[lang].urlPrefix;
+    const pageSlug = page.data.slug;
+
+    // Build the full slug path
+    const isHomepage = page.data.pageId === "homepage" || !pageSlug || pageSlug === "index";
+    let fullSlug: string | undefined;
+    if (isHomepage) {
+      fullSlug = prefix ? prefix.slice(1) : undefined;
+    } else {
+      fullSlug = prefix ? `${prefix.slice(1)}/${pageSlug}` : pageSlug;
+    }
+
+    return {
+      params: {
+        slug: fullSlug,
+      },
+      props: {
+        page,
+        allPages: filteredPages,
+      },
+    };
+  });
+}
+
+interface Props {
+  page: CollectionEntry<"pages">;
+  allPages: CollectionEntry<"pages">[];
+}
+
+const { page, allPages } = Astro.props as Props;
+const { meta, sections, settings } = page.data;
+
+// Header variant from page settings
+const headerVariant = settings?.headerVariant || "light";
+
+// i18n setup
+const lang = (page.data.lang as SupportedLanguage) || "de";
+const hreflangEntries = getPageHreflangEntries(allPages, page, SITE.site);
+
+// Filter & Sort sections
+const activeSections = sections
+  .filter((s: any) => s.enabled && s.component !== "Footer")
+  .sort((a: any, b: any) => a.order - b.order);
+
+// Component Mapping
+const componentMap: Record<string, any> = {
+  Hero,
+  HeroSimple,
+  HeroWithPortrait,
+  HeroSplit,
+  HeroBackground,
+  HeroOffsetImage,
+  LogoCloud,
+  ProblemSolution,
+  Services,
+  ServiceCards,
+  FeatureShowcase,
+  Process,
+  UseCases,
+  References,
+  LogoMarquee,
+  BentoGrid,
+  BentoMixed,
+  Stats,
+  ImageTiles,
+  Faq,
+  Cta,
+  Divider,
+  LegalContent,
+  LegalPage: LegalContent,
+  Contact,
+  Testimonials,
+  TrustBar,
+  About,
+  AboutStory,
+  ContentSplitImage,
+  ContentRichSection,
+  ContentSection,
+  PageHeroSplit,
+  PageHeroCompact,
+  CaseStudyGrid,
+  ProblemGrid,
+  ServicesAccordion,
+  Principles,
+  CaseStudies,
+  AboutSection,
+  CtaCentered,
+  Quote,
+};
+
+// Background Mapping
+const backgroundMap: Record<string, any> = {
+  IconGridBackground,
+  GridBackground,
+  AnimatedRectangles,
+  DotsBackground,
+  GradientMeshBackground,
+  WavesBackground,
+  GlowBackground,
+  GlowBackgroundAnimated,
+  ConcentricShapes,
+  LightGradientBackground,
+};
+---
+
+<RootLayout
+  title={meta.title}
+  description={meta.description}
+  lang={lang}
+  hreflangEntries={hreflangEntries}
+  headerVariant={headerVariant}
+>
+  {
+    activeSections.map((section: any) => {
+      const Component = componentMap[section.component];
+      if (!Component) return null;
+
+      // Components without wrapper/background
+      if (["Divider", "About", "Quote"].includes(section.component)) {
+        return <Component {...section.content} />;
+      }
+
+      const wrapper = section.wrapper || {};
+
+      // Support both single background and array of backgrounds
+      const backgrounds = section.backgrounds
+        ? section.backgrounds
+        : section.background
+          ? [section.background]
+          : [];
+
+      // Prepare component props
+      const componentProps = {
+        ...section.content,
+        sectionVariant: wrapper.variant || "white",
+      };
+
+      const sectionId = section.id || section.component || "unknown";
+      const hasBackground = backgrounds.length > 0;
+      const sectionProps = {
+        ...wrapper,
+        id: sectionId,
+        "data-section-name": sectionId,
+        ...(hasBackground && { "data-has-background": true }),
+      };
+
+      return (
+        <Section {...sectionProps}>
+          {backgrounds.length > 0 && (
+            <div slot="background" class="absolute inset-0 z-0">
+              {backgrounds.map((bg: any) => {
+                const BgComponent = backgroundMap[bg.type];
+                if (!BgComponent) return null;
+                const { type: _bgType, ...bgProps } = bg;
+                return <BgComponent {...bgProps} />;
+              })}
+            </div>
+          )}
+          <Component {...componentProps} />
+        </Section>
+      );
+    })
+  }
+</RootLayout>

@@ -1,0 +1,356 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  deliverables: string[];
+  idealFor: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  services?: Service[];
+}
+
+const {
+  sectionVariant = "white",
+  headline = "Wie ich dich unterstütze",
+  services = [],
+} = Astro.props;
+
+// Process headline:
+// - <em> tags become circled words with animated SVG
+// - <mark> tags become colored text only (no circle)
+let emIndex = 0;
+let processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  (_match: string, content: string) => {
+    const index = emIndex++;
+    return `<span class="circled-word" data-circled-index="${index}">${content}<svg class="circled-word__svg" viewBox="0 0 800 350" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="circled-word__path" d="M253,-161 C253,-161 -284.789,-201.46 -376,-21 C-469,163 67.623,174.21 256,121 C564,34 250.829,-141.693 19.107,-116.936" transform="translate(400, 179) scale(0.9791)" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" pathLength="1"/></svg></span>`;
+  },
+);
+processedHeadline = processedHeadline.replace(
+  /<mark>(.*?)<\/mark>/g,
+  `<span class="highlighted-word">$1</span>`,
+);
+---
+
+<div class="services-accordion-section" data-variant={sectionVariant}>
+  <Container class="relative max-w-4xl">
+    {/* Header */}
+    <div class="mb-12 text-center lg:mb-16">
+      <h2
+        class="services-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        set:html={processedHeadline}
+      />
+    </div>
+
+    {/* Services Accordion */}
+    <div class="services-container space-y-4">
+      {
+        services.map((service, index) => (
+          <details
+            class="service-item group"
+            open={index === 0}
+          >
+            <summary class="services-summary flex w-full cursor-pointer list-none items-center gap-4 border p-5 text-left shadow-sm transition-all duration-300 hover:shadow-md [&::-webkit-details-marker]:hidden">
+              {/* Number badge */}
+              <span class="services-number flex h-10 w-10 flex-shrink-0 items-center justify-center text-sm font-bold transition-colors duration-300 group-hover:text-white">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              {/* Title */}
+              <h3 class="services-title flex-1 text-lg font-bold">
+                {service.title}
+              </h3>
+
+              {/* Toggle icon */}
+              <span class="services-icon flex h-8 w-8 flex-shrink-0 items-center justify-center border transition-all duration-300">
+                <Icon
+                  name="heroicons:plus-16-solid"
+                  class="services-icon-plus h-4 w-4 transition-all duration-300 group-open:hidden"
+                />
+                <Icon
+                  name="heroicons:minus-16-solid"
+                  class="services-icon-minus hidden h-4 w-4 group-open:block"
+                />
+              </span>
+            </summary>
+
+            {/* Content panel */}
+            <div class="service-content overflow-hidden">
+              <div class="service-content-inner px-5 pt-4 pb-6 pl-[4.5rem]">
+                {/* Description */}
+                <p class="services-description mb-6 leading-relaxed">
+                  {service.description}
+                </p>
+
+                {/* Deliverables */}
+                <div class="mb-4">
+                  <h4 class="services-deliverables-title mb-3 text-sm font-semibold uppercase tracking-wider">
+                    Was du bekommst
+                  </h4>
+                  <ul class="grid gap-2 sm:grid-cols-2">
+                    {service.deliverables.map((deliverable) => (
+                      <li class="services-deliverable flex items-center gap-2 text-sm">
+                        <Icon
+                          name="heroicons:check-circle-16-solid"
+                          class="services-check h-4 w-4 flex-shrink-0"
+                        />
+                        <span>{deliverable}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Ideal for */}
+                <div class="services-ideal-wrapper mt-4 inline-flex items-center gap-2 border px-4 py-2 text-sm">
+                  <Icon
+                    name="heroicons:user-group-16-solid"
+                    class="services-ideal-icon h-4 w-4"
+                  />
+                  <span class="services-ideal-label font-medium">Ideal für:</span>
+                  <span class="services-ideal-text">{service.idealFor}</span>
+                </div>
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  function initServicesAccordion(): void {
+    const serviceItems = document.querySelectorAll<HTMLDetailsElement>(".service-item");
+
+    const ANIMATION_DURATION = 400;
+
+    function closeDetails(details: HTMLDetailsElement): void {
+      const content = details.querySelector(".service-content") as HTMLElement;
+      if (!content) return;
+      content.style.height = "0px";
+      setTimeout(() => {
+        details.removeAttribute("open");
+      }, ANIMATION_DURATION);
+    }
+
+    function openDetails(details: HTMLDetailsElement): void {
+      const content = details.querySelector(".service-content") as HTMLElement;
+      const contentInner = details.querySelector(".service-content-inner") as HTMLElement;
+      if (!content || !contentInner) return;
+
+      details.setAttribute("open", "");
+      const height = contentInner.offsetHeight;
+      content.style.height = `${height}px`;
+    }
+
+    serviceItems.forEach((details) => {
+      const summary = details.querySelector("summary");
+      const content = details.querySelector(".service-content") as HTMLElement;
+
+      if (!summary || !content) return;
+
+      // Set initial state
+      if (details.hasAttribute("open")) {
+        const contentInner = details.querySelector(".service-content-inner") as HTMLElement;
+        if (contentInner) {
+          content.style.height = `${contentInner.offsetHeight}px`;
+        }
+      } else {
+        content.style.height = "0px";
+      }
+      content.style.transition = `height ${ANIMATION_DURATION}ms ease-out`;
+
+      summary.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const isOpen = details.hasAttribute("open");
+
+        if (isOpen) {
+          closeDetails(details);
+        } else {
+          openDetails(details);
+        }
+      });
+    });
+  }
+
+  initServicesAccordion();
+  document.addEventListener("astro:after-swap", initServicesAccordion);
+</script>
+
+<style>
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .services-headline {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Circled Word Animation
+     Using :global() because content is injected via set:html
+     ======================================== */
+  .services-headline :global(.circled-word) {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--section-text); /* Adapts to section theme */
+  }
+
+  .services-headline :global(.circled-word__svg) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .services-headline :global(.circled-word__path) {
+    stroke: #c8ff00;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .services-headline.is-visible :global(.circled-word__path) {
+    stroke-dashoffset: 0;
+  }
+
+  .services-headline.is-visible :global(.circled-word[data-circled-index="0"]) :global(.circled-word__path) {
+    transition-delay: 0.5s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .services-headline :global(.circled-word__path) {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  .services-headline :global(.highlighted-word) {
+    color: var(--section-accent); /* Lime on dark, adapts to theme */
+  }
+
+  /* ========================================
+     Summary styles - Glassmorphism
+     ======================================== */
+  .services-summary {
+    background-color: var(--section-card-bg);
+    border-color: var(--section-card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .services-summary:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .services-number {
+    background-color: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    color: var(--section-accent);
+  }
+
+  .services-summary:hover .services-number {
+    background-color: var(--section-accent);
+  }
+
+  .services-title {
+    color: var(--section-text);
+  }
+
+  .services-icon {
+    border-color: var(--section-card-border);
+  }
+
+  .services-summary:hover .services-icon {
+    border-color: color-mix(in srgb, var(--section-accent) 40%, transparent);
+    background-color: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  }
+
+  .services-icon-plus,
+  .services-icon-minus {
+    color: var(--section-text-muted);
+  }
+
+  .services-summary:hover .services-icon-plus,
+  .services-summary:hover .services-icon-minus {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Open state styles
+     ======================================== */
+  .service-item[open] > summary {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+    border-bottom-color: transparent;
+  }
+
+  .service-item[open] > .service-content {
+    border: 1px solid color-mix(in srgb, var(--section-accent) 30%, transparent);
+    border-top: none;
+    background: var(--section-card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .service-item[open] > summary .services-number {
+    background-color: var(--section-accent);
+    color: white;
+  }
+
+  .service-item[open] > summary .services-icon {
+    background-color: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .services-description {
+    color: var(--section-text-muted);
+  }
+
+  .services-deliverables-title {
+    color: var(--section-accent);
+  }
+
+  .services-deliverable {
+    color: var(--section-text);
+  }
+
+  .services-check {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Ideal for styles
+     ======================================== */
+  .services-ideal-wrapper {
+    background-color: color-mix(in srgb, var(--section-accent) 8%, transparent);
+    border-color: color-mix(in srgb, var(--section-accent) 20%, transparent);
+  }
+
+  .services-ideal-icon {
+    color: var(--section-accent);
+  }
+
+  .services-ideal-label {
+    color: var(--section-text);
+  }
+
+  .services-ideal-text {
+    color: var(--section-text-muted);
+  }
+</style>

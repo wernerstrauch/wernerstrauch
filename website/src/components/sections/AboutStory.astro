@@ -1,0 +1,412 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Value {
+  icon: string;
+  title: string;
+  description: string;
+  href?: string;
+  linkText?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  heading?: string;
+  paragraphs?: string[];
+  valuesTitle?: string;
+  values?: Value[];
+}
+
+const {
+  sectionVariant = "light",
+  badge,
+  badgeIcon = "heroicons:building-office-2-16-solid",
+  heading,
+  paragraphs,
+  valuesTitle,
+  values,
+} = Astro.props;
+
+// Process heading: replace <em> tags with styled spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeading =
+  heading?.replace(
+    /<em>(.*?)<\/em>/g,
+    `<span style="${highlightStyle}">$1</span>`,
+  ) ?? "";
+---
+
+<div id="story" class="about-story" data-variant={sectionVariant}>
+  <Container>
+    <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        {
+          badge && (
+            <p class="about-story__eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+              {badge}
+            </p>
+          )
+        }
+        <h2
+          class="about-story__headline scale-up text-3xl leading-tight font-bold sm:text-4xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeading}
+        />
+        {
+          paragraphs && (
+            <div
+              class="about-story__text fade-up mt-6 space-y-4 leading-relaxed"
+              style="transition-delay: 200ms;"
+              set:html={paragraphs.join("")}
+            />
+          )
+        }
+      </div>
+
+      <div class="space-y-6">
+        {
+          valuesTitle && (
+            <p class="about-story__values-title text-sm font-medium tracking-wider uppercase">
+              {valuesTitle}
+            </p>
+          )
+        }
+        {
+          values && (
+            <div class="values-grid stagger-children space-y-4">
+              {values.map((value) => (
+                <div class="value-card group relative block overflow-hidden border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]">
+                  {/* Spotlight glow effect */}
+                  <div class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300" />
+
+                  {/* Rotating border glow effect */}
+                  <div class="border-glow" />
+
+                  <div class="about-story__card-bg relative z-30 h-full w-full overflow-hidden p-5">
+                    <div class="flex items-start gap-4">
+                      <div class="about-story__icon-box flex h-11 w-11 flex-shrink-0 items-center justify-center border transition-transform duration-300 group-hover:scale-110">
+                        <Icon
+                          name={value.icon}
+                          class="about-story__icon h-5 w-5"
+                        />
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="about-story__card-title font-bold transition-colors">
+                          {value.title}
+                        </h3>
+                        <p class="about-story__card-description mt-1 text-sm leading-relaxed">
+                          {value.description}
+                        </p>
+                        {value.href && (
+                          <a
+                            href={value.href}
+                            class="about-story__card-link mt-3 inline-flex items-center gap-1.5 text-sm font-medium transition-all duration-300 hover:gap-2.5"
+                          >
+                            <span>{value.linkText || "Mehr erfahren"}</span>
+                            <Icon
+                              name="heroicons:arrow-right-16-solid"
+                              class="h-4 w-4"
+                            />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import "@scripts/animations";
+
+  function initializeValuesHoverEffect(): void {
+    const containers =
+      document.querySelectorAll<HTMLDivElement>(".about-story");
+
+    containers.forEach((container) => {
+      const cards = container.querySelectorAll<HTMLDivElement>(".value-card");
+      const glowColor = getComputedStyle(container)
+        .getPropertyValue("--card-glow-color")
+        .trim();
+
+      container.addEventListener("mousemove", (event: MouseEvent) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+
+          const glowElement = card.querySelector(".card-glow") as HTMLElement;
+          if (glowElement) {
+            glowElement.style.background = `radial-gradient(400px circle at ${x}px ${y}px, ${glowColor}, transparent 40%)`;
+          }
+        });
+      });
+
+      container.addEventListener("mouseleave", () => {
+        cards.forEach((card) => {
+          const glowElement = card.querySelector(".card-glow") as HTMLElement;
+          if (glowElement) {
+            glowElement.style.background = "none";
+          }
+        });
+      });
+    });
+  }
+
+  initializeValuesHoverEffect();
+</script>
+
+<style>
+  /* CSS Variables for white/light variant */
+  .about-story[data-variant="white"],
+  .about-story[data-variant="light"] {
+    --badge-bg: rgb(121 90 255 / 0.1);
+    --badge-border: rgb(121 90 255 / 0.3);
+    --badge-icon-color: var(--section-primary);
+    --badge-text-color: #1c1c1e;
+
+    --headline-color: #1c1c1e;
+
+    --text-color: rgb(75 85 99);
+    --text-strong-color: #1c1c1e;
+
+    --values-title-color: rgb(107 114 128);
+
+    --card-border: rgb(229 231 235);
+    --card-border-hover: rgb(121 90 255 / 0.5);
+    --card-bg: #ffffff;
+    --card-icon-box-border: rgb(121 90 255 / 0.3);
+    --card-icon-box-bg: rgb(121 90 255 / 0.1);
+    --card-icon-color: var(--section-primary);
+    --card-title-color: #1c1c1e;
+    --card-title-hover-color: rgb(17 24 39);
+    --card-description-color: rgb(107 114 128);
+
+    --card-glow-color: rgba(79, 60, 162, 0.12);
+    --border-glow-inner-bg: #ffffff;
+
+    --border-glow-1: transparent;
+    --border-glow-2: rgba(79, 60, 162, 0.2);
+    --border-glow-3: rgba(79, 60, 162, 0.4);
+    --border-glow-4: rgba(79, 60, 162, 0.7);
+    --border-glow-5: rgba(111, 92, 194, 1);
+  }
+
+  /* CSS Variables for dark variant */
+  .about-story[data-variant="dark"] {
+    --badge-bg: color-mix(in srgb, var(--primary) 10%, transparent);
+    --badge-border: color-mix(in srgb, var(--primary) 40%, transparent);
+    --badge-icon-color: var(--primary-light);
+    --badge-text-color: var(--color-white);
+
+    --headline-color: var(--color-white);
+
+    --text-color: var(--color-gray-300);
+    --text-strong-color: var(--color-white);
+
+    --values-title-color: var(--color-gray-400);
+
+    --card-border: rgba(200, 255, 0, 0.15);
+    --card-border-hover: rgba(200, 255, 0, 0.4);
+    --card-bg: rgba(15, 30, 50, 0.6);
+    --card-backdrop: blur(12px);
+    --card-icon-box-border: color-mix(in srgb, var(--primary) 40%, transparent);
+    --card-icon-box-bg: color-mix(in srgb, var(--primary) 20%, transparent);
+    --card-icon-color: var(--primary-light);
+    --card-title-color: var(--color-white);
+    --card-title-hover-color: var(--color-white);
+    --card-description-color: var(--color-gray-300);
+    --card-arrow-color: var(--primary-light);
+
+    --card-glow-color: color-mix(in srgb, var(--primary) 15%, transparent);
+    --border-glow-inner-bg: rgba(15, 30, 50, 0.95);
+
+    --border-glow-1: transparent;
+    --border-glow-2: color-mix(in srgb, var(--primary) 20%, transparent);
+    --border-glow-3: color-mix(in srgb, var(--primary) 40%, transparent);
+    --border-glow-4: color-mix(in srgb, var(--primary) 70%, transparent);
+    --border-glow-5: var(--primary-light);
+  }
+
+  /* CSS Variables for primary variant */
+  .about-story[data-variant="primary"] {
+    --badge-bg: rgb(255 255 255 / 0.1);
+    --badge-border: rgb(255 255 255 / 0.3);
+    --badge-icon-color: #ffffff;
+    --badge-text-color: #ffffff;
+
+    --headline-color: #ffffff;
+
+    --text-color: rgb(255 255 255 / 0.8);
+    --text-strong-color: #ffffff;
+
+    --values-title-color: rgb(255 255 255 / 0.7);
+
+    --card-border: rgb(255 255 255 / 0.2);
+    --card-border-hover: rgb(255 255 255 / 0.5);
+    --card-bg: rgb(255 255 255 / 0.1);
+    --card-icon-box-border: rgb(255 255 255 / 0.3);
+    --card-icon-box-bg: rgb(255 255 255 / 0.1);
+    --card-icon-color: #ffffff;
+    --card-title-color: #ffffff;
+    --card-title-hover-color: #ffffff;
+    --card-description-color: rgb(255 255 255 / 0.7);
+
+    --card-glow-color: rgba(255, 255, 255, 0.12);
+    --border-glow-inner-bg: rgba(79, 60, 162, 0.95);
+
+    --border-glow-1: transparent;
+    --border-glow-2: rgba(255, 255, 255, 0.2);
+    --border-glow-3: rgba(255, 255, 255, 0.4);
+    --border-glow-4: rgba(255, 255, 255, 0.7);
+    --border-glow-5: rgba(255, 255, 255, 1);
+  }
+
+  /* Component styles using CSS variables */
+  .about-story__eyebrow {
+    color: var(--section-accent);
+    letter-spacing: 0.1em;
+  }
+
+  .about-story__headline {
+    color: var(--headline-color);
+  }
+
+  .about-story__text {
+    color: var(--text-color);
+  }
+
+  .about-story__text :global(strong) {
+    color: var(--text-strong-color);
+  }
+
+  .about-story__values-title {
+    color: var(--values-title-color);
+  }
+
+  .value-card {
+    border-color: var(--card-border);
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .value-card:hover {
+    border-color: var(--card-border-hover);
+  }
+
+  .about-story__card-bg {
+    background-color: var(--card-bg);
+    backdrop-filter: var(--card-backdrop, none);
+    -webkit-backdrop-filter: var(--card-backdrop, none);
+  }
+
+  .about-story__card-link {
+    color: var(--card-link-color, var(--primary-light));
+  }
+
+  .about-story__card-link:hover {
+    color: var(--card-link-hover-color, var(--primary));
+  }
+
+  .about-story__icon-box {
+    border-color: var(--card-icon-box-border);
+    background-color: var(--card-icon-box-bg);
+  }
+
+  .about-story__icon {
+    color: var(--card-icon-color);
+  }
+
+  .about-story__card-title {
+    color: var(--card-title-color);
+  }
+
+  .about-story__card-title:hover {
+    color: var(--card-title-hover-color);
+  }
+
+  .about-story__card-description {
+    color: var(--card-description-color);
+  }
+
+  /* Border glow effects */
+  .value-card .border-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .value-card:hover .border-glow {
+    opacity: 1;
+  }
+
+  .value-card .border-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      var(--border-glow-1) 0deg,
+      var(--border-glow-1) 30deg,
+      var(--border-glow-2) 50deg,
+      var(--border-glow-3) 70deg,
+      var(--border-glow-4) 85deg,
+      var(--border-glow-5) 90deg,
+      var(--border-glow-4) 95deg,
+      var(--border-glow-3) 110deg,
+      var(--border-glow-2) 130deg,
+      var(--border-glow-1) 150deg,
+      var(--border-glow-1) 360deg
+    );
+    transform: translate(-50%, -50%);
+    animation: spinGlowValue 6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .value-card .border-glow::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    background: var(--border-glow-inner-bg);
+  }
+
+  .value-card:hover .border-glow::before {
+    animation-play-state: running;
+  }
+
+  @keyframes spinGlowValue {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .value-card .border-glow::before {
+      animation: none;
+    }
+  }
+</style>

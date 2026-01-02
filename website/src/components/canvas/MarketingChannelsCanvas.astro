@@ -1,0 +1,412 @@
+---
+/**
+ * MarketingChannelsCanvas
+ * Animated canvas showing marketing channel icons on subtle pillars
+ * with smooth hover effects and SVG icon loading
+ *
+ * Usage:
+ * <MarketingChannelsCanvas id="my-marketing-canvas" class="w-full h-64" />
+ */
+interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: className = "" } = Astro.props;
+---
+
+<canvas id={id} class:list={["marketing-channels-canvas", className]}></canvas>
+
+<script>
+  interface CanvasState {
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    time: number;
+    animationId: number | null;
+    resizeObserver: ResizeObserver;
+    hoveredIndex: number;
+    hoverOffsets: number[];
+    targetOffsets: number[];
+    images: Map<string, HTMLImageElement>;
+    imagesLoaded: boolean;
+  }
+
+  interface MarketingChannel {
+    icon: string;
+    color: string;
+    phase: number;
+    baseHeight: number;
+  }
+
+  const canvasStates: Map<string, CanvasState> = new Map();
+
+  // Preload marketing channel icons
+  function preloadIcons(): Promise<Map<string, HTMLImageElement>> {
+    const icons = ["instagram", "tiktok", "google", "pinterest", "meta"];
+    const images = new Map<string, HTMLImageElement>();
+
+    return Promise.all(
+      icons.map(
+        (icon) =>
+          new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+              images.set(icon, img);
+              resolve();
+            };
+            img.onerror = () => resolve();
+            img.src = `/images/icons/${icon}.svg`;
+          }),
+      ),
+    ).then(() => images);
+  }
+
+  function drawRoundedRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: number,
+  ) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  // Fallback: draw icon with canvas paths
+  function drawIconFallback(
+    ctx: CanvasRenderingContext2D,
+    icon: string,
+    cx: number,
+    cy: number,
+    size: number,
+  ) {
+    ctx.save();
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    const s = size * 0.35;
+
+    switch (icon) {
+      case "instagram":
+        ctx.strokeStyle = "#E4405F";
+        ctx.fillStyle = "#E4405F";
+        drawRoundedRect(ctx, cx - s, cy - s, s * 2, s * 2, s * 0.4);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(cx, cy, s * 0.55, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(cx + s * 0.6, cy - s * 0.6, s * 0.12, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+
+      case "tiktok":
+        ctx.strokeStyle = "#25F4EE";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx + s * 0.3, cy - s);
+        ctx.lineTo(cx + s * 0.3, cy + s * 0.3);
+        ctx.quadraticCurveTo(cx + s * 0.3, cy + s, cx - s * 0.2, cy + s);
+        ctx.quadraticCurveTo(cx - s * 0.7, cy + s, cx - s * 0.7, cy + s * 0.5);
+        ctx.quadraticCurveTo(cx - s * 0.7, cy, cx - s * 0.2, cy);
+        ctx.quadraticCurveTo(cx + s * 0.1, cy, cx + s * 0.1, cy + s * 0.3);
+        ctx.lineTo(cx + s * 0.1, cy - s * 0.6);
+        ctx.stroke();
+        ctx.strokeStyle = "#FE2C55";
+        ctx.beginPath();
+        ctx.moveTo(cx + s * 0.4, cy - s * 0.9);
+        ctx.quadraticCurveTo(
+          cx + s * 0.8,
+          cy - s * 0.9,
+          cx + s * 0.8,
+          cy - s * 0.5,
+        );
+        ctx.stroke();
+        break;
+
+      case "google":
+        ctx.strokeStyle = "#4285F4";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(cx, cy, s * 0.7, 0.3, Math.PI * 2 - 0.3);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + s * 0.8, cy);
+        ctx.stroke();
+        break;
+
+      case "pinterest":
+        ctx.fillStyle = "#E60023";
+        ctx.strokeStyle = "#E60023";
+        ctx.beginPath();
+        ctx.arc(cx, cy, s * 0.8, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.font = `bold ${s * 1.4}px Arial`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("P", cx, cy + s * 0.1);
+        break;
+
+      case "meta":
+        ctx.strokeStyle = "#0081FB";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx - s * 0.8, cy + s * 0.3);
+        ctx.bezierCurveTo(cx - s * 0.8, cy - s * 0.8, cx, cy - s * 0.8, cx, cy);
+        ctx.bezierCurveTo(
+          cx,
+          cy + s * 0.8,
+          cx + s * 0.8,
+          cy + s * 0.8,
+          cx + s * 0.8,
+          cy - s * 0.3,
+        );
+        ctx.stroke();
+        break;
+    }
+    ctx.restore();
+  }
+
+  function animate(state: CanvasState) {
+    const {
+      ctx,
+      canvas,
+      images,
+      imagesLoaded,
+      hoverOffsets,
+      targetOffsets,
+      hoveredIndex,
+    } = state;
+    const rect = canvas.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    state.time += 0.012;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const channels: MarketingChannel[] = [
+      { icon: "instagram", color: "#E4405F", phase: 0, baseHeight: 0.55 },
+      { icon: "tiktok", color: "#000000", phase: 0.8, baseHeight: 0.7 },
+      { icon: "google", color: "#4285F4", phase: 1.6, baseHeight: 0.45 },
+      { icon: "pinterest", color: "#E60023", phase: 2.4, baseHeight: 0.6 },
+      { icon: "meta", color: "#0081FB", phase: 3.2, baseHeight: 0.5 },
+    ];
+
+    const cardSize = Math.min(width, height) * 0.18;
+    const spacing = width / (channels.length + 1);
+    const baseY = height * 0.9;
+
+    // Update smooth hover offsets
+    // cardY = baseY - pillarHeight, so higher pillarHeight = card moves UP
+    // Positive offset increases pillarHeight (moves up), negative decreases (moves down)
+    const baseHeights = [0.55, 0.7, 0.45, 0.6, 0.5];
+
+    for (let i = 0; i < 5; i++) {
+      if (hoveredIndex !== -1) {
+        if (i === hoveredIndex) {
+          // Hovered pillar goes to middle (target pillarHeight ~0.50)
+          const targetHeight = 0.5;
+          targetOffsets[i] = (targetHeight - baseHeights[i]) * height;
+        } else {
+          // All other pillars go to same low position (target pillarHeight ~0.15)
+          const targetHeight = 0.15;
+          targetOffsets[i] = (targetHeight - baseHeights[i]) * height;
+        }
+      } else {
+        targetOffsets[i] = 0;
+      }
+      hoverOffsets[i] += (targetOffsets[i] - hoverOffsets[i]) * 0.08;
+    }
+
+    channels.forEach((channel, index) => {
+      const x = spacing * (index + 1);
+      const animOffset =
+        Math.sin(state.time + channel.phase) * height * 0.05 +
+        hoverOffsets[index];
+      const pillarHeight = height * channel.baseHeight + animOffset;
+      const cardY = baseY - pillarHeight;
+
+      // Draw subtle pillar line with gradient fade
+      const pillarGradient = ctx.createLinearGradient(
+        x,
+        cardY + cardSize / 2,
+        x,
+        baseY + 20,
+      );
+      pillarGradient.addColorStop(0, "rgba(255, 255, 255, 0.25)");
+      pillarGradient.addColorStop(0.7, "rgba(255, 255, 255, 0.08)");
+      pillarGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+
+      ctx.strokeStyle = pillarGradient;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(x, cardY + cardSize / 2);
+      ctx.lineTo(x, baseY + 20);
+      ctx.stroke();
+
+      // Draw card shadow
+      ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+      ctx.shadowBlur = 15;
+      ctx.shadowOffsetY = 5;
+
+      // Draw card background
+      ctx.fillStyle = "white";
+      drawRoundedRect(
+        ctx,
+        x - cardSize / 2,
+        cardY - cardSize / 2,
+        cardSize,
+        cardSize,
+        cardSize * 0.2,
+      );
+      ctx.fill();
+
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+
+      // Draw icon (SVG if loaded, otherwise fallback)
+      const loadedImage = images.get(channel.icon);
+      if (loadedImage && imagesLoaded) {
+        const iconSize = cardSize * 0.55;
+        ctx.drawImage(
+          loadedImage,
+          x - iconSize / 2,
+          cardY - iconSize / 2,
+          iconSize,
+          iconSize,
+        );
+      } else {
+        drawIconFallback(ctx, channel.icon, x, cardY, cardSize);
+      }
+    });
+
+    state.animationId = requestAnimationFrame(() => animate(state));
+  }
+
+  function initCanvas(canvas: HTMLCanvasElement) {
+    const id = canvas.id;
+    if (!id || canvasStates.has(id)) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.scale(dpr, dpr);
+
+    const state: CanvasState = {
+      canvas,
+      ctx,
+      time: 0,
+      animationId: null,
+      hoveredIndex: -1,
+      hoverOffsets: [0, 0, 0, 0, 0],
+      targetOffsets: [0, 0, 0, 0, 0],
+      images: new Map(),
+      imagesLoaded: false,
+      resizeObserver: new ResizeObserver(() => {
+        const newRect = canvas.getBoundingClientRect();
+        canvas.width = newRect.width * dpr;
+        canvas.height = newRect.height * dpr;
+        ctx.scale(dpr, dpr);
+      }),
+    };
+
+    // Preload icons
+    preloadIcons().then((images) => {
+      state.images = images;
+      state.imagesLoaded = true;
+    });
+
+    // Setup hover interaction
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const width = rect.width;
+      const cardSize = Math.min(width, rect.height) * 0.18;
+      const spacing = width / 6;
+
+      state.hoveredIndex = -1;
+      for (let i = 0; i < 5; i++) {
+        const x = spacing * (i + 1);
+        if (Math.abs(mouseX - x) < cardSize * 0.8) {
+          state.hoveredIndex = i;
+          break;
+        }
+      }
+    };
+
+    const handleMouseLeave = () => {
+      state.hoveredIndex = -1;
+    };
+
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+
+    state.resizeObserver.observe(canvas.parentElement || canvas);
+    canvasStates.set(id, state);
+    animate(state);
+
+    (canvas as HTMLCanvasElement & { _cleanup?: () => void })._cleanup = () => {
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }
+
+  function initAllCanvases() {
+    // Find canvases by class or specific ID
+    document
+      .querySelectorAll<HTMLCanvasElement>(".marketing-channels-canvas")
+      .forEach(initCanvas);
+    // Also check for marketing-canvas ID (used in ServiceCards)
+    const serviceCardCanvas = document.getElementById(
+      "marketing-canvas",
+    ) as HTMLCanvasElement | null;
+    if (serviceCardCanvas && !canvasStates.has(serviceCardCanvas.id)) {
+      initCanvas(serviceCardCanvas);
+    }
+  }
+
+  function cleanup() {
+    canvasStates.forEach((state) => {
+      if (state.animationId) cancelAnimationFrame(state.animationId);
+      state.resizeObserver.disconnect();
+      const canvasWithCleanup = state.canvas as HTMLCanvasElement & {
+        _cleanup?: () => void;
+      };
+      if (canvasWithCleanup._cleanup) canvasWithCleanup._cleanup();
+    });
+    canvasStates.clear();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAllCanvases);
+  } else {
+    initAllCanvases();
+  }
+  document.addEventListener("astro:after-swap", initAllCanvases);
+  document.addEventListener("astro:before-swap", cleanup, { once: true });
+</script>
+
+<style>
+  .marketing-channels-canvas {
+    display: block;
+  }
+</style>

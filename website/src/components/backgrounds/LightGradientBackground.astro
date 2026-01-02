@@ -1,0 +1,85 @@
+---
+interface Props {
+  color?: string;
+  opacity?: number;
+  position?: "center" | "top" | "bottom" | "left" | "right";
+  size?: "sm" | "md" | "lg" | "xl";
+  vignette?: boolean;
+  vignetteColor?: string;
+}
+
+const {
+  color = "#c8ff00",
+  opacity = 0.15,
+  position = "center",
+  size = "lg",
+  vignette = true,
+  vignetteColor = "#0a1628",
+} = Astro.props;
+
+// Size configurations for the gradient
+const sizes = {
+  sm: "40%",
+  md: "55%",
+  lg: "70%",
+  xl: "85%",
+};
+
+// Position configurations
+const positions = {
+  center: "50% 50%",
+  top: "50% 0%",
+  bottom: "50% 100%",
+  left: "0% 50%",
+  right: "100% 50%",
+};
+---
+
+<div class="absolute inset-0 overflow-hidden">
+  {/* Light gradient glow */}
+  <div
+    class="absolute inset-0"
+    style={`
+      background: radial-gradient(
+        ellipse ${sizes[size]} ${sizes[size]} at ${positions[position]},
+        ${color} 0%,
+        transparent 100%
+      );
+      opacity: ${opacity};
+    `}
+  />
+
+  {/* Vignette overlay - fades to dark at edges */}
+  {vignette && (
+    <div
+      class="vignette-overlay pointer-events-none absolute inset-0 z-10"
+      style={`--vignette-color: ${vignetteColor};`}
+    />
+  )}
+</div>
+
+<style>
+  .vignette-overlay {
+    background: radial-gradient(
+      ellipse farthest-corner at center,
+      transparent 0%,
+      transparent 35%,
+      oklch(from var(--vignette-color) l c h / 0.2) 50%,
+      oklch(from var(--vignette-color) l c h / 0.5) 65%,
+      oklch(from var(--vignette-color) l c h / 0.8) 80%,
+      var(--vignette-color) 100%
+    );
+  }
+
+  /* Fallback for browsers without relative color syntax */
+  @supports not (color: oklch(from red l c h)) {
+    .vignette-overlay {
+      background: radial-gradient(
+        ellipse farthest-corner at center,
+        transparent 0%,
+        transparent 35%,
+        var(--vignette-color) 100%
+      );
+    }
+  }
+</style>

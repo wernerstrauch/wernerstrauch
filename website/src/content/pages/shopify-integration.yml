@@ -1,0 +1,132 @@
+lang: de
+pageId: shopify-integration
+
+meta:
+  title: "Shopify Integration | ERP, PIM, CRM & API Anbindung"
+  description: "Shopify Integrationen und API-Anbindungen. Wir verbinden deinen Shop mit ERP, PIM, CRM und anderen Systemen für automatisierte Prozesse."
+
+slug: "shopify-integration"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:arrows-right-left-16-solid"
+        text: "Integrationen"
+      headline:
+        line1: "Shopify"
+        line2: "<em>Integrationen</em>"
+      subheadline: "Verbinde Shopify nahtlos mit deinen bestehenden Systemen. ERP, PIM, CRM und mehr - alles automatisiert."
+      ctas:
+        - text: "Integration planen"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Unsere Lösungen"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#loesungen"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "50+ Integrationen"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Custom APIs"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Echtzeit-Sync"
+
+  - id: services
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Lösungen"
+      badgeIcon: "heroicons:puzzle-piece-16-solid"
+      headline: "Systeme, die wir <em>integrieren</em>"
+      description: "Wir verbinden Shopify mit allen gängigen Business-Systemen."
+      services:
+        - tagline: "ERP"
+          title: "ERP-Systeme"
+          description: "SAP, Microsoft Dynamics, DATEV und weitere ERP-Lösungen für automatisierte Warenwirtschaft."
+          icon: "heroicons:building-office-2"
+        - tagline: "PIM"
+          title: "Produktdaten"
+          description: "Akeneo, Pimcore, Contentserv - zentrale Produktdatenverwaltung für alle Kanäle."
+          icon: "heroicons:cube"
+        - tagline: "CRM"
+          title: "Kundendaten"
+          description: "Salesforce, HubSpot, Pipedrive - 360-Grad-Sicht auf deine Kunden."
+          icon: "heroicons:users"
+        - tagline: "Logistik"
+          title: "Fulfillment"
+          description: "DHL, UPS, Sendcloud, Shipcloud - automatisierter Versand und Tracking."
+          icon: "heroicons:truck"
+
+  - id: process
+    enabled: true
+    order: 3
+    component: Process
+    wrapper:
+      variant: light
+      padding: lg
+    content:
+      variant: light
+      badge: "Ablauf"
+      badgeIcon: "heroicons:cog-6-tooth-16-solid"
+      headline: "So integrieren wir <em>deine Systeme</em>"
+      description: "Strukturierter Prozess für zuverlässige Integrationen."
+      steps:
+        - title: "Analyse"
+          description: "Wir analysieren deine bestehenden Systeme und Prozesse."
+        - title: "Konzeption"
+          description: "Planung der Datenflüsse und Schnittstellen-Architektur."
+        - title: "Entwicklung"
+          description: "Umsetzung der Integration mit robusten APIs und Fehlerhandling."
+        - title: "Testing & Go-Live"
+          description: "Ausführliche Tests und Monitoring nach dem Launch."
+
+  - id: cta
+    enabled: true
+    order: 4
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Systeme <em>verbinden?</em>"
+      description: "Lass uns besprechen, wie wir deine Prozesse durch smarte Integrationen automatisieren können."
+      buttonText: "Integration besprechen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

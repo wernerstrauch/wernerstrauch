@@ -1,0 +1,63 @@
+---
+interface Props {
+  maxRadius?: number;
+  minRadius?: number;
+  density?: "low" | "medium" | "high";
+}
+
+const { maxRadius = 3, minRadius = 1, density = "low" } = Astro.props;
+
+function generateRandomId() {
+  return "id-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
+}
+
+const randomId = generateRandomId();
+---
+
+<canvas
+  id={randomId}
+  class="opacity-0 duration-1000 ease-in-out"
+  data-starfield
+  data-max-radius={maxRadius}
+  data-min-radius={minRadius}
+  data-density={density}></canvas>
+
+<script>
+  import { Stars } from "@scripts/starfield.ts";
+
+  // Track star field instances for cleanup (use Map to track by canvas id)
+  const starfieldInstances = new Map<string, Stars>();
+
+  // get all canvas elements with data-starfield attribute
+  function initStarfield() {
+    const canvases =
+      document.querySelectorAll<HTMLCanvasElement>("[data-starfield]");
+
+    canvases.forEach((canvas) => {
+      // Skip if already initialized
+      if (starfieldInstances.has(canvas.id)) return;
+
+      const maxRadius = parseInt(canvas.getAttribute("data-max-radius")!);
+      const minRadius = parseInt(canvas.getAttribute("data-min-radius")!);
+      const density = canvas.getAttribute("data-density")!;
+
+      try {
+        const starfield = new Stars(canvas.id, maxRadius, minRadius, density);
+        starfieldInstances.set(canvas.id, starfield);
+      } catch (e) {
+        console.warn("StarField init failed:", e);
+      }
+    });
+  }
+
+  // Initialize on load
+  initStarfield();
+
+  // Re-init on Astro page transitions
+  document.addEventListener("astro:after-swap", () => {
+    // Clean up old instances
+    starfieldInstances.forEach((instance) => instance.destroy());
+    starfieldInstances.clear();
+    initStarfield();
+  });
+</script>

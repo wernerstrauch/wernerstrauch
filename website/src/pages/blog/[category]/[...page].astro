@@ -1,0 +1,466 @@
+---
+export const prerender = true;
+
+import RootLayout from "@layouts/RootLayout.astro";
+import Container from "@components/shared/Container.astro";
+import Footer from "@components/sections/Footer.astro";
+import BlogCard from "@components/blog/BlogCard.astro";
+import FeaturedBlogCard from "@components/blog/FeaturedBlogCard.astro";
+import Pagination from "@components/blog/Pagination.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { type SupportedLanguage } from "@lib/i18n";
+import { SITE } from "@config";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import { resolveBlogImage } from "@lib/blog-images";
+import {
+  getAllCategories,
+  type BlogCategory,
+} from "../../../config/blog-categories";
+
+// Type for recently published items
+interface RecentPostItem {
+  post: CollectionEntry<"blog">;
+  slug: string;
+  resolvedImage: ImageMetadata | null;
+}
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 10;
+  const categories = getAllCategories();
+  const paths = [];
+
+  for (const category of categories) {
+    // Get all posts for this category
+    const allPosts = await getCollection(
+      "blog",
+      ({ data }: CollectionEntry<"blog">) =>
+        !data.draft &&
+        data.lang === "de" &&
+        data.categories?.includes(category.id as "ecommerce" | "marketing"),
+    );
+
+    const sortedPosts = allPosts.sort(
+      (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+        b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+    );
+
+    const totalPages = Math.max(
+      1,
+      Math.ceil(sortedPosts.length / POSTS_PER_PAGE),
+    );
+
+    for (let i = 1; i <= totalPages; i++) {
+      const start = (i - 1) * POSTS_PER_PAGE;
+      const end = start + POSTS_PER_PAGE;
+      const pagePosts = sortedPosts.slice(start, end);
+
+      paths.push({
+        params: {
+          category: category.slug,
+          page: i === 1 ? undefined : String(i),
+        },
+        props: {
+          posts: pagePosts,
+          currentPage: i,
+          totalPages,
+          allPosts: sortedPosts,
+          categoryData: category,
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  posts: CollectionEntry<"blog">[];
+  currentPage: number;
+  totalPages: number;
+  allPosts: CollectionEntry<"blog">[];
+  categoryData: BlogCategory;
+}
+
+const { posts, currentPage, totalPages, allPosts, categoryData } = Astro.props;
+
+// i18n setup
+const lang: SupportedLanguage = "de";
+const hreflangEntries = [
+  { lang: "de", url: `${SITE.website}/blog/${categoryData.slug}` },
+  { lang: "en", url: `${SITE.website}/en/blog/${categoryData.slug}` },
+  { lang: "x-default", url: `${SITE.website}/blog/${categoryData.slug}` },
+];
+
+// Get featured posts (only show on first page)
+const featuredPosts =
+  currentPage === 1
+    ? allPosts
+        .filter((post: CollectionEntry<"blog">) => post.data.featured)
+        .slice(0, 2)
+    : [];
+
+// Regular posts (exclude featured on first page)
+const regularPosts =
+  currentPage === 1
+    ? posts.filter(
+        (post: CollectionEntry<"blog">) =>
+          !featuredPosts.some(
+            (fp: CollectionEntry<"blog">) => fp.id === post.id,
+          ),
+      )
+    : posts;
+
+// Recently published posts (only show on first page, latest 5, excluding featured)
+const recentlyPublished: RecentPostItem[] =
+  currentPage === 1
+    ? allPosts
+        .filter(
+          (post: CollectionEntry<"blog">) =>
+            !featuredPosts.some(
+              (fp: CollectionEntry<"blog">) => fp.id === post.id,
+            ),
+        )
+        .slice(0, 5)
+        .map((post: CollectionEntry<"blog">) => ({
+          post,
+          slug: post.id.replace(/\.mdx$/, ""),
+          resolvedImage: post.data.image?.src
+            ? resolveBlogImage(post.data.image.src)
+            : null,
+        }))
+    : [];
+
+// Get all categories with counts for navigation
+const allCategoriesWithCounts = await Promise.all(
+  getAllCategories().map(async (cat) => {
+    const catPosts = await getCollection(
+      "blog",
+      ({ data }: CollectionEntry<"blog">) =>
+        !data.draft &&
+        data.lang === "de" &&
+        data.categories?.includes(cat.id as "ecommerce" | "marketing"),
+    );
+    return {
+      ...cat,
+      count: catPosts.length,
+      isActive: cat.id === categoryData.id,
+    };
+  }),
+);
+---
+
+<RootLayout
+  title={currentPage === 1
+    ? `${categoryData.label} | Blog | digitalsprung`
+    : `${categoryData.label} - Seite ${currentPage} | Blog | digitalsprung`}
+  description={categoryData.description}
+  lang={lang}
+  hreflangEntries={hreflangEntries}
+  headerVariant="dark"
+>
+  <main class="blog-index">
+    {/* Hero Section - Dark */}
+    <section class="blog-hero bg-gray-900 pt-28 pb-10 lg:pt-40 lg:pb-16">
+      <Container class="max-w-7xl">
+        <header class="max-w-4xl">
+          {/* Breadcrumb */}
+          <nav class="mb-6" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2 text-sm text-gray-400">
+              <li>
+                <a href="/blog" class="transition-colors hover:text-white">
+                  Blog
+                </a>
+              </li>
+              <li class="text-gray-600">/</li>
+              <li class="font-medium text-white">{categoryData.label}</li>
+            </ol>
+          </nav>
+
+          <h1
+            class="blog-hero__headline mb-6 text-4xl leading-none font-semibold text-white sm:text-5xl lg:mb-8 lg:text-6xl xl:text-7xl"
+          >
+            {categoryData.label}
+          </h1>
+          <p
+            class="blog-hero__description max-w-2xl text-lg text-gray-400 lg:text-xl"
+          >
+            {categoryData.description}
+          </p>
+        </header>
+      </Container>
+    </section>
+
+    {/* Category Navigation */}
+    <section class="blog-filter bg-gray-900 pb-10 lg:pb-16">
+      <Container class="max-w-7xl">
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/blog"
+            class="category-pill rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
+          >
+            Alle
+          </a>
+          {
+            allCategoriesWithCounts.map((cat) => (
+              <a
+                href={`/blog/${cat.slug}`}
+                class:list={[
+                  "category-pill rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                  cat.isActive
+                    ? "bg-white text-gray-900"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white",
+                ]}
+              >
+                {cat.label}
+                <span class="ml-1.5 text-xs opacity-60">({cat.count})</span>
+              </a>
+            ))
+          }
+        </div>
+      </Container>
+    </section>
+
+    {/* Featured Posts (only on first page) */}
+    {
+      featuredPosts.length > 0 && currentPage === 1 && (
+        <section class="blog-featured bg-gray-50 py-12 lg:py-20">
+          <Container class="max-w-7xl">
+            <div
+              class:list={[
+                "grid gap-10 lg:gap-12",
+                featuredPosts.length === 1 ? "" : "lg:grid-cols-2",
+              ]}
+            >
+              {featuredPosts.map((post: CollectionEntry<"blog">) => (
+                <FeaturedBlogCard
+                  post={post}
+                  variant={featuredPosts.length === 1 ? "large" : "medium"}
+                />
+              ))}
+            </div>
+          </Container>
+        </section>
+      )
+    }
+
+    {/* All Posts Grid */}
+    <section
+      class="blog-grid bg-gray-50 py-12 lg:py-20"
+      class:list={{
+        "pt-0 lg:pt-0": featuredPosts.length > 0 && currentPage === 1,
+      }}
+    >
+      <Container class="max-w-7xl">
+        {
+          regularPosts.length > 0 ? (
+            <>
+              <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
+                {regularPosts.map((post: CollectionEntry<"blog">) => (
+                  <BlogCard post={post} />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div class="mt-16 lg:mt-24">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    baseUrl={`/blog/${categoryData.slug}`}
+                  />
+                </div>
+              )}
+            </>
+          ) : (
+            <div class="py-12 text-center">
+              <p class="text-lg text-gray-600">
+                Noch keine Artikel in dieser Kategorie.
+              </p>
+              <a
+                href="/blog"
+                class="text-primary mt-4 inline-block hover:underline"
+              >
+                ← Alle Artikel anzeigen
+              </a>
+            </div>
+          )
+        }
+      </Container>
+    </section>
+
+    {/* Recently Published Section (only on first page) */}
+    {
+      recentlyPublished.length > 0 && currentPage === 1 && (
+        <section class="recently-published bg-gray-50 py-16 lg:py-24">
+          <Container class="max-w-7xl">
+            <h2 class="mb-10 text-2xl font-semibold text-gray-900 lg:mb-12 lg:text-3xl">
+              Kürzlich veröffentlicht
+            </h2>
+            <ul class="recent-list divide-y divide-gray-200">
+              {recentlyPublished.map((item: RecentPostItem) => (
+                <li class="recent-item group">
+                  <a
+                    href={`/blog/${item.slug}`}
+                    class="recent-link flex items-center gap-6 py-5 transition-colors hover:bg-gray-50 lg:gap-8 lg:py-6"
+                  >
+                    {/* Thumbnail - 16:9 aspect ratio */}
+                    <div class="recent-thumbnail hidden shrink-0 overflow-hidden rounded-lg sm:block">
+                      {item.resolvedImage ? (
+                        <Image
+                          src={item.resolvedImage}
+                          alt={
+                            item.post.data.image?.alt || item.post.data.title
+                          }
+                          width={224}
+                          height={126}
+                          class="h-[72px] w-32 object-cover transition-transform duration-300 group-hover:scale-105 lg:h-[90px] lg:w-40"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div class="flex h-[72px] w-32 items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 lg:h-[90px] lg:w-40">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-8 w-8 text-gray-400"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div class="min-w-0 flex-1">
+                      <h3 class="recent-title group-hover:text-primary-600 mb-1 truncate text-base font-medium text-gray-900 lg:text-lg">
+                        {item.post.data.title}
+                      </h3>
+                      {item.post.data.description && (
+                        <p class="recent-description line-clamp-1 text-sm text-gray-500 lg:text-base">
+                          {item.post.data.description}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Date & Arrow */}
+                    <div class="flex shrink-0 items-center gap-4">
+                      <time
+                        datetime={item.post.data.publishedAt.toISOString()}
+                        class="recent-date hidden text-sm text-gray-400 md:block"
+                      >
+                        {item.post.data.publishedAt.toLocaleDateString(
+                          "de-DE",
+                          {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          },
+                        )}
+                      </time>
+                      <span class="recent-arrow group-hover:text-primary-600 text-gray-300 transition-colors">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          class="h-5 w-5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      )
+    }
+  </main>
+
+  <Footer />
+</RootLayout>
+
+<style>
+  @reference "../../../styles/styles.css";
+
+  /* Hero gradient overlay */
+  .blog-hero {
+    background: linear-gradient(
+      to bottom,
+      var(--color-gray-900) 0%,
+      var(--color-gray-900) 100%
+    );
+  }
+
+  .blog-hero__headline {
+    color: var(--color-white);
+  }
+
+  .blog-hero__description {
+    color: var(--color-gray-400);
+  }
+
+  /* Filter section inherits dark background */
+  .blog-filter {
+    background-color: var(--color-gray-900);
+  }
+
+  /* Featured & Grid sections */
+  .blog-featured,
+  .blog-grid {
+    background-color: var(--color-gray-50);
+  }
+
+  /* Recently Published section */
+  .recently-published {
+    background-color: var(--color-gray-50);
+  }
+
+  .recent-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .recent-item:first-child {
+    border-top: none;
+  }
+
+  .recent-link {
+    display: flex;
+    text-decoration: none;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .recent-title {
+    transition: color 0.2s ease;
+  }
+
+  .recent-arrow {
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .recent-item:hover .recent-arrow {
+    transform: translateX(4px);
+  }
+</style>

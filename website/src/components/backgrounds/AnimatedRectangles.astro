@@ -1,0 +1,503 @@
+---
+interface Props {
+  color1?: string;
+  color2?: string;
+  color3?: string;
+  color4?: string;
+  opacity?: number;
+  borderRadius?: string;
+}
+
+const {
+  color1 = "var(--primary-light)",
+  color2 = "var(--primary)",
+  color3 = "var(--primary)",
+  color4 = "var(--primary-light)",
+  opacity = 0.8,
+  borderRadius = "3rem",
+} = Astro.props;
+---
+
+{/* Rectangle 1 */}
+<div
+  class="animated-rect rect-1 pointer-events-none absolute"
+  style={`
+    background: transparent;
+    opacity: ${opacity};
+    border-radius: ${borderRadius};
+  `}
+  data-color={color1}
+>
+  <svg class="glow-border" xmlns="http://www.w3.org/2000/svg">
+    <rect class="base-rect" pathLength="100"></rect>
+    <rect class="glow-rect" pathLength="100"></rect>
+  </svg>
+</div>
+
+{/* Rectangle 2 */}
+<div
+  class="animated-rect rect-2 pointer-events-none absolute"
+  style={`
+    background: transparent;
+    opacity: ${opacity};
+    border-radius: ${borderRadius};
+  `}
+  data-color={color2}
+>
+  <svg class="glow-border" xmlns="http://www.w3.org/2000/svg">
+    <rect class="base-rect" pathLength="100"></rect>
+    <rect class="glow-rect" pathLength="100"></rect>
+  </svg>
+</div>
+
+{/* Rectangle 3 */}
+<div
+  class="animated-rect rect-3 pointer-events-none absolute"
+  style={`
+    background: transparent;
+    opacity: ${opacity};
+    border-radius: ${borderRadius};
+  `}
+  data-color={color3}
+>
+  <svg class="glow-border" xmlns="http://www.w3.org/2000/svg">
+    <rect class="base-rect" pathLength="100"></rect>
+    <rect class="glow-rect" pathLength="100"></rect>
+  </svg>
+</div>
+
+{/* Rectangle 4 */}
+<div
+  class="animated-rect rect-4 pointer-events-none absolute"
+  style={`
+    background: transparent;
+    opacity: ${opacity};
+    border-radius: ${borderRadius};
+  `}
+  data-color={color4}
+>
+  <svg class="glow-border" xmlns="http://www.w3.org/2000/svg">
+    <rect class="base-rect" pathLength="100"></rect>
+    <rect class="glow-rect" pathLength="100"></rect>
+  </svg>
+</div>
+
+<script>
+  interface Rectangle {
+    element: HTMLElement;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    vx: number;
+    vy: number;
+    rotation: number;
+    rotationSpeed: number;
+  }
+
+  function initAnimatedRectangles(): void {
+    const container = document.querySelector(".animated-rect")?.parentElement;
+    if (!container) return;
+
+    const rect1El = container.querySelector(".rect-1") as HTMLElement;
+    const rect2El = container.querySelector(".rect-2") as HTMLElement;
+    const rect3El = container.querySelector(".rect-3") as HTMLElement;
+    const rect4El = container.querySelector(".rect-4") as HTMLElement;
+    if (!rect1El || !rect2El || !rect3El || !rect4El) return;
+
+    const rect1: Rectangle = {
+      element: rect1El,
+      x: 0,
+      y: 0,
+      width: 350,
+      height: 350,
+      vx: 0.3,
+      vy: 0.2,
+      rotation: 0,
+      rotationSpeed: 0.1,
+    };
+
+    const rect2: Rectangle = {
+      element: rect2El,
+      x: 0,
+      y: 0,
+      width: 300,
+      height: 300,
+      vx: -0.25,
+      vy: 0.35,
+      rotation: 0,
+      rotationSpeed: -0.15,
+    };
+
+    const rect3: Rectangle = {
+      element: rect3El,
+      x: 0,
+      y: 0,
+      width: 280,
+      height: 280,
+      vx: 0.35,
+      vy: -0.3,
+      rotation: 0,
+      rotationSpeed: 0.12,
+    };
+
+    const rect4: Rectangle = {
+      element: rect4El,
+      x: 0,
+      y: 0,
+      width: 260,
+      height: 260,
+      vx: -0.28,
+      vy: -0.32,
+      rotation: 0,
+      rotationSpeed: 0.08,
+    };
+
+    // Set initial sizes and configure SVG borders
+    function setupRectangle(rect: Rectangle): void {
+      rect.element.style.width = `${rect.width}px`;
+      rect.element.style.height = `${rect.height}px`;
+
+      const svg = rect.element.querySelector(".glow-border") as SVGElement;
+      const baseRect = rect.element.querySelector(
+        ".base-rect",
+      ) as SVGRectElement;
+      const glowRect = rect.element.querySelector(
+        ".glow-rect",
+      ) as SVGRectElement;
+      const color = rect.element.dataset.color || "#b4e565";
+
+      if (svg && baseRect && glowRect) {
+        svg.setAttribute("width", `${rect.width}`);
+        svg.setAttribute("height", `${rect.height}`);
+
+        // Base border (always visible)
+        baseRect.setAttribute("x", "0.5");
+        baseRect.setAttribute("y", "0.5");
+        baseRect.setAttribute("width", `${rect.width - 1}`);
+        baseRect.setAttribute("height", `${rect.height - 1}`);
+        baseRect.setAttribute("fill", "none");
+        baseRect.setAttribute("stroke", color);
+        baseRect.setAttribute("stroke-width", "1");
+
+        // Glow/shine effect (animated)
+        glowRect.setAttribute("x", "0.5");
+        glowRect.setAttribute("y", "0.5");
+        glowRect.setAttribute("width", `${rect.width - 1}`);
+        glowRect.setAttribute("height", `${rect.height - 1}`);
+        glowRect.setAttribute("fill", "none");
+        glowRect.setAttribute("stroke", color);
+        glowRect.setAttribute("stroke-width", "2");
+      }
+    }
+
+    setupRectangle(rect1);
+    setupRectangle(rect2);
+    setupRectangle(rect3);
+    setupRectangle(rect4);
+
+    function updatePosition(
+      rect: Rectangle,
+      containerWidth: number,
+      containerHeight: number,
+    ): void {
+      // Update position
+      rect.x += rect.vx;
+      rect.y += rect.vy;
+      rect.rotation += rect.rotationSpeed;
+
+      // Collision with container bounds (scaled by 1.3)
+      const maxX = containerWidth * 1.3 - rect.width;
+      const maxY = containerHeight * 1.3 - rect.height;
+      const minX = -containerWidth * 0.15;
+      const minY = -containerHeight * 0.15;
+
+      if (rect.x <= minX || rect.x >= maxX) {
+        rect.vx *= -1;
+        rect.x = Math.max(minX, Math.min(maxX, rect.x));
+      }
+
+      if (rect.y <= minY || rect.y >= maxY) {
+        rect.vy *= -1;
+        rect.y = Math.max(minY, Math.min(maxY, rect.y));
+      }
+
+      // Apply transform
+      rect.element.style.transform = `translate(${rect.x}px, ${rect.y}px) rotate(${rect.rotation}deg)`;
+    }
+
+    function checkCollision(r1: Rectangle, r2: Rectangle): boolean {
+      // AABB (Axis-Aligned Bounding Box) collision detection
+      // More accurate for rectangles/squares than circle-based detection
+
+      // Account for rotation by using rotated bounding box
+      // For simplicity with rotation, use inflated AABB
+      const r1Left = r1.x;
+      const r1Right = r1.x + r1.width;
+      const r1Top = r1.y;
+      const r1Bottom = r1.y + r1.height;
+
+      const r2Left = r2.x;
+      const r2Right = r2.x + r2.width;
+      const r2Top = r2.y;
+      const r2Bottom = r2.y + r2.height;
+
+      // Check if rectangles overlap
+      return !(
+        r1Right < r2Left ||
+        r1Left > r2Right ||
+        r1Bottom < r2Top ||
+        r1Top > r2Bottom
+      );
+    }
+
+    function handleCollision(r1: Rectangle, r2: Rectangle): void {
+      // Calculate center points
+      const r1CenterX = r1.x + r1.width / 2;
+      const r1CenterY = r1.y + r1.height / 2;
+      const r2CenterX = r2.x + r2.width / 2;
+      const r2CenterY = r2.y + r2.height / 2;
+
+      // Calculate overlap on each axis
+      const overlapX =
+        r1.width / 2 + r2.width / 2 - Math.abs(r1CenterX - r2CenterX);
+      const overlapY =
+        r1.height / 2 + r2.height / 2 - Math.abs(r1CenterY - r2CenterY);
+
+      // Find the axis of minimum penetration (MTV - Minimum Translation Vector)
+      if (overlapX < overlapY) {
+        // Collision on X axis
+        const direction = r1CenterX < r2CenterX ? -1 : 1;
+
+        // Separate rectangles
+        const separation = overlapX / 2;
+        r1.x += direction * separation;
+        r2.x -= direction * separation;
+
+        // Swap X velocities (elastic collision)
+        const tempVx = r1.vx;
+        r1.vx = r2.vx;
+        r2.vx = tempVx;
+
+        // Add some energy loss
+        r1.vx *= 0.95;
+        r2.vx *= 0.95;
+
+        // Change rotation on collision
+        r1.rotationSpeed *= -0.9;
+        r2.rotationSpeed *= -0.9;
+      } else {
+        // Collision on Y axis
+        const direction = r1CenterY < r2CenterY ? -1 : 1;
+
+        // Separate rectangles
+        const separation = overlapY / 2;
+        r1.y += direction * separation;
+        r2.y -= direction * separation;
+
+        // Swap Y velocities (elastic collision)
+        const tempVy = r1.vy;
+        r1.vy = r2.vy;
+        r2.vy = tempVy;
+
+        // Add some energy loss
+        r1.vy *= 0.95;
+        r2.vy *= 0.95;
+
+        // Change rotation on collision
+        r1.rotationSpeed *= -0.9;
+        r2.rotationSpeed *= -0.9;
+      }
+    }
+
+    let lastCollision12 = false;
+    let lastCollision13 = false;
+    let lastCollision14 = false;
+    let lastCollision23 = false;
+    let lastCollision24 = false;
+    let lastCollision34 = false;
+
+    // Disable collision on mobile (< 768px)
+    const isMobile = window.innerWidth < 768;
+
+    function animate(): void {
+      if (!container) return;
+      const containerRect = container.getBoundingClientRect();
+
+      updatePosition(rect1, containerRect.width, containerRect.height);
+      updatePosition(rect2, containerRect.width, containerRect.height);
+      updatePosition(rect3, containerRect.width, containerRect.height);
+      updatePosition(rect4, containerRect.width, containerRect.height);
+
+      // Skip collision detection on mobile for performance
+      if (!isMobile) {
+        // Check all collision pairs
+        const isColliding12 = checkCollision(rect1, rect2);
+        const isColliding13 = checkCollision(rect1, rect3);
+        const isColliding14 = checkCollision(rect1, rect4);
+        const isColliding23 = checkCollision(rect2, rect3);
+        const isColliding24 = checkCollision(rect2, rect4);
+        const isColliding34 = checkCollision(rect3, rect4);
+
+        // Handle rect1 <-> rect2 collision
+        if (isColliding12) {
+          if (!lastCollision12) {
+            handleCollision(rect1, rect2);
+          }
+        }
+
+        // Handle rect1 <-> rect3 collision
+        if (isColliding13) {
+          if (!lastCollision13) {
+            handleCollision(rect1, rect3);
+          }
+        }
+
+        // Handle rect1 <-> rect4 collision
+        if (isColliding14) {
+          if (!lastCollision14) {
+            handleCollision(rect1, rect4);
+          }
+        }
+
+        // Handle rect2 <-> rect3 collision
+        if (isColliding23) {
+          if (!lastCollision23) {
+            handleCollision(rect2, rect3);
+          }
+        }
+
+        // Handle rect2 <-> rect4 collision
+        if (isColliding24) {
+          if (!lastCollision24) {
+            handleCollision(rect2, rect4);
+          }
+        }
+
+        // Handle rect3 <-> rect4 collision
+        if (isColliding34) {
+          if (!lastCollision34) {
+            handleCollision(rect3, rect4);
+          }
+        }
+
+        lastCollision12 = isColliding12;
+        lastCollision13 = isColliding13;
+        lastCollision14 = isColliding14;
+        lastCollision23 = isColliding23;
+        lastCollision24 = isColliding24;
+        lastCollision34 = isColliding34;
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize positions - 3 squares in visible area, 1 outside
+    const containerRect = container.getBoundingClientRect();
+    rect1.x = containerRect.width * 0.15;
+    rect1.y = containerRect.height * 0.15;
+    rect2.x = containerRect.width * 0.55;
+    rect2.y = containerRect.height * 0.45;
+    rect3.x = containerRect.width * 1.1;
+    rect3.y = containerRect.height * 0.25;
+    rect4.x = containerRect.width * 0.35;
+    rect4.y = containerRect.height * 0.65;
+
+    animate();
+  }
+
+  // Initialize on load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAnimatedRectangles);
+  } else {
+    initAnimatedRectangles();
+  }
+
+  // Re-initialize on page transitions
+  document.addEventListener("astro:page-load", initAnimatedRectangles);
+</script>
+
+<style>
+  .animated-rect {
+    top: 0;
+    left: 0;
+    will-change: transform;
+    position: relative;
+  }
+
+  .glow-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* Base border - always visible */
+  .base-rect {
+    stroke-opacity: 0.6;
+  }
+
+  /* Animated glow/shine effect */
+  .glow-rect {
+    stroke-dasharray: 15 85;
+    stroke-dashoffset: 0;
+    box-shadow:
+      0 0 15px currentColor,
+      0 0 30px currentColor,
+      0 0 50px currentColor;
+    filter: drop-shadow(0 0 15px currentColor)
+      drop-shadow(0 0 30px currentColor) drop-shadow(0 0 50px currentColor);
+    animation: glow-flow ease-in-out infinite;
+    stroke-opacity: 0;
+  }
+
+  .rect-1 .glow-rect {
+    animation-duration: 12s;
+    animation-delay: 0s;
+  }
+
+  .rect-2 .glow-rect {
+    animation-duration: 15s;
+    animation-delay: 5s;
+  }
+
+  .rect-3 .glow-rect {
+    animation-duration: 10s;
+    animation-delay: 8s;
+  }
+
+  .rect-4 .glow-rect {
+    animation-duration: 13s;
+    animation-delay: 2s;
+  }
+
+  @keyframes glow-flow {
+    0% {
+      stroke-dashoffset: -15;
+      stroke-opacity: 0;
+    }
+    5% {
+      stroke-opacity: 1;
+    }
+    95% {
+      stroke-opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 100;
+      stroke-opacity: 0;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animated-rect {
+      display: none;
+    }
+
+    .glow-rect {
+      animation: none;
+    }
+  }
+</style>

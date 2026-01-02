@@ -1,0 +1,219 @@
+---
+interface Props {
+  color?: string;
+  glowColor?: string;
+  opacity?: number;
+  gridSize?: number;
+  glowLines?: number;
+  rotate?: number;
+  vignette?: boolean;
+  vignetteColor?: string;
+}
+
+const {
+  color = "var(--primary)",
+  glowColor = "var(--primary-light)",
+  opacity = 0.15,
+  gridSize = 60,
+  glowLines = 6,
+  rotate = 0,
+  vignette = false,
+  vignetteColor = "inherit",
+} = Astro.props;
+
+// Generate random grid line indices for glow lines
+// These will be exact multiples of gridSize to align with grid lines
+const horizontalGlows = Array.from(
+  { length: Math.ceil(glowLines / 2) },
+  (_, i) => ({
+    id: `h-${i}`,
+    delay: Math.random() * 15,
+    duration: 8 + Math.random() * 12,
+    gridLine: Math.floor(Math.random() * 8) + 3, // Grid line index (3-10)
+  }),
+);
+
+const verticalGlows = Array.from(
+  { length: Math.floor(glowLines / 2) },
+  (_, i) => ({
+    id: `v-${i}`,
+    delay: Math.random() * 15,
+    duration: 8 + Math.random() * 12,
+    gridLine: Math.floor(Math.random() * 12) + 4, // Grid line index (4-15)
+  }),
+);
+---
+
+<div class="absolute inset-0 overflow-hidden">
+  <div
+    class="absolute inset-[-50%] h-[200%] w-[200%]"
+    style={`transform: rotate(${rotate}deg);`}
+  >
+    {/* Static Grid */}
+    <div
+      class="absolute inset-0"
+      style={`
+        --grid-color: ${color};
+        --grid-opacity: ${opacity};
+        --grid-size: ${gridSize}px;
+        background-image:
+          linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+        background-size: var(--grid-size) var(--grid-size);
+        opacity: var(--grid-opacity);
+      `}
+    >
+    </div>
+
+    {/* Horizontal Glow Lines - positioned exactly on grid lines */}
+    {
+      horizontalGlows.map((glow) => (
+        <div
+          class="glow-line-h absolute left-0 h-px w-full"
+          style={`
+          --glow-color: ${glowColor};
+          --delay: ${glow.delay}s;
+          --duration: ${glow.duration}s;
+          top: ${glow.gridLine * gridSize}px;
+        `}
+        >
+          <div class="glow-pulse-h" />
+        </div>
+      ))
+    }
+
+    {/* Vertical Glow Lines - positioned exactly on grid lines */}
+    {
+      verticalGlows.map((glow) => (
+        <div
+          class="glow-line-v absolute top-0 h-full w-px"
+          style={`
+          --glow-color: ${glowColor};
+          --delay: ${glow.delay}s;
+          --duration: ${glow.duration}s;
+          left: ${glow.gridLine * gridSize}px;
+        `}
+        >
+          <div class="glow-pulse-v" />
+        </div>
+      ))
+    }
+  </div>
+
+  {/* Vignette Overlay - smooth fade to edges */}
+  {
+    vignette && (
+      <div
+        class="vignette-overlay pointer-events-none absolute inset-0 z-20"
+        style={`--vignette-color: ${vignetteColor === "inherit" ? "#1c1c1e" : vignetteColor};`}
+      />
+    )
+  }
+</div>
+
+<style>
+  .vignette-overlay {
+    background: radial-gradient(
+      ellipse farthest-corner at center,
+      transparent 0%,
+      transparent 40%,
+      oklch(from var(--vignette-color) l c h / 0.3) 55%,
+      oklch(from var(--vignette-color) l c h / 0.6) 70%,
+      oklch(from var(--vignette-color) l c h / 0.85) 85%,
+      var(--vignette-color) 100%
+    );
+  }
+
+  /* Fallback for browsers without relative color syntax */
+  @supports not (color: oklch(from red l c h)) {
+    .vignette-overlay {
+      background: radial-gradient(
+        ellipse farthest-corner at center,
+        transparent 0%,
+        transparent 40%,
+        var(--vignette-color) 100%
+      );
+    }
+  }
+</style>
+
+<style>
+  .glow-line-h,
+  .glow-line-v {
+    pointer-events: none;
+  }
+
+  .glow-pulse-h {
+    position: absolute;
+    width: 250px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 10%,
+      var(--glow-color) 70%,
+      var(--glow-color) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      50px 0 15px var(--glow-color),
+      80px 0 30px var(--glow-color),
+      100px 0 50px var(--glow-color);
+    opacity: 0;
+    animation: glowMoveH var(--duration) ease-in-out var(--delay) infinite;
+  }
+
+  .glow-pulse-v {
+    position: absolute;
+    width: 1px;
+    height: 250px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 10%,
+      var(--glow-color) 70%,
+      var(--glow-color) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      0 50px 15px var(--glow-color),
+      0 80px 30px var(--glow-color),
+      0 100px 50px var(--glow-color);
+    opacity: 0;
+    animation: glowMoveV var(--duration) ease-in-out var(--delay) infinite;
+  }
+
+  @keyframes glowMoveH {
+    0% {
+      left: -150px;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes glowMoveV {
+    0% {
+      top: -150px;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+</style>

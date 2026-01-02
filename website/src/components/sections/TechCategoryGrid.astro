@@ -1,0 +1,211 @@
+---
+import { Icon } from "astro-icon/components";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type TechnologyEntry = CollectionEntry<"technologies">;
+
+interface Props {
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+}
+
+const {
+  badge = "Kategorien",
+  badgeIcon = "heroicons:squares-2x2",
+  headline = "Technologie-Stack",
+  description = "Wir setzen auf bewährte und innovative Tools, die zu Ihren Anforderungen passen.",
+} = Astro.props;
+
+// Technologien aus Content Collection laden
+const allTechnologies: TechnologyEntry[] = await getCollection("technologies");
+
+// Kategorien Definition
+const categories: Record<
+  string,
+  { name: string; description: string; icon: string }
+> = {
+  automation: {
+    name: "Automatisierung",
+    description: "Workflow-Automatisierung und Prozessoptimierung",
+    icon: "heroicons:arrow-path",
+  },
+  llm: {
+    name: "LLM & KI",
+    description: "Large Language Models und KI-Assistenten",
+    icon: "heroicons:cpu-chip",
+  },
+  image: {
+    name: "Bildgenerierung",
+    description: "KI-gestützte Bilderstellung",
+    icon: "heroicons:photo",
+  },
+};
+
+// Technologien nach Kategorie gruppieren
+const techByCategory = Object.entries(categories).map(([key, category]) => ({
+  ...category,
+  key,
+  technologies: allTechnologies
+    .filter((t: TechnologyEntry) => t.data.category === key)
+    .sort(
+      (a: TechnologyEntry, b: TechnologyEntry) => a.data.order - b.data.order,
+    ),
+}));
+---
+
+<div class="tech-category-grid">
+  <div class="mb-12 text-center">
+    <div class="blur-in mb-4 flex justify-center">
+      <div
+        class="tech-category-grid__badge shadow-inner-blur flex items-center rounded-full"
+      >
+        <div
+          class="tech-category-grid__badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5"
+        >
+          <Icon
+            name={badgeIcon}
+            class="tech-category-grid__badge-icon h-4 w-4"
+          />
+          <span class="tech-category-grid__badge-text text-sm font-medium"
+            >{badge}</span
+          >
+        </div>
+      </div>
+    </div>
+    <h2
+      class="tech-category-grid__headline scale-up text-3xl font-bold tracking-tight sm:text-4xl"
+      style="transition-delay: 100ms;"
+    >
+      {headline}
+    </h2>
+    {
+      description && (
+        <p
+          class="tech-category-grid__description fade-up mx-auto mt-4 max-w-2xl text-lg"
+          style="transition-delay: 150ms;"
+        >
+          {description}
+        </p>
+      )
+    }
+  </div>
+
+  <div class="stagger-children grid gap-6 md:grid-cols-3">
+    {
+      techByCategory.map((category) => (
+        <div class="tech-category-grid__card group rounded-2xl border p-6 transition-all duration-300">
+          <div class="tech-category-grid__icon-box mb-4 flex h-12 w-12 items-center justify-center rounded-xl border">
+            <Icon
+              name={category.icon}
+              class="tech-category-grid__icon h-6 w-6"
+            />
+          </div>
+          <h3 class="tech-category-grid__title text-xl font-semibold">
+            {category.name}
+          </h3>
+          <p class="tech-category-grid__text mt-2 text-sm">
+            {category.description}
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {category.technologies.map((tech: TechnologyEntry) => (
+              <a
+                href={`/technologien/${tech.data.slug}`}
+                class="tech-category-grid__tag rounded-lg border px-3 py-1.5 text-sm transition-colors"
+              >
+                {tech.data.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .tech-category-grid__badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .tech-category-grid__badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .tech-category-grid__badge-icon {
+    color: var(--section-accent);
+  }
+
+  .tech-category-grid__badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .tech-category-grid__headline {
+    color: var(--section-text);
+  }
+
+  .tech-category-grid__description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .tech-category-grid__card {
+    border-color: var(--section-card-border);
+    background: var(--section-card-bg);
+  }
+
+  .tech-category-grid__card:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 50%, transparent);
+  }
+
+  /* ========================================
+     Icon styles
+     ======================================== */
+  .tech-category-grid__icon-box {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  }
+
+  .tech-category-grid__icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .tech-category-grid__title {
+    color: var(--section-text);
+  }
+
+  .tech-category-grid__text {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Tag styles
+     ======================================== */
+  .tech-category-grid__tag {
+    border-color: color-mix(in srgb, var(--section-accent) 20%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 5%, transparent);
+    color: var(--section-accent);
+  }
+
+  .tech-category-grid__tag:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 40%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+</style>

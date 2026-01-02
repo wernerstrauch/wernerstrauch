@@ -1,0 +1,209 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Principle {
+  title: string;
+  description: string;
+  contrast: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  intro?: string;
+  principles?: Principle[];
+}
+
+const {
+  sectionVariant = "light",
+  headline = "Meine Prinzipien",
+  intro = "So arbeite ich – und so nicht.",
+  principles = [],
+} = Astro.props;
+
+// Process headline:
+// - <em> tags become circled words with animated SVG
+// - <mark> tags become colored text only (no circle)
+let emIndex = 0;
+let processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  (_match: string, content: string) => {
+    const index = emIndex++;
+    return `<span class="circled-word" data-circled-index="${index}">${content}<svg class="circled-word__svg" viewBox="0 0 800 350" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="circled-word__path" d="M253,-161 C253,-161 -284.789,-201.46 -376,-21 C-469,163 67.623,174.21 256,121 C564,34 250.829,-141.693 19.107,-116.936" transform="translate(400, 179) scale(0.9791)" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" pathLength="1"/></svg></span>`;
+  },
+);
+processedHeadline = processedHeadline.replace(
+  /<mark>(.*?)<\/mark>/g,
+  `<span class="highlighted-word">$1</span>`,
+);
+---
+
+<div class="principles-section" data-variant={sectionVariant}>
+  <Container class="relative">
+    {/* Header */}
+    <div class="mb-12 text-center lg:mb-16">
+      <h2
+        class="principles-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        set:html={processedHeadline}
+      />
+      {
+        intro && (
+          <p class="principles-intro fade-up mx-auto mt-4 max-w-2xl text-lg">
+            {intro}
+          </p>
+        )
+      }
+    </div>
+
+    {/* Principles Grid */}
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        principles.map((principle, index) => (
+          <div
+            class="principles-card fade-up group relative overflow-hidden border p-6 transition-all duration-300"
+            style={`transition-delay: ${index * 100}ms;`}
+          >
+            {/* Glow effect */}
+            <div class="principles-glow pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+            <div class="relative z-10">
+              {/* Title */}
+              <h3 class="principles-title mb-3 text-xl font-bold">
+                {principle.title}
+              </h3>
+
+              {/* Description */}
+              <p class="principles-description mb-4 leading-relaxed">
+                {principle.description}
+              </p>
+
+              {/* Contrast - "Statt X bekommst du Y" */}
+              <div class="principles-contrast flex items-start gap-2 border-l-2 pl-4">
+                <Icon
+                  name="heroicons:arrow-right-16-solid"
+                  class="principles-contrast-icon mt-0.5 h-4 w-4 flex-shrink-0"
+                />
+                <p class="text-sm font-medium italic">
+                  {principle.contrast}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  import "@scripts/animations";
+</script>
+
+<style>
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .principles-headline {
+    color: var(--section-text);
+  }
+
+  .principles-intro {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Circled Word Animation
+     ======================================== */
+  .principles-headline :global(.circled-word) {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--section-text); /* Adapts to section theme */
+  }
+
+  .principles-headline :global(.circled-word__svg) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .principles-headline :global(.circled-word__path) {
+    stroke: #c8ff00;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .principles-headline.is-visible :global(.circled-word__path) {
+    stroke-dashoffset: 0;
+  }
+
+  .principles-headline.is-visible :global(.circled-word[data-circled-index="0"]) :global(.circled-word__path) {
+    transition-delay: 0.5s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .principles-headline :global(.circled-word__path) {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  .principles-headline :global(.highlighted-word) {
+    color: var(--section-accent); /* Lime on dark, adapts to theme */
+  }
+
+  /* ========================================
+     Card styles - Glassmorphism
+     ======================================== */
+  .principles-card {
+    background: var(--section-card-bg);
+    border-color: var(--section-card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .principles-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .principles-glow {
+    background: radial-gradient(
+      600px circle at 50% 50%,
+      color-mix(in srgb, var(--section-accent) 8%, transparent),
+      transparent 40%
+    );
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .principles-title {
+    color: var(--section-text);
+  }
+
+  .principles-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Contrast styles
+     ======================================== */
+  .principles-contrast {
+    border-color: var(--section-accent);
+    color: var(--section-accent);
+  }
+
+  .principles-contrast-icon {
+    color: var(--section-accent);
+  }
+</style>

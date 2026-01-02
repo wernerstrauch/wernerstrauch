@@ -1,0 +1,182 @@
+---
+import Container from "@components/shared/Container.astro";
+import StarField from "@components/shared/StarField.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+import spaceSpotlight from "@images/space-spotlight.png";
+import cosmicButterfly from "@images/cosmic-butterfly.png";
+
+const faqs = [
+  {
+    question: "What payment methods does Nebula accept?",
+    answer:
+      "Nebula accepts a variety of payment methods including major credit and debit cards (Visa, MasterCard, American Express), PayPal, and bank transfers. We also support payments via digital wallets such as Apple Pay and Google Pay.",
+  },
+  {
+    question: "Can I change my plan later on?",
+    answer:
+      'Yes, you can change your plan at any time. Simply go to your account settings and select the "Change Plan" option. You can upgrade or downgrade your plan as needed. Any changes will be prorated based on your billing cycle.',
+  },
+  {
+    question: "Does Nebula offer any discounts for nonprofits?",
+    answer:
+      "Yes, Nebula offers special discounts for nonprofit organizations. To apply for a nonprofit discount, please contact our support team with proof of your nonprofit status, and we will provide you with a discount code to use during checkout.",
+  },
+  {
+    question: "Can I get a refund if I don't like Nebula?",
+    answer:
+      "Yes, we offer a 30-day money-back guarantee. If you are not satisfied with Nebula, you can request a refund within 30 days of your purchase. Please contact our support team to initiate the refund process.",
+  },
+  {
+    question: "Is there a free trial available?",
+    answer:
+      "Yes, we offer a 14-day free trial for all our plans. You can sign up for the free trial without providing payment information. If you decide to continue using Nebula after the trial period, you will need to select a plan and provide payment details.",
+  },
+  {
+    question: "How does Nebula handle data privacy and security?",
+    answer:
+      "Nebula takes data privacy and security very seriously. We implement industry-standard security measures to protect your data, including encryption, secure servers, and regular security audits. We are also compliant with GDPR and other data protection regulations.",
+  },
+];
+---
+
+<section class="relative overflow-hidden">
+  <div
+    class="absolute -top-80 -right-56 -left-56 sm:-right-48 sm:-left-48 md:left-1/2 md:w-full md:max-w-6xl md:-translate-x-1/2 lg:-top-96"
+  >
+    <Image
+      src={spaceSpotlight}
+      alt=""
+      class="h-full w-full object-contain opacity-45"
+      widths={[420, 768, 1152]}
+      sizes={`(max-width: 420px) 420px, (max-width: 768px) 768px, (min-width: 768px) 1152px`}
+    />
+  </div>
+
+  {/* Stars */}
+  <div
+    class="absolute top-0 left-1/2 -z-10 h-48 w-full max-w-2xl -translate-x-1/2"
+    aria-hidden="true"
+  >
+    <StarField density="medium" maxRadius={2.5} minRadius={1.25} />
+  </div>
+
+  <Container
+    class="relative max-w-2xl gap-16 pt-20 pb-12 sm:pb-14 md:max-w-(--breakpoint-xl) lg:pt-24 lg:pb-16"
+  >
+    <div class="absolute -top-96 -right-96 bottom-0 -left-96 -z-10">
+      <Image
+        src={cosmicButterfly}
+        alt=""
+        class="h-[calc(100%_+_384px)] w-[calc(100%_+_768px)] opacity-10"
+        widths={[420, 768, 1024]}
+        sizes={`(max-width: 420px) 420px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (min-width: 1024px) 1024px`}
+      />
+    </div>
+
+    {/* Text content */}
+    <div class="flex flex-col items-center">
+      <div
+        class="shadow-inner-blur flex items-center rounded-full bg-zinc-950/[.01]"
+      >
+        <div
+          class="faq__badge flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5"
+        >
+          <Icon name="nucleo/comments-16" class="faq__badge-icon h-3.5 w-3.5" />
+          <span class="faq__badge-text text-sm font-medium"> FAQs </span>
+        </div>
+      </div>
+
+      <h1
+        class="faq__title leading-extratight sm:leading-extratight mt-5 max-w-5xl text-center text-4xl font-bold sm:mt-6 sm:text-5xl"
+      >
+        Frequently asked questions
+      </h1>
+      <p
+        class="faq__description mt-5 max-w-2xl text-center text-[17px] leading-8 sm:text-lg sm:leading-8"
+      >
+        Haven't found what you're looking for? Try Nebula's wiki or <a
+          href="/contact"
+          class="faq__link font-medium underline duration-200 ease-in-out"
+          >contact us.</a
+        >
+      </p>
+    </div>
+
+    {/* Faqs */}
+    <div class="faq__list relative mx-auto mt-8 max-w-3xl divide-y">
+      {
+        faqs.map((faq) => (
+          <details name="faq" class="group">
+            <summary class="faq__question flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-base font-semibold transition-colors sm:text-lg [&::-webkit-details-marker]:hidden">
+              <span>{faq.question}</span>
+              <Icon
+                name="heroicons:chevron-down-20-solid"
+                class="faq__icon h-5 w-5 shrink-0 transition-transform duration-300 group-open:rotate-180"
+              />
+            </summary>
+            <div class="faq__answer pb-5 text-base leading-7 sm:text-[17px] lg:text-lg lg:leading-8">
+              {faq.answer}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .faq__badge {
+    border-color: color-mix(in srgb, var(--primary-light) 6%, transparent);
+  }
+
+  .faq__badge-icon {
+    color: var(--primary-light);
+  }
+
+  .faq__badge-text {
+    color: var(--primary-light);
+    filter: drop-shadow(
+      -12px -4px 6px color-mix(in srgb, var(--primary-light) 20%, transparent)
+    );
+  }
+
+  .faq__title {
+    color: var(--primary-light);
+  }
+
+  .faq__description {
+    color: var(--color-zinc-200);
+  }
+
+  .faq__link {
+    color: var(--primary);
+  }
+
+  .faq__link:hover {
+    color: var(--primary-light);
+  }
+
+  .faq__list {
+    border-color: color-mix(in srgb, var(--primary-light) 10%, transparent);
+  }
+
+  .faq__question {
+    color: var(--color-gray-100);
+  }
+
+  .faq__question:hover {
+    color: var(--primary-light);
+  }
+
+  .faq__icon {
+    color: var(--primary);
+  }
+
+  .faq__answer {
+    color: var(--color-zinc-300);
+  }
+</style>

@@ -1,0 +1,406 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Card {
+  title: string;
+  description: string;
+  icon?: string;
+  features?: string[];
+  large?: boolean;
+  size?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  cards?: Card[];
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Warum Shop Marketing",
+  badgeIcon = "heroicons:star-16-solid",
+  headline = "Was uns <em>auszeichnet</em>",
+  description = "Wir verbinden Performance Marketing mit Retention-Strategien – für Onlineshops, die nachhaltig wachsen wollen.",
+  cards = [
+    {
+      title: "Holistischer Ansatz",
+      description:
+        "Wir denken nicht in einzelnen Kanälen, sondern im Gesamtbild. Performance, E-Mail und SEO arbeiten bei uns Hand in Hand für maximalen Impact.",
+      icon: "heroicons:squares-2x2",
+      features: [
+        "Kanalübergreifende Strategie",
+        "Synergien statt Silos",
+        "Messbare Gesamtperformance",
+      ],
+      large: true,
+    },
+    {
+      title: "E-Commerce Fokus",
+      description:
+        "Wir arbeiten ausschließlich mit Onlineshops. Dadurch kennen wir die Herausforderungen und Best Practices deiner Branche genau.",
+      icon: "heroicons:shopping-cart",
+      features: ["Shopify, WooCommerce & mehr", "E-Commerce KPIs"],
+      large: false,
+    },
+    {
+      title: "Persönliche Betreuung",
+      description:
+        "Kein anonymes Ticket-System. Du hast einen festen Ansprechpartner, der dein Business versteht und proaktiv mitdenkt.",
+      icon: "heroicons:users",
+      features: ["Fester Ansprechpartner", "Kurze Reaktionszeiten"],
+      large: false,
+    },
+  ],
+} = Astro.props;
+
+// Process headline: replace <em> tags with colored spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div class="bentogrid-section relative" data-variant={sectionVariant}>
+  <Container class="max-w-[1400px]">
+    {/* Header */}
+    <div class="mb-16 text-center">
+      <div class="blur-in mb-4 flex justify-center">
+        <div
+          class="bentogrid-badge shadow-inner-blur flex items-center rounded-full"
+        >
+          <div
+            class="bentogrid-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5"
+          >
+            <Icon name={badgeIcon} class="bentogrid-badge-icon h-4 w-4" />
+            <span class="bentogrid-badge-text text-sm font-medium">{badge}</span
+            >
+          </div>
+        </div>
+      </div>
+      <h2
+        class="bentogrid-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+      <p
+        class="bentogrid-description fade-up mx-auto mt-4 max-w-2xl text-lg"
+        style="transition-delay: 200ms;"
+      >
+        {description}
+      </p>
+    </div>
+
+    {/* Bento Grid */}
+    <div class="bento-grid grid gap-6 lg:grid-cols-2">
+      {/* Large Card (left) */}
+      <div
+        class="bento-card bentogrid-card group relative row-span-2 overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.01]"
+        data-variant={sectionVariant}
+      >
+        {/* Spotlight glow effect */}
+        <div
+          class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300"
+        >
+        </div>
+        {/* Rotating border glow effect */}
+        <div class="border-glow"></div>
+        <div
+          class="bentogrid-card-inner relative z-30 flex h-full w-full flex-col overflow-hidden rounded-2xl"
+        >
+          <div class="flex flex-1 flex-col p-8 lg:p-10">
+            {/* Icon */}
+            {
+              cards[0].icon && (
+                <div class="bentogrid-icon-wrapper mb-6 flex h-14 w-14 items-center justify-center rounded-xl border">
+                  <Icon name={cards[0].icon} class="bentogrid-icon h-7 w-7" />
+                </div>
+              )
+            }
+
+            {/* Content */}
+            <h3 class="bentogrid-card-title text-2xl font-bold lg:text-3xl">
+              {cards[0].title}
+            </h3>
+            <p class="bentogrid-card-description mt-4 flex-grow text-lg">
+              {cards[0].description}
+            </p>
+
+            {/* Features */}
+            {
+              cards[0].features && cards[0].features.length > 0 && (
+                <ul class="mt-8 space-y-3">
+                  {cards[0].features.map((feature) => (
+                    <li class="bentogrid-feature flex items-center gap-3">
+                      <Icon
+                        name="heroicons:check-circle-16-solid"
+                        class="bentogrid-check-icon h-5 w-5 flex-shrink-0"
+                      />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              )
+            }
+          </div>
+        </div>
+      </div>
+
+      {/* Small Cards (right column) */}
+      {
+        cards.slice(1).map((card) => (
+          <div
+            class="bento-card bentogrid-card group relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+            data-variant={sectionVariant}
+          >
+            {/* Spotlight glow effect */}
+            <div class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300" />
+            {/* Rotating border glow effect */}
+            <div class="border-glow" />
+            <div class="bentogrid-card-inner relative z-30 h-full w-full overflow-hidden rounded-2xl">
+              <div class="flex h-full flex-col p-8">
+                {/* Icon */}
+                {card.icon && (
+                  <div class="bentogrid-icon-wrapper mb-4 flex h-12 w-12 items-center justify-center rounded-xl border">
+                    <Icon name={card.icon} class="bentogrid-icon h-6 w-6" />
+                  </div>
+                )}
+
+                {/* Content */}
+                <h3 class="bentogrid-card-title text-xl font-bold">
+                  {card.title}
+                </h3>
+                <p class="bentogrid-card-description mt-3 flex-grow">
+                  {card.description}
+                </p>
+
+                {/* Features */}
+                {card.features && card.features.length > 0 && (
+                  <ul class="mt-6 flex flex-wrap gap-3">
+                    {card.features.map((feature) => (
+                      <li class="bentogrid-feature flex items-center gap-2 text-sm">
+                        <Icon
+                          name="heroicons:check-circle-16-solid"
+                          class="bentogrid-check-icon h-4 w-4 flex-shrink-0"
+                        />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  function initializeBentoCardHoverEffect(): void {
+    const grids = document.querySelectorAll<HTMLDivElement>(".bento-grid");
+
+    grids.forEach((grid) => {
+      const cards = grid.querySelectorAll<HTMLDivElement>(".bento-card");
+
+      // Spotlight effect - track mouse on grid, apply to all cards
+      grid.addEventListener("mousemove", (event: MouseEvent) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          // Set CSS variables for rotating border glow
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+
+          // Apply spotlight gradient to card-glow element using CSS variable
+          const glowElement = card.querySelector(".card-glow") as HTMLElement;
+          if (glowElement) {
+            const accentColor =
+              getComputedStyle(card)
+                .getPropertyValue("--section-accent")
+                .trim() || "#a78bfa";
+            glowElement.style.background = `radial-gradient(800px circle at ${x}px ${y}px, color-mix(in srgb, ${accentColor} 15%, transparent), transparent 40%)`;
+          }
+        });
+      });
+
+      // Reset on mouse leave
+      grid.addEventListener("mouseleave", () => {
+        cards.forEach((card) => {
+          const glowElement = card.querySelector(".card-glow") as HTMLElement;
+          if (glowElement) {
+            glowElement.style.background = "none";
+          }
+        });
+      });
+    });
+  }
+
+  initializeBentoCardHoverEffect();
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .bentogrid-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .bentogrid-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .bentogrid-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .bentogrid-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .bentogrid-headline {
+    color: var(--section-text);
+  }
+
+  .bentogrid-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .bentogrid-card {
+    border-color: var(--section-card-border);
+  }
+
+  .bentogrid-card:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 50%, transparent);
+  }
+
+  .bentogrid-card-inner {
+    background: var(--section-card-bg);
+  }
+
+  /* ========================================
+     Icon styles
+     ======================================== */
+  .bentogrid-icon-wrapper {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  }
+
+  .bentogrid-icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .bentogrid-card-title {
+    color: var(--section-text);
+  }
+
+  .bentogrid-card-description {
+    color: var(--section-text-muted);
+  }
+
+  .bentogrid-feature {
+    color: var(--section-text-muted);
+  }
+
+  .bentogrid-check-icon {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Border glow effect - rotating element approach
+     ======================================== */
+  .bento-card .border-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    border-radius: 1rem;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .bento-card:hover .border-glow {
+    opacity: 1;
+  }
+
+  /* Rotating glow element - uses CSS variable for accent color */
+  .bento-card .border-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 30deg,
+      color-mix(in srgb, var(--section-accent) 20%, transparent) 50deg,
+      color-mix(in srgb, var(--section-accent) 40%, transparent) 70deg,
+      color-mix(in srgb, var(--section-accent) 70%, transparent) 85deg,
+      var(--section-accent) 90deg,
+      color-mix(in srgb, var(--section-accent) 70%, transparent) 95deg,
+      color-mix(in srgb, var(--section-accent) 40%, transparent) 110deg,
+      color-mix(in srgb, var(--section-accent) 20%, transparent) 130deg,
+      transparent 150deg,
+      transparent 360deg
+    );
+    transform: translate(-50%, -50%);
+    animation: spinGlow 6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  /* Inner mask to create border effect */
+  .bento-card .border-glow::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: calc(1rem - 3px);
+    background: var(--section-card-bg);
+  }
+
+  .bento-card:hover .border-glow::before {
+    animation-play-state: running;
+  }
+
+  @keyframes spinGlow {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .bento-card .border-glow::before {
+      animation: none;
+    }
+  }
+</style>

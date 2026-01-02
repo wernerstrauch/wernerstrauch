@@ -1,0 +1,161 @@
+lang: de
+pageId: meta-ads-agency
+
+meta:
+  title: "Meta Ads Agentur | Facebook & Instagram Ads für E-Commerce"
+  description: "Meta Ads Agentur für Onlineshops. Facebook Ads, Instagram Ads & Advantage+ Shopping. Profitables Wachstum durch datengetriebene Social Media Kampagnen."
+
+slug: "meta-ads-agentur"
+
+settings:
+  status: published
+  priority: 0.9
+  headerVariant: light
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroSplit
+    wrapper:
+      variant: light
+      padding: none
+      container: false
+    content:
+      badge: "Meta Business Partner"
+      badgeIcon: "simple-icons:meta"
+      headline: "Skaliere mit <em>Meta Ads</em>"
+      subheadline: "Facebook & Instagram Ads für E-Commerce. Von Awareness bis Conversion – wir bauen Full-Funnel Kampagnen, die profitabel skalieren."
+      primaryCta: "Kampagne starten"
+      primaryCtaHref: "#kontakt"
+      secondaryCta: "Meta Ads Leistungen"
+      secondaryCtaHref: "#leistungen"
+      image: "/src/assets/digitalsprung/images/marketing/nahaufnahme-laptop-facebook-ads.png"
+      imageAlt: "Facebook Ads Manager Dashboard auf Laptop"
+
+  - id: services
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      services:
+        - tagline: "Awareness"
+          title: "Prospecting Kampagnen"
+          description: "Erreiche neue Zielgruppen mit kreativen Ads. Lookalike Audiences, Interest Targeting und breite Reichweite für Markenbekanntheit."
+          icon: "heroicons:megaphone"
+        - tagline: "Conversion"
+          title: "Advantage+ Shopping"
+          description: "Automatisierte Kampagnen mit KI-gestützter Optimierung für maximale Performance und Skalierung."
+          icon: "heroicons:shopping-cart"
+        - tagline: "Retargeting"
+          title: "Dynamic Product Ads"
+          description: "Bring Besucher zurück mit personalisierten Produktanzeigen aus deinem Katalog."
+          icon: "heroicons:arrow-path"
+        - tagline: "Creative"
+          title: "Ad Creative & UGC"
+          description: "Thumb-stopping Creatives, die im Feed auffallen. Von statischen Ads bis zu Video-Content."
+          icon: "heroicons:photo"
+
+  - id: stats
+    enabled: true
+    order: 3
+    component: StatsStepped
+    wrapper:
+      variant: dark
+      padding: lg
+      container: true
+    background:
+      type: GridBackground
+      color: "#795aff"
+      glowColor: "#795aff"
+      opacity: 0.08
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      variant: dark
+      badge: "Meta Ads Ergebnisse"
+      badgeIcon: "heroicons:chart-bar-16-solid"
+      headline: "Social Ads, die <em>performen</em>"
+      description: "Durchschnittliche Ergebnisse unserer Meta Ads Kampagnen."
+      stats:
+        - value: "3.8x"
+          title: "ROAS"
+          description: "Durchschnittlicher Return on Ad Spend"
+          cardVariant: "light"
+        - value: "-35%"
+          title: "Niedrigere CPAs"
+          description: "Durch optimierte Kampagnenstruktur"
+          cardVariant: "dark"
+        - value: "2M €"
+          title: "Verwaltetes Budget"
+          description: "Monatliches Ad Spend unserer Kunden"
+          cardVariant: "primary"
+
+  - id: seo-content
+    enabled: true
+    order: 4
+    component: ContentRichSection
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+    content:
+      headline: "Meta Ads Agentur: <em>Facebook & Instagram für E-Commerce</em>"
+      tagline: "Meta Ads sind das Herzstück moderner E-Commerce Marketing-Strategien. Wir bauen Full-Funnel Kampagnen, die skalieren."
+      leftColumn:
+        - type: text
+          content: "Als <strong>Meta Business Partner</strong> haben wir Zugang zu exklusiven Features und direktem Support von Meta. Diese Partnerschaft kommt direkt deinen Kampagnen zugute."
+        - type: text
+          content: "Meta Ads funktionieren anders als <a href='/google-ads-agentur'>Google Ads</a>: Hier erreichst du Menschen, die noch nicht aktiv suchen – aber perfekt zu deinem Produkt passen. Das erfordert <strong>andere Strategien und Creatives</strong>."
+        - type: headline
+          content: "Meta Ads Kampagnentypen"
+        - type: bullets
+          content:
+            - "<strong>Advantage+ Shopping</strong> – Automatisierte Kampagnen für maximale Performance"
+            - "<strong>Prospecting</strong> – Lookalike Audiences und Interest Targeting"
+            - "<strong>Dynamic Product Ads</strong> – Personalisiertes Retargeting aus dem Katalog"
+            - "<strong>Reels & Stories</strong> – Native Formate für hohe Engagement-Raten"
+            - "<strong>Lead Generation</strong> – Für erklärungsbedürftige Produkte und B2B"
+      rightColumn:
+        - type: text
+          content: "Der Erfolg bei Meta Ads steht und fällt mit den <strong>Creatives</strong>. Wir entwickeln Konzepte, die im Feed auffallen – von statischen Ads über Carousels bis zu UGC-Style Videos."
+        - type: text
+          content: "Durch <strong>kontinuierliches Testing</strong> finden wir die Winning Combinations aus Audience, Creative und Copy. So senken wir CPAs und skalieren profitabel."
+        - type: headline
+          content: "FAQ zu Meta Ads"
+        - type: faq
+          content:
+            - question: "Funktionieren Meta Ads noch nach iOS 14?"
+              answer: "Ja, definitiv. Die Tracking-Änderungen haben das Ökosystem verändert, aber Meta Ads sind weiterhin einer der effektivsten Kanäle. Mit korrektem Setup (CAPI, Aggregated Event Measurement) erreichen wir weiterhin starke Ergebnisse."
+            - question: "Wie wichtig sind Creatives bei Meta Ads?"
+              answer: "Extrem wichtig – Creatives sind oft der größte Hebel. Mit den richtigen Thumb-Stoppers und einer durchdachten Creative Strategy können wir CPAs um 30-50% senken."
+            - question: "Advantage+ vs. manuelle Kampagnen – was ist besser?"
+              answer: "Advantage+ Shopping Campaigns funktionieren sehr gut für E-Commerce mit ausreichend Conversion-Volumen. Für mehr Kontrolle und Learnings setzen wir auch auf manuelle Kampagnen. Die Kombination ist oft ideal."
+            - question: "Wie viel Budget brauche ich für Meta Ads?"
+              answer: "Für effektives Testing empfehlen wir mindestens 2.000-3.000€ monatlich. So generieren wir genug Daten für Optimierungen und können verschiedene Audiences und Creatives testen."
+
+  - id: cta
+    enabled: true
+    order: 5
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Ready to scale mit <em>Meta Ads?</em>"
+      description: "Lass uns deine Meta Ads Strategie besprechen. Kostenloses Erstgespräch mit Account-Audit und konkreten Optimierungsvorschlägen."
+      buttonText: "Jetzt Erstgespräch buchen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

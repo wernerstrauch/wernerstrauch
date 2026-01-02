@@ -1,0 +1,395 @@
+---
+/**
+ * CaseHighlights Section Component
+ *
+ * Highlights section with headline/description on left and stacked feature cards
+ * on right. Cards have different color variants (light, dark, black).
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: CaseHighlights
+ * content:
+ *   headline: "Highlights des Koawach Onlineshops"
+ *   description: "Lorem ipsum dolor sit amet..."
+ *   highlights:
+ *     - title: "Strategie"
+ *       description: "Lorem ipsum dolor sit amet..."
+ *       tags:
+ *         - "UI/UX Design"
+ *         - "Migration"
+ *       variant: "light"
+ *     - title: "Design"
+ *       tags:
+ *         - "UI/UX Design"
+ *         - "Lorem Ipsum"
+ *       variant: "dark"
+ *     - title: "Entwicklung"
+ *       tags:
+ *         - "Shopify Theme"
+ *         - "Migration"
+ *       variant: "black"
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import type { SectionVariant } from "../../types";
+
+interface Highlight {
+  title: string;
+  description?: string;
+  tags?: string[];
+  variant?: "light" | "dark" | "black";
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  description?: string;
+  highlights?: Highlight[];
+}
+
+const {
+  sectionVariant = "dark",
+  headline = "Highlights",
+  description,
+  highlights = [],
+} = Astro.props;
+---
+
+<div class="case-highlights" data-variant={sectionVariant}>
+  <Container>
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
+      {/* Left Column - Headline & Description (sticky on desktop) */}
+      <div
+        class="case-highlights__left flex flex-col gap-6 lg:sticky lg:top-32 lg:self-start"
+      >
+        <h2
+          class="case-highlights__headline scale-up text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-[52px]"
+        >
+          {headline}
+        </h2>
+        {
+          description && (
+            <p
+              class="case-highlights__description fade-up text-lg leading-relaxed sm:text-xl"
+              style="transition-delay: 100ms;"
+            >
+              {description}
+            </p>
+          )
+        }
+      </div>
+
+      {/* Right Column - Highlight Cards */}
+      <div class="case-highlights__cards flex flex-col gap-6">
+        {
+          highlights.map((highlight, index) => (
+            <div
+              class="case-highlights__card flex flex-col gap-6 overflow-hidden rounded-lg p-6 shadow-lg sm:p-10"
+              data-card-variant={highlight.variant || "light"}
+              data-card-index={index}
+            >
+              {/* Title */}
+              <h3 class="case-highlights__card-title text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[52px]">
+                {highlight.title}
+              </h3>
+
+              {/* Description (optional) */}
+              {highlight.description && (
+                <p class="case-highlights__card-description text-lg leading-relaxed">
+                  {highlight.description}
+                </p>
+              )}
+
+              {/* Tags */}
+              {highlight.tags && highlight.tags.length > 0 && (
+                <div class="case-highlights__card-tags flex flex-wrap gap-3">
+                  {highlight.tags.map((tag) => (
+                    <span class="case-highlights__card-tag rounded-full px-3 py-1 text-base">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initCaseHighlights() {
+    const sections = document.querySelectorAll(".case-highlights");
+
+    sections.forEach((section) => {
+      const cards = section.querySelectorAll(".case-highlights__card");
+
+      if (cards.length === 0) return;
+
+      let currentActiveIndex = 0;
+
+      // Helper to expand a card
+      function expandCard(cardEl: HTMLElement) {
+        const description = cardEl.querySelector(
+          ".case-highlights__card-description",
+        ) as HTMLElement;
+        const tags = cardEl.querySelector(
+          ".case-highlights__card-tags",
+        ) as HTMLElement;
+
+        cardEl.classList.add("is-active");
+
+        if (description) {
+          gsap.to(description, {
+            height: "auto",
+            opacity: 1,
+            duration: 0.4,
+            ease: "power2.out",
+          });
+        }
+        if (tags) {
+          gsap.to(tags, {
+            height: "auto",
+            opacity: 1,
+            duration: 0.4,
+            delay: 0.1,
+            ease: "power2.out",
+          });
+        }
+      }
+
+      // Helper to collapse a card
+      function collapseCard(cardEl: HTMLElement) {
+        const description = cardEl.querySelector(
+          ".case-highlights__card-description",
+        ) as HTMLElement;
+        const tags = cardEl.querySelector(
+          ".case-highlights__card-tags",
+        ) as HTMLElement;
+
+        cardEl.classList.remove("is-active");
+
+        if (description) {
+          gsap.to(description, {
+            height: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.in",
+          });
+        }
+        if (tags) {
+          gsap.to(tags, {
+            height: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.in",
+          });
+        }
+      }
+
+      // Set active card
+      function setActiveCard(activeIndex: number) {
+        if (activeIndex === currentActiveIndex) return;
+
+        // Collapse previous
+        collapseCard(cards[currentActiveIndex] as HTMLElement);
+        // Expand new
+        expandCard(cards[activeIndex] as HTMLElement);
+
+        currentActiveIndex = activeIndex;
+      }
+
+      // Set initial state - all cards collapsed except first
+      cards.forEach((card, index) => {
+        const cardEl = card as HTMLElement;
+        const description = cardEl.querySelector(
+          ".case-highlights__card-description",
+        ) as HTMLElement;
+        const tags = cardEl.querySelector(
+          ".case-highlights__card-tags",
+        ) as HTMLElement;
+
+        if (index === 0) {
+          // First card starts expanded
+          cardEl.classList.add("is-active");
+          if (description) {
+            gsap.set(description, { overflow: "hidden" });
+          }
+          if (tags) {
+            gsap.set(tags, { overflow: "hidden" });
+          }
+        } else {
+          // Other cards start collapsed
+          if (description) {
+            gsap.set(description, {
+              height: 0,
+              opacity: 0,
+              overflow: "hidden",
+            });
+          }
+          if (tags) {
+            gsap.set(tags, {
+              height: 0,
+              opacity: 0,
+              overflow: "hidden",
+            });
+          }
+        }
+      });
+
+      // Calculate scroll distance based on number of cards
+      const totalScrollDistance = cards.length * 80; // 80vh per card
+
+      // Create pinned ScrollTrigger for entire section
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 10%",
+        end: `+=${totalScrollDistance}%`,
+        pin: true,
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const scaledProgress = progress * cards.length;
+          const activeIndex = Math.min(
+            Math.floor(scaledProgress),
+            cards.length - 1,
+          );
+
+          if (activeIndex !== currentActiveIndex) {
+            setActiveCard(activeIndex);
+          }
+        },
+      });
+
+      // Click handlers for manual selection
+      cards.forEach((card, index) => {
+        card.addEventListener("click", () => {
+          setActiveCard(index);
+        });
+      });
+    });
+  }
+
+  // Initialize on DOM ready
+  document.addEventListener("DOMContentLoaded", initCaseHighlights);
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", () => {
+    // Kill existing ScrollTriggers for case-highlights
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.trigger?.closest(".case-highlights")) {
+        trigger.kill();
+      }
+    });
+    initCaseHighlights();
+  });
+</script>
+
+<style>
+  /* ========================================
+     Section Colors
+     ======================================== */
+  .case-highlights {
+    --highlights-headline: #ffffff;
+    --highlights-description: #b1adbf;
+  }
+
+  .case-highlights[data-variant="white"],
+  .case-highlights[data-variant="light"] {
+    --highlights-headline: #1c1c1e;
+    --highlights-description: #6d6b76;
+  }
+
+  .case-highlights__headline {
+    color: var(--highlights-headline);
+  }
+
+  .case-highlights__description {
+    color: var(--highlights-description);
+  }
+
+  /* ========================================
+     Card Variants
+     ======================================== */
+
+  /* Light Card */
+  .case-highlights__card[data-card-variant="light"] {
+    background: #ffffff;
+    border: 1px solid #f4ffe3;
+  }
+
+  .case-highlights__card[data-card-variant="light"]
+    .case-highlights__card-title {
+    color: #1c1c1e;
+  }
+
+  .case-highlights__card[data-card-variant="light"]
+    .case-highlights__card-description {
+    color: #6d6b76;
+  }
+
+  .case-highlights__card[data-card-variant="light"] .case-highlights__card-tag {
+    background: rgba(86, 86, 86, 0.3);
+    color: #1c1c1e;
+  }
+
+  /* Dark Card */
+  .case-highlights__card[data-card-variant="dark"] {
+    background: #262626;
+    border: 1px solid #565656;
+  }
+
+  .case-highlights__card[data-card-variant="dark"]
+    .case-highlights__card-title {
+    color: #f9fffa;
+  }
+
+  .case-highlights__card[data-card-variant="dark"]
+    .case-highlights__card-description {
+    color: #b1adbf;
+  }
+
+  .case-highlights__card[data-card-variant="dark"] .case-highlights__card-tag {
+    background: #565656;
+    color: #ffffff;
+  }
+
+  /* Black Card */
+  .case-highlights__card[data-card-variant="black"] {
+    background: #080808;
+    border: 1px solid #565656;
+  }
+
+  .case-highlights__card[data-card-variant="black"]
+    .case-highlights__card-title {
+    color: #f9fffa;
+  }
+
+  .case-highlights__card[data-card-variant="black"]
+    .case-highlights__card-description {
+    color: #b1adbf;
+  }
+
+  .case-highlights__card[data-card-variant="black"] .case-highlights__card-tag {
+    background: #565656;
+    color: #ffffff;
+  }
+
+  /* Shadow */
+  .case-highlights__card {
+    box-shadow: 0px 25px 40px -40px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .case-highlights__card {
+      transition: none;
+    }
+  }
+</style>

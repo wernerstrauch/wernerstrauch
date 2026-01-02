@@ -1,0 +1,386 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface ContentBlock {
+  type: "text" | "headline" | "bullets" | "faq";
+  content: string | string[] | FaqItem[];
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  tagline?: string;
+  leftColumn?: ContentBlock[];
+  rightColumn?: ContentBlock[];
+}
+
+const {
+  sectionVariant = "white",
+  headline = "Online Marketing Agentur kann vieles bedeuten. Bei uns bedeutet es: <em>Messbare Erfolge</em>",
+  tagline = "Starkes Digital Marketing vom Experten – Wir machen Ihr Business fit für mehr Demand, mehr Traffic und mehr Umsatz.",
+  leftColumn = [
+    {
+      type: "text",
+      content:
+        "Als Ihre <strong>Online Marketing Agentur</strong> bieten wir individuelle, skalierbare Lösungen und datengetriebene Strategien, damit Sie Chancen nutzen, wo Ihre Mitbewerber nur Herausforderungen sehen.",
+    },
+    {
+      type: "text",
+      content:
+        'Egal, ob KMU, Startup oder Global Player, egal ob B2B, B2C oder SaaS: Ihr Wachstum ist unser Ziel und der Maßstab für unseren Erfolg als Marketing Firma und <a href="/seo-agentur">SEO Agentur</a>. Dabei setzen wir auch auf Methoden wie Marketing Automation für eine optimierte Leadgenerierung und eine beschleunigte Zielgruppenansprache.',
+    },
+    {
+      type: "headline",
+      content: "Ihr Erfolg mit uns als Online Marketing Agentur",
+    },
+    {
+      type: "text",
+      content:
+        "Wir übernehmen sämtliche Maßnahmen des Online-Marketings und schnüren ein individuelles Leistungspaket. Unsere Kernkompetenzen umfassen:",
+    },
+    {
+      type: "bullets",
+      content: [
+        '<a href="/seo-agentur">Suchmaschinenoptimierung</a>',
+        '<a href="/google-ads-agentur">Google Ads Agentur</a>',
+        '<a href="#">Linkbuilding Agentur</a>',
+        '<a href="#">Social Media Marketing</a>',
+        '<a href="#">Conversion Optimierung</a>',
+        '<a href="/content-marketing">Content Marketing Agentur</a>',
+        '<a href="#">SEO Beratung</a>',
+        '<a href="#">Internationales SEO</a>',
+        '<a href="#">SEO Marketing</a>',
+        '<a href="/tiktok-ads-agentur">TIKTOK Agentur</a>',
+        '<a href="#">GEO Agentur</a>',
+      ],
+    },
+  ],
+  rightColumn = [
+    {
+      type: "text",
+      content:
+        "<strong>Effektive Growth-Strategien</strong>, klare Action-Steps und Kommunikation auf Augenhöhe: Entscheiden Sie sich für eine Online Marketing Agentur, auf die Sie sich verlassen können.",
+    },
+    {
+      type: "text",
+      content:
+        'Mit über 18 Jahren Erfahrung, zahlreichen Referenzen und erfolgreichen Case Studies wissen wir, wie man digitale Strategien umsetzt. Überlassen Sie Ihr digitales Wachstum unseren <a href="/seo-agentur">SEO Optimierung</a> Experten – und freuen Sie sich auf messbare Ergebnisse: mehr Growth, mehr Leads, mehr Umsatz. Entscheiden Sie sich für eine <strong>Online Marketing Agentur</strong>, die versteht, was zählt.',
+    },
+    {
+      type: "headline",
+      content: "Die häufigsten Fragen zu unserer Online Marketing Agentur",
+    },
+    {
+      type: "faq",
+      content: [
+        {
+          question: "Was ist eine Online-Marketing-Agentur?",
+          answer:
+            "Eine Online-Marketing-Agentur ist ein Dienstleister, der Unternehmen dabei unterstützt, ihre digitale Präsenz zu verbessern und mehr Kunden über das Internet zu gewinnen.",
+        },
+        {
+          question:
+            "Welche Dienstleistungen bietet Ihre Online Marketing Agentur an?",
+          answer:
+            "Wir bieten ein breites Spektrum an Dienstleistungen: SEO, Google Ads, Social Media Marketing, Content Marketing, E-Mail Marketing und Conversion Optimierung.",
+        },
+        {
+          question: "Welche Erfahrung hat Ihre Agentur im Online Marketing?",
+          answer:
+            "Mit über 18 Jahren Erfahrung haben wir zahlreiche Projekte in verschiedenen Branchen erfolgreich umgesetzt und können auf eine lange Liste zufriedener Kunden verweisen.",
+        },
+        {
+          question:
+            "Können Sie Referenzen von erfolgreich durchgeführten Projekten vorweisen?",
+          answer:
+            "Ja, wir haben eine Vielzahl von Case Studies und Referenzen, die unsere Erfolge in verschiedenen Branchen dokumentieren.",
+        },
+        {
+          question:
+            "Wie messen Sie den Erfolg Ihrer Online Marketing Leistungen?",
+          answer:
+            "Wir arbeiten mit klaren KPIs und regelmäßigen Reports. Dazu gehören Traffic-Analysen, Conversion-Raten, ROI-Berechnungen und weitere relevante Metriken.",
+        },
+        {
+          question:
+            "Wie sichern Sie die Aktualität Ihrer Online Marketing Strategien?",
+          answer:
+            "Wir bilden uns kontinuierlich weiter, besuchen Konferenzen und sind in engem Austausch mit der Branche, um immer auf dem neuesten Stand zu bleiben.",
+        },
+      ],
+    },
+  ],
+} = Astro.props;
+
+// Process headline with CSS variable highlights
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Unique ID for Alpine.js
+const uniqueId = `content-rich-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div class="content-rich-section" data-variant={sectionVariant}>
+  <Container>
+    <div class="flex flex-col gap-8 lg:gap-12">
+      {/* Header Section - Full Width */}
+      <div class="flex flex-col gap-6">
+        <h2
+          class="content-rich-section__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+
+        {
+          tagline && (
+            <div
+              class="content-rich-section__tagline fade-up border-l-4 py-3 pl-6"
+              style="transition-delay: 150ms;"
+            >
+              <p class="text-base/7 lg:text-lg/8">{tagline}</p>
+            </div>
+          )
+        }
+      </div>
+
+      {/* Two Column Content */}
+      <div class="grid gap-8 lg:grid-cols-2 lg:gap-16">
+        {/* Left Column */}
+        <div
+          class="fade-up flex flex-col gap-4"
+          style="transition-delay: 200ms;"
+        >
+          {
+            leftColumn.map((block) => {
+              if (block.type === "text") {
+                return (
+                  <p
+                    class="content-rich-section__text text-base/7 lg:text-lg/8"
+                    set:html={block.content as string}
+                  />
+                );
+              }
+
+              if (block.type === "headline") {
+                return (
+                  <h3 class="content-rich-section__subheadline mt-4 text-lg font-bold lg:text-xl">
+                    {block.content as string}
+                  </h3>
+                );
+              }
+
+              if (block.type === "bullets") {
+                return (
+                  <ul class="mt-2 flex flex-col gap-2">
+                    {(block.content as string[]).map((item) => (
+                      <li class="flex items-start gap-3">
+                        <Icon
+                          name="heroicons:check-16-solid"
+                          class="content-rich-section__icon mt-1 h-4 w-4 shrink-0"
+                        />
+                        <span class="text-base/7" set:html={item} />
+                      </li>
+                    ))}
+                  </ul>
+                );
+              }
+
+              if (block.type === "faq") {
+                return (
+                  <div
+                    class="mt-4"
+                    x-data={`{ activeItem: null }`}
+                    id={`${uniqueId}-left`}
+                  >
+                    {(block.content as FaqItem[]).map((item, index) => (
+                      <div class="content-rich-section__faq-item border-t">
+                        <button
+                          type="button"
+                          class="flex w-full items-center justify-between py-4 text-left"
+                          x-on:click={`activeItem = activeItem === ${index} ? null : ${index}`}
+                        >
+                          <span class="content-rich-section__faq-question pr-4 font-medium">
+                            {item.question}
+                          </span>
+                          <Icon
+                            name="heroicons:plus-16-solid"
+                            class="content-rich-section__icon h-5 w-5 shrink-0 transition-transform duration-200"
+                            x-bind:class={`{ 'rotate-45': activeItem === ${index} }`}
+                          />
+                        </button>
+                        <div
+                          x-show={`activeItem === ${index}`}
+                          x-collapse
+                          class="overflow-hidden"
+                        >
+                          <p class="content-rich-section__text pb-4 text-base/7">
+                            {item.answer}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                    <div class="content-rich-section__faq-item border-t" />
+                  </div>
+                );
+              }
+
+              return null;
+            })
+          }
+        </div>
+
+        {/* Right Column */}
+        <div
+          class="fade-up flex flex-col gap-4"
+          style="transition-delay: 250ms;"
+        >
+          {
+            rightColumn.map((block) => {
+              if (block.type === "text") {
+                return (
+                  <p
+                    class="content-rich-section__text text-base/7 lg:text-lg/8"
+                    set:html={block.content as string}
+                  />
+                );
+              }
+
+              if (block.type === "headline") {
+                return (
+                  <h3 class="content-rich-section__subheadline mt-4 text-lg font-bold lg:text-xl">
+                    {block.content as string}
+                  </h3>
+                );
+              }
+
+              if (block.type === "bullets") {
+                return (
+                  <ul class="mt-2 flex flex-col gap-2">
+                    {(block.content as string[]).map((item) => (
+                      <li class="flex items-start gap-3">
+                        <Icon
+                          name="heroicons:check-16-solid"
+                          class="content-rich-section__icon mt-1 h-4 w-4 shrink-0"
+                        />
+                        <span class="text-base/7" set:html={item} />
+                      </li>
+                    ))}
+                  </ul>
+                );
+              }
+
+              if (block.type === "faq") {
+                return (
+                  <div
+                    class="mt-4"
+                    x-data={`{ activeItem: null }`}
+                    id={`${uniqueId}-right`}
+                  >
+                    {(block.content as FaqItem[]).map((item, index) => (
+                      <div class="content-rich-section__faq-item border-t">
+                        <button
+                          type="button"
+                          class="flex w-full items-center justify-between py-4 text-left"
+                          x-on:click={`activeItem = activeItem === ${index} ? null : ${index}`}
+                        >
+                          <span class="content-rich-section__faq-question pr-4 font-medium">
+                            {item.question}
+                          </span>
+                          <Icon
+                            name="heroicons:plus-16-solid"
+                            class="content-rich-section__icon h-5 w-5 shrink-0 transition-transform duration-200"
+                            x-bind:class={`{ 'rotate-45': activeItem === ${index} }`}
+                          />
+                        </button>
+                        <div
+                          x-show={`activeItem === ${index}`}
+                          x-collapse
+                          class="overflow-hidden"
+                        >
+                          <p class="content-rich-section__text pb-4 text-base/7">
+                            {item.answer}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                    <div class="content-rich-section__faq-item border-t" />
+                  </div>
+                );
+              }
+
+              return null;
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* Headline */
+  .content-rich-section__headline {
+    color: var(--section-text);
+  }
+
+  /* Tagline */
+  .content-rich-section__tagline {
+    background-color: var(--section-card-bg);
+    border-color: var(--section-accent);
+    color: var(--section-text-muted);
+  }
+
+  /* Body text */
+  .content-rich-section__text {
+    color: var(--section-text-muted);
+  }
+
+  /* Subheadline */
+  .content-rich-section__subheadline {
+    color: var(--section-text);
+  }
+
+  /* Icon */
+  .content-rich-section__icon {
+    color: var(--section-accent);
+  }
+
+  /* FAQ item border */
+  .content-rich-section__faq-item {
+    border-color: var(--section-card-border);
+  }
+
+  /* FAQ question */
+  .content-rich-section__faq-question {
+    color: var(--section-text);
+  }
+
+  /* Link styling within content blocks */
+  .content-rich-section :global(a) {
+    color: var(--section-accent);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+  }
+
+  .content-rich-section :global(a:hover) {
+    color: var(--section-accent-hover);
+  }
+
+  /* Strong text styling */
+  .content-rich-section :global(strong) {
+    color: var(--section-text);
+    font-weight: 600;
+  }
+</style>

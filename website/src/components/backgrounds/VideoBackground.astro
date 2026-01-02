@@ -1,0 +1,38 @@
+---
+interface Props {
+  src: string;
+  poster?: string;
+  overlay?: boolean;
+  overlayColor?: string;
+  overlayOpacity?: number;
+}
+
+const {
+  src,
+  poster,
+  overlay = true,
+  overlayColor = "#1c1c1e",
+  overlayOpacity = 0.6,
+} = Astro.props;
+---
+
+<div class="absolute inset-0">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    poster={poster}
+    class="h-full w-full object-cover"
+  >
+    <source src={src} type="video/mp4" />
+  </video>
+  {
+    overlay && (
+      <div
+        class="absolute inset-0"
+        style={`background-color: ${overlayColor}; opacity: ${overlayOpacity};`}
+      />
+    )
+  }
+</div>

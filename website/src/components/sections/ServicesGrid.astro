@@ -1,0 +1,148 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ServiceItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  variant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  services: ServiceItem[];
+  columns?: 2 | 3 | 4;
+}
+
+const {
+  // variant prop received but styling handled via CSS variables
+  badge,
+  badgeIcon,
+  headline,
+  description,
+  services = [],
+  columns = 4,
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline?.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Column class mapping
+const columnClasses = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+};
+---
+
+<Container class="servicesgrid-section">
+  {/* Optional Header */}
+  {
+    (badge || headline || description) && (
+      <div class="mb-10 lg:mb-12">
+        {badge && (
+          <div
+            class="servicesgrid-badge fade-up mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium"
+            style="transition-delay: 50ms;"
+          >
+            {badgeIcon && <Icon name={badgeIcon} class="h-4 w-4" />}
+            <span>{badge}</span>
+          </div>
+        )}
+
+        {headline && (
+          <h2
+            class="servicesgrid-headline scale-up mb-4 text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+            style="transition-delay: 100ms;"
+            set:html={processedHeadline}
+          />
+        )}
+
+        {description && (
+          <p
+            class="servicesgrid-description fade-up max-w-3xl text-base/7 lg:text-lg/8"
+            style="transition-delay: 150ms;"
+          >
+            {description}
+          </p>
+        )}
+      </div>
+    )
+  }
+
+  {/* Services Grid */}
+  <div class:list={["grid gap-8 lg:gap-10", columnClasses[columns]]}>
+    {
+      services.map((service, index) => (
+        <div
+          class="servicesgrid-item fade-up border-t-2 pt-6 lg:pt-8"
+          style={`transition-delay: ${250 + index * 50}ms;`}
+        >
+          {/* Icon */}
+          <div class="servicesgrid-icon mb-5">
+            <Icon name={service.icon} class="h-8 w-8 lg:h-10 lg:w-10" />
+          </div>
+
+          {/* Title */}
+          <h3 class="servicesgrid-title mb-3 text-lg font-bold lg:text-xl">
+            {service.title}
+          </h3>
+
+          {/* Description */}
+          <p class="servicesgrid-text text-base/7">{service.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</Container>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* Badge */
+  .servicesgrid-badge {
+    background: var(--section-badge-bg);
+    color: var(--section-badge-text);
+  }
+
+  /* Headline & Description */
+  .servicesgrid-headline {
+    color: var(--section-text);
+  }
+
+  .servicesgrid-description {
+    color: var(--section-text-muted);
+  }
+
+  /* Item Border */
+  .servicesgrid-item {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  /* Icon */
+  .servicesgrid-icon {
+    color: var(--section-accent);
+  }
+
+  /* Title */
+  .servicesgrid-title {
+    color: var(--section-text);
+  }
+
+  /* Description Text */
+  .servicesgrid-text {
+    color: var(--section-text-muted);
+  }
+</style>

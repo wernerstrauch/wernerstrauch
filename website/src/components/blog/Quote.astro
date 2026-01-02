@@ -1,0 +1,44 @@
+---
+interface Props {
+  author?: string;
+  source?: string;
+}
+
+const { author, source } = Astro.props;
+---
+
+<blockquote class="blog-quote my-8 border-l-4 py-4 pr-4 pl-6">
+  <div class="blog-quote__text text-lg italic">
+    <slot />
+  </div>
+  {
+    (author || source) && (
+      <footer class="blog-quote__footer mt-3 text-sm">
+        {author && <span class="blog-quote__author font-medium">{author}</span>}
+        {author && source && <span class="mx-1">–</span>}
+        {source && <cite class="not-italic">{source}</cite>}
+      </footer>
+    )
+  }
+</blockquote>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .blog-quote {
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    background-color: color-mix(in srgb, var(--color-white) 2%, transparent);
+  }
+
+  .blog-quote__text {
+    color: var(--color-zinc-200);
+  }
+
+  .blog-quote__footer {
+    color: var(--color-zinc-400);
+  }
+
+  .blog-quote__author {
+    color: var(--color-zinc-300);
+  }
+</style>

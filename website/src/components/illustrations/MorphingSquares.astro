@@ -1,0 +1,542 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+  theme?: "analytics" | "tech" | "growth" | "email";
+}
+
+const { variant = "light", theme = "analytics" } = Astro.props;
+const uniqueId = `morph-${theme}-${Math.random().toString(36).substring(2, 9)}`;
+
+// Theme-spezifische Konfigurationen
+const themes = {
+  analytics: {
+    color1: variant === "dark" ? "#b4e565" : "#4f3ca2",
+    color2: variant === "dark" ? "#9dd84f" : "#6b5bb5",
+    color3: variant === "dark" ? "#7fbf3a" : "#a090d0",
+  },
+  tech: {
+    color1: variant === "dark" ? "#b4e565" : "#4f3ca2",
+    color2: variant === "dark" ? "#9dd84f" : "#6b5bb5",
+    color3: variant === "dark" ? "#7fbf3a" : "#a090d0",
+  },
+  growth: {
+    color1: variant === "dark" ? "#b4e565" : "#4f3ca2",
+    color2: variant === "dark" ? "#9dd84f" : "#6b5bb5",
+    color3: variant === "dark" ? "#7fbf3a" : "#a090d0",
+  },
+  email: {
+    color1: variant === "dark" ? "#b4e565" : "#4f3ca2",
+    color2: variant === "dark" ? "#9dd84f" : "#6b5bb5",
+    color3: variant === "dark" ? "#7fbf3a" : "#a090d0",
+  },
+};
+
+const colors = themes[theme];
+---
+
+<div
+  class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
+  data-variant={variant}
+>
+  <svg
+    id={uniqueId}
+    viewBox="0 0 400 400"
+    class="h-full max-h-[600px] w-full max-w-[600px]"
+  >
+    <defs>
+      <linearGradient
+        id={`grad1-${uniqueId}`}
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="100%"
+      >
+        <stop offset="0%" stop-color={colors.color1} stop-opacity="0.8"></stop>
+        <stop offset="100%" stop-color={colors.color2} stop-opacity="0.6"
+        ></stop>
+      </linearGradient>
+
+      <linearGradient
+        id={`grad2-${uniqueId}`}
+        x1="100%"
+        y1="0%"
+        x2="0%"
+        y2="100%"
+      >
+        <stop offset="0%" stop-color={colors.color2} stop-opacity="0.7"></stop>
+        <stop offset="100%" stop-color={colors.color3} stop-opacity="0.5"
+        ></stop>
+      </linearGradient>
+
+      <filter id={`glow-${uniqueId}`}>
+        <feGaussianBlur stdDeviation="4" result="coloredBlur"></feGaussianBlur>
+        <feMerge>
+          <feMergeNode in="coloredBlur"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+      </filter>
+    </defs>
+
+    {/* Morphing Squares Group */}
+    <g class="morphing-group">
+      {/* Square 1 - Analytics: Bar Chart morph */}
+      {
+        theme === "analytics" && (
+          <>
+            <path
+              class="morph-shape shape-1"
+              d="M 80,250 L 80,200 L 120,200 L 120,250 Z"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+            />
+            <path
+              class="morph-shape shape-2"
+              d="M 140,250 L 140,150 L 180,150 L 180,250 Z"
+              fill={`url(#grad2-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.85"
+            />
+            <path
+              class="morph-shape shape-3"
+              d="M 200,250 L 200,120 L 240,120 L 240,250 Z"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+            />
+            <path
+              class="morph-shape shape-4"
+              d="M 260,250 L 260,180 L 300,180 L 300,250 Z"
+              fill={`url(#grad2-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.85"
+            />
+          </>
+        )
+      }
+
+      {/* Square 2 - Tech: Circuit pattern */}
+      {
+        theme === "tech" && (
+          <>
+            <rect
+              class="morph-shape shape-1"
+              x="100"
+              y="100"
+              width="60"
+              height="60"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+              rx="8"
+            />
+            <rect
+              class="morph-shape shape-2"
+              x="180"
+              y="100"
+              width="60"
+              height="60"
+              fill={`url(#grad2-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.85"
+              rx="8"
+            />
+            <rect
+              class="morph-shape shape-3"
+              x="100"
+              y="180"
+              width="60"
+              height="60"
+              fill={`url(#grad2-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.85"
+              rx="8"
+            />
+            <rect
+              class="morph-shape shape-4"
+              x="180"
+              y="180"
+              width="60"
+              height="60"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+              rx="8"
+            />
+
+            {/* Connecting lines */}
+            <line
+              class="connect-line line-1"
+              x1="130"
+              y1="160"
+              x2="130"
+              y2="180"
+              stroke={colors.color1}
+              stroke-width="3"
+              opacity="0.6"
+            />
+            <line
+              class="connect-line line-2"
+              x1="160"
+              y1="130"
+              x2="180"
+              y2="130"
+              stroke={colors.color2}
+              stroke-width="3"
+              opacity="0.6"
+            />
+            <line
+              class="connect-line line-3"
+              x1="210"
+              y1="160"
+              x2="210"
+              y2="180"
+              stroke={colors.color3}
+              stroke-width="3"
+              opacity="0.6"
+            />
+          </>
+        )
+      }
+
+      {/* Square 3 - Growth: Arrow pattern */}
+      {
+        theme === "growth" && (
+          <>
+            <path
+              class="morph-shape shape-1"
+              d="M 120,240 L 120,200 L 160,200 L 160,240 Z"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+            />
+            <path
+              class="morph-shape shape-2"
+              d="M 170,200 L 170,160 L 210,160 L 210,200 Z"
+              fill={`url(#grad2-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.85"
+            />
+            <path
+              class="morph-shape shape-3"
+              d="M 220,160 L 220,120 L 260,120 L 260,160 Z"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+            />
+            <path
+              class="morph-shape shape-4"
+              d="M 240,80 L 280,120 L 260,120 L 260,140 L 220,140 L 220,120 L 200,120 Z"
+              fill={`url(#grad2-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+            />
+          </>
+        )
+      }
+
+      {/* Square 4 - Email: Envelope grid */}
+      {
+        theme === "email" && (
+          <>
+            <rect
+              class="morph-shape shape-1"
+              x="80"
+              y="140"
+              width="80"
+              height="60"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+              rx="6"
+            />
+            <path
+              class="morph-shape shape-2"
+              d="M 80,140 L 120,170 L 160,140"
+              fill="none"
+              stroke={colors.color2}
+              stroke-width="3"
+              opacity="0.9"
+            />
+
+            <rect
+              class="morph-shape shape-3"
+              x="180"
+              y="140"
+              width="80"
+              height="60"
+              fill={`url(#grad2-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.85"
+              rx="6"
+            />
+            <path
+              class="morph-shape shape-4"
+              d="M 180,140 L 220,170 L 260,140"
+              fill="none"
+              stroke={colors.color1}
+              stroke-width="3"
+              opacity="0.9"
+            />
+
+            <rect
+              class="morph-shape shape-5"
+              x="280"
+              y="140"
+              width="80"
+              height="60"
+              fill={`url(#grad1-${uniqueId})`}
+              filter={`url(#glow-${uniqueId})`}
+              opacity="0.9"
+              rx="6"
+            />
+            <path
+              class="morph-shape shape-6"
+              d="M 280,140 L 320,170 L 360,140"
+              fill="none"
+              stroke={colors.color3}
+              stroke-width="3"
+              opacity="0.9"
+            />
+          </>
+        )
+      }
+    </g>
+
+    {/* Floating particles */}
+    <circle
+      class="particle p1"
+      cx="100"
+      cy="80"
+      r="4"
+      fill={colors.color1}
+      opacity="0.6"></circle>
+    <circle
+      class="particle p2"
+      cx="250"
+      cy="100"
+      r="3"
+      fill={colors.color2}
+      opacity="0.5"></circle>
+    <circle
+      class="particle p3"
+      cx="150"
+      cy="300"
+      r="5"
+      fill={colors.color3}
+      opacity="0.7"></circle>
+    <circle
+      class="particle p4"
+      cx="320"
+      cy="280"
+      r="3.5"
+      fill={colors.color1}
+      opacity="0.6"></circle>
+  </svg>
+</div>
+
+<script is:inline define:vars={{ uniqueId, theme }}>
+  import anime from "animejs/lib/anime.es.js";
+
+  function initMorphing() {
+    const svg = document.getElementById(uniqueId);
+    if (!svg) return;
+
+    // Analytics Theme - Bar Chart Animation
+    if (theme === "analytics") {
+      // Bars grow and shrink
+      anime({
+        targets: `#${uniqueId} .shape-1`,
+        d: [
+          { value: "M 80,250 L 80,200 L 120,200 L 120,250 Z" },
+          { value: "M 80,250 L 80,160 L 120,160 L 120,250 Z" },
+          { value: "M 80,250 L 80,200 L 120,200 L 120,250 Z" },
+        ],
+        duration: 3000,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: 0,
+      });
+
+      anime({
+        targets: `#${uniqueId} .shape-2`,
+        d: [
+          { value: "M 140,250 L 140,150 L 180,150 L 180,250 Z" },
+          { value: "M 140,250 L 140,100 L 180,100 L 180,250 Z" },
+          { value: "M 140,250 L 140,150 L 180,150 L 180,250 Z" },
+        ],
+        duration: 3000,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: 300,
+      });
+
+      anime({
+        targets: `#${uniqueId} .shape-3`,
+        d: [
+          { value: "M 200,250 L 200,120 L 240,120 L 240,250 Z" },
+          { value: "M 200,250 L 200,80 L 240,80 L 240,250 Z" },
+          { value: "M 200,250 L 200,120 L 240,120 L 240,250 Z" },
+        ],
+        duration: 3000,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: 600,
+      });
+
+      anime({
+        targets: `#${uniqueId} .shape-4`,
+        d: [
+          { value: "M 260,250 L 260,180 L 300,180 L 300,250 Z" },
+          { value: "M 260,250 L 260,130 L 300,130 L 300,250 Z" },
+          { value: "M 260,250 L 260,180 L 300,180 L 300,250 Z" },
+        ],
+        duration: 3000,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: 900,
+      });
+    }
+
+    // Tech Theme - Circuit Pattern
+    if (theme === "tech") {
+      // Squares morph to circles and back
+      anime({
+        targets: `#${uniqueId} .morph-shape`,
+        rx: [{ value: 8 }, { value: 30 }, { value: 8 }],
+        duration: 4000,
+        easing: "easeInOutCubic",
+        loop: true,
+        delay: anime.stagger(200),
+      });
+
+      // Lines pulse
+      anime({
+        targets: `#${uniqueId} .connect-line`,
+        strokeWidth: [{ value: 3 }, { value: 6 }, { value: 3 }],
+        opacity: [{ value: 0.6 }, { value: 1 }, { value: 0.6 }],
+        duration: 2000,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: anime.stagger(300),
+      });
+    }
+
+    // Growth Theme - Staircase to Arrow
+    if (theme === "growth") {
+      anime({
+        targets: `#${uniqueId} .shape-1`,
+        d: [
+          { value: "M 120,240 L 120,200 L 160,200 L 160,240 Z" },
+          { value: "M 100,260 L 100,220 L 140,220 L 140,260 Z" },
+          { value: "M 120,240 L 120,200 L 160,200 L 160,240 Z" },
+        ],
+        duration: 3500,
+        easing: "easeInOutQuad",
+        loop: true,
+      });
+
+      anime({
+        targets: `#${uniqueId} .shape-2`,
+        d: [
+          { value: "M 170,200 L 170,160 L 210,160 L 210,200 Z" },
+          { value: "M 150,220 L 150,180 L 190,180 L 190,220 Z" },
+          { value: "M 170,200 L 170,160 L 210,160 L 210,200 Z" },
+        ],
+        duration: 3500,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: 200,
+      });
+
+      anime({
+        targets: `#${uniqueId} .shape-3`,
+        d: [
+          { value: "M 220,160 L 220,120 L 260,120 L 260,160 Z" },
+          { value: "M 200,180 L 200,140 L 240,140 L 240,180 Z" },
+          { value: "M 220,160 L 220,120 L 260,120 L 260,160 Z" },
+        ],
+        duration: 3500,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: 400,
+      });
+
+      // Arrow pulses
+      anime({
+        targets: `#${uniqueId} .shape-4`,
+        opacity: [{ value: 0.9 }, { value: 1 }, { value: 0.9 }],
+        scale: [{ value: 1 }, { value: 1.1 }, { value: 1 }],
+        duration: 2000,
+        easing: "easeInOutQuad",
+        loop: true,
+      });
+    }
+
+    // Email Theme - Envelopes animate
+    if (theme === "email") {
+      // Envelopes scale
+      anime({
+        targets: `#${uniqueId} .morph-shape`,
+        scale: [{ value: 1 }, { value: 1.05 }, { value: 1 }],
+        duration: 2500,
+        easing: "easeInOutQuad",
+        loop: true,
+        delay: anime.stagger(400),
+      });
+
+      // Flap lines animate
+      const flaps = [
+        `#${uniqueId} .shape-2`,
+        `#${uniqueId} .shape-4`,
+        `#${uniqueId} .shape-6`,
+      ];
+      flaps.forEach((flap, index) => {
+        anime({
+          targets: flap,
+          strokeWidth: [{ value: 3 }, { value: 5 }, { value: 3 }],
+          duration: 2000,
+          easing: "easeInOutQuad",
+          loop: true,
+          delay: index * 300,
+        });
+      });
+    }
+
+    // Particles float
+    anime({
+      targets: `#${uniqueId} .particle`,
+      translateY: [{ value: 0 }, { value: -30 }, { value: 0 }],
+      translateX: [
+        { value: 0 },
+        { value: anime.stagger([-10, 10]) },
+        { value: 0 },
+      ],
+      opacity: [{ value: 0.6 }, { value: 0.9 }, { value: 0.6 }],
+      duration: 4000,
+      easing: "easeInOutSine",
+      loop: true,
+      delay: anime.stagger(500),
+    });
+  }
+
+  // Initialize
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMorphing);
+  } else {
+    initMorphing();
+  }
+
+  // Re-initialize on page load
+  document.addEventListener("astro:page-load", initMorphing);
+</script>
+
+<style>
+  svg {
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.1));
+  }
+
+  [data-variant="dark"] svg {
+    filter: drop-shadow(0 4px 30px rgba(180, 229, 101, 0.2));
+  }
+</style>

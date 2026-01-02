@@ -1,0 +1,147 @@
+lang: de
+pageId: shopify-checkout-optimierung
+
+meta:
+  title: "Shopify Checkout Optimierung | Individueller Checkout für Plus"
+  description: "Shopify Checkout Customization für Shopify Plus. Individueller Checkout, Checkout Extensions und Conversion-Optimierung vom Experten."
+
+slug: "shopify-checkout-optimierung"
+
+settings:
+  status: published
+  priority: 0.8
+  headerVariant: dark
+
+sections:
+  - id: hero
+    enabled: true
+    order: 1
+    component: Hero
+    wrapper:
+      variant: dark
+      padding: none
+      container: false
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.15
+      gridSize: 80
+      glowLines: 8
+      rotate: -15
+      vignette: true
+      vignetteColor: "#151515"
+    content:
+      badge:
+        icon: "heroicons:shopping-cart-16-solid"
+        text: "Checkout Optimierung"
+      headline:
+        line1: "Shopify Checkout"
+        line2: "<em>Customization</em>"
+      subheadline: "Maximiere deine Conversion Rate mit einem individuell angepassten Checkout. Exklusiv für Shopify Plus."
+      ctas:
+        - text: "Checkout optimieren"
+          icon: "heroicons:calendar-days-16-solid"
+          variant: "primary"
+          size: "lg"
+          dataOpenFunnel: true
+        - text: "Möglichkeiten entdecken"
+          icon: "heroicons:arrow-down-16-solid"
+          href: "#features"
+          variant: "secondary"
+          size: "lg"
+      trustIndicators:
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Shopify Plus Partner"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "+15% Conversion"
+        - icon: "heroicons:check-circle-16-solid"
+          text: "Checkout Extensions"
+
+  - id: services
+    enabled: true
+    order: 2
+    component: Services
+    wrapper:
+      variant: white
+      padding: lg
+      container: true
+      containerSize: 3xl
+    content:
+      variant: light
+      badge: "Features"
+      badgeIcon: "heroicons:cog-6-tooth-16-solid"
+      headline: "Was wir im Checkout <em>optimieren</em>"
+      description: "Mit Shopify Plus hast du volle Kontrolle über den Checkout - wir nutzen sie."
+      services:
+        - tagline: "Branding"
+          title: "Individuelles Design"
+          description: "Dein Checkout in deinem Look - Farben, Fonts, Logo und Custom CSS."
+          icon: "heroicons:paint-brush"
+        - tagline: "Extensions"
+          title: "Checkout Extensions"
+          description: "Upsells, Cross-Sells, Custom Fields und mehr direkt im Checkout."
+          icon: "heroicons:puzzle-piece"
+        - tagline: "Logik"
+          title: "Custom Scripts"
+          description: "Individuelle Logik für Rabatte, Versand, Zahlungsarten und Validierung."
+          icon: "heroicons:code-bracket"
+        - tagline: "Trust"
+          title: "Trust Elements"
+          description: "Vertrauenssignale, Garantien und Social Proof im Checkout."
+          icon: "heroicons:shield-check"
+
+  - id: stats
+    enabled: true
+    order: 3
+    component: StatsStepped
+    wrapper:
+      variant: dark
+      padding: lg
+      container: true
+    background:
+      type: GridBackground
+      color: "#95BF47"
+      glowColor: "#95BF47"
+      opacity: 0.08
+      gridSize: 80
+      glowLines: 6
+      rotate: -15
+      vignette: true
+      vignetteColor: "#1c1c1e"
+    content:
+      variant: dark
+      badge: "Ergebnisse"
+      badgeIcon: "heroicons:arrow-trending-up-16-solid"
+      headline: "Checkout Optimierung <em>zahlt sich aus</em>"
+      description: "Durchschnittliche Verbesserungen durch Checkout Customization."
+      stats:
+        - value: "+15%"
+          title: "Conversion Rate"
+          description: "Durch optimierte UX und Trust-Elemente"
+          cardVariant: "light"
+        - value: "+20%"
+          title: "Durchschn. Bestellwert"
+          description: "Durch Upsells und Cross-Sells"
+          cardVariant: "dark"
+        - value: "-30%"
+          title: "Checkout Abbrüche"
+          description: "Durch reibungslose User Experience"
+          cardVariant: "primary"
+
+  - id: cta
+    enabled: true
+    order: 4
+    component: Cta
+    wrapper:
+      variant: "primary"
+      padding: sm
+      container: false
+    background:
+      type: AnimatedRectangles
+    content:
+      variant: primary
+      headline: "Checkout <em>optimieren?</em>"
+      description: "Lass uns analysieren, wie wir deinen Shopify Plus Checkout verbessern können."
+      buttonText: "Analyse anfragen"
+      emailLabel: "Oder ruf uns an: +49 (0) 2435-94989-50"

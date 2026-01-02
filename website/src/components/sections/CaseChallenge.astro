@@ -1,0 +1,315 @@
+---
+/**
+ * CaseChallenge Section Component
+ *
+ * Two-column layout with headline/intro text on left, and Problem/Ziel/Lösung
+ * blocks with icons on right. Includes optional testimonial quote overlay.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: CaseChallenge
+ * content:
+ *   headline: "Lorem Ipsum dolor"
+ *   headlineAccent: "Know How"
+ *   description: "Lorem ipsum dolor sit amet..."
+ *   blocks:
+ *     - icon: "heroicons:chat-bubble-left-ellipsis"
+ *       title: "Problem"
+ *       description: "Lorem ipsum dolor sit amet..."
+ *     - icon: "heroicons:flag"
+ *       title: "Ziel"
+ *       description: "Lorem ipsum dolor sit amet..."
+ *     - icon: "heroicons:light-bulb"
+ *       title: "Lösung"
+ *       description: "Lorem ipsum dolor sit amet..."
+ *   testimonial:
+ *     quote: "Lorem ipsum dolor sit amet..."
+ *     author: "Max Mustermann"
+ *     role: "Founder von koawach"
+ *     avatar: "/path/to/avatar.jpg"
+ *     rating: 4.84
+ *     reviewCount: 285
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ChallengeBlock {
+  icon?: string;
+  title: string;
+  description: string;
+}
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  role?: string;
+  avatar?: string;
+  rating?: number;
+  reviewCount?: number;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  headlineAccent?: string;
+  description?: string;
+  blocks?: ChallengeBlock[];
+  testimonial?: Testimonial;
+}
+
+const {
+  sectionVariant = "light",
+  headline = "Lorem Ipsum dolor",
+  headlineAccent = "Know How",
+  description,
+  blocks = [],
+  testimonial,
+} = Astro.props;
+---
+
+<div class="case-challenge" data-variant={sectionVariant}>
+  <Container>
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
+      {
+        /* Left Column - Headline, Description & Testimonial (sticky on desktop) */
+      }
+      <div class="flex flex-col gap-6 lg:sticky lg:top-32 lg:self-start">
+        <h2
+          class="case-challenge__headline scale-up text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-[52px]"
+        >
+          {headline}
+          {
+            headlineAccent && (
+              <>
+                <br />
+                <span class="case-challenge__headline-divider">–</span>{" "}
+                <span class="case-challenge__headline-accent">
+                  {headlineAccent}
+                </span>
+              </>
+            )
+          }
+        </h2>
+        {
+          description && (
+            <p
+              class="case-challenge__description fade-up text-lg leading-relaxed sm:text-xl"
+              style="transition-delay: 100ms;"
+              set:html={description}
+            />
+          )
+        }
+
+        {/* Testimonial Card - below content in natural flow */}
+        {
+          testimonial && (
+            <div
+              class="case-challenge__testimonial fade-up mt-8 flex flex-col gap-6 rounded-2xl p-6 shadow-xl sm:p-10"
+              style="transition-delay: 200ms;"
+            >
+              {/* Rating */}
+              {testimonial.rating && (
+                <div class="flex items-center gap-2">
+                  <div class="flex gap-0.5">
+                    {[1, 2, 3, 4, 5].map(() => (
+                      <Icon
+                        name="heroicons:star-solid"
+                        class="h-4 w-4 text-yellow-400"
+                      />
+                    ))}
+                  </div>
+                  <span class="case-challenge__rating text-sm">
+                    {testimonial.rating}
+                    {testimonial.reviewCount && ` (${testimonial.reviewCount})`}
+                  </span>
+                </div>
+              )}
+
+              {/* Quote */}
+              <blockquote class="case-challenge__quote text-2xl leading-snug font-semibold tracking-tight sm:text-[35px] sm:leading-[47px]">
+                "{testimonial.quote}"
+              </blockquote>
+
+              {/* Author */}
+              <div class="flex items-center gap-6">
+                {testimonial.avatar && (
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.author}
+                    class="h-20 w-20 rounded-full object-cover sm:h-24 sm:w-24"
+                    loading="lazy"
+                  />
+                )}
+                <div class="flex flex-col">
+                  <span class="case-challenge__author text-lg font-bold sm:text-xl">
+                    {testimonial.author}
+                  </span>
+                  {testimonial.role && (
+                    <span class="case-challenge__role text-lg sm:text-xl">
+                      {testimonial.role}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      {/* Right Column - Challenge Blocks */}
+      <div class="stagger-children flex flex-col gap-10">
+        {
+          blocks.map((block) => (
+            <div class="case-challenge__block flex flex-col gap-6">
+              {/* Divider Line */}
+              <div class="case-challenge__divider h-px w-full" />
+
+              {/* Icon */}
+              {block.icon && (
+                <div class="case-challenge__icon h-8 w-8">
+                  <Icon name={block.icon} class="h-full w-full" />
+                </div>
+              )}
+
+              {/* Content */}
+              <div class="flex flex-col gap-4">
+                <h3 class="case-challenge__block-title text-xl font-semibold">
+                  {block.title}
+                </h3>
+                <p
+                  class="case-challenge__block-description text-lg leading-relaxed"
+                  set:html={block.description}
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Base Colors - Light variant
+     ======================================== */
+  .case-challenge {
+    --challenge-headline: #1c1c1e;
+    --challenge-headline-accent: var(--heading-highlight);
+    --challenge-description: #6d6b76;
+    --challenge-divider: rgba(0, 0, 0, 0.1);
+    --challenge-icon: var(--section-accent);
+    --challenge-block-title: #1c1c1e;
+    --challenge-block-description: #6d6b76;
+    --challenge-testimonial-bg: #ffffff;
+    --challenge-quote: #080808;
+    --challenge-author: #1c1c1e;
+    --challenge-role: #1c1c1e;
+    --challenge-rating: #282828;
+  }
+
+  .case-challenge[data-variant="white"] {
+    --challenge-testimonial-bg: #f9f9f9;
+  }
+
+  .case-challenge[data-variant="dark"] {
+    --challenge-headline: #ffffff;
+    --challenge-headline-accent: var(--heading-highlight);
+    --challenge-description: #b1adbf;
+    --challenge-divider: rgba(255, 255, 255, 0.1);
+    --challenge-icon: var(--section-accent);
+    --challenge-block-title: #ffffff;
+    --challenge-block-description: #b1adbf;
+    --challenge-testimonial-bg: #262626;
+    --challenge-quote: #ffffff;
+    --challenge-author: #ffffff;
+    --challenge-role: #b1adbf;
+    --challenge-rating: #ffffff;
+  }
+
+  /* ========================================
+     Apply Colors
+     ======================================== */
+  .case-challenge__headline {
+    color: var(--challenge-headline);
+  }
+
+  .case-challenge__headline-divider {
+    color: var(--challenge-headline);
+  }
+
+  .case-challenge__headline-accent {
+    color: var(--challenge-headline-accent);
+  }
+
+  .case-challenge__description {
+    color: var(--challenge-description);
+  }
+
+  .case-challenge__divider {
+    background: var(--challenge-divider);
+  }
+
+  .case-challenge__icon {
+    color: var(--challenge-icon);
+  }
+
+  .case-challenge__block-title {
+    color: var(--challenge-block-title);
+  }
+
+  .case-challenge__block-description {
+    color: var(--challenge-block-description);
+  }
+
+  .case-challenge__testimonial {
+    background: var(--challenge-testimonial-bg);
+  }
+
+  .case-challenge__quote {
+    color: var(--challenge-quote);
+  }
+
+  .case-challenge__author {
+    color: var(--challenge-author);
+  }
+
+  .case-challenge__role {
+    color: var(--challenge-role);
+  }
+
+  .case-challenge__rating {
+    color: var(--challenge-rating);
+  }
+
+  /* Links in description - use :global() for set:html content */
+  .case-challenge__description :global(a),
+  .case-challenge__block-description :global(a) {
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
+  }
+
+  .case-challenge__description :global(a:hover),
+  .case-challenge__block-description :global(a:hover) {
+    opacity: 0.8;
+  }
+
+  /* Bold text styling - use :global() for set:html content */
+  .case-challenge__description :global(strong),
+  .case-challenge__block-description :global(strong) {
+    font-weight: 600;
+    color: var(--challenge-block-title);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .case-challenge__testimonial {
+      transition: none;
+    }
+  }
+</style>

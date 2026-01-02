@@ -1,0 +1,217 @@
+---
+/**
+ * RelatedCases Section Component
+ *
+ * Horizontal scrolling slider showing related case study cards.
+ * Each card has an image, tags, title, bullet points, and "Mehr erfahren" link.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: RelatedCases
+ * content:
+ *   headline: "Mehr Projekte"
+ *   cases:
+ *     - title: "bugatti"
+ *       image: "/path/to/image.jpg"
+ *       categoryTag: "Internationalisierung"
+ *       industryTag: "Home & Living"
+ *       highlights:
+ *         - "Lorem ipsum dolor sit amet"
+ *         - "eirmod tempor invidunt"
+ *       href: "/cases/bugatti"
+ *     - title: "Waikiki Glow"
+ *       image: "/path/to/image.jpg"
+ *       categoryTag: "Migration"
+ *       industryTag: "Beauty"
+ *       highlights:
+ *         - "Lorem ipsum dolor sit amet"
+ *       href: "/cases/waikiki-glow"
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface RelatedCase {
+  title: string;
+  image: string;
+  categoryTag?: string;
+  industryTag?: string;
+  highlights?: string[];
+  href: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  cases?: RelatedCase[];
+}
+
+const {
+  sectionVariant = "dark",
+  headline = "Mehr Projekte",
+  cases = [],
+} = Astro.props;
+---
+
+<div class="related-cases" data-variant={sectionVariant}>
+  <Container>
+    {/* Headline */}
+    <h2
+      class="related-cases__headline scale-up mb-8 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[52px]"
+    >
+      {headline}
+    </h2>
+  </Container>
+
+  {/* Slider */}
+  <div
+    class="fade-up overflow-x-auto pb-8"
+    style="transition-delay: 100ms;"
+    x-data="{ scrollContainer: null }"
+    x-init="scrollContainer = $el.querySelector('.related-cases__slider')"
+  >
+    <div
+      class="related-cases__slider flex gap-6 px-6 sm:gap-10 sm:px-10 lg:px-24"
+    >
+      {
+        cases.map((caseItem) => (
+          <a
+            href={caseItem.href}
+            class="related-cases__card group flex w-[340px] shrink-0 flex-col overflow-hidden rounded-lg sm:w-[400px]"
+          >
+            {/* Image */}
+            <div class="related-cases__card-image relative h-[240px] w-full overflow-hidden sm:h-[300px]">
+              <img
+                src={caseItem.image}
+                alt={caseItem.title}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Content */}
+            <div class="related-cases__card-content flex flex-1 flex-col gap-5 p-6 sm:p-8">
+              {/* Tags */}
+              <div class="flex items-center justify-between">
+                {caseItem.categoryTag && (
+                  <span class="related-cases__category-tag rounded-full px-3 py-1 text-sm">
+                    {caseItem.categoryTag}
+                  </span>
+                )}
+                {caseItem.industryTag && (
+                  <span class="related-cases__industry-tag rounded-full px-4 py-1 text-sm">
+                    {caseItem.industryTag}
+                  </span>
+                )}
+              </div>
+
+              {/* Title */}
+              <h3 class="related-cases__card-title text-2xl font-semibold tracking-tight sm:text-[35px] sm:leading-[47px]">
+                {caseItem.title}
+              </h3>
+
+              {/* Highlights */}
+              {caseItem.highlights && caseItem.highlights.length > 0 && (
+                <ul class="related-cases__highlights flex flex-col gap-1">
+                  {caseItem.highlights.map((highlight) => (
+                    <li class="list-inside list-disc text-base">{highlight}</li>
+                  ))}
+                </ul>
+              )}
+
+              {/* Link */}
+              <div class="related-cases__link mt-auto flex items-center gap-2 pt-2">
+                <span class="font-bold">Mehr erfahren</span>
+                <Icon
+                  name="heroicons:arrow-up-right-16-solid"
+                  class="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ========================================
+     Section Colors - Dark variant
+     ======================================== */
+  .related-cases {
+    --related-headline: #ffffff;
+    --related-card-bg: #262626;
+    --related-card-title: #ffffff;
+    --related-highlights: #989898;
+    --related-link: #ffffff;
+    --related-category-tag-bg: #565656;
+    --related-category-tag-text: #1c1c1e;
+    --related-industry-tag-bg: var(--primary);
+    --related-industry-tag-text: #262626;
+  }
+
+  .related-cases[data-variant="white"],
+  .related-cases[data-variant="light"] {
+    --related-headline: #1c1c1e;
+    --related-card-bg: #ffffff;
+    --related-card-title: #1c1c1e;
+    --related-highlights: #6d6b76;
+    --related-link: #1c1c1e;
+    --related-category-tag-bg: rgba(86, 86, 86, 0.3);
+    --related-category-tag-text: #1c1c1e;
+  }
+
+  /* ========================================
+     Apply Colors
+     ======================================== */
+  .related-cases__headline {
+    color: var(--related-headline);
+  }
+
+  .related-cases__card {
+    background: var(--related-card-bg);
+    box-shadow: 0px 25px 40px -40px rgba(0, 0, 0, 0.25);
+  }
+
+  .related-cases__card-title {
+    color: var(--related-card-title);
+  }
+
+  .related-cases__highlights {
+    color: var(--related-highlights);
+  }
+
+  .related-cases__link {
+    color: var(--related-link);
+  }
+
+  .related-cases__category-tag {
+    background: var(--related-category-tag-bg);
+    color: var(--related-category-tag-text);
+  }
+
+  .related-cases__industry-tag {
+    background: var(--related-industry-tag-bg);
+    color: var(--related-industry-tag-text);
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .related-cases__slider {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .related-cases__slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .related-cases__card img,
+    .related-cases__link {
+      transition: none;
+    }
+  }
+</style>

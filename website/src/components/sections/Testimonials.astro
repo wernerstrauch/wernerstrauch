@@ -1,0 +1,500 @@
+---
+/**
+ * Testimonials Section Component
+ *
+ * A grid of testimonial cards with consistent design language.
+ * Follows the same design patterns as Services, BentoGrid, etc.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: Testimonials
+ * content:
+ *   badge: "Kundenstimmen"
+ *   badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
+ *   headline: "Das sagen unsere <em>Kunden</em>"
+ *   description: "Erfahre, wie wir unseren Kunden geholfen haben."
+ *   testimonials:
+ *     - author: "Maria Schmidt"
+ *       role: "E-Commerce Director"
+ *       quote: "Die Zusammenarbeit war hervorragend."
+ *       metric: "2x"
+ *       metricLabel: "Conversion Rate"
+ * ```
+ */
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+import avatar1 from "@images/avatars/avatar-1.png";
+import avatar2 from "@images/avatars/avatar-2.png";
+import avatar3 from "@images/avatars/avatar-3.png";
+import avatar4 from "@images/avatars/avatar-4.png";
+import avatar5 from "@images/avatars/avatar-5.png";
+import avatar6 from "@images/avatars/avatar-6.png";
+import type { ImageMetadata } from "astro";
+
+interface Testimonial {
+  avatar?: ImageMetadata | string;
+  name?: string;
+  title?: string;
+  author?: string;
+  role?: string;
+  quote: string;
+  metric?: string;
+  metricLabel?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  testimonials?: Testimonial[];
+}
+
+const {
+  sectionVariant = "dark",
+  badge = "Kundenstimmen",
+  badgeIcon = "heroicons:chat-bubble-left-right-16-solid",
+  headline = "Das sagen unsere <em>Kunden</em>",
+  description = "Erfahre, wie wir unseren Kunden geholfen haben, ihre E-Commerce-Ziele zu erreichen.",
+  testimonials: customTestimonials,
+} = Astro.props;
+
+// Default testimonials if none provided
+const defaultTestimonials: Testimonial[] = [
+  {
+    avatar: avatar1,
+    name: "Maria Schmidt",
+    title: "E-Commerce Director bei FashionBrand",
+    quote:
+      "Die Zusammenarbeit hat unseren Online-Umsatz innerhalb von 6 Monaten verdoppelt. Absolut empfehlenswert!",
+    metric: "2x",
+    metricLabel: "Umsatz",
+  },
+  {
+    avatar: avatar2,
+    name: "Thomas Weber",
+    title: "Gründer von HomeDecor24",
+    quote:
+      "Endlich eine Agentur, die versteht was E-Commerce wirklich braucht. Die Ergebnisse sprechen für sich.",
+    metric: "150%",
+    metricLabel: "Mehr Traffic",
+  },
+  {
+    avatar: avatar3,
+    name: "Lisa Müller",
+    title: "Marketing Lead bei TechGadgets",
+    quote:
+      "Professionell, transparent und ergebnisorientiert. Genau das, was wir gesucht haben.",
+    metric: "4x",
+    metricLabel: "ROAS",
+  },
+  {
+    avatar: avatar4,
+    name: "Stefan Braun",
+    title: "CEO bei SportStyle",
+    quote:
+      "Die beste Entscheidung für unser Marketing-Budget. Der ROI ist beeindruckend.",
+    metric: "86%",
+    metricLabel: "Conversion",
+  },
+  {
+    avatar: avatar5,
+    name: "Anna Hofmann",
+    title: "Brand Manager bei BeautyPlus",
+    quote:
+      "Kreative Kampagnen, die wirklich funktionieren. Unsere Markenbekanntheit ist stark gestiegen.",
+    metric: "3x",
+    metricLabel: "Reichweite",
+  },
+  {
+    avatar: avatar6,
+    name: "Michael Richter",
+    title: "Inhaber von BioBoutique",
+    quote:
+      "Von der Strategie bis zur Umsetzung alles aus einer Hand. Super Zusammenarbeit!",
+    metric: "45%",
+    metricLabel: "Kosten gespart",
+  },
+];
+
+// Normalize testimonials
+function normalizeTestimonials(
+  input: Testimonial[] | undefined,
+): Testimonial[] {
+  if (!input || input.length === 0) return defaultTestimonials;
+  return input.map((t) => ({
+    ...t,
+    name: t.name || t.author || "Anonym",
+    title: t.title || t.role || "",
+  }));
+}
+
+const testimonials = normalizeTestimonials(customTestimonials);
+
+// Process headline: replace <em> tags with colored spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Determine grid layout based on item count
+const gridCols =
+  {
+    1: "max-w-md mx-auto",
+    2: "md:grid-cols-2",
+    3: "md:grid-cols-3",
+    4: "sm:grid-cols-2 lg:grid-cols-4",
+    5: "sm:grid-cols-2 lg:grid-cols-3",
+    6: "sm:grid-cols-2 lg:grid-cols-3",
+  }[Math.min(testimonials.length, 6)] || "sm:grid-cols-2 lg:grid-cols-3";
+---
+
+<div class="testimonials-section relative" data-variant={sectionVariant}>
+  {/* Header */}
+  <div class="relative z-10 mb-16 text-center">
+    {
+      badge && badgeIcon && (
+        <div class="blur-in mb-4 flex justify-center">
+          <div class="testimonials-badge shadow-inner-blur flex items-center rounded-full">
+            <div class="testimonials-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+              <Icon name={badgeIcon} class="testimonials-badge-icon h-4 w-4" />
+              <span class="testimonials-badge-text text-sm font-medium">
+                {badge}
+              </span>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    {
+      headline && (
+        <h2
+          class="testimonials-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+      )
+    }
+    {
+      description && (
+        <p
+          class="testimonials-description fade-up mx-auto mt-4 max-w-2xl text-lg"
+          style="transition-delay: 200ms;"
+        >
+          {description}
+        </p>
+      )
+    }
+  </div>
+
+  {/* Testimonials Grid */}
+  <div
+    class:list={["testimonials-grid stagger-children grid gap-6", gridCols]}
+    data-variant={sectionVariant}
+  >
+    {
+      testimonials.map((testimonial) => (
+        <div
+          class="testimonials__card group relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+          data-variant={sectionVariant}
+        >
+          {/* Spotlight glow effect */}
+          <div class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300" />
+
+          {/* Rotating border glow effect */}
+          <div class="border-glow" />
+
+          <div class="testimonials__card-inner relative z-30 h-full w-full overflow-hidden rounded-2xl">
+            <div class="flex h-full flex-col p-6 lg:p-8">
+              {/* Metric Badge */}
+              {testimonial.metric && (
+                <div class="testimonials__metric mb-5 flex items-center gap-2">
+                  <span class="testimonials__metric-value text-3xl font-bold lg:text-4xl">
+                    {testimonial.metric}
+                  </span>
+                  {testimonial.metricLabel && (
+                    <span class="testimonials__metric-label text-sm font-medium">
+                      {testimonial.metricLabel}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* Quote */}
+              <div class="flex flex-grow items-start gap-2">
+                <Icon
+                  name="heroicons:chat-bubble-bottom-center-text-16-solid"
+                  class="testimonials__quote-icon mt-1 h-5 w-5 flex-shrink-0"
+                />
+                <p class="testimonials__quote text-base leading-relaxed lg:text-lg">
+                  "{testimonial.quote}"
+                </p>
+              </div>
+
+              {/* Author */}
+              <div class="mt-6 flex items-center gap-3 border-t pt-5">
+                <div class="testimonials__avatar flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full">
+                  {testimonial.avatar &&
+                  typeof testimonial.avatar === "object" ? (
+                    <Image
+                      class="h-full w-full object-cover"
+                      src={testimonial.avatar}
+                      alt={testimonial.name || ""}
+                    />
+                  ) : testimonial.avatar ? (
+                    <img
+                      class="h-full w-full object-cover"
+                      src={testimonial.avatar}
+                      alt={testimonial.name || ""}
+                    />
+                  ) : (
+                    <div class="testimonials__avatar-placeholder flex h-full w-full items-center justify-center text-sm font-semibold">
+                      {(testimonial.name || "?").charAt(0)}
+                    </div>
+                  )}
+                </div>
+                <div class="flex flex-col">
+                  <span class="testimonials__author text-sm font-semibold">
+                    {testimonial.name}
+                  </span>
+                  {testimonial.title && (
+                    <span class="testimonials__role text-sm">
+                      {testimonial.title}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function initializeTestimonialsHoverEffect(): void {
+    const grids =
+      document.querySelectorAll<HTMLDivElement>(".testimonials-grid");
+
+    grids.forEach((grid) => {
+      const cards = grid.querySelectorAll<HTMLDivElement>(
+        ".testimonials__card",
+      );
+
+      // Spotlight effect - track mouse on grid, apply to all cards
+      grid.addEventListener("mousemove", (event: MouseEvent) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          // Set CSS variables for glow position
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        });
+      });
+
+      // Reset on mouse leave
+      grid.addEventListener("mouseleave", () => {
+        cards.forEach((card) => {
+          card.classList.remove("is-hovering");
+        });
+      });
+
+      // Track individual card hover
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", () =>
+          card.classList.add("is-hovering"),
+        );
+        card.addEventListener("mouseleave", () =>
+          card.classList.remove("is-hovering"),
+        );
+      });
+    });
+  }
+
+  initializeTestimonialsHoverEffect();
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .testimonials-badge {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  }
+
+  .testimonials-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .testimonials-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .testimonials-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .testimonials-headline {
+    color: var(--section-text);
+  }
+
+  .testimonials-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .testimonials__card {
+    border-color: var(--section-card-border);
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .testimonials__card:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 50%, transparent);
+  }
+
+  .testimonials__card-inner {
+    background: var(--section-card-bg);
+  }
+
+  /* ========================================
+     Metric styles
+     ======================================== */
+  .testimonials__metric-value {
+    color: var(--section-accent);
+  }
+
+  .testimonials__metric-label {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Quote styles
+     ======================================== */
+  .testimonials__quote-icon {
+    color: var(--section-accent);
+    opacity: 0.6;
+  }
+
+  .testimonials__quote {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Author styles
+     ======================================== */
+  .testimonials__card-inner > div > .border-t {
+    border-color: var(--section-card-border);
+  }
+
+  .testimonials__avatar {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--section-accent) 20%, transparent);
+  }
+
+  .testimonials__avatar-placeholder {
+    color: var(--section-accent);
+  }
+
+  .testimonials__author {
+    color: var(--section-text);
+  }
+
+  .testimonials__role {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Glow Effects (same as Services)
+     ======================================== */
+  .card-glow {
+    opacity: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in srgb, var(--section-accent) 15%, transparent),
+      transparent 40%
+    );
+  }
+
+  .testimonials__card:hover .card-glow,
+  .testimonials__card.is-hovering .card-glow {
+    opacity: 1;
+  }
+
+  /* Rotating border glow */
+  .border-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .border-glow::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(
+      from 0deg,
+      transparent,
+      var(--section-accent),
+      transparent 30%
+    );
+    animation: spinGlow 6s linear infinite;
+    animation-play-state: paused;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .testimonials__card:hover .border-glow::before,
+  .testimonials__card.is-hovering .border-glow::before {
+    animation-play-state: running;
+    opacity: 1;
+  }
+
+  .border-glow::after {
+    content: "";
+    position: absolute;
+    inset: 1.5px;
+    background: var(--section-card-bg);
+    border-radius: calc(1rem - 1.5px);
+  }
+
+  @keyframes spinGlow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials__card {
+      transition: none;
+    }
+
+    .border-glow::before {
+      animation: none;
+    }
+  }
+</style>

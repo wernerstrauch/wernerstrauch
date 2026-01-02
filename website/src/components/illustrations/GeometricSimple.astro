@@ -1,0 +1,135 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+}
+
+const { variant = "light" } = Astro.props;
+const uniqueId = `geo-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div class="absolute inset-0 overflow-hidden pointer-events-none" data-variant={variant}>
+  <svg viewBox="0 0 400 400" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id={`grad1-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.6" />
+        <stop offset="100%" stop-color="var(--color-secondary)" stop-opacity="0.3" />
+      </linearGradient>
+    </defs>
+
+    {/* Rotating Hexagon */}
+    <polygon
+      class="rotating-slow"
+      points="200,40 320,110 320,250 200,320 80,250 80,110"
+      fill={`url(#grad1-${uniqueId})`}
+      stroke="var(--color-primary)"
+      stroke-width="2"
+      opacity="0.4"
+    />
+
+    {/* Rotating Triangles */}
+    <g class="rotating-reverse">
+      <polygon
+        class="pulsing"
+        points="200,100 240,160 160,160"
+        fill="none"
+        stroke="var(--color-primary)"
+        stroke-width="3"
+      />
+      <polygon
+        class="pulsing"
+        points="280,200 330,230 280,260"
+        fill="none"
+        stroke="var(--color-secondary)"
+        stroke-width="3"
+        style="animation-delay: 1s;"
+      />
+      <polygon
+        class="pulsing"
+        points="120,200 70,230 120,260"
+        fill="none"
+        stroke="var(--color-primary)"
+        stroke-width="3"
+        style="animation-delay: 2s;"
+      />
+    </g>
+
+    {/* Rotating Squares */}
+    <rect
+      class="rotating-slow"
+      x="150"
+      y="150"
+      width="100"
+      height="100"
+      fill="none"
+      stroke="var(--color-primary)"
+      stroke-width="2"
+      rx="5"
+    />
+
+    {/* Orbiting Circles */}
+    <circle class="orbit-1" r="6" fill="var(--color-primary)" opacity="0.8" />
+    <circle class="orbit-2" r="5" fill="var(--color-secondary)" opacity="0.7" />
+  </svg>
+</div>
+
+<style>
+  [data-variant="light"] {
+    --color-primary: #4f3ca2;
+    --color-secondary: #6b5bb5;
+  }
+
+  [data-variant="dark"] {
+    --color-primary: #b4e565;
+    --color-secondary: #9dd84f;
+  }
+
+  .rotating-slow {
+    transform-origin: 200px 200px;
+    animation: rotate360 30s linear infinite;
+  }
+
+  .rotating-reverse {
+    transform-origin: 200px 200px;
+    animation: rotateReverse 25s linear infinite;
+  }
+
+  @keyframes rotate360 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes rotateReverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
+  .pulsing {
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      stroke-opacity: 0.6;
+      stroke-width: 3;
+    }
+    50% {
+      stroke-opacity: 1;
+      stroke-width: 4;
+    }
+  }
+
+  .orbit-1 {
+    offset-path: path("M 200,200 m -80,0 a 80,80 0 1,0 160,0 a 80,80 0 1,0 -160,0");
+    animation: orbit 10s linear infinite;
+  }
+
+  .orbit-2 {
+    offset-path: path("M 200,200 m -60,0 a 60,60 0 1,0 120,0 a 60,60 0 1,0 -120,0");
+    animation: orbit 8s linear infinite reverse;
+  }
+
+  @keyframes orbit {
+    from { offset-distance: 0%; }
+    to { offset-distance: 100%; }
+  }
+</style>

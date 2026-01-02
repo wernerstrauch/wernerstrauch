@@ -1,0 +1,337 @@
+---
+/**
+ * CaseStudyGrid Section Component
+ *
+ * A filterable grid of case study cards with category filters.
+ * Based on Figma design node 4676-4517.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: CaseStudyGrid
+ * content:
+ *   headline: "Unsere Kunden sind"
+ *   headlineAccent: "glückliche Kunden"
+ *   description: "Erfolgsgeschichten, die Vertrauen schaffen."
+ *   filters:
+ *     - label: "Alle"
+ *       value: "all"
+ *       count: 55
+ *     - label: "Shopify mit Design"
+ *       value: "shopify-design"
+ *       count: 16
+ *   cases:
+ *     - title: "Kaowach"
+ *       description: "Kurze Beschreibung..."
+ *       image: "/path/to/image.jpg"
+ *       tags: ["UI/UX Design", "Migration"]
+ *       category: "shopify-design"
+ *       href: "/cases/kaowach"
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import type { SectionVariant } from "../../types";
+
+interface CaseFilter {
+  label: string;
+  value: string;
+  count?: number;
+}
+
+interface CaseStudy {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  category: string;
+  href?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  headlineAccent?: string;
+  description?: string;
+  filters?: CaseFilter[];
+  cases?: CaseStudy[];
+}
+
+const {
+  sectionVariant = "light",
+  headline = "Unsere Kunden sind",
+  headlineAccent = "glückliche Kunden",
+  description = "Erfolgsgeschichten, die Vertrauen schaffen. Eine Auswahl.",
+  filters = [
+    { label: "Alle", value: "all", count: 55 },
+    { label: "Shopify mit Design", value: "shopify-design", count: 16 },
+    { label: "Shopify headless", value: "shopify-headless", count: 7 },
+    { label: "Shopify Migration", value: "shopify-migration", count: 32 },
+  ],
+  cases = [],
+} = Astro.props;
+
+// Generate filter JSON for Alpine.js
+const filtersJson = JSON.stringify(filters.map((f) => f.value));
+---
+
+<div class="case-study-grid" data-variant={sectionVariant}>
+  <Container>
+    <div class="flex flex-col gap-6">
+      {/* Header */}
+      <div class="flex flex-col gap-6">
+        <h1
+          class="case-study-grid__headline scale-up text-4xl leading-none font-semibold tracking-tight sm:text-5xl lg:text-6xl xl:text-[78px]"
+        >
+          <span class="case-study-grid__headline-main block">{headline}</span>
+          <span class="case-study-grid__headline-accent block"
+            >{headlineAccent}</span
+          >
+        </h1>
+        <p
+          class="case-study-grid__description fade-up text-lg sm:text-xl"
+          style="transition-delay: 100ms;"
+        >
+          {description}
+        </p>
+      </div>
+
+      {/* Filter Toggle Bar */}
+      <div
+        class="fade-up pt-6 sm:pt-10"
+        style="transition-delay: 200ms;"
+        x-data={`{
+          activeFilter: 'all',
+          filters: ${filtersJson},
+          setFilter(value) {
+            this.activeFilter = value;
+          }
+        }`}
+      >
+        <div class="flex flex-wrap gap-3 sm:gap-[30px]">
+          {
+            filters.map((filter) => (
+              <button
+                type="button"
+                class="case-study-grid__filter group flex items-center gap-2.5 rounded-full px-5 py-3 text-base transition-all duration-300 sm:px-6 sm:py-4"
+                x-bind:class={`activeFilter === '${filter.value}' ? 'is-active' : ''`}
+                x-on:click={`setFilter('${filter.value}')`}
+              >
+                <span
+                  class="case-study-grid__filter-dot h-1.5 w-1.5 rounded-full transition-all duration-300"
+                  x-show={`activeFilter === '${filter.value}'`}
+                  x-transition:enter="transition ease-out duration-200"
+                  x-transition:enter-start="opacity-0 scale-0"
+                  x-transition:enter-end="opacity-100 scale-100"
+                />
+                <span class="case-study-grid__filter-label">
+                  {filter.label}
+                </span>
+                {filter.count !== undefined && (
+                  <span class="case-study-grid__filter-count text-[#989898]">
+                    {filter.count}
+                  </span>
+                )}
+              </button>
+            ))
+          }
+        </div>
+
+        {/* Case Study Cards Grid - Pinterest-style offset layout */}
+        <div
+          class="stagger-children case-study-grid__masonry mt-8 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {
+            cases.map((caseStudy, index) => (
+              <a
+                href={caseStudy.href || "#"}
+                class:list={[
+                  "case-study-grid__card group flex flex-col overflow-hidden rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl",
+                  // Offset every second column on md+ screens
+                  index % 3 === 1 && "lg:mt-16",
+                  index % 2 === 1 && "md:mt-12 lg:mt-0",
+                  // Additional offset for third column
+                  index % 3 === 2 && "lg:mt-32",
+                ]}
+                x-show={`activeFilter === 'all' || activeFilter === '${caseStudy.category}'`}
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 translate-y-4"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+              >
+                {/* Card Image */}
+                <div class="case-study-grid__card-image relative aspect-[4/5] w-full overflow-hidden">
+                  <img
+                    src={caseStudy.image}
+                    alt={caseStudy.title}
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Overlay with title on hover */}
+                  <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 opacity-100 transition-opacity duration-300">
+                    <h3 class="text-xl font-semibold text-white sm:text-2xl">
+                      {caseStudy.title}
+                    </h3>
+                    <p class="mt-1 text-sm text-white/80">
+                      {caseStudy.tags.join(" • ")}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+
+        {/* Empty State */}
+        {
+          cases.length === 0 && (
+            <div class="mt-8 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
+              <p class="text-lg text-gray-500">Keine Case Studies vorhanden.</p>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Base Colors - Light Lime Green Background
+     ======================================== */
+  .case-study-grid {
+    --grid-headline: #1c1c1e;
+    --grid-headline-accent: var(--primary);
+    --grid-description: #1c1c1e;
+    --grid-filter-bg: #ffffff;
+    --grid-filter-bg-active: #ffffff;
+    --grid-filter-border-active: var(--primary);
+    --grid-filter-text: #1c1c1e;
+    --grid-filter-dot: var(--primary);
+    --grid-card-bg: #ffffff;
+    --grid-card-title: #1c1c1e;
+    --grid-card-description: #989898;
+    --grid-tag-bg: var(--primary);
+    --grid-tag-text: #ffffff;
+  }
+
+  .case-study-grid[data-variant="white"] {
+    --grid-headline: #1c1c1e;
+    --grid-headline-accent: var(--primary);
+    --grid-description: #1c1c1e;
+    --grid-filter-bg: var(--muted);
+    --grid-filter-bg-active: #ffffff;
+    --grid-card-bg: #ffffff;
+  }
+
+  .case-study-grid[data-variant="dark"] {
+    --grid-headline: #ffffff;
+    --grid-headline-accent: var(--accent);
+    --grid-description: #d4d4d8;
+    --grid-filter-bg: #2a2a2e;
+    --grid-filter-bg-active: #3f3f46;
+    --grid-filter-border-active: var(--accent);
+    --grid-filter-text: #ffffff;
+    --grid-filter-dot: var(--accent);
+    --grid-card-bg: #2a2a2e;
+    --grid-card-title: #ffffff;
+    --grid-card-description: #a1a1aa;
+    --grid-tag-bg: var(--accent);
+    --grid-tag-text: #1c1c1e;
+  }
+
+  .case-study-grid[data-variant="primary"] {
+    --grid-headline: #ffffff;
+    --grid-headline-accent: rgba(255, 255, 255, 0.9);
+    --grid-description: rgba(255, 255, 255, 0.85);
+    --grid-filter-bg: rgba(255, 255, 255, 0.1);
+    --grid-filter-bg-active: rgba(255, 255, 255, 0.2);
+    --grid-filter-border-active: #ffffff;
+    --grid-filter-text: #ffffff;
+    --grid-filter-dot: #ffffff;
+    --grid-card-bg: rgba(255, 255, 255, 0.1);
+    --grid-card-title: #ffffff;
+    --grid-card-description: rgba(255, 255, 255, 0.8);
+    --grid-tag-bg: rgba(255, 255, 255, 0.2);
+    --grid-tag-text: #ffffff;
+  }
+
+  /* ========================================
+     Apply Colors
+     ======================================== */
+  .case-study-grid__headline-main {
+    color: var(--grid-headline);
+  }
+
+  .case-study-grid__headline-accent {
+    color: var(--grid-headline-accent);
+  }
+
+  .case-study-grid__description {
+    color: var(--grid-description);
+  }
+
+  /* Filter Buttons */
+  .case-study-grid__filter {
+    background: var(--grid-filter-bg);
+    color: var(--grid-filter-text);
+    border: 1px solid transparent;
+  }
+
+  .case-study-grid__filter.is-active,
+  .case-study-grid__filter:hover {
+    background: var(--grid-filter-bg-active);
+    border-color: var(--grid-filter-border-active);
+  }
+
+  .case-study-grid__filter-dot {
+    background: var(--grid-filter-dot);
+  }
+
+  /* Card Styles */
+  .case-study-grid__card {
+    background: var(--grid-card-bg);
+  }
+
+  .case-study-grid__card-title {
+    color: var(--grid-card-title);
+  }
+
+  .case-study-grid__card-description {
+    color: var(--grid-card-description);
+  }
+
+  /* Tags */
+  .case-study-grid__tag {
+    background: var(--grid-tag-bg);
+    color: var(--grid-tag-text);
+  }
+
+  /* Shadow */
+  .case-study-grid__card {
+    box-shadow: 0px 25px 40px -40px rgba(0, 0, 0, 0.25);
+  }
+
+  .case-study-grid__card:hover {
+    box-shadow: 0px 25px 50px -30px rgba(0, 0, 0, 0.35);
+    transform: translateY(-4px);
+  }
+
+  /* Masonry offset grid - ensure proper spacing */
+  .case-study-grid__masonry {
+    align-items: start;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .case-study-grid__card,
+    .case-study-grid__filter,
+    .case-study-grid__card-image img {
+      transition: none;
+    }
+
+    .case-study-grid__card:hover {
+      transform: none;
+    }
+  }
+</style>

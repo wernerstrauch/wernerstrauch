@@ -1,0 +1,233 @@
+---
+import Container from "@components/shared/Container.astro";
+import type { SectionVariant } from "../../types";
+
+interface Logo {
+  name: string;
+  light: string;
+  dark: string;
+  portrait?: boolean; // For logos that are taller than wide
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  logos?: Logo[];
+}
+
+const {
+  sectionVariant = "light",
+  headline = "Vertrauen von führenden E-Commerce Brands",
+  logos = [
+    {
+      name: "Shopify",
+      light: "/shopify-logo.svg",
+      dark: "/shopify-logo.svg",
+    },
+    {
+      name: "Klaviyo",
+      light: "/klaviyo-logo.svg",
+      dark: "/klaviyo-logo.svg",
+    },
+    {
+      name: "Google Ads",
+      light: "/google-ads-logo.svg",
+      dark: "/google-ads-logo.svg",
+      portrait: true,
+    },
+    {
+      name: "Meta",
+      light: "/meta-ads-logo.svg",
+      dark: "/meta-ads-logo.svg",
+    },
+  ],
+} = Astro.props;
+
+// Determine which logo version to use based on variant
+const useDarkLogos = sectionVariant === "dark" || sectionVariant === "primary";
+---
+
+<Container>
+  <div class="logocloud" data-variant={sectionVariant}>
+    <h2 class="logocloud__headline fade-up">
+      {headline}
+    </h2>
+    <div class="logocloud__grid stagger-children">
+      {
+        logos.map((logo) => (
+          <img
+            width={logo.portrait ? "48" : "158"}
+            height={logo.portrait ? "60" : "48"}
+            src={useDarkLogos ? logo.dark : logo.light}
+            alt={logo.name}
+            class:list={[
+              "logocloud__logo",
+              logo.portrait
+                ? "logocloud__logo--portrait"
+                : "logocloud__logo--landscape",
+            ]}
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+  </div>
+</Container>
+
+<style>
+  .logocloud {
+    /* Headline colors */
+    --headline-color-white: var(--color-gray-900);
+    --headline-color-light: var(--color-gray-900);
+    --headline-color-dark: var(--color-gray-300);
+    --headline-color-primary: rgb(255 255 255 / 90%);
+
+    /* Logo opacity and effects */
+    --logo-opacity-white: 0.6;
+    --logo-opacity-light: 0.6;
+    --logo-opacity-dark: 0.5;
+    --logo-opacity-primary: 0.7;
+
+    --logo-hover-opacity-white: 1;
+    --logo-hover-opacity-light: 1;
+    --logo-hover-opacity-dark: 1;
+    --logo-hover-opacity-primary: 1;
+
+    --logo-grayscale-white: 100%;
+    --logo-grayscale-light: 100%;
+    --logo-grayscale-dark: 0%;
+    --logo-grayscale-primary: 0%;
+
+    --logo-hover-grayscale-white: 0%;
+    --logo-hover-grayscale-light: 0%;
+    --logo-hover-grayscale-dark: 0%;
+    --logo-hover-grayscale-primary: 0%;
+
+    --logo-brightness-white: 100%;
+    --logo-brightness-light: 100%;
+    --logo-brightness-dark: 0%;
+    --logo-brightness-primary: 0%;
+
+    --logo-invert-white: 0%;
+    --logo-invert-light: 0%;
+    --logo-invert-dark: 100%;
+    --logo-invert-primary: 100%;
+  }
+
+  .logocloud__headline {
+    text-align: center;
+    font-size: 1rem;
+    line-height: 2rem;
+    font-weight: 600;
+    color: var(--headline-color-light);
+  }
+
+  .logocloud[data-variant="white"] .logocloud__headline {
+    color: var(--headline-color-white);
+  }
+
+  .logocloud[data-variant="dark"] .logocloud__headline {
+    color: var(--headline-color-dark);
+  }
+
+  .logocloud[data-variant="primary"] .logocloud__headline {
+    color: var(--headline-color-primary);
+  }
+
+  @media (min-width: 640px) {
+    .logocloud__headline {
+      font-size: 1.125rem;
+    }
+  }
+
+  .logocloud__grid {
+    margin: 2.5rem auto 0;
+    display: grid;
+    max-width: 32rem;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    column-gap: 2rem;
+    row-gap: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .logocloud__grid {
+      max-width: 36rem;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .logocloud__grid {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .logocloud__logo {
+    object-fit: contain;
+    transition: all 300ms;
+    opacity: var(--logo-opacity-light);
+    filter: grayscale(var(--logo-grayscale-light))
+      brightness(var(--logo-brightness-light)) invert(var(--logo-invert-light));
+  }
+
+  .logocloud[data-variant="white"] .logocloud__logo {
+    opacity: var(--logo-opacity-white);
+    filter: grayscale(var(--logo-grayscale-white))
+      brightness(var(--logo-brightness-white)) invert(var(--logo-invert-white));
+  }
+
+  .logocloud[data-variant="dark"] .logocloud__logo {
+    opacity: var(--logo-opacity-dark);
+    filter: grayscale(var(--logo-grayscale-dark))
+      brightness(var(--logo-brightness-dark)) invert(var(--logo-invert-dark));
+  }
+
+  .logocloud[data-variant="primary"] .logocloud__logo {
+    opacity: var(--logo-opacity-primary);
+    filter: grayscale(var(--logo-grayscale-primary))
+      brightness(var(--logo-brightness-primary))
+      invert(var(--logo-invert-primary));
+  }
+
+  .logocloud__logo:hover {
+    transform: scale(1.05);
+    opacity: var(--logo-hover-opacity-light);
+    filter: grayscale(var(--logo-hover-grayscale-light))
+      brightness(var(--logo-brightness-light)) invert(var(--logo-invert-light));
+  }
+
+  .logocloud[data-variant="white"] .logocloud__logo:hover {
+    opacity: var(--logo-hover-opacity-white);
+    filter: grayscale(var(--logo-hover-grayscale-white))
+      brightness(var(--logo-brightness-white)) invert(var(--logo-invert-white));
+  }
+
+  .logocloud[data-variant="dark"] .logocloud__logo:hover {
+    opacity: var(--logo-hover-opacity-dark);
+    filter: grayscale(var(--logo-hover-grayscale-dark))
+      brightness(var(--logo-brightness-dark)) invert(var(--logo-invert-dark));
+  }
+
+  .logocloud[data-variant="primary"] .logocloud__logo:hover {
+    opacity: var(--logo-hover-opacity-primary);
+    filter: grayscale(var(--logo-hover-grayscale-primary))
+      brightness(var(--logo-brightness-primary))
+      invert(var(--logo-invert-primary));
+  }
+
+  .logocloud__logo--portrait {
+    margin: 0 auto;
+    height: 3.5rem;
+    width: auto;
+  }
+
+  .logocloud__logo--landscape {
+    max-height: 2.5rem;
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,544 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Faq {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  faqs?: Faq[];
+}
+
+const {
+  sectionVariant = "light",
+  badge = "FAQs",
+  badgeIcon = "heroicons:chat-bubble-left-right-16-solid",
+  headline = "Häufig gestellte <em>Fragen</em>",
+  description = 'Noch Fragen? <a href="#kontakt" class="text-primary hover:text-primary-light font-medium underline transition-colors">Kontaktiere uns</a> für ein unverbindliches Gespräch.',
+  faqs = [
+    {
+      question: "Was kostet Shop Marketing?",
+      answer:
+        'Die Kosten richten sich nach dem Umfang der Betreuung. Eine reine <a href="/performance-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">Performance Marketing</a>-Betreuung startet ab ca. 1.500€/Monat, ein Full-Service-Paket mit allen Kanälen liegt bei 3.000-6.000€/Monat. Im kostenlosen Erstgespräch finden wir das passende Modell für dich.',
+    },
+    {
+      question: "Wie schnell sehe ich Ergebnisse?",
+      answer:
+        'Bei <a href="/performance-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">Performance Marketing</a> siehst du oft schon in den ersten Wochen Verbesserungen. <a href="/email-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">E-Mail-Flows</a> zeigen nach 2-4 Wochen Wirkung. SEO braucht typischerweise 3-6 Monate für signifikante Ergebnisse.',
+    },
+    {
+      question: "Mit welchen Shop-Systemen arbeitet ihr?",
+      answer:
+        "Wir arbeiten mit allen gängigen E-Commerce-Plattformen: Shopify, WooCommerce, Shopware, Magento und weitere. Die meisten Tools wie Klaviyo, Google Ads oder Meta funktionieren plattformunabhängig.",
+    },
+    {
+      question: "Brauche ich ein Mindest-Werbebudget?",
+      answer:
+        "Für sinnvolle Performance-Kampagnen empfehlen wir ein monatliches Ad-Budget ab ca. 3.000€. Darunter ist es schwer, genug Daten für Optimierungen zu sammeln. Wir sind aber ehrlich: Wenn dein Budget noch nicht reicht, sagen wir dir das.",
+    },
+    {
+      question: "Was ist mit Klaviyo?",
+      answer:
+        'Klaviyo ist unsere bevorzugte E-Mail-Marketing-Plattform für E-Commerce. Die Segmentierung, Automatisierungen und Integration mit Shop-Systemen sind unschlagbar. Wir sind <a href="/email-marketing" class="text-primary hover:text-primary-light underline underline-offset-2">Klaviyo-Partner</a> und übernehmen Setup, Flows und laufende Optimierung.',
+    },
+    {
+      question: "Wie läuft die Zusammenarbeit ab?",
+      answer:
+        "Nach dem Erstgespräch analysieren wir deinen Shop und erstellen eine Strategie. Dann setzen wir gemeinsam Prioritäten und starten mit der Implementierung. Du bekommst regelmäßige Reports und wir sprechen mindestens 1x pro Woche.",
+    },
+  ],
+} = Astro.props;
+
+// Process headline:
+// - <em> tags become circled words with animated SVG
+// - <mark> tags become colored text only (no circle)
+let emIndex = 0;
+let processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  (_match: string, content: string) => {
+    const index = emIndex++;
+    return `<span class="circled-word" data-circled-index="${index}">${content}<svg class="circled-word__svg" viewBox="0 0 800 350" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="circled-word__path" d="M253,-161 C253,-161 -284.789,-201.46 -376,-21 C-469,163 67.623,174.21 256,121 C564,34 250.829,-141.693 19.107,-116.936" transform="translate(400, 179) scale(0.9791)" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" pathLength="1"/></svg></span>`;
+  },
+);
+processedHeadline = processedHeadline.replace(
+  /<mark>(.*?)<\/mark>/g,
+  `<span class="highlighted-word">$1</span>`,
+);
+---
+
+<div class="faq" data-variant={sectionVariant}>
+  {/* Decorative elements */}
+  <div
+    class="faq__decorative faq__decorative--top absolute top-0 left-1/4 h-72 w-72 rounded-full blur-3xl"
+  >
+  </div>
+  <div
+    class="faq__decorative faq__decorative--bottom absolute right-1/4 bottom-0 h-72 w-72 rounded-full blur-3xl"
+  >
+  </div>
+
+  <Container id="faq" class="relative max-w-[1000px]">
+    {/* Header */}
+    <div class="mb-14 text-center">
+      <p class="faq__eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+        {badge}
+      </p>
+      <h2
+        class="faq__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+        style="transition-delay: 100ms;"
+        set:html={processedHeadline}
+      />
+      <p
+        class="faq__description fade-up mx-auto mt-4 max-w-2xl text-lg"
+        style="transition-delay: 200ms;"
+        set:html={description}
+      />
+    </div>
+
+    {/* FAQ Accordion using native details/summary */}
+    <div class="faq-container space-y-4">
+      {
+        faqs.map((faq, index) => (
+          <details class="faq-item group">
+            <summary class="faq__question-button flex w-full cursor-pointer list-none items-center gap-4 border p-5 text-left shadow-sm transition-all duration-300 hover:shadow-md [&::-webkit-details-marker]:hidden">
+              {/* Number badge */}
+              <span class="faq__number-badge flex h-10 w-10 flex-shrink-0 items-center justify-center text-sm font-bold transition-colors duration-300 group-hover:text-white">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              {/* Question */}
+              <h3 class="faq__question flex-1 text-lg font-semibold">
+                {faq.question}
+              </h3>
+
+              {/* Toggle icon */}
+              <span class="faq__icon flex h-8 w-8 flex-shrink-0 items-center justify-center border transition-all duration-300">
+                <Icon
+                  name="heroicons:plus-16-solid"
+                  class="faq__icon-plus h-4 w-4 transition-all duration-300 group-open:hidden"
+                />
+                <Icon
+                  name="heroicons:minus-16-solid"
+                  class="faq__icon-minus hidden h-4 w-4 group-open:block"
+                />
+              </span>
+            </summary>
+
+            {/* Answer panel */}
+            <div class="faq-content overflow-hidden">
+              <div class="faq-content-inner px-5 pt-4 pb-6 pl-[4.5rem]">
+                <p class="faq__answer leading-relaxed" set:html={faq.answer} />
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  function initFaqAnimation(): void {
+    const faqItems = document.querySelectorAll<HTMLDetailsElement>(".faq-item");
+
+    const ANIMATION_DURATION = 500; // ms
+
+    // Helper to close a details element with animation
+    function closeDetails(details: HTMLDetailsElement): void {
+      const content = details.querySelector(".faq-content") as HTMLElement;
+      if (!content) return;
+      content.style.height = "0px";
+      setTimeout(() => {
+        details.removeAttribute("open");
+      }, ANIMATION_DURATION);
+    }
+
+    // Helper to open a details element with animation
+    function openDetails(details: HTMLDetailsElement): void {
+      const content = details.querySelector(".faq-content") as HTMLElement;
+      const contentInner = details.querySelector(
+        ".faq-content-inner",
+      ) as HTMLElement;
+      if (!content || !contentInner) return;
+
+      details.setAttribute("open", "");
+      const height = contentInner.offsetHeight;
+      content.style.height = `${height}px`;
+    }
+
+    faqItems.forEach((details) => {
+      const summary = details.querySelector("summary");
+      const content = details.querySelector(".faq-content") as HTMLElement;
+
+      if (!summary || !content) return;
+
+      // Set initial closed state
+      content.style.height = "0px";
+      content.style.transition = `height ${ANIMATION_DURATION}ms ease-out`;
+
+      summary.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const isOpen = details.hasAttribute("open");
+
+        if (isOpen) {
+          closeDetails(details);
+        } else {
+          openDetails(details);
+        }
+      });
+    });
+  }
+
+  // Initialize on page load
+  initFaqAnimation();
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:after-swap", initFaqAnimation);
+</script>
+
+<style>
+  /* CSS Variables */
+  .faq[data-variant="white"],
+  .faq[data-variant="light"] {
+    --section-text: var(--color-zinc-900);
+    --section-text-muted: var(--color-gray-600);
+    --section-accent: var(--primary);
+    --section-card-bg: var(--color-gray-50);
+    --section-card-bg-light: var(--color-white);
+    --section-card-border: var(--color-gray-200);
+    --section-decorative: color-mix(in srgb, var(--primary) 5%, transparent);
+    --section-badge-bg: color-mix(in srgb, var(--primary) 10%, transparent);
+    --section-badge-border: color-mix(in srgb, var(--primary) 30%, transparent);
+    --section-badge-icon: var(--primary);
+    --section-number-badge-bg: color-mix(
+      in srgb,
+      var(--primary) 10%,
+      transparent
+    );
+    --section-number-badge-hover-bg: var(--primary);
+    --section-icon-border: var(--color-gray-200);
+    --section-icon-color: var(--color-gray-500);
+    --section-icon-hover-border: color-mix(
+      in srgb,
+      var(--primary) 30%,
+      transparent
+    );
+    --section-icon-hover-bg: color-mix(
+      in srgb,
+      var(--primary) 10%,
+      transparent
+    );
+    --section-icon-hover-color: var(--primary);
+  }
+
+  .faq[data-variant="light"] {
+    --section-card-bg: var(--color-white);
+  }
+
+  .faq[data-variant="dark"] {
+    --section-text: var(--color-white);
+    --section-text-muted: var(--color-zinc-300);
+    --section-accent: var(--primary-light);
+    --section-card-bg: var(--color-zinc-800);
+    --section-card-bg-light: var(--color-zinc-800);
+    --section-card-border: var(--color-zinc-700);
+    --section-decorative: color-mix(in srgb, var(--primary) 5%, transparent);
+    --section-badge-bg: color-mix(in srgb, var(--primary) 20%, transparent);
+    --section-badge-border: color-mix(in srgb, var(--primary) 40%, transparent);
+    --section-badge-icon: var(--primary-light);
+    --section-number-badge-bg: color-mix(
+      in srgb,
+      var(--primary) 20%,
+      transparent
+    );
+    --section-number-badge-hover-bg: var(--primary);
+    --section-number-badge-hover-text: var(--color-white);
+    --section-icon-border: var(--color-zinc-700);
+    --section-icon-color: var(--color-zinc-400);
+    --section-icon-hover-border: color-mix(
+      in srgb,
+      var(--primary) 30%,
+      transparent
+    );
+    --section-icon-hover-bg: color-mix(
+      in srgb,
+      var(--primary) 10%,
+      transparent
+    );
+    --section-icon-hover-color: var(--primary-light);
+  }
+
+  .faq[data-variant="primary"] {
+    --section-text: var(--color-white);
+    --section-text-muted: color-mix(
+      in srgb,
+      var(--color-white) 80%,
+      transparent
+    );
+    --section-accent: var(--color-white);
+    --section-card-bg: color-mix(in srgb, var(--color-white) 10%, transparent);
+    --section-card-bg-light: color-mix(
+      in srgb,
+      var(--color-white) 10%,
+      transparent
+    );
+    --section-card-border: color-mix(
+      in srgb,
+      var(--color-white) 20%,
+      transparent
+    );
+    --section-decorative: color-mix(
+      in srgb,
+      var(--color-white) 5%,
+      transparent
+    );
+    --section-badge-bg: color-mix(in srgb, var(--color-white) 10%, transparent);
+    --section-badge-border: color-mix(
+      in srgb,
+      var(--color-white) 30%,
+      transparent
+    );
+    --section-badge-icon: var(--color-white);
+    --section-number-badge-bg: color-mix(
+      in srgb,
+      var(--color-white) 20%,
+      transparent
+    );
+    --section-number-badge-hover-bg: var(--color-white);
+    --section-number-badge-hover-text: var(--primary);
+    --section-icon-border: color-mix(
+      in srgb,
+      var(--color-white) 30%,
+      transparent
+    );
+    --section-icon-color: color-mix(
+      in srgb,
+      var(--color-white) 70%,
+      transparent
+    );
+    --section-icon-hover-border: color-mix(
+      in srgb,
+      var(--color-white) 50%,
+      transparent
+    );
+    --section-icon-hover-bg: color-mix(
+      in srgb,
+      var(--color-white) 20%,
+      transparent
+    );
+    --section-icon-hover-color: var(--color-white);
+  }
+
+  /* Component styles */
+  .faq__decorative {
+    background-color: var(--section-decorative);
+  }
+
+  .faq__eyebrow {
+    color: var(--section-accent);
+    letter-spacing: 0.1em;
+  }
+
+  .faq__headline {
+    color: var(--section-text);
+  }
+
+  /* Circled Word Animation */
+  .faq__headline :global(.circled-word) {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--section-text); /* Adapts to section theme */
+  }
+
+  .faq__headline :global(.circled-word__svg) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .faq__headline :global(.circled-word__path) {
+    stroke: #c8ff00;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq__headline.is-visible :global(.circled-word__path) {
+    stroke-dashoffset: 0;
+  }
+
+  .faq__headline.is-visible :global(.circled-word[data-circled-index="0"]) :global(.circled-word__path) {
+    transition-delay: 0.5s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__headline :global(.circled-word__path) {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  .faq__headline :global(.highlighted-word) {
+    color: var(--section-accent); /* Lime on dark, adapts to theme */
+  }
+
+  .faq__description {
+    color: var(--section-text-muted);
+  }
+
+  .faq__question-button {
+    background-color: var(--section-card-bg);
+    border-color: var(--section-card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .faq__question-button:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .faq__number-badge {
+    background-color: var(--section-number-badge-bg);
+    color: var(--section-accent);
+  }
+
+  .faq__question-button:hover .faq__number-badge {
+    background-color: var(--section-number-badge-hover-bg);
+  }
+
+  .faq[data-variant="dark"] .faq__question-button:hover .faq__number-badge {
+    color: var(--section-number-badge-hover-text);
+  }
+
+  .faq[data-variant="primary"] .faq__question-button:hover .faq__number-badge {
+    color: var(--section-number-badge-hover-text);
+  }
+
+  .faq__question {
+    color: var(--section-text);
+  }
+
+  .faq__icon {
+    border-color: var(--section-icon-border);
+  }
+
+  .faq__question-button:hover .faq__icon {
+    border-color: var(--section-icon-hover-border);
+    background-color: var(--section-icon-hover-bg);
+  }
+
+  .faq__icon-plus {
+    color: var(--section-icon-color);
+  }
+
+  .faq__question-button:hover .faq__icon-plus {
+    color: var(--section-icon-hover-color);
+  }
+
+  .faq__icon-minus {
+    color: var(--section-accent);
+  }
+
+  .faq__answer {
+    color: var(--section-text-muted);
+  }
+
+  /* Open state styles using native details[open] */
+  .faq[data-variant="white"] .faq-item[open] > summary,
+  .faq[data-variant="light"] .faq-item[open] > summary {
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+    background: linear-gradient(
+      to bottom right,
+      white,
+      color-mix(in srgb, var(--primary) 2%, transparent)
+    );
+    border-bottom-color: transparent;
+  }
+
+  .faq[data-variant="white"] .faq-item[open] > .faq-content,
+  .faq[data-variant="light"] .faq-item[open] > .faq-content {
+    border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+    border-top: none;
+    background: white;
+  }
+
+  .faq[data-variant="white"] .faq-item[open] > summary .faq__icon,
+  .faq[data-variant="light"] .faq-item[open] > summary .faq__icon {
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  .faq[data-variant="white"] .faq-item[open] > summary .faq__number-badge,
+  .faq[data-variant="light"] .faq-item[open] > summary .faq__number-badge {
+    background: var(--primary);
+    color: white;
+  }
+
+  .faq[data-variant="dark"] .faq-item[open] > summary {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    border-bottom-color: transparent;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .faq[data-variant="dark"] .faq-item[open] > .faq-content {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: none;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .faq[data-variant="dark"] .faq-item[open] > summary .faq__icon {
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    border-color: color-mix(in srgb, var(--primary-light) 30%, transparent);
+  }
+
+  .faq[data-variant="dark"] .faq-item[open] > summary .faq__number-badge {
+    background: var(--primary);
+    color: var(--color-white);
+  }
+
+  .faq[data-variant="primary"] .faq-item[open] > summary {
+    border-color: color-mix(in srgb, var(--color-white) 40%, transparent);
+    background: linear-gradient(
+      to bottom right,
+      color-mix(in srgb, var(--color-white) 15%, transparent),
+      color-mix(in srgb, var(--color-white) 5%, transparent)
+    );
+    border-bottom-color: transparent;
+  }
+
+  .faq[data-variant="primary"] .faq-item[open] > .faq-content {
+    border: 1px solid color-mix(in srgb, var(--color-white) 40%, transparent);
+    border-top: none;
+    background: color-mix(in srgb, var(--color-white) 10%, transparent);
+  }
+
+  .faq[data-variant="primary"] .faq-item[open] > summary .faq__icon {
+    background: color-mix(in srgb, var(--color-white) 20%, transparent);
+    border-color: color-mix(in srgb, var(--color-white) 50%, transparent);
+  }
+
+  .faq[data-variant="primary"] .faq-item[open] > summary .faq__number-badge {
+    background: var(--color-white);
+    color: var(--primary);
+  }
+</style>

@@ -1,0 +1,605 @@
+---
+export const prerender = true;
+
+import RootLayout from "@layouts/RootLayout.astro";
+import Container from "@components/shared/Container.astro";
+import Divider from "@components/shared/Divider.astro";
+import Footer from "@components/sections/Footer.astro";
+import BlogCard from "@components/blog/BlogCard.astro";
+import TableOfContents from "@components/blog/TableOfContents.astro";
+import AuthorCard from "@components/blog/AuthorCard.astro";
+import SocialShare from "@components/blog/SocialShare.astro";
+// import SidebarCTA from "@components/blog/SidebarCTA.astro";
+import CtaCentered from "@components/sections/CtaCentered.astro";
+import Section from "@components/shared/Section.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { type SupportedLanguage, getBlogHreflangEntries } from "@lib/i18n";
+import { SITE } from "@config";
+import { resolveBlogImage } from "@lib/blog-images";
+
+// Import custom MDX components
+import Tip from "@components/blog/Tip.astro";
+import Insight from "@components/blog/Insight.astro";
+import Warning from "@components/blog/Warning.astro";
+import Quote from "@components/blog/Quote.astro";
+import BlogImage from "@components/blog/BlogImage.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection(
+    "blog",
+    ({ data }: CollectionEntry<"blog">) => !data.draft && data.lang === "de",
+  );
+  return posts.map((post: CollectionEntry<"blog">) => ({
+    params: { slug: post.id.replace(/\.mdx$/, "") },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const {
+  title,
+  description,
+  publishedAt,
+  updatedAt,
+  author,
+  readingTime,
+  categories,
+  category,
+  image,
+} = post.data;
+
+// Resolve hero image from assets
+const resolvedHeroImage = image?.src ? resolveBlogImage(image.src) : null;
+
+// i18n setup
+const lang: SupportedLanguage = "de";
+const allPostsForHreflang = await getCollection(
+  "blog",
+  ({ data }: CollectionEntry<"blog">) => !data.draft,
+);
+const hreflangEntries = getBlogHreflangEntries(
+  allPostsForHreflang,
+  post,
+  SITE.website,
+);
+
+// Render MDX content with custom components
+const { Content, headings } = await render(post);
+
+// Get primary category (new categories array or legacy category field)
+const primaryCategory = categories?.[0] || category || null;
+
+// Get related posts (same category, same language, excluding current)
+const allPostsSameLang = await getCollection(
+  "blog",
+  ({ data }: CollectionEntry<"blog">) => !data.draft && data.lang === "de",
+);
+
+// Find related posts based on shared categories
+const relatedPosts = primaryCategory
+  ? allPostsSameLang
+      .filter((p: CollectionEntry<"blog">) => {
+        if (p.id === post.id) return false;
+        // Check if post shares any category
+        const postCategories =
+          p.data.categories || (p.data.category ? [p.data.category] : []);
+        const currentCategories = categories || (category ? [category] : []);
+        return postCategories.some((cat: string) =>
+          currentCategories.includes(cat),
+        );
+      })
+      .sort(
+        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+          b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+      )
+      .slice(0, 3)
+  : allPostsSameLang
+      .filter((p: CollectionEntry<"blog">) => p.id !== post.id)
+      .sort(
+        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+          b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+      )
+      .slice(0, 3);
+
+// Category config for display (supports both old and new)
+import { blogCategories } from "../../config/blog-categories";
+
+const getCategoryLabel = (catId: string | undefined): string => {
+  if (!catId) return "Blog";
+  // Check new categories first
+  if (blogCategories[catId]) return blogCategories[catId].label;
+  // Legacy category mapping
+  const legacyLabels: Record<string, string> = {
+    tutorial: "Tutorial",
+    vergleich: "Vergleich",
+    news: "News",
+    "case-study": "Case Study",
+  };
+  return legacyLabels[catId] || "Blog";
+};
+
+const categoryLabel = getCategoryLabel(primaryCategory);
+
+// Format dates
+const formattedDate = new Intl.DateTimeFormat("de-DE", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(publishedAt);
+
+const formattedUpdateDate = updatedAt
+  ? new Intl.DateTimeFormat("de-DE", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(updatedAt)
+  : null;
+
+// Current URL for sharing
+const currentUrl = new URL(Astro.url.pathname, SITE.website).href;
+
+// Schema.org Article
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description: description,
+  ...(image && { image: new URL(image.src, Astro.site).href }),
+  datePublished: publishedAt.toISOString(),
+  dateModified: (updatedAt || publishedAt).toISOString(),
+  author: {
+    "@type": "Organization",
+    name: author,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "digitalsprung GmbH",
+    url: Astro.site?.href,
+  },
+};
+---
+
+<RootLayout
+  title={`${title} | Blog | digitalsprung`}
+  description={description}
+  lang={lang}
+  hreflangEntries={hreflangEntries}
+>
+  {/* Schema.org Article */}
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(articleSchema)}
+  />
+
+  <main class="blog-detail bg-white">
+    {/* Hero Section - Two Column Layout */}
+    <section class="blog-detail__hero pt-24 pb-12 md:pb-16">
+      <div
+        class="mx-auto w-full max-w-screen-2xl px-4 md:px-8 lg:px-12 xl:px-16"
+      >
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
+          {/* Left Column - Content */}
+          <div class="flex flex-col gap-y-6">
+            {/* Breadcrumbs */}
+            <nav class="md:mt-4" aria-label="Breadcrumb">
+              <ol
+                class="blog-detail__breadcrumb flex flex-wrap items-center gap-x-2 gap-y-1"
+              >
+                <li class="flex items-center">
+                  <a
+                    href="/blog"
+                    class="blog-detail__breadcrumb-link text-sm transition-colors hover:underline"
+                  >
+                    Blog
+                  </a>
+                </li>
+                {
+                  primaryCategory && (
+                    <>
+                      <Icon
+                        name="heroicons:arrow-right-16-solid"
+                        class="blog-detail__breadcrumb-separator size-4"
+                      />
+                      <li class="flex items-center">
+                        <a
+                          href={
+                            blogCategories[primaryCategory]
+                              ? `/blog/${primaryCategory}`
+                              : `/blog`
+                          }
+                          class="blog-detail__breadcrumb-link text-sm transition-colors hover:underline"
+                        >
+                          {categoryLabel}
+                        </a>
+                      </li>
+                    </>
+                  )
+                }
+              </ol>
+            </nav>
+
+            {/* Main Content */}
+            <div class="flex grow flex-col justify-center">
+              {/* Date & Reading Time */}
+              <div
+                class="blog-detail__meta-row flex flex-wrap items-center gap-3 text-sm"
+              >
+                <span>{formattedDate}</span>
+                <span class="blog-detail__meta-dot hidden md:inline">·</span>
+                <span class="hidden md:inline">{readingTime} Min. Lesezeit</span
+                >
+                {
+                  formattedUpdateDate && (
+                    <>
+                      <span class="blog-detail__meta-dot hidden md:inline">
+                        ·
+                      </span>
+                      <span class="hidden md:inline">
+                        Aktualisiert: {formattedUpdateDate}
+                      </span>
+                    </>
+                  )
+                }
+              </div>
+
+              {/* Title */}
+              <h1
+                class="blog-detail__title mt-4 text-3xl leading-tight font-bold sm:text-4xl lg:text-[40px]"
+              >
+                {title}
+              </h1>
+
+              {/* Author */}
+              <div class="mt-6">
+                <AuthorCard author={author} size="md" />
+              </div>
+            </div>
+
+            {/* Spacer for desktop alignment */}
+            <div class="hidden md:block"></div>
+          </div>
+
+          {/* Right Column - Featured Image */}
+          {
+            image && (
+              <div class="self-center">
+                {resolvedHeroImage ? (
+                  <Image
+                    src={resolvedHeroImage}
+                    alt={image.alt}
+                    class="aspect-video w-full rounded-xl object-cover"
+                    loading="eager"
+                  />
+                ) : (
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    class="aspect-video w-full rounded-xl object-cover"
+                    loading="eager"
+                  />
+                )}
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* Content Section - Sidebar Left, Article Right */}
+    <section class="py-10 md:py-16">
+      <div
+        class="mx-auto w-full max-w-screen-2xl px-4 md:px-8 lg:px-12 xl:px-16"
+      >
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-8">
+          {/* Left Sidebar */}
+          <div class="hidden md:col-span-3 md:block lg:col-span-3">
+            {/* Social Share */}
+            <div class="mb-12">
+              <SocialShare
+                url={currentUrl}
+                title={title}
+                direction="horizontal"
+              />
+            </div>
+
+            {/* Sticky Container */}
+            <div class="sticky top-24 space-y-8">
+              {/* Table of Contents */}
+              <TableOfContents headings={headings} />
+
+              {/* CTA Box - temporarily hidden */}
+              {/* <SidebarCTA /> */}
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div
+            class="md:col-span-9 md:col-start-5 lg:col-span-8 lg:col-start-5"
+          >
+            <article class="blog-detail__prose">
+              <Content
+                components={{ Tip, Insight, Warning, Quote, BlogImage }}
+              />
+            </article>
+
+            {/* Inline CTA after article - temporarily hidden */}
+            {
+              /* <div
+              class="blog-detail__inline-cta my-8 flex flex-col items-center rounded-xl px-6 py-12"
+            >
+              <h3 class="text-center text-xl font-semibold text-gray-900">
+                Newsletter abonnieren
+              </h3>
+              <p class="mt-2 text-center text-gray-600">
+                Erhalte die neuesten E-Commerce-Tipps direkt in dein Postfach.
+              </p>
+              <form
+                class="mt-4 flex w-full max-w-md flex-col gap-2 sm:flex-row"
+              >
+                <input
+                  type="email"
+                  placeholder="Deine E-Mail"
+                  required
+                  class="blog-detail__inline-input flex-1 rounded-md border px-4 py-2.5 text-center sm:text-left"
+                />
+                <button
+                  type="submit"
+                  class="blog-detail__inline-button rounded-md px-5 py-2.5 font-medium text-white"
+                >
+                  Anmelden
+                </button>
+              </form>
+            </div> */
+            }
+
+            {/* Mobile Social Share */}
+            <div class="mt-8 flex flex-col items-center gap-4 md:hidden">
+              <div class="text-lg">Teilen mit</div>
+              <SocialShare
+                url={currentUrl}
+                title={title}
+                direction="horizontal"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Divider />
+
+    {/* Related Posts */}
+    {
+      relatedPosts.length > 0 && (
+        <Section variant="light" padding="sm" container={false}>
+          <Container>
+            <h2 class="blog-detail__section-title scale-up mb-8 text-center text-3xl leading-tight font-bold tracking-tight sm:text-4xl lg:text-5xl">
+              Weitere Artikel
+            </h2>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedPosts.map((relatedPost: CollectionEntry<"blog">) => (
+                <BlogCard post={relatedPost} />
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )
+    }
+
+    {/* CTA */}
+    <Section variant="white" padding="lg">
+      <CtaCentered
+        headline="Bereit für mehr <em>Umsatz?</em>"
+        description="Lass uns gemeinsam herausfinden, wie wir deinen Online-Shop auf das nächste Level bringen können."
+        ctas={[
+          {
+            text: "Kostenloses Erstgespräch",
+            icon: "heroicons:calendar-days-16-solid",
+            variant: "white",
+            size: "lg",
+            dataOpenFunnel: true,
+          },
+        ]}
+      />
+    </Section>
+  </main>
+
+  <Footer />
+</RootLayout>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  /* Hero section */
+  .blog-detail__hero {
+    background-color: color-mix(in srgb, var(--primary) 3%, white);
+  }
+
+  /* Breadcrumbs */
+  .blog-detail__breadcrumb-link {
+    color: var(--color-gray-500);
+  }
+
+  .blog-detail__breadcrumb-link:hover {
+    color: var(--color-gray-900);
+  }
+
+  .blog-detail__breadcrumb-separator {
+    color: var(--color-gray-400);
+  }
+
+  /* Meta row (date, reading time, update) */
+  .blog-detail__meta-row {
+    color: var(--color-gray-500);
+  }
+
+  .blog-detail__meta-dot {
+    color: var(--color-gray-400);
+  }
+
+  /* Title */
+  .blog-detail__title {
+    color: var(--color-gray-900);
+  }
+
+  /* Prose styling - Premium Typography */
+  .blog-detail__prose {
+    --tw-prose-headings: var(--color-gray-900);
+    --tw-prose-body: var(--color-gray-600);
+    --tw-prose-links: var(--color-gray-600);
+    --tw-prose-bold: var(--color-gray-900);
+    --tw-prose-bullets: var(--primary);
+    --tw-prose-counters: var(--primary);
+  }
+
+  .blog-detail__prose :global(h2),
+  .blog-detail__prose :global(h3),
+  .blog-detail__prose :global(h4) {
+    color: var(--color-gray-900);
+    font-weight: 700;
+  }
+
+  .blog-detail__prose :global(h2) {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+
+  .blog-detail__prose :global(h3) {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.375rem;
+  }
+
+  .blog-detail__prose :global(p) {
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 30px;
+    color: var(--color-gray-600);
+  }
+
+  .blog-detail__prose :global(em) {
+    font-style: italic;
+  }
+
+  .blog-detail__prose :global(strong) {
+    color: var(--color-gray-900);
+    font-weight: 600;
+  }
+
+  .blog-detail__prose :global(a) {
+    color: var(--color-gray-600);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .blog-detail__prose :global(a:hover) {
+    color: var(--primary);
+  }
+
+  .blog-detail__prose :global(code) {
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    padding: 0.125rem 0.375rem;
+    color: var(--primary-dark);
+  }
+
+  .blog-detail__prose :global(code::before),
+  .blog-detail__prose :global(code::after) {
+    content: none;
+  }
+
+  .blog-detail__prose :global(pre) {
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-gray-200);
+    background: var(--color-gray-900);
+  }
+
+  .blog-detail__prose :global(ul),
+  .blog-detail__prose :global(ol) {
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 30px;
+    color: var(--color-gray-600);
+  }
+
+  .blog-detail__prose :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-detail__prose :global(li::marker) {
+    color: var(--primary);
+  }
+
+  .blog-detail__prose :global(img) {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.75rem;
+  }
+
+  .blog-detail__prose :global(blockquote) {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 4px solid var(--primary);
+    font-style: italic;
+    color: var(--color-gray-700);
+  }
+
+  .blog-detail__prose :global(sup) {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  /* Inline CTA */
+  .blog-detail__inline-cta {
+    background-color: var(--color-gray-100);
+  }
+
+  .blog-detail__inline-input {
+    border-color: var(--color-gray-300);
+    background-color: var(--color-white);
+  }
+
+  .blog-detail__inline-input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
+  }
+
+  .blog-detail__inline-button {
+    background-color: var(--primary);
+  }
+
+  .blog-detail__inline-button:hover {
+    background-color: var(--primary-dark);
+  }
+
+  /* Section titles */
+  .blog-detail__section-title {
+    color: var(--color-gray-900);
+  }
+
+  /* Text */
+  .blog-detail__text {
+    color: var(--color-gray-600);
+  }
+
+  /* CTA Button */
+  .blog-detail__cta-button {
+    background-color: var(--primary);
+  }
+
+  .blog-detail__cta-button:hover {
+    background-color: var(--primary-dark);
+  }
+</style>

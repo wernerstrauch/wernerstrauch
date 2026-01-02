@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "about": "Über mich",
+    "services": "Leistungen",
+    "contact": "Kontakt"
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Artikel über E-Commerce, Marketing und digitale Strategie",
+    "readMore": "Weiterlesen",
+    "readingTime": "{minutes} Min. Lesezeit",
+    "publishedAt": "Veröffentlicht am",
+    "updatedAt": "Aktualisiert am",
+    "categories": "Kategorien",
+    "tags": "Schlagwörter",
+    "relatedPosts": "Ähnliche Artikel",
+    "allPosts": "Alle Artikel",
+    "noPostsFound": "Keine Artikel gefunden",
+    "page": "Seite",
+    "of": "von",
+    "previous": "Vorherige",
+    "next": "Nächste"
+  },
+  "footer": {
+    "copyright": "Alle Rechte vorbehalten",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet...",
+    "success": "Nachricht erfolgreich gesendet!",
+    "error": "Fehler beim Senden. Bitte versuche es erneut."
+  },
+  "cookie": {
+    "title": "Cookie-Einstellungen",
+    "description": "Diese Website verwendet Cookies, um dir das beste Erlebnis zu bieten.",
+    "acceptAll": "Alle akzeptieren",
+    "rejectAll": "Alle ablehnen",
+    "settings": "Einstellungen",
+    "necessary": "Notwendig",
+    "analytics": "Analyse",
+    "marketing": "Marketing"
+  },
+  "language": {
+    "switch": "Sprache wechseln",
+    "de": "Deutsch",
+    "en": "English"
+  }
+}

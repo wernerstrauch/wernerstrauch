@@ -1,0 +1,177 @@
+---
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline: string;
+  bodyText: string | string[];
+  cta?: {
+    text: string;
+    href?: string;
+    variant?: "primary" | "secondary" | "secondary-dark" | "tertiary" | "white";
+    icon?: string;
+    dataOpenFunnel?: boolean;
+  };
+}
+
+const {
+  sectionVariant = "white",
+  badge,
+  badgeIcon = "heroicons:sparkles-16-solid",
+  headline = "Wir entwickeln <em>individuelle</em> Shopify Themes",
+  bodyText = "Unser erfahrenes Team entwickelt maßgeschneiderte Shopify Themes, die deine Marke perfekt widerspiegeln und für maximale Conversions optimiert sind.",
+  cta,
+} = Astro.props;
+
+// Determine if dark variant for button styling
+const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
+
+// Get button variant based on section variant
+const getButtonVariant = (
+  ctaVariant?:
+    | "primary"
+    | "secondary"
+    | "secondary-dark"
+    | "tertiary"
+    | "white",
+): "primary" | "secondary" | "secondary-dark" | "tertiary" | "white" => {
+  let buttonVariant = ctaVariant || "primary";
+  if (sectionVariant === "primary" && buttonVariant === "primary") {
+    buttonVariant = "white";
+  } else if (isDarkVariant && buttonVariant === "secondary") {
+    buttonVariant = "secondary-dark";
+  }
+  return buttonVariant;
+};
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline =
+  headline?.replace(
+    /<em>(.*?)<\/em>/g,
+    `<span style="${highlightStyle}">$1</span>`,
+  ) ?? "";
+
+// Process body text - can be string or array
+const bodyTextContent = Array.isArray(bodyText) ? bodyText : [bodyText];
+---
+
+<div class="intro-split" data-variant={sectionVariant}>
+  <Container class="max-w-screen-xl">
+    <div class="grid gap-8 lg:grid-cols-2 lg:gap-16 xl:gap-24">
+      {/* Left Column: Headline */}
+      <div class="flex flex-col justify-center">
+        {
+          badge && (
+            <div class="blur-in mb-6 flex">
+              <div class="intro-split__badge shadow-inner-blur flex items-center rounded-full">
+                <div class="intro-split__badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                  <Icon
+                    name={badgeIcon}
+                    class="intro-split__badge-icon h-4 w-4"
+                  />
+                  <span class="intro-split__badge-text text-sm font-medium">
+                    {badge}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )
+        }
+        <h2
+          class="intro-split__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl xl:text-6xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+      </div>
+
+      {/* Right Column: Body Text */}
+      <div class="flex flex-col justify-center">
+        <div class="intro-split__body space-y-4">
+          {
+            bodyTextContent.map((text, index) => (
+              <p
+                class="intro-split__text fade-up text-lg leading-relaxed lg:text-xl"
+                style={`transition-delay: ${150 + index * 50}ms;`}
+                set:html={text}
+              />
+            ))
+          }
+        </div>
+
+        {
+          cta && (
+            <div
+              class="fade-up mt-8"
+              style={`transition-delay: ${150 + bodyTextContent.length * 50 + 50}ms;`}
+            >
+              <Button
+                href={cta.href}
+                variant={getButtonVariant(cta.variant)}
+                size="lg"
+                data-open-funnel={cta.dataOpenFunnel}
+              >
+                {cta.icon && <Icon name={cta.icon} class="h-4 w-4" />}
+                <span>{cta.text}</span>
+              </Button>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* Badge */
+  .intro-split__badge {
+    background: var(--section-badge-bg);
+  }
+
+  .intro-split__badge-inner {
+    border-color: var(--section-badge-border);
+  }
+
+  .intro-split__badge-icon {
+    color: var(--section-accent);
+  }
+
+  .intro-split__badge-text {
+    color: var(--section-text);
+  }
+
+  /* Headline */
+  .intro-split__headline {
+    color: var(--section-text);
+  }
+
+  /* Body Text */
+  .intro-split__text {
+    color: var(--section-text-muted);
+  }
+
+  .intro-split__text :global(strong) {
+    color: var(--section-text);
+    font-weight: 600;
+  }
+
+  .intro-split__text :global(a) {
+    color: var(--section-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .intro-split__text :global(a:hover) {
+    opacity: 0.8;
+  }
+</style>

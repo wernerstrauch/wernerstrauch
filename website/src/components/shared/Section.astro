@@ -1,0 +1,158 @@
+---
+import { twMerge } from "tailwind-merge";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+  variant?: "white" | "light" | "dark" | "primary" | "gradient" | "transparent";
+  padding?: "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl";
+  fullWidth?: boolean;
+  container?: boolean;
+  containerSize?:
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xl"
+    | "3xl"
+    | "4xl"
+    | "full";
+  overflow?: "hidden" | "visible" | "clip";
+  rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+  outerContainer?: boolean; // Wraps entire section (incl. background) in a container
+  sectionName?: string; // For debugging/identification in DevTools
+}
+
+// Extract data-section-name first before destructuring
+const allProps = Astro.props;
+const dataSectionNameFromProps = allProps["data-section-name"] as
+  | string
+  | undefined;
+
+const {
+  variant = "white",
+  padding = "lg",
+  fullWidth = true,
+  container = true,
+  containerSize = "xl",
+  overflow = "hidden",
+  rounded = "none",
+  outerContainer = false,
+  sectionName,
+  class: className,
+  ...attrs
+} = allProps;
+
+// Use data-section-name from props or sectionName prop
+const resolvedSectionName =
+  dataSectionNameFromProps || sectionName || "unnamed";
+
+// Remove data-section-name from attrs to avoid duplication
+delete (attrs as Record<string, unknown>)["data-section-name"];
+
+const variantStyles = {
+  white: "bg-[var(--section-bg)] text-[var(--section-text)]",
+  light: "bg-[var(--section-bg)] text-[var(--section-text)]",
+  dark: "bg-[var(--section-bg)] text-[var(--section-text)]",
+  primary: "bg-[var(--section-bg)] text-[var(--section-text)]",
+  gradient: "bg-gradient-to-b from-blue-50 to-white text-[var(--section-text)]",
+  transparent: "bg-transparent text-[var(--section-text)]",
+};
+
+const paddingStyles = {
+  none: "",
+  xxs: "py-6 sm:py-8",
+  xs: "py-8 sm:py-10",
+  sm: "py-12 sm:py-16",
+  md: "py-16 sm:py-20",
+  lg: "py-20 sm:py-24 lg:py-28",
+  xl: "py-24 sm:py-32 lg:py-40",
+};
+
+const containerSizeStyles = {
+  xs: "max-w-2xl",
+  sm: "max-w-3xl",
+  md: "max-w-5xl",
+  lg: "max-w-6xl",
+  xl: "max-w-7xl",
+  "2xl": "max-w-[1400px]",
+  "3xl": "max-w-[1600px]",
+  "4xl": "max-w-[1800px]",
+  full: "max-w-none",
+};
+
+const overflowStyles = {
+  hidden: "overflow-hidden",
+  visible: "overflow-visible",
+  clip: "overflow-clip",
+};
+
+const roundedStyles = {
+  none: "",
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl",
+  "2xl": "rounded-2xl",
+  "3xl": "rounded-3xl",
+};
+
+const sectionStyles = twMerge(
+  "relative",
+  variantStyles[variant],
+  paddingStyles[padding],
+  overflowStyles[overflow],
+  roundedStyles[rounded],
+  !fullWidth && "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
+  className,
+);
+
+const containerStyles = twMerge(
+  "z-10 mx-auto px-4 sm:px-6 lg:px-8",
+  containerSizeStyles[containerSize],
+);
+---
+
+{
+  outerContainer ? (
+    <div class="relative z-10 mx-auto -mb-32 max-w-7xl px-4 sm:px-6 lg:-mb-40 lg:px-8">
+      <section
+        id={resolvedSectionName}
+        class={sectionStyles}
+        {...attrs}
+        data-section-name={resolvedSectionName}
+        data-section-theme={variant}
+      >
+        {/* Background Slot - für Bilder, Videos, Animationen */}
+        <slot name="background" />
+
+        {/* Content */}
+        <div class="relative z-10 px-6 sm:px-10 md:px-12 lg:px-16">
+          <slot />
+        </div>
+      </section>
+    </div>
+  ) : (
+    <section
+      id={resolvedSectionName}
+      class={sectionStyles}
+      {...attrs}
+      data-section-name={resolvedSectionName}
+      data-section-theme={variant}
+    >
+      {/* Background Slot - für Bilder, Videos, Animationen */}
+      <slot name="background" />
+
+      {/* Content */}
+      {container ? (
+        <div class={twMerge(containerStyles, "relative")}>
+          <slot />
+        </div>
+      ) : (
+        <div class="relative z-10">
+          <slot />
+        </div>
+      )}
+    </section>
+  )
+}

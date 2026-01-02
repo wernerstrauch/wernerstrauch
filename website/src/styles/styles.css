@@ -1,0 +1,457 @@
+@import "tailwindcss";
+
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* ============================================
+   INTER FONT - Variable Font
+   ============================================ */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2")
+    format("woff2");
+}
+
+/* ============================================
+   DEFAULT DESIGN TOKENS
+   ============================================ */
+:root {
+  /* Semantic Color Tokens - Light Mode */
+  --background: #ffffff;
+  --foreground: #18181b;
+
+  --card: #ffffff;
+  --card-foreground: #18181b;
+
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+
+  --primary: #c8ff00;
+  --primary-foreground: #0a1628;
+  --primary-light: #d4ff33;
+  --primary-dark: #a3d600;
+  --primary-muted: #e0ff66;
+
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+
+  --accent: #b4e565;
+  --accent-foreground: #000000;
+  --accent-light: #c5eb8a;
+  --accent-dark: #7fbf3a;
+  --accent-highlight: #c8ff00;
+  --heading-highlight: #c8ff00;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #c8ff00;
+
+  /* Typography */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+/* ============================================
+   BASE TYPOGRAPHY
+   Inter Bold für Überschriften, Inter Regular für Fließtext
+   ============================================ */
+body {
+  font-family: var(--font-sans);
+  font-weight: 400; /* Regular */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 700; /* Bold */
+}
+
+/* ============================================
+   TAILWIND THEME MAPPING
+   Maps CSS variables to Tailwind tokens
+   ============================================ */
+@theme inline {
+  /* Semantic Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-muted: var(--primary-muted);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-highlight: var(--accent-highlight);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* Custom Tokens */
+  --leading-extratight: 1.15;
+  --margin-18: 4.5rem;
+  --blur-4xl: 200px;
+
+  /* Shadows */
+  --shadow-inner-blur:
+    inset -0.5px 0.5px 1px 0px rgba(0, 0, 0, 0.05),
+    inset 0 0 96px 0 rgba(1, 25, 255, 0.02);
+  --shadow-inner-blur-light:
+    inset -0.5px 0.5px 1px 0px rgba(0, 0, 0, 0.02),
+    inset 0 0 96px 0 rgba(1, 25, 255, 0.01);
+  --shadow-inner-blur-no-border: inset 0 0 96px 0 rgba(1, 25, 255, 0.01);
+  --shadow-btn-primary:
+    inset 0px 1px 0px 0px rgba(255, 255, 255, 0.15),
+    inset 0px 0px 12px 0px rgba(255, 255, 255, 0.1),
+    inset 0px -8px 32px 0px rgba(200, 255, 0, 0.3),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 0px 0px rgba(0, 0, 0, 0.1), 0px 4px 25px 1px rgba(200, 255, 0, 0.4);
+  --shadow-btn-primary-hover:
+    inset 0px 1px 0px 0px rgba(255, 255, 255, 0.15),
+    inset 0px 0px 12px 0px rgba(255, 255, 255, 0.1),
+    inset 0px -8px 32px 0px rgba(200, 255, 0, 0.4),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 0px 0px rgba(0, 0, 0, 0.1), 0px 4px 50px 3px rgba(200, 255, 0, 0.5);
+  --shadow-btn-secondary:
+    inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05),
+    inset 0px 0px 12px 0px rgba(255, 255, 255, 0.03),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --shadow-btn-secondary-hover: inset 0px 0px 12px 8px rgba(1, 25, 255, 0.03);
+
+  /* Background Images */
+  --background-image-btn-primary:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1)),
+    linear-gradient(to bottom, rgba(200, 255, 0, 1), rgba(163, 214, 0, 1));
+  --background-image-btn-primary-hover:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.05)),
+    linear-gradient(to bottom, rgba(200, 255, 0, 1), rgba(163, 214, 0, 1));
+
+  /* Animations */
+  --animate-infiniteScroll: infiniteScroll var(--_infinite-scroll-duration, 40s)
+    linear infinite;
+
+  @keyframes infiniteScroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* ============================================
+   SECTION THEME VARIANTS
+   Auto-applies colors based on data-section-theme attribute
+   Usage: <section data-section-theme="dark">
+   ============================================ */
+
+/* White variant (default) */
+[data-section-theme="white"] {
+  --section-bg: var(--background);
+  --section-text: var(--foreground);
+  --section-text-muted: #52525b;
+  --section-card-bg: var(--card);
+  --section-card-border: var(--border);
+  --section-accent: var(--accent-highlight);
+  --heading-highlight: var(--primary);
+}
+
+/* Light variant */
+[data-section-theme="light"] {
+  --section-bg: var(--muted);
+  --section-text: var(--foreground);
+  --section-text-muted: #52525b;
+  --section-card-bg: var(--card);
+  --section-card-border: var(--border);
+  --section-accent: var(--accent-highlight);
+  --heading-highlight: var(--primary);
+}
+
+/* Dark variant */
+[data-section-theme="dark"] {
+  --section-bg: #0a1628;
+  --section-text: #ffffff;
+  --section-text-muted: #d4d4d8;
+  --section-card-bg: rgba(255, 255, 255, 0.03);
+  --section-card-bg-solid: #152238;
+  --section-card-border: rgba(255, 255, 255, 0.08);
+  --section-card-backdrop: blur(12px);
+  --section-accent: var(--accent);
+  --heading-highlight: var(--accent);
+}
+
+/* Primary variant */
+[data-section-theme="primary"] {
+  --section-bg: var(--primary);
+  --section-text: var(--primary-foreground);
+  --section-text-muted: rgba(255, 255, 255, 0.85);
+  --section-card-bg: var(--primary-dark);
+  --section-card-border: var(--primary-light);
+  --section-accent: var(--accent-highlight);
+  --heading-highlight: var(--primary);
+}
+
+/* ============================================
+   APPLE-LIKE SCROLL ANIMATIONS
+   ============================================ */
+
+/* Base animation classes - elements start invisible */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade Up Animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scale Up Animation (Apple Product Reveal) */
+.scale-up {
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scale-up.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Slide In From Left */
+.slide-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide In From Right */
+.slide-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Blur In Animation (Apple Hero Text) */
+.blur-in {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blur-in.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* Stagger Animation Delays for Children */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-children.is-visible > *:nth-child(1) {
+  transition-delay: 0ms;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(2) {
+  transition-delay: 100ms;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(3) {
+  transition-delay: 200ms;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(4) {
+  transition-delay: 300ms;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(5) {
+  transition-delay: 400ms;
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children.is-visible > *:nth-child(6) {
+  transition-delay: 500ms;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parallax Effect */
+.parallax {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Glow Pulse Animation */
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(200, 255, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(200, 255, 0, 0.5);
+  }
+}
+
+.glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .fade-up,
+  .scale-up,
+  .slide-left,
+  .slide-right,
+  .blur-in,
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .float,
+  .glow-pulse {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,242 @@
+---
+interface Props {
+  quote: string;
+  author?: string;
+  role?: string;
+}
+
+const { quote, author, role } = Astro.props;
+---
+
+<section class="quote-section">
+  <div class="quote-inner">
+    {/* Large decorative opening quote */}
+    <div class="quote-mark quote-mark--open" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="currentColor">
+        <path d="M0 50 L0 100 L50 100 L50 50 L25 50 Q25 25 50 25 L50 0 Q0 0 0 50 Z" />
+        <path d="M50 50 L50 100 L100 100 L100 50 L75 50 Q75 25 100 25 L100 0 Q50 0 50 50 Z" />
+      </svg>
+    </div>
+
+    {/* Quote text */}
+    <blockquote class="quote-text">
+      <p>{quote}</p>
+    </blockquote>
+
+    {/* Author info */}
+    {(author || role) && (
+      <div class="quote-attribution">
+        {author && <span class="quote-author">{author}</span>}
+        {author && role && <span class="quote-separator">—</span>}
+        {role && <span class="quote-role">{role}</span>}
+      </div>
+    )}
+
+    {/* Large decorative closing quote */}
+    <div class="quote-mark quote-mark--close" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="currentColor">
+        <path d="M100 50 L100 0 L50 0 L50 50 L75 50 Q75 75 50 75 L50 100 Q100 100 100 50 Z" />
+        <path d="M50 50 L50 0 L0 0 L0 50 L25 50 Q25 75 0 75 L0 100 Q50 100 50 50 Z" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "@scripts/animations";
+</script>
+
+<style>
+  /* ========================================
+     Full-width Lime Green Quote Section
+     Bold, editorial styling
+     ======================================== */
+
+  .quote-section {
+    background: #c8ff00;
+    width: 100%;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .quote-section {
+      padding: 7rem 4rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .quote-section {
+      padding: 9rem 6rem;
+    }
+  }
+
+  .quote-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* ========================================
+     Decorative Quote Marks
+     ======================================== */
+
+  .quote-mark {
+    color: #0a1628;
+    opacity: 0.08;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .quote-mark svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .quote-mark--open {
+    width: 80px;
+    height: 80px;
+    top: -20px;
+    left: -10px;
+  }
+
+  .quote-mark--close {
+    width: 80px;
+    height: 80px;
+    bottom: -20px;
+    right: -10px;
+  }
+
+  @media (min-width: 768px) {
+    .quote-mark--open {
+      width: 120px;
+      height: 120px;
+      top: -30px;
+      left: -40px;
+    }
+
+    .quote-mark--close {
+      width: 120px;
+      height: 120px;
+      bottom: -30px;
+      right: -40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .quote-mark--open {
+      width: 160px;
+      height: 160px;
+      top: -40px;
+      left: -60px;
+    }
+
+    .quote-mark--close {
+      width: 160px;
+      height: 160px;
+      bottom: -40px;
+      right: -60px;
+    }
+  }
+
+  /* ========================================
+     Quote Text
+     ======================================== */
+
+  .quote-text {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  .quote-text p {
+    color: #0a1628;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .quote-text p {
+      font-size: 1.875rem;
+      line-height: 1.35;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .quote-text p {
+      font-size: 2.25rem;
+      line-height: 1.3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .quote-text p {
+      font-size: 2.75rem;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  /* ========================================
+     Attribution
+     ======================================== */
+
+  .quote-attribution {
+    position: relative;
+    z-index: 1;
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 768px) {
+    .quote-attribution {
+      margin-top: 3rem;
+    }
+  }
+
+  .quote-author {
+    color: #0a1628;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  @media (min-width: 768px) {
+    .quote-author {
+      font-size: 1.25rem;
+    }
+  }
+
+  .quote-separator {
+    color: #0a1628;
+    opacity: 0.5;
+    font-weight: 300;
+  }
+
+  .quote-role {
+    color: #0a1628;
+    opacity: 0.7;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .quote-role {
+      font-size: 1.125rem;
+    }
+  }
+</style>

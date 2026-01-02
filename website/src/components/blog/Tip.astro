@@ -1,0 +1,60 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "Tipp" } = Astro.props;
+---
+
+<aside class="blog-tip my-6 rounded-xl border p-5">
+  <div class="flex items-start gap-3">
+    <div
+      class="blog-tip__icon-box flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+    >
+      <svg
+        class="blog-tip__icon h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+        ></path>
+      </svg>
+    </div>
+    <div class="flex-1">
+      <p class="blog-tip__title mb-2 font-semibold">{title}</p>
+      <div class="blog-tip__content text-sm [&>p]:mb-2 [&>p:last-child]:mb-0">
+        <slot />
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .blog-tip {
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .blog-tip__icon-box {
+    background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+
+  .blog-tip__icon {
+    color: var(--primary);
+  }
+
+  .blog-tip__title {
+    color: var(--primary-light);
+  }
+
+  .blog-tip__content {
+    color: var(--color-zinc-300);
+  }
+</style>

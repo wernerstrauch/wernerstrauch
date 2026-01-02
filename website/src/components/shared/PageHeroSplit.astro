@@ -1,0 +1,291 @@
+---
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { SectionVariant } from "../../types";
+
+interface Breadcrumb {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  title: string;
+  description: string;
+  image: ImageMetadata | string;
+  imageAlt: string;
+  imagePosition?: "left" | "right";
+  breadcrumbs?: Breadcrumb[];
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const {
+  sectionVariant = "light",
+  title,
+  description,
+  image,
+  imageAlt,
+  imagePosition = "right",
+  breadcrumbs,
+  ctaText,
+  ctaHref,
+} = Astro.props;
+
+const isImageRight = imagePosition === "right";
+
+// Resolve image if it's a string (from YAML)
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+
+let resolvedImage: ImageMetadata | string | undefined;
+if (typeof image === "string") {
+  // Check if it's an absolute path starting with /
+  if (image.startsWith("/")) {
+    // Try to resolve from /src/assets/ first (for optimized images)
+    const assetPath = `/src/assets${image}`;
+    if (images[assetPath]) {
+      resolvedImage = (await images[assetPath]()).default;
+    } else {
+      // Fallback to public folder path
+      resolvedImage = image;
+    }
+  } else {
+    // Try to resolve relative path from /src/assets/
+    const imagePath = `/src/assets/${image}`;
+    if (images[imagePath]) {
+      resolvedImage = (await images[imagePath]()).default;
+    }
+  }
+} else {
+  resolvedImage = image;
+}
+
+const isPublicImage = typeof resolvedImage === "string";
+
+// Process title with CSS variable highlights (same as ContentRichSection)
+const highlightStyle = `color: var(--section-accent, var(--primary));`;
+const processedTitle = title.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div
+  class="page-hero-split relative overflow-hidden pt-16 sm:pt-8"
+  data-variant={sectionVariant}
+>
+  <Container>
+    <div
+      class:list={[
+        "grid items-center gap-10 lg:grid-cols-2 lg:gap-16",
+        !isImageRight && "lg:[direction:rtl]",
+      ]}
+    >
+      {/* Text Content */}
+      <div class:list={[!isImageRight && "lg:[direction:ltr]"]}>
+        {/* Breadcrumbs */}
+        {
+          breadcrumbs && breadcrumbs.length > 0 && (
+            <nav class="mb-6" aria-label="Breadcrumb">
+              <ol class="page-hero-split__breadcrumb flex items-center gap-2 text-sm">
+                <li>
+                  <a
+                    href="/"
+                    class="page-hero-split__breadcrumb-link transition-colors"
+                    aria-label="Startseite"
+                  >
+                    <Icon name="heroicons:home-16-solid" class="h-4 w-4" />
+                  </a>
+                </li>
+                {breadcrumbs.map((crumb, index) => (
+                  <>
+                    <li aria-hidden="true">
+                      <Icon
+                        name="heroicons:chevron-right-16-solid"
+                        class="page-hero-split__breadcrumb-separator h-4 w-4"
+                      />
+                    </li>
+                    <li>
+                      {index === breadcrumbs.length - 1 ? (
+                        <span class="page-hero-split__breadcrumb-current">
+                          {crumb.label}
+                        </span>
+                      ) : (
+                        <a
+                          href={crumb.href}
+                          class="page-hero-split__breadcrumb-link transition-colors"
+                        >
+                          {crumb.label}
+                        </a>
+                      )}
+                    </li>
+                  </>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
+
+        <h1
+          class="page-hero-split__title text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+          set:html={processedTitle}
+        />
+
+        <p
+          class="page-hero-split__description mt-4 max-w-xl text-lg leading-relaxed"
+        >
+          {description}
+        </p>
+
+        {
+          ctaText && ctaHref && (
+            <div class="mt-8">
+              <Button href={ctaHref} size="lg">
+                <span>{ctaText}</span>
+              </Button>
+            </div>
+          )
+        }
+      </div>
+
+      {/* Image */}
+      <div class:list={["relative", !isImageRight && "lg:[direction:ltr]"]}>
+        <div
+          class="page-hero-split__image-container relative overflow-hidden rounded-2xl border"
+        >
+          {/* Glow effect behind image */}
+          <div
+            class="page-hero-split__glow pointer-events-none absolute -inset-4 -z-10 rounded-3xl blur-2xl"
+            aria-hidden="true"
+          >
+          </div>
+
+          {
+            resolvedImage && isPublicImage ? (
+              <img
+                src={resolvedImage as string}
+                alt={imageAlt}
+                class="aspect-[4/3] h-full w-full object-cover"
+                loading="lazy"
+              />
+            ) : resolvedImage ? (
+              <Image
+                src={resolvedImage as ImageMetadata}
+                alt={imageAlt}
+                class="aspect-[4/3] h-full w-full object-cover"
+                widths={[400, 600, 800]}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            ) : null
+          }
+
+          {/* Overlay gradient */}
+          <div
+            class="page-hero-split__overlay pointer-events-none absolute inset-0"
+            aria-hidden="true"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style>
+  /* Light/White variant (default) */
+  .page-hero-split[data-variant="white"],
+  .page-hero-split[data-variant="light"] {
+    --breadcrumb-text: rgb(107 114 128); /* gray-500 */
+    --breadcrumb-separator: rgb(156 163 175); /* gray-400 */
+    --breadcrumb-current: var(--primary);
+    --breadcrumb-link-hover: var(--primary);
+    --title-color: #1c1c1e;
+    --description-color: rgb(75 85 99); /* gray-600 */
+    --image-border: rgb(229 231 235); /* gray-200 */
+    --image-glow: color-mix(in srgb, var(--primary) 10%, transparent);
+    --image-overlay: linear-gradient(
+      to top,
+      rgb(17 24 39 / 0.2),
+      transparent,
+      transparent
+    );
+  }
+
+  /* Dark variant */
+  .page-hero-split[data-variant="dark"] {
+    --breadcrumb-text: rgb(156 163 175); /* gray-400 */
+    --breadcrumb-separator: rgb(107 114 128); /* gray-500 */
+    --breadcrumb-current: var(--primary-light);
+    --breadcrumb-link-hover: var(--primary-light);
+    --title-color: #ffffff;
+    --description-color: rgb(209 213 219); /* gray-300 */
+    --image-border: rgb(55 65 81); /* gray-700 */
+    --image-glow: color-mix(in srgb, var(--primary) 20%, transparent);
+    --image-overlay: linear-gradient(
+      to top,
+      rgb(0 0 0 / 0.3),
+      transparent,
+      transparent
+    );
+  }
+
+  /* Primary variant */
+  .page-hero-split[data-variant="primary"] {
+    --breadcrumb-text: rgb(255 255 255 / 0.7);
+    --breadcrumb-separator: rgb(255 255 255 / 0.5);
+    --breadcrumb-current: #ffffff;
+    --breadcrumb-link-hover: #ffffff;
+    --title-color: #ffffff;
+    --description-color: rgb(255 255 255 / 0.8);
+    --image-border: rgb(255 255 255 / 0.2);
+    --image-glow: rgb(255 255 255 / 0.1);
+    --image-overlay: linear-gradient(
+      to top,
+      rgb(0 0 0 / 0.2),
+      transparent,
+      transparent
+    );
+  }
+
+  /* Apply CSS variables */
+  .page-hero-split__breadcrumb {
+    color: var(--breadcrumb-text);
+  }
+
+  .page-hero-split__breadcrumb-separator {
+    color: var(--breadcrumb-separator);
+  }
+
+  .page-hero-split__breadcrumb-current {
+    color: var(--breadcrumb-current);
+  }
+
+  .page-hero-split__breadcrumb-link:hover {
+    color: var(--breadcrumb-link-hover);
+  }
+
+  .page-hero-split__title {
+    color: var(--title-color);
+  }
+
+  .page-hero-split__description {
+    color: var(--description-color);
+  }
+
+  .page-hero-split__image-container {
+    border-color: var(--image-border);
+  }
+
+  .page-hero-split__glow {
+    background: var(--image-glow);
+  }
+
+  .page-hero-split__overlay {
+    background: var(--image-overlay);
+  }
+</style>

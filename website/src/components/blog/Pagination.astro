@@ -1,0 +1,139 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+// Generate page numbers to show
+const getPageNumbers = () => {
+  const pages: (number | string)[] = [];
+  const showEllipsis = totalPages > 7;
+
+  if (!showEllipsis) {
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+  } else {
+    // Always show first page
+    pages.push(1);
+
+    if (currentPage > 3) {
+      pages.push("...");
+    }
+
+    // Show pages around current
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    if (currentPage < totalPages - 2) {
+      pages.push("...");
+    }
+
+    // Always show last page
+    if (totalPages > 1) {
+      pages.push(totalPages);
+    }
+  }
+
+  return pages;
+};
+
+const pageNumbers = getPageNumbers();
+
+const getPageUrl = (page: number) => {
+  if (page === 1) {
+    return baseUrl;
+  }
+  return `${baseUrl}/${page}`;
+};
+---
+
+{
+  totalPages > 1 && (
+    <nav
+      class="pagination flex items-center justify-center gap-2"
+      aria-label="Pagination"
+    >
+      {/* Page numbers */}
+      <div class="flex items-center gap-1.5">
+        {pageNumbers.map((page) =>
+          typeof page === "string" ? (
+            <span class="pagination__ellipsis flex size-12 items-center justify-center text-gray-400 lg:size-14">
+              ...
+            </span>
+          ) : (
+            <a
+              href={getPageUrl(page)}
+              class:list={[
+                "pagination__page flex size-12 items-center justify-center rounded-full text-center font-medium transition-colors duration-200 lg:size-14 lg:text-lg",
+                page === currentPage
+                  ? "pagination__page--active"
+                  : "pagination__page--inactive",
+              ]}
+              aria-current={page === currentPage ? "page" : undefined}
+              aria-label={`Seite ${page}`}
+            >
+              {page}
+            </a>
+          ),
+        )}
+      </div>
+
+      {/* Next button */}
+      {currentPage < totalPages && (
+        <a
+          href={getPageUrl(currentPage + 1)}
+          class="pagination__next ml-2 flex size-12 flex-none items-center justify-center rounded-full border transition-colors duration-200 lg:size-14"
+          aria-label="Nächste Seite"
+          rel="next"
+        >
+          <Icon
+            name="heroicons:chevron-right"
+            class="pagination__next-icon size-4 lg:size-5"
+          />
+        </a>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  @reference "../../styles/styles.css";
+
+  /* Active page */
+  .pagination__page--active {
+    color: var(--color-gray-900);
+    font-weight: 500;
+  }
+
+  /* Inactive page */
+  .pagination__page--inactive {
+    color: var(--color-gray-400);
+  }
+
+  .pagination__page--inactive:hover {
+    color: var(--color-gray-900);
+  }
+
+  /* Next button */
+  .pagination__next {
+    border-color: var(--color-gray-300);
+  }
+
+  .pagination__next:hover {
+    border-color: var(--color-gray-900);
+  }
+
+  .pagination__next-icon {
+    color: var(--primary);
+  }
+</style>

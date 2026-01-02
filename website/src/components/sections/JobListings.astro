@@ -1,0 +1,462 @@
+---
+/**
+ * JobListings Section Component
+ *
+ * A grid of job listing cards with badge support, department cards,
+ * skills section, and empty state handling.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: JobListings
+ * content:
+ *   badge: "Karriere"
+ *   badgeIcon: "heroicons:briefcase-16-solid"
+ *   headline: "Offene <em>Jobangebote</em>"
+ *   description: "Finde deinen Traumjob bei uns"
+ *   emptyMessage: "Aktuell haben wir keine offenen Stellen."
+ *   emptySubtext: "Schau später wieder vorbei oder sende uns eine Initiativbewerbung."
+ *   jobs:
+ *     - title: "Shopify Entwickler (m/w/d)"
+ *       type: "Vollzeit"
+ *       location: "Heinsberg / Remote"
+ *       department: "Entwicklung"
+ *       description: "Kurzbeschreibung der Stelle..."
+ *       linkHref: "/karriere/shopify-entwickler"
+ *       linkText: "Mehr erfahren"
+ *   departments:
+ *     - title: "Entwicklung"
+ *       icon: "heroicons:code-bracket"
+ *       description: "Baue Shopify Themes und Apps"
+ *   skills:
+ *     - title: "E-Commerce Leidenschaft"
+ *       icon: "heroicons:shopping-cart"
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface JobListing {
+  title: string;
+  type?: string;
+  location?: string;
+  department?: string;
+  description?: string;
+  linkHref?: string;
+  linkText?: string;
+}
+
+interface Department {
+  title: string;
+  icon: string;
+  description: string;
+}
+
+interface Skill {
+  title: string;
+  icon: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  jobs?: JobListing[];
+  emptyMessage?: string;
+  emptySubtext?: string;
+  departments?: Department[];
+  departmentsHeadline?: string;
+  departmentsDescription?: string;
+  skills?: Skill[];
+  skillsHeadline?: string;
+  ctaText?: string;
+}
+
+const {
+  sectionVariant = "light",
+  badge,
+  badgeIcon,
+  headline,
+  description,
+  jobs = [],
+  emptyMessage = "Aktuell haben wir keine offenen Stellen.",
+  emptySubtext,
+  departments = [],
+  departmentsHeadline = "Unsere <em>Bereiche</em>",
+  departmentsDescription = "In diesen Bereichen suchen wir immer nach Talenten.",
+  skills = [],
+  skillsHeadline = "Das bringst du mit",
+  ctaText = "Initiativbewerbung senden",
+} = Astro.props;
+
+// Process headlines: replace <em> tags with colored spans
+const highlightStyle = `color: var(--section-accent);`;
+const processHeadline = (text: string) =>
+  text.replace(/<em>(.*?)<\/em>/g, `<span style="${highlightStyle}">$1</span>`);
+
+const processedHeadline = headline ? processHeadline(headline) : "";
+const processedDepartmentsHeadline = processHeadline(departmentsHeadline);
+
+const hasJobs = jobs && jobs.length > 0;
+const hasDepartments = departments && departments.length > 0;
+const hasSkills = skills && skills.length > 0;
+---
+
+<Container class="joblistings-section" data-variant={sectionVariant}>
+  {/* Header */}
+  <div class="mx-auto mb-12 max-w-3xl text-center">
+    {
+      badge && (
+        <div
+          class="joblistings-badge fade-up mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
+          style="transition-delay: 50ms;"
+        >
+          {badgeIcon && <Icon name={badgeIcon} class="h-4 w-4" />}
+          <span>{badge}</span>
+        </div>
+      )
+    }
+
+    {
+      headline && (
+        <h2
+          class="joblistings-headline scale-up mb-4 text-3xl font-bold sm:text-4xl lg:text-5xl"
+          style="transition-delay: 100ms;"
+          set:html={processedHeadline}
+        />
+      )
+    }
+
+    {
+      description && (
+        <p
+          class="joblistings-description fade-up text-lg"
+          style="transition-delay: 150ms;"
+        >
+          {description}
+        </p>
+      )
+    }
+  </div>
+
+  {/* Job Cards Grid or Empty State */}
+  {
+    hasJobs ? (
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {jobs.map((job, index) => (
+          <div
+            class="joblistings-card fade-up group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+            style={`transition-delay: ${200 + index * 50}ms;`}
+          >
+            {/* Department & Type Badges */}
+            <div class="mb-4 flex flex-wrap gap-2">
+              {job.department && (
+                <span class="joblistings-badge-department rounded-full px-3 py-1 text-xs font-medium">
+                  {job.department}
+                </span>
+              )}
+              {job.type && (
+                <span class="joblistings-badge-type rounded-full px-3 py-1 text-xs font-medium">
+                  {job.type}
+                </span>
+              )}
+            </div>
+
+            {/* Title */}
+            <h3 class="joblistings-card-title mb-2 text-xl font-semibold">
+              {job.title}
+            </h3>
+
+            {/* Location */}
+            {job.location && (
+              <div class="joblistings-card-location mb-3 flex items-center gap-2 text-sm">
+                <Icon name="heroicons:map-pin-16-solid" class="h-4 w-4" />
+                <span>{job.location}</span>
+              </div>
+            )}
+
+            {/* Description */}
+            {job.description && (
+              <p class="joblistings-card-description mb-4 text-sm leading-relaxed">
+                {job.description}
+              </p>
+            )}
+
+            {/* Link */}
+            {job.linkHref && (
+              <a
+                href={job.linkHref}
+                class="joblistings-card-link inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+              >
+                <span>{job.linkText || "Mehr erfahren"}</span>
+                <Icon
+                  name="heroicons:arrow-right-16-solid"
+                  class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                />
+              </a>
+            )}
+
+            {/* Hover glow effect */}
+            <div class="joblistings-card-glow pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="space-y-16">
+        {/* Empty State Message */}
+        <div
+          class="fade-up mx-auto max-w-2xl text-center"
+          style="transition-delay: 200ms;"
+        >
+          <div class="joblistings-empty-badge mb-4 inline-flex items-center gap-2 rounded-full px-4 py-2">
+            <Icon name="heroicons:sparkles" class="h-5 w-5" />
+            <span class="font-medium">{emptyMessage}</span>
+          </div>
+          {emptySubtext && (
+            <p class="joblistings-description text-lg">{emptySubtext}</p>
+          )}
+        </div>
+
+        {/* Departments Grid */}
+        {hasDepartments && (
+          <div class="fade-up" style="transition-delay: 250ms;">
+            <div class="mb-8 text-center">
+              <h3
+                class="joblistings-headline mb-3 text-2xl font-bold sm:text-3xl"
+                set:html={processedDepartmentsHeadline}
+              />
+              <p class="joblistings-description">{departmentsDescription}</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {departments.map((dept, index) => (
+                <button
+                  type="button"
+                  class="joblistings-dept-card group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 hover:-translate-y-1"
+                  style={`transition-delay: ${300 + index * 50}ms;`}
+                  data-open-application
+                  data-department={dept.title}
+                >
+                  <div class="joblistings-dept-icon mb-4 flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110">
+                    <Icon name={dept.icon} class="h-6 w-6" />
+                  </div>
+                  <h4 class="joblistings-dept-title mb-2 text-lg font-semibold">
+                    {dept.title}
+                  </h4>
+                  <p class="joblistings-dept-description text-sm leading-relaxed">
+                    {dept.description}
+                  </p>
+                  <div class="mt-4 flex items-center gap-1 text-sm font-medium opacity-0 transition-opacity group-hover:opacity-100">
+                    <span class="joblistings-dept-cta">Jetzt bewerben</span>
+                    <Icon
+                      name="heroicons:arrow-right-16-solid"
+                      class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    />
+                  </div>
+                  {/* Hover glow effect */}
+                  <div class="joblistings-card-glow pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Skills Section */}
+        {hasSkills && (
+          <div
+            class="fade-up mx-auto max-w-4xl"
+            style="transition-delay: 400ms;"
+          >
+            <div class="joblistings-skills-card rounded-2xl p-8">
+              <h3 class="joblistings-headline mb-6 text-center text-xl font-bold sm:text-2xl">
+                {skillsHeadline}
+              </h3>
+              <div class="flex flex-wrap justify-center gap-3">
+                {skills.map((skill) => (
+                  <div class="joblistings-skill-tag flex items-center gap-2 rounded-full px-4 py-2">
+                    <Icon name={skill.icon} class="h-4 w-4" />
+                    <span class="text-sm font-medium">{skill.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* CTA Button */}
+        <div class="fade-up text-center" style="transition-delay: 450ms;">
+          <Button data-open-application variant="primary" size="lg">
+            <Icon name="heroicons:paper-airplane-16-solid" class="h-4 w-4" />
+            <span>{ctaText}</span>
+          </Button>
+        </div>
+      </div>
+    )
+  }
+</Container>
+
+<style>
+  /* ========================================
+     Badge Styles
+     ======================================== */
+  .joblistings-badge {
+    background: var(--section-card-bg);
+    color: var(--section-accent);
+    border: 1px solid var(--section-card-border);
+  }
+
+  /* ========================================
+     Headline & Description
+     ======================================== */
+  .joblistings-headline {
+    color: var(--section-text);
+  }
+
+  .joblistings-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Card Styles
+     ======================================== */
+  .joblistings-card {
+    background: var(--section-card-bg);
+    border: 1px solid var(--section-card-border);
+  }
+
+  .joblistings-card:hover {
+    border-color: var(--section-accent);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  .joblistings-card-title {
+    color: var(--section-text);
+  }
+
+  .joblistings-card-location {
+    color: var(--section-text-muted);
+  }
+
+  .joblistings-card-description {
+    color: var(--section-text-muted);
+  }
+
+  .joblistings-card-link {
+    color: var(--section-accent);
+  }
+
+  .joblistings-card-link:hover {
+    color: var(--section-text);
+  }
+
+  .joblistings-card-glow {
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in srgb, var(--section-accent) 10%, transparent),
+      transparent 40%
+    );
+  }
+
+  /* ========================================
+     Badge Variants (within cards)
+     ======================================== */
+  .joblistings-badge-department {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+    color: var(--section-accent);
+  }
+
+  .joblistings-badge-type {
+    background: var(--section-card-bg);
+    color: var(--section-text-muted);
+    border: 1px solid var(--section-card-border);
+  }
+
+  /* ========================================
+     Empty State Badge
+     ======================================== */
+  .joblistings-empty-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Department Cards
+     ======================================== */
+  .joblistings-dept-card {
+    background: var(--section-card-bg);
+    border: 1px solid var(--section-card-border);
+    cursor: pointer;
+  }
+
+  .joblistings-dept-card:hover {
+    border-color: var(--section-accent);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  .joblistings-dept-icon {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+    color: var(--section-accent);
+  }
+
+  .joblistings-dept-title {
+    color: var(--section-text);
+  }
+
+  .joblistings-dept-description {
+    color: var(--section-text-muted);
+  }
+
+  .joblistings-dept-cta {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Skills Section
+     ======================================== */
+  .joblistings-skills-card {
+    background: var(--section-card-bg);
+    border: 1px solid var(--section-card-border);
+  }
+
+  .joblistings-skill-tag {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    color: var(--section-text);
+    border: 1px solid color-mix(in srgb, var(--section-accent) 20%, transparent);
+  }
+
+  .joblistings-skill-tag svg {
+    color: var(--section-accent);
+  }
+</style>
+
+<script>
+  // Track mouse position for glow effect
+  function initJobListingsGlow() {
+    const cards = document.querySelectorAll(
+      ".joblistings-card, .joblistings-dept-card",
+    );
+
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (e: Event) => {
+        const mouseEvent = e as MouseEvent;
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        const x = mouseEvent.clientX - rect.left;
+        const y = mouseEvent.clientY - rect.top;
+        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
+      });
+    });
+  }
+
+  // Initialize on page load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initJobListingsGlow);
+  } else {
+    initJobListingsGlow();
+  }
+
+  // Re-initialize after Astro page transitions
+  document.addEventListener("astro:after-swap", initJobListingsGlow);
+</script>

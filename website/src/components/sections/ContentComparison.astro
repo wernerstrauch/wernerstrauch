@@ -1,0 +1,354 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ComparisonItem {
+  text: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  othersTitle?: string;
+  othersItems?: ComparisonItem[];
+  usTitle?: string;
+  usLogo?: string;
+  usLogoAlt?: string;
+  usItems?: ComparisonItem[];
+}
+
+const {
+  sectionVariant = "dark",
+  badge = "Warum wir",
+  badgeIcon = "heroicons:sparkles-16-solid",
+  headline = "Was uns von anderen Agenturen <em>unterscheidet</em>",
+  description = "Erfahre, warum führende E-Commerce Brands auf unsere Expertise vertrauen.",
+  othersTitle = "Andere Agenturen",
+  othersItems = [
+    {
+      text: "Langsamer Support, schlechte Kommunikation und die Umsetzung des Projekts zieht sich über Monate",
+    },
+    {
+      text: "Sind nur in Teilgebieten erfahren und helfen nicht ganzheitlich bei Website + SEO",
+    },
+    {
+      text: "Haben wenig bis gar keine Erfahrung, um Projekte erfolgreich zu machen",
+    },
+    {
+      text: "Denken nicht mit und gehen Projekte nicht proaktiv an",
+    },
+  ],
+  usTitle = "Shop Marketing",
+  usLogo = "/shop-marketing-logo.png",
+  usLogoAlt = "Shop Marketing Logo",
+  usItems = [
+    {
+      text: "Team aus Experten und Spezialisten mit Erfahrung in den Einzelbereichen",
+    },
+    {
+      text: "Ganzheitlicher Ansatz für die Kombination aus Website + Suchmaschinenoptimierung",
+    },
+    {
+      text: "Extrem schnelle Umsetzung und Kommunikation mit Feedback nach wenigen Minuten",
+    },
+    {
+      text: "Erfahrung aus Kundenprojekten aus über 50+ Millionen € Umsatz",
+    },
+    {
+      text: "Glasklare Prozesse, Abläufe und Reportings",
+    },
+    {
+      text: "Transparente Ergebnisse aus Kundenprojekten",
+    },
+  ],
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline =
+  headline?.replace(
+    /<em>(.*?)<\/em>/g,
+    `<span style="${highlightStyle}">$1</span>`,
+  ) ?? "";
+---
+
+<Container>
+  <div class="mx-auto max-w-4xl text-center" data-variant={sectionVariant}>
+    {/* Badge */}
+    {
+      badge && (
+        <div class="blur-in mb-4 flex justify-center">
+          <div class="comparison__badge shadow-inner-blur flex items-center rounded-full">
+            <div class="flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+              <Icon name={badgeIcon} class="comparison__badge-icon h-4 w-4" />
+              <span class="comparison__badge-text text-sm font-medium">
+                {badge}
+              </span>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    {/* Headline */}
+    <h2
+      class="comparison__headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+      style="transition-delay: 100ms;"
+      set:html={processedHeadline}
+    />
+
+    {/* Description */}
+    {
+      description && (
+        <p
+          class="comparison__description fade-up mx-auto mt-6 max-w-2xl text-lg"
+          style="transition-delay: 150ms;"
+        >
+          {description}
+        </p>
+      )
+    }
+  </div>
+
+  {/* Comparison Cards */}
+  <div
+    class="mx-auto mt-12 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-16 sm:gap-y-0 lg:max-w-5xl lg:grid-cols-2"
+    data-variant={sectionVariant}
+  >
+    {/* Others Card */}
+    <div
+      class="comparison__others-card fade-up relative flex flex-col rounded-3xl border p-8 sm:mx-8 sm:rounded-b-none sm:p-10 lg:mx-0 lg:rounded-tr-none lg:rounded-bl-3xl"
+      style="transition-delay: 200ms;"
+    >
+      <h3 class="comparison__others-title text-center text-xl font-semibold">
+        {othersTitle}
+      </h3>
+
+      <ul role="list" class="mt-8 flex-1 space-y-4">
+        {
+          othersItems?.map((item, index) => (
+            <li
+              class="fade-up flex gap-x-3"
+              style={`transition-delay: ${250 + index * 50}ms;`}
+            >
+              <Icon
+                name="heroicons:x-mark-16-solid"
+                class="comparison__others-icon mt-0.5 h-5 w-5 flex-none"
+              />
+              <span class="comparison__others-text text-sm/6">{item.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    {/* Us Card */}
+    <div
+      class="comparison__us-card fade-up relative flex flex-col rounded-3xl p-8 shadow-2xl sm:rounded-t-none sm:p-10 lg:rounded-tl-none lg:rounded-tr-3xl"
+      style="transition-delay: 250ms;"
+    >
+      {/* Logo or Title */}
+      <div class="flex items-center gap-3">
+        {
+          usLogo ? (
+            <img
+              src={usLogo}
+              alt={usLogoAlt}
+              width="200"
+              height="40"
+              class="h-auto w-[200px]"
+              loading="lazy"
+            />
+          ) : (
+            <h3 class="comparison__us-title text-xl font-semibold">
+              {usTitle}
+            </h3>
+          )
+        }
+      </div>
+
+      <ul role="list" class="mt-8 flex-1 space-y-4">
+        {
+          usItems?.map((item, index) => (
+            <li
+              class="fade-up flex gap-x-3"
+              style={`transition-delay: ${300 + index * 50}ms;`}
+            >
+              <Icon
+                name="heroicons:check-16-solid"
+                class="comparison__us-icon mt-0.5 h-5 w-5 flex-none"
+              />
+              <span class="comparison__us-text text-sm/6">{item.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Container>
+
+<style>
+  /* Badge Styles */
+  [data-variant="white"] .comparison__badge,
+  [data-variant="light"] .comparison__badge {
+    background-color: rgb(var(--color-primary) / 0.1);
+  }
+
+  [data-variant="white"] .comparison__badge > div,
+  [data-variant="light"] .comparison__badge > div {
+    border-color: rgb(var(--color-primary) / 0.3);
+  }
+
+  [data-variant="white"] .comparison__badge-icon,
+  [data-variant="light"] .comparison__badge-icon {
+    color: rgb(var(--color-primary));
+  }
+
+  [data-variant="white"] .comparison__badge-text,
+  [data-variant="light"] .comparison__badge-text {
+    color: #1c1c1e;
+  }
+
+  [data-variant="dark"] .comparison__badge {
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  [data-variant="dark"] .comparison__badge > div {
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  }
+
+  [data-variant="dark"] .comparison__badge-icon {
+    color: var(--primary-light);
+  }
+
+  [data-variant="dark"] .comparison__badge-text {
+    color: white;
+  }
+
+  [data-variant="primary"] .comparison__badge {
+    background-color: rgb(255 255 255 / 0.1);
+  }
+
+  [data-variant="primary"] .comparison__badge > div {
+    border-color: rgb(255 255 255 / 0.3);
+  }
+
+  [data-variant="primary"] .comparison__badge-icon,
+  [data-variant="primary"] .comparison__badge-text {
+    color: white;
+  }
+
+  /* Headline Styles */
+  [data-variant="white"] .comparison__headline,
+  [data-variant="light"] .comparison__headline {
+    color: #1c1c1e;
+  }
+
+  [data-variant="dark"] .comparison__headline,
+  [data-variant="primary"] .comparison__headline {
+    color: white;
+  }
+
+  /* Description Styles */
+  [data-variant="white"] .comparison__description,
+  [data-variant="light"] .comparison__description {
+    color: rgb(75 85 99);
+  }
+
+  [data-variant="dark"] .comparison__description {
+    color: rgb(156 163 175);
+  }
+
+  [data-variant="primary"] .comparison__description {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  /* Others Card Styles (muted colors) */
+  [data-variant="white"] .comparison__others-card {
+    background-color: rgb(249 250 251);
+    border-color: rgb(229 231 235);
+  }
+
+  [data-variant="light"] .comparison__others-card,
+  [data-variant="dark"] .comparison__others-card {
+    background-color: white;
+    border-color: rgb(229 231 235);
+  }
+
+  [data-variant="primary"] .comparison__others-card {
+    background-color: rgb(255 255 255 / 0.1);
+    border-color: rgb(255 255 255 / 0.2);
+  }
+
+  [data-variant="white"] .comparison__others-title,
+  [data-variant="light"] .comparison__others-title,
+  [data-variant="dark"] .comparison__others-title {
+    color: #1c1c1e;
+  }
+
+  [data-variant="primary"] .comparison__others-title {
+    color: white;
+  }
+
+  [data-variant="white"] .comparison__others-text,
+  [data-variant="light"] .comparison__others-text,
+  [data-variant="dark"] .comparison__others-text {
+    color: rgb(75 85 99);
+  }
+
+  [data-variant="primary"] .comparison__others-text {
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  [data-variant="white"] .comparison__others-icon,
+  [data-variant="light"] .comparison__others-icon,
+  [data-variant="dark"] .comparison__others-icon {
+    color: rgb(239 68 68);
+  }
+
+  [data-variant="primary"] .comparison__others-icon {
+    color: rgb(248 113 113);
+  }
+
+  /* Us Card Styles (accent/primary colors) */
+  [data-variant="white"] .comparison__us-card,
+  [data-variant="light"] .comparison__us-card,
+  [data-variant="dark"] .comparison__us-card {
+    background-color: rgb(var(--color-primary));
+  }
+
+  [data-variant="primary"] .comparison__us-card {
+    background-color: #1c1c1e;
+  }
+
+  [data-variant="white"] .comparison__us-title,
+  [data-variant="light"] .comparison__us-title,
+  [data-variant="dark"] .comparison__us-title,
+  [data-variant="primary"] .comparison__us-title {
+    color: white;
+  }
+
+  [data-variant="white"] .comparison__us-text,
+  [data-variant="light"] .comparison__us-text,
+  [data-variant="dark"] .comparison__us-text {
+    color: rgb(255 255 255 / 0.9);
+  }
+
+  [data-variant="primary"] .comparison__us-text {
+    color: rgb(209 213 219);
+  }
+
+  [data-variant="white"] .comparison__us-icon,
+  [data-variant="light"] .comparison__us-icon,
+  [data-variant="dark"] .comparison__us-icon {
+    color: white;
+  }
+
+  [data-variant="primary"] .comparison__us-icon {
+    color: var(--primary-light);
+  }
+</style>

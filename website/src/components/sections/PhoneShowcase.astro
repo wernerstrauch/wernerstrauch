@@ -1,0 +1,343 @@
+---
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+// Import iPhone frame
+import iphoneFrame from "@assets/digitalsprung/phones/frames/iphone-13.png";
+
+interface PhoneScreen {
+  src: string;
+  alt?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  screens?: PhoneScreen[];
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Mobile First",
+  badgeIcon = "heroicons:device-phone-mobile-16-solid",
+  headline = "E-Commerce auf allen <em>Geräten</em>",
+  description = "Moderne Onlineshops müssen auf jedem Gerät perfekt funktionieren. Wir entwickeln responsive Lösungen, die auf Desktop, Tablet und Smartphone überzeugen.",
+  ctaText = "Jetzt Projekt starten",
+  ctaHref = "/kontakt",
+  screens = [],
+} = Astro.props;
+
+// Process headline for <em> tags
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Import screens dynamically
+const screenImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{png,jpg,jpeg,webp}",
+);
+
+// Resolve screen images
+const resolvedScreens = await Promise.all(
+  screens.map(async (screen) => {
+    if (screen.src.startsWith("/src/")) {
+      const imageModule = screenImages[screen.src];
+      if (imageModule) {
+        const resolved = await imageModule();
+        return { ...screen, image: resolved.default };
+      }
+    }
+    return { ...screen, image: null };
+  }),
+);
+
+// Phone positions configuration (5 phones)
+const phoneConfigs = [
+  {
+    left: "-5.5%",
+    width: "24.9%",
+    maxWidth: "359px",
+    translateY: "60%",
+    zIndex: 1,
+  },
+  {
+    left: "22.4%",
+    width: "14.4%",
+    maxWidth: "207px",
+    translateY: "64%",
+    zIndex: 2,
+  },
+  {
+    left: "39.9%",
+    width: "23%",
+    maxWidth: "331px",
+    translateY: "84%",
+    zIndex: 3,
+  },
+  {
+    left: "65.9%",
+    width: "23%",
+    maxWidth: "331px",
+    translateY: "63%",
+    zIndex: 4,
+  },
+  {
+    left: "91.9%",
+    width: "14.4%",
+    maxWidth: "207px",
+    translateY: "49%",
+    zIndex: 5,
+  },
+];
+---
+
+<div
+  class="phone-showcase-section relative w-full overflow-hidden"
+  data-variant={sectionVariant}
+>
+  <Container>
+    <div
+      class="relative z-10 pt-12 pb-16 text-center md:pt-20 md:pb-24 lg:pt-24 lg:pb-32"
+    >
+      {/* Badge */}
+      {
+        badge && (
+          <div class="mb-6 flex justify-center">
+            <span class="phone-showcase-badge inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium">
+              {badgeIcon && <Icon name={badgeIcon} class="h-4 w-4" />}
+              {badge}
+            </span>
+          </div>
+        )
+      }
+
+      {/* Headline */}
+      <h2
+        class="phone-showcase-headline mx-auto max-w-4xl text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl"
+        set:html={processedHeadline}
+      />
+
+      {/* Description */}
+      {
+        description && (
+          <p class="phone-showcase-description mx-auto mt-4 max-w-2xl text-base opacity-80 md:mt-6 md:text-lg lg:w-8/12">
+            {description}
+          </p>
+        )
+      }
+
+      {/* CTA */}
+      {
+        ctaText && ctaHref && (
+          <div class="mt-6 flex justify-center md:mt-8 lg:mt-11">
+            <Button
+              href={ctaHref}
+              variant={sectionVariant === "dark" ? "white" : "primary"}
+              size="lg"
+            >
+              <span>{ctaText}</span>
+              <Icon name="heroicons:arrow-right-16-solid" class="h-4 w-4" />
+            </Button>
+          </div>
+        )
+      }
+    </div>
+  </Container>
+
+  {/* Phone Images Container */}
+  <div
+    class="phone-showcase-phones absolute right-0 bottom-0 left-0 mx-auto w-full"
+    style="max-width: 1611px;"
+  >
+    {
+      phoneConfigs.map((config, index) => {
+        const screen = resolvedScreens[index];
+        return (
+          <div
+            class="phone-showcase-phone absolute bottom-0"
+            style={`
+            left: ${config.left};
+            width: ${config.width};
+            max-width: ${config.maxWidth};
+            transform: translateY(${config.translateY});
+            z-index: ${config.zIndex};
+            --aspect-ratio: 0.5;
+          `}
+            data-index={index}
+          >
+            <div class="phone-wrapper relative">
+              {/* iPhone Frame */}
+              <Image
+                src={iphoneFrame}
+                alt="iPhone Mockup"
+                class="relative z-10 h-auto w-full"
+                loading="lazy"
+              />
+
+              {/* Screen Content */}
+              {screen?.image && (
+                <div class="phone-screen absolute top-[3%] right-[5%] left-[5%] z-[1] overflow-hidden rounded-[2rem]">
+                  <Image
+                    src={screen.image}
+                    alt={screen.alt || "App Screenshot"}
+                    class="h-full w-full object-cover object-top"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+
+              {/* Status bar overlay */}
+              <div class="current-time absolute top-[4%] left-[13%] z-20 hidden text-xs text-white md:block" />
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  {/* Bottom spacing for phones */}
+  <div class="block w-full md:hidden" style="padding-bottom: 40%;"></div>
+  <div class="hidden w-full md:block" style="padding-bottom: 22%;"></div>
+</div>
+
+<script>
+  function initPhoneShowcase() {
+    // Update time displays
+    const updateTimes = () => {
+      const times = document.querySelectorAll(
+        ".phone-showcase-section .current-time",
+      );
+      times?.forEach((time) => {
+        time.textContent = new Date().toLocaleTimeString("de-DE", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      });
+    };
+    updateTimes();
+    setInterval(updateTimes, 1000);
+
+    // Animate phones on scroll
+    const phones = document.querySelectorAll(".phone-showcase-phone");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const phone = entry.target as HTMLElement;
+            phone.style.opacity = "1";
+            phone.style.transform =
+              phone.style.transform.replace(/translateX\([^)]+\)/, "") +
+              ` translateX(0)`;
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    phones.forEach((phone, index) => {
+      const el = phone as HTMLElement;
+      el.style.opacity = "0";
+      el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+      const direction = index < 2 ? -30 : index > 2 ? 30 : 0;
+      el.style.transform = el.style.transform + ` translateX(${direction}px)`;
+      observer.observe(phone);
+    });
+  }
+
+  // Initialize
+  initPhoneShowcase();
+  document.addEventListener("astro:page-load", initPhoneShowcase);
+</script>
+
+<style>
+  .phone-showcase-section {
+    --section-bg: var(--color-surface-light);
+    --section-text: var(--color-text-dark);
+    --section-text-muted: var(--color-text-muted);
+    --section-accent: var(--color-primary);
+    --section-border: var(--color-border-light);
+    background: var(--section-bg);
+    color: var(--section-text);
+  }
+
+  .phone-showcase-section[data-variant="dark"] {
+    --section-bg: var(--color-surface-dark);
+    --section-text: var(--color-text-light);
+    --section-text-muted: var(--color-text-light-muted);
+    --section-accent: var(--color-accent);
+    --section-border: var(--color-border-dark);
+  }
+
+  .phone-showcase-section[data-variant="primary"] {
+    --section-bg: var(--color-primary);
+    --section-text: white;
+    --section-text-muted: rgba(255, 255, 255, 0.8);
+    --section-accent: white;
+    --section-border: rgba(255, 255, 255, 0.2);
+  }
+
+  .phone-showcase-badge {
+    background: var(--section-bg);
+    border-color: var(--section-border);
+    color: var(--section-accent);
+  }
+
+  .phone-showcase-headline {
+    color: var(--section-text);
+  }
+
+  .phone-showcase-description {
+    color: var(--section-text-muted);
+  }
+
+  .phone-showcase-phones {
+    pointer-events: none;
+  }
+
+  .phone-showcase-phone {
+    aspect-ratio: var(--aspect-ratio);
+  }
+
+  .phone-screen {
+    aspect-ratio: 9/19.5;
+  }
+
+  /* Hover effect */
+  @media (min-width: 768px) {
+    .phone-showcase-phone {
+      transition: transform 0.4s ease;
+    }
+
+    .phone-showcase-section:hover .phone-showcase-phone {
+      transform: translateY(55%) !important;
+    }
+
+    .phone-showcase-section:hover .phone-showcase-phone:nth-child(2) {
+      transform: translateY(58%) !important;
+    }
+
+    .phone-showcase-section:hover .phone-showcase-phone:nth-child(3) {
+      transform: translateY(75%) !important;
+    }
+
+    .phone-showcase-section:hover .phone-showcase-phone:nth-child(4) {
+      transform: translateY(58%) !important;
+    }
+
+    .phone-showcase-section:hover .phone-showcase-phone:nth-child(5) {
+      transform: translateY(44%) !important;
+    }
+  }
+</style>

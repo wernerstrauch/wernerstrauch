@@ -1,0 +1,55 @@
+{/* Container lines */}
+<span
+  class="container-outline__line container-outline__line--left absolute -top-5 -bottom-5 left-0 w-px sm:-top-8 sm:-bottom-8 lg:-top-16 lg:-bottom-16"
+></span>
+<span
+  class="container-outline__line container-outline__line--right absolute -top-5 right-0 -bottom-5 w-px sm:-top-8 sm:-bottom-8 lg:-top-16 lg:-bottom-16"
+></span>
+<span
+  class="container-outline__line container-outline__line--top absolute top-0 -right-5 -left-5 h-px sm:-right-8 sm:-left-8 lg:-right-16 lg:-left-16"
+></span>
+<span
+  class="container-outline__line container-outline__line--bottom absolute -right-5 bottom-0 -left-5 h-px sm:-right-8 sm:-left-8 lg:-right-16 lg:-left-16"
+></span>
+
+{/* corner dots */}
+<span
+  class="container-outline__dot absolute -top-[1.5px] -left-[1.5px] h-1 w-1 rounded-full"
+></span>
+<span
+  class="container-outline__dot absolute -top-[1.5px] -right-[1.5px] h-1 w-1 rounded-full"
+></span>
+<span
+  class="container-outline__dot absolute -bottom-[1.5px] -left-[1.5px] h-1 w-1 rounded-full"
+></span>
+<span
+  class="container-outline__dot absolute -right-[1.5px] -bottom-[1.5px] h-1 w-1 rounded-full"
+></span>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  .container-outline__line--left,
+  .container-outline__line--right {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--primary-light) 5%, transparent),
+      color-mix(in srgb, var(--primary-light) 8%, transparent),
+      color-mix(in srgb, var(--primary-light) 5%, transparent)
+    );
+  }
+
+  .container-outline__line--top,
+  .container-outline__line--bottom {
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--primary-light) 5%, transparent),
+      color-mix(in srgb, var(--primary-light) 8%, transparent),
+      color-mix(in srgb, var(--primary-light) 5%, transparent)
+    );
+  }
+
+  .container-outline__dot {
+    background-color: var(--primary-light);
+  }
+</style>

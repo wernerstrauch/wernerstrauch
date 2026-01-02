@@ -1,0 +1,171 @@
+---
+import Container from "@components/shared/Container.astro";
+import Button from "@components/shared/Button.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  description?: string;
+  ctas?: Array<{
+    text?: string;
+    icon?: string;
+    href?: string;
+    variant?: "primary" | "secondary" | "secondary-dark" | "tertiary" | "white";
+    size?: "lg" | "md" | "sm";
+    dataOpenFunnel?: boolean;
+    dataOpenApplication?: boolean;
+  }>;
+}
+
+const {
+  sectionVariant = "white",
+  headline = "Bereit für mehr <em>Wachstum?</em>",
+  description = "Lass uns gemeinsam herausfinden, wo dein Shop das größte Potenzial hat. Im kostenlosen Erstgespräch analysieren wir deine Situation und zeigen dir konkrete nächste Schritte.",
+  ctas = [
+    {
+      text: "Kostenloses Erstgespräch",
+      icon: "heroicons:calendar-days-16-solid",
+      variant: "white",
+      size: "lg",
+      dataOpenFunnel: true,
+    },
+    {
+      text: "Mehr erfahren",
+      icon: "heroicons:arrow-right-16-solid",
+      href: "/ueber-uns",
+      variant: "secondary-dark",
+      size: "lg",
+    },
+  ],
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+
+// Generate unique ID for gradient
+const gradientId = `cta-gradient-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<Container class="ctacentered-section" data-variant={sectionVariant}>
+  <div
+    class="ctacentered-card relative isolate overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-24"
+  >
+    {/* Headline */}
+    <h2
+      class="ctacentered-headline scale-up text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl"
+      style="transition-delay: 100ms;"
+      set:html={processedHeadline}
+    />
+
+    {/* Description */}
+    <p
+      class="ctacentered-description fade-up mx-auto mt-6 max-w-xl text-lg/8 text-pretty"
+      style="transition-delay: 150ms;"
+    >
+      {description}
+    </p>
+
+    {/* CTAs */}
+    <div
+      class="fade-up mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5"
+      style="transition-delay: 200ms;"
+    >
+      {
+        ctas.map((cta) => (
+          <Button
+            href={cta.href}
+            variant={cta.variant}
+            size={cta.size}
+            data-open-funnel={cta.dataOpenFunnel}
+            data-open-application={cta.dataOpenApplication}
+          >
+            {cta.icon && <Icon name={cta.icon} class="h-4 w-4" />}
+            <span>{cta.text}</span>
+          </Button>
+        ))
+      }
+    </div>
+
+    {/* Background Glow Effect */}
+    <svg
+      viewBox="0 0 1024 1024"
+      aria-hidden="true"
+      class="ctacentered-glow absolute top-1/2 left-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]"
+    >
+      <circle
+        r="512"
+        cx="512"
+        cy="512"
+        fill={`url(#${gradientId})`}
+        fill-opacity="0.7"></circle>
+      <defs>
+        <radialGradient id={gradientId}>
+          <stop class="ctacentered-glow-start"></stop>
+          <stop offset="1" class="ctacentered-glow-end"></stop>
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
+</Container>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .ctacentered-card {
+    background: var(--primary);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  /* Dark/primary variants get ring instead of shadow */
+  [data-variant="dark"] .ctacentered-card,
+  [data-variant="primary"] .ctacentered-card {
+    box-shadow: none;
+  }
+
+  [data-variant="dark"] .ctacentered-card::after,
+  [data-variant="primary"] .ctacentered-card::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, white 10%, transparent);
+  }
+
+  [data-variant="primary"] .ctacentered-card {
+    background: #1c1c1e;
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .ctacentered-headline {
+    color: var(--primary-foreground);
+  }
+
+  .ctacentered-description {
+    color: color-mix(in srgb, var(--primary-foreground) 80%, transparent);
+  }
+
+  /* ========================================
+     Glow effect
+     ======================================== */
+  .ctacentered-glow-start {
+    stop-color: var(--section-accent);
+  }
+
+  .ctacentered-glow-end {
+    stop-color: color-mix(in srgb, var(--section-accent) 70%, var(--primary));
+  }
+</style>

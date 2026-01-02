@@ -1,0 +1,401 @@
+---
+/**
+ * CaseServices Section Component
+ *
+ * Grid of service cards for case studies with glow effect on hover.
+ * Shows services/highlights with icon, title, description and tags.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: CaseServices
+ * content:
+ *   headline: "Unsere Leistungen"
+ *   headlineAccent: "im Projekt"
+ *   services:
+ *     - icon: "heroicons:light-bulb"
+ *       title: "Strategie"
+ *       description: "Lorem ipsum dolor sit amet..."
+ *       tags:
+ *         - "Conversion Rate Optimization"
+ *         - "Customer Journey"
+ *     - icon: "heroicons:paint-brush"
+ *       title: "Design"
+ *       description: "Lorem ipsum dolor sit amet..."
+ *       tags:
+ *         - "UI/UX Design"
+ *   columns: 3
+ * ```
+ */
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ServiceItem {
+  icon?: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  headline?: string;
+  headlineAccent?: string;
+  description?: string;
+  services?: ServiceItem[];
+  columns?: 2 | 3 | 4;
+}
+
+const {
+  sectionVariant = "light",
+  headline,
+  headlineAccent,
+  description,
+  services = [],
+  columns = 3,
+} = Astro.props;
+
+// Column class mapping
+const columnClasses = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+};
+---
+
+<div class="case-services" data-variant={sectionVariant}>
+  <Container class="max-w-(--breakpoint-2xl)">
+    {/* Optional Header */}
+    {
+      (headline || description) && (
+        <div class="mb-10 text-center lg:mb-12">
+          {headline && (
+            <h2 class="case-services__headline scale-up mb-4 text-4xl leading-tight font-semibold tracking-tight sm:text-5xl lg:text-[52px]">
+              {headline}
+              {headlineAccent && (
+                <>
+                  <br />
+                  <span class="case-services__headline-divider">–</span>{" "}
+                  <span class="case-services__headline-accent">
+                    {headlineAccent}
+                  </span>
+                </>
+              )}
+            </h2>
+          )}
+
+          {description && (
+            <p
+              class="case-services__description fade-up mx-auto max-w-3xl text-lg leading-relaxed sm:text-xl"
+              style="transition-delay: 100ms;"
+              set:html={description}
+            />
+          )}
+        </div>
+      )
+    }
+
+    {/* Services Grid */}
+    <div
+      class:list={[
+        "case-services__grid stagger-children grid gap-6",
+        columnClasses[columns],
+      ]}
+      data-variant={sectionVariant}
+    >
+      {
+        services.map((service) => (
+          <div
+            class="case-services__card group relative overflow-hidden rounded-2xl border p-[1.5px] transition-transform duration-300 hover:scale-[1.02]"
+            data-variant={sectionVariant}
+          >
+            {/* Spotlight glow effect */}
+            <div class="card-glow pointer-events-none absolute inset-0 z-40 rounded-2xl transition-opacity duration-300" />
+
+            {/* Rotating border glow effect */}
+            <div class="border-glow" />
+
+            <div class="case-services__card-inner relative z-30 h-full w-full overflow-hidden rounded-2xl">
+              <div class="flex h-full flex-col p-6 lg:p-8">
+                {/* Icon */}
+                {service.icon && (
+                  <div class="case-services__card-icon mb-5 flex h-12 w-12 items-center justify-center rounded-xl border transition-all duration-300">
+                    <Icon name={service.icon} class="h-6 w-6" />
+                  </div>
+                )}
+
+                {/* Title */}
+                <h3 class="case-services__card-title text-xl font-bold lg:text-2xl">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                {service.description && (
+                  <p class="case-services__card-text mt-3 flex-grow text-base leading-relaxed lg:text-lg">
+                    {service.description}
+                  </p>
+                )}
+
+                {/* Tags */}
+                {service.tags && service.tags.length > 0 && (
+                  <div class="case-services__tags mt-5 flex flex-wrap gap-2">
+                    {service.tags.map((tag) => (
+                      <span class="case-services__tag rounded-full px-3 py-1 text-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  function initializeCaseServicesHoverEffect(): void {
+    const grids = document.querySelectorAll<HTMLDivElement>(
+      ".case-services__grid",
+    );
+
+    grids.forEach((grid) => {
+      const cards = grid.querySelectorAll<HTMLDivElement>(
+        ".case-services__card",
+      );
+
+      // Spotlight effect - track mouse on grid, apply to all cards
+      grid.addEventListener("mousemove", (event: MouseEvent) => {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          // Set CSS variables for glow position
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        });
+      });
+
+      // Reset on mouse leave
+      grid.addEventListener("mouseleave", () => {
+        cards.forEach((card) => {
+          card.classList.remove("is-hovering");
+        });
+      });
+
+      // Track individual card hover
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", () =>
+          card.classList.add("is-hovering"),
+        );
+        card.addEventListener("mouseleave", () =>
+          card.classList.remove("is-hovering"),
+        );
+      });
+    });
+  }
+
+  initializeCaseServicesHoverEffect();
+</script>
+
+<style>
+  /* ========================================
+     Base Colors - Light variant (default)
+     Uses --heading-highlight for headlines, --section-accent for icons/accents
+     ======================================== */
+  .case-services {
+    --cs-headline: var(--section-text, #1c1c1e);
+    --cs-headline-accent: var(--heading-highlight);
+    --cs-description: var(--section-text-muted, #6d6b76);
+    --cs-card-bg: var(--section-card-bg, #ffffff);
+    --cs-card-border: var(--section-card-border, rgba(0, 0, 0, 0.1));
+    --cs-icon-bg: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    --cs-icon-border: color-mix(
+      in srgb,
+      var(--section-accent) 30%,
+      transparent
+    );
+    --cs-icon-color: var(--section-accent);
+    --cs-title: var(--section-text, #1c1c1e);
+    --cs-text: var(--section-text-muted, #6d6b76);
+    --cs-tag-bg: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    --cs-tag-text: var(--section-text, #1c1c1e);
+  }
+
+  /* Dark variant overrides */
+  .case-services[data-variant="dark"] {
+    --cs-headline: #ffffff;
+    --cs-headline-accent: var(--heading-highlight);
+    --cs-description: #b1adbf;
+    --cs-card-bg: #262626;
+    --cs-card-border: rgba(255, 255, 255, 0.1);
+    --cs-icon-bg: color-mix(in srgb, var(--section-accent) 15%, transparent);
+    --cs-icon-border: color-mix(
+      in srgb,
+      var(--section-accent) 30%,
+      transparent
+    );
+    --cs-icon-color: var(--section-accent);
+    --cs-title: #ffffff;
+    --cs-text: #b1adbf;
+    --cs-tag-bg: rgba(255, 255, 255, 0.1);
+    --cs-tag-text: #ffffff;
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .case-services__headline {
+    color: var(--cs-headline);
+  }
+
+  .case-services__headline-divider {
+    color: var(--cs-headline);
+  }
+
+  .case-services__headline-accent {
+    color: var(--cs-headline-accent);
+  }
+
+  .case-services__description {
+    color: var(--cs-description);
+  }
+
+  /* ========================================
+     Card styles
+     ======================================== */
+  .case-services__card {
+    border-color: var(--cs-card-border);
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .case-services__card:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 50%, transparent);
+  }
+
+  .case-services__card-inner {
+    background: var(--cs-card-bg);
+  }
+
+  /* ========================================
+     Icon styles
+     ======================================== */
+  .case-services__card-icon {
+    border-color: var(--cs-icon-border);
+    background: var(--cs-icon-bg);
+    color: var(--cs-icon-color);
+  }
+
+  .case-services__card:hover .case-services__card-icon {
+    background: color-mix(in srgb, var(--section-accent) 20%, transparent);
+  }
+
+  /* ========================================
+     Content styles
+     ======================================== */
+  .case-services__card-title {
+    color: var(--cs-title);
+  }
+
+  .case-services__card-text {
+    color: var(--cs-text);
+  }
+
+  .case-services__tag {
+    background: var(--cs-tag-bg);
+    color: var(--cs-tag-text);
+  }
+
+  /* ========================================
+     Glow effects
+     ======================================== */
+  .case-services__card .card-glow {
+    background: transparent;
+    transition: opacity 0.3s ease;
+  }
+
+  .case-services__card.is-hovering .card-glow {
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in srgb, var(--section-accent) 15%, transparent),
+      transparent 40%
+    );
+  }
+
+  /* Border glow effect - rotating element approach */
+  .case-services__card .border-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    border-radius: 1rem;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .case-services__card:hover .border-glow {
+    opacity: 1;
+  }
+
+  /* Rotating glow element */
+  .case-services__card .border-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 30deg,
+      color-mix(in srgb, var(--section-accent) 20%, transparent) 50deg,
+      color-mix(in srgb, var(--section-accent) 40%, transparent) 70deg,
+      color-mix(in srgb, var(--section-accent) 70%, transparent) 85deg,
+      var(--section-accent) 90deg,
+      color-mix(in srgb, var(--section-accent) 70%, transparent) 95deg,
+      color-mix(in srgb, var(--section-accent) 40%, transparent) 110deg,
+      color-mix(in srgb, var(--section-accent) 20%, transparent) 130deg,
+      transparent 150deg,
+      transparent 360deg
+    );
+    transform: translate(-50%, -50%);
+    animation: spinGlow 6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  /* Inner mask to create border effect */
+  .case-services__card .border-glow::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: calc(1rem - 3px);
+    background: var(--cs-card-bg);
+  }
+
+  .case-services__card:hover .border-glow::before {
+    animation-play-state: running;
+  }
+
+  @keyframes spinGlow {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .case-services__card .border-glow::before {
+      animation: none;
+    }
+  }
+</style>

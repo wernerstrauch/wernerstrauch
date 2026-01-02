@@ -1,0 +1,390 @@
+---
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ProblemItem {
+  icon?: string;
+  title?: string;
+  text: string;
+}
+
+interface SolutionItem {
+  icon?: string;
+  title?: string;
+  text: string;
+  href?: string;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  problemsTitle?: string;
+  solutionsTitle?: string;
+  problems?: ProblemItem[];
+  solutions?: SolutionItem[];
+}
+
+const {
+  sectionVariant = "light",
+  badge = "Das Problem",
+  badgeIcon = "heroicons:exclamation-triangle-16-solid",
+  headline = "Warum dein Marketing <em>nicht skaliert</em>",
+  description = "Selbst für erfolgreiche Shops ist profitables Wachstum heute kein Selbstläufer mehr. Erkennst du dich in diesen Herausforderungen wieder?",
+  problemsTitle = "Herausforderungen",
+  solutionsTitle = "Unser Ansatz",
+  problems = [
+    {
+      text: "Steigende Akquisekosten bei sinkendem ROAS – mehr Budget bringt nicht mehr Ergebnis",
+    },
+    {
+      text: "Google Ads, Meta, E-Mail laufen isoliert – ohne übergreifende Strategie verpufft das Budget",
+    },
+    {
+      text: "Neukunden kaufen einmal und verschwinden – ohne Retention verschenkst du 70% des Kundenwerts",
+    },
+    {
+      text: "Keine klare Übersicht über Kennzahlen und Performance deiner Kanäle",
+    },
+  ],
+  solutions = [
+    {
+      text: "Datengetriebene Kampagnen auf Google, Meta und Bing mit maximaler ROAS-Optimierung",
+      href: "/performance-marketing-agentur",
+    },
+    {
+      text: "Ganzheitliche Strategie über alle Kanäle hinweg – alles aus einer Hand",
+    },
+    {
+      text: "Automatisierte Klaviyo-Flows verwandeln Einmalkäufer in loyale Stammkunden",
+      href: "/email-marketing-agentur",
+    },
+    {
+      text: "Transparente Reportings und klare KPIs für volle Kontrolle über dein Marketing",
+    },
+  ],
+} = Astro.props;
+
+// Process headline: replace <em> tags with colored spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<Container class="problemsolution-section" data-variant={sectionVariant}>
+  <div class="mx-auto max-w-4xl text-center">
+    {/* Badge */}
+    {
+      badge && (
+        <div class="blur-in mb-4 flex justify-center">
+          <div class="problemsolution-badge shadow-inner-blur flex items-center rounded-full">
+            <div class="problemsolution-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+              <Icon
+                name={badgeIcon}
+                class="problemsolution-badge-icon h-4 w-4"
+              />
+              <span class="problemsolution-badge-text text-sm font-medium">
+                {badge}
+              </span>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    {/* Headline */}
+    <h2
+      class="problemsolution-headline scale-up text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+      style="transition-delay: 100ms;"
+      set:html={processedHeadline}
+    />
+
+    {/* Description */}
+    {
+      description && (
+        <p
+          class="problemsolution-description fade-up mx-auto mt-6 max-w-2xl text-lg"
+          style="transition-delay: 150ms;"
+        >
+          {description}
+        </p>
+      )
+    }
+  </div>
+
+  {/* Comparison Cards */}
+  <div
+    class="problem-solution-cards mx-auto mt-8 grid max-w-lg grid-cols-1 items-stretch gap-y-6 sm:mt-12 sm:gap-y-0 lg:mt-16 lg:max-w-5xl lg:grid-cols-2"
+  >
+    {/* Problems Card */}
+    <div
+      class="problem-card problemsolution-problem-card relative flex flex-col rounded-3xl border p-6 sm:mx-8 sm:rounded-b-none sm:p-8 lg:mx-0 lg:rounded-tr-none lg:rounded-bl-3xl"
+    >
+      <h3
+        class="problemsolution-problem-title text-center text-xl font-semibold"
+      >
+        {problemsTitle}
+      </h3>
+
+      <ul
+        role="list"
+        class="mt-6 flex-1 space-y-4 pr-2 sm:mt-8 sm:pr-4 lg:pr-8"
+      >
+        {
+          problems?.map((item, index) => (
+            <li
+              class="problem-item flex gap-x-3"
+              style={`--item-delay: ${index * 50}ms;`}
+            >
+              <Icon
+                name={item.icon || "heroicons:x-mark-16-solid"}
+                class="problemsolution-problem-icon mt-0.5 h-5 w-5 flex-none"
+              />
+              <span class="problemsolution-problem-text text-base/7">
+                {item.text}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    {/* Solutions Card */}
+    <div
+      class="solution-card problemsolution-solution-card relative z-10 flex flex-col rounded-3xl p-6 shadow-2xl sm:rounded-t-none sm:p-8 lg:-my-8 lg:-ml-10 lg:rounded-3xl lg:p-12"
+    >
+      <h3
+        class="problemsolution-solution-title text-center text-xl font-semibold"
+      >
+        {solutionsTitle}
+      </h3>
+
+      <ul role="list" class="mt-6 flex-1 space-y-4 sm:mt-8">
+        {
+          solutions?.map((item, index) => (
+            <li
+              class="solution-item flex gap-x-3"
+              style={`--item-delay: ${index * 50}ms;`}
+            >
+              <Icon
+                name={item.icon || "heroicons:check-16-solid"}
+                class="problemsolution-solution-icon mt-0.5 h-5 w-5 flex-none"
+              />
+              <span class="problemsolution-solution-text text-base/7">
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    class="problemsolution-solution-link underline-offset-2 hover:underline"
+                  >
+                    {item.text}
+                  </a>
+                ) : (
+                  item.text
+                )}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Container>
+
+<script>
+  function initProblemSolution(): void {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    document
+      .querySelectorAll(".problem-solution-cards:not(.observed)")
+      .forEach((el) => {
+        el.classList.add("observed");
+        observer.observe(el);
+      });
+  }
+
+  // Initialize on load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initProblemSolution);
+  } else {
+    initProblemSolution();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", initProblemSolution);
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .problemsolution-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .problemsolution-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .problemsolution-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .problemsolution-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .problemsolution-headline {
+    color: var(--section-text);
+  }
+
+  .problemsolution-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Problem Card styles
+     ======================================== */
+  .problemsolution-problem-card {
+    background: var(--section-card-bg);
+    border-color: var(--section-card-border);
+  }
+
+  .problemsolution-problem-title {
+    color: var(--section-text);
+  }
+
+  .problemsolution-problem-icon {
+    color: #ef4444; /* Red for problems - semantic color */
+  }
+
+  .problemsolution-problem-text {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Solution Card styles
+     ======================================== */
+  .problemsolution-solution-card {
+    background: var(--primary);
+  }
+
+  .problemsolution-solution-title {
+    color: var(--primary-foreground);
+  }
+
+  .problemsolution-solution-icon {
+    color: var(--primary-foreground);
+  }
+
+  .problemsolution-solution-text {
+    color: color-mix(in srgb, var(--primary-foreground) 90%, transparent);
+  }
+
+  .problemsolution-solution-link {
+    color: var(--primary-foreground);
+  }
+</style>
+
+<style is:global>
+  /* Elements visible by default for accessibility */
+  .problem-card,
+  .solution-card,
+  .problem-item,
+  .solution-item {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hide elements only when observed (JS is running) */
+  .problem-solution-cards.observed .problem-card,
+  .problem-solution-cards.observed .solution-card {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .problem-solution-cards.observed .problem-item,
+  .problem-solution-cards.observed .solution-item {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  /* Animated state */
+  .problem-solution-cards.animate .problem-card {
+    animation: cardSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .problem-solution-cards.animate .solution-card {
+    animation: cardSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+
+  .problem-solution-cards.animate .problem-item {
+    animation: itemSlideIn 0.4s ease-out forwards;
+    animation-delay: calc(0.4s + var(--item-delay, 0ms));
+  }
+
+  .problem-solution-cards.animate .solution-item {
+    animation: itemSlideIn 0.4s ease-out forwards;
+    animation-delay: calc(0.6s + var(--item-delay, 0ms));
+  }
+
+  @keyframes cardSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes itemSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .problem-solution-cards.observed .problem-card,
+    .problem-solution-cards.observed .solution-card,
+    .problem-solution-cards.observed .problem-item,
+    .problem-solution-cards.observed .solution-item {
+      opacity: 1;
+      transform: none;
+    }
+    .problem-solution-cards.animate .problem-card,
+    .problem-solution-cards.animate .solution-card,
+    .problem-solution-cards.animate .problem-item,
+    .problem-solution-cards.animate .solution-item {
+      animation: none;
+    }
+  }
+</style>

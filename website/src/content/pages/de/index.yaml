@@ -1,0 +1,362 @@
+lang: de
+pageId: homepage
+
+meta:
+  title: "Werner Strauch | E-Commerce Beratung & Strategie"
+  description: "E-Commerce-Systeme, die skalieren – ohne dich auszubremsen. Strategische Beratung für ERP-Auswahl, Shopify-Architektur und Prozessoptimierung."
+
+settings:
+  status: published
+  priority: 1.0
+  headerVariant: dark
+
+sections:
+  # Hero Section
+  - id: hero
+    enabled: true
+    order: 1
+    component: HeroWithPortrait
+    wrapper:
+      variant: dark
+      padding: xl
+    backgrounds:
+      - type: LightGradientBackground
+        color: "#c8ff00"
+        opacity: 0.12
+        position: center
+        size: lg
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: GridBackground
+        color: "#c8ff00"
+        glowColor: "#c8ff00"
+        opacity: 0.15
+        gridSize: 60
+        glowLines: 6
+        vignette: true
+        vignetteColor: "#0a1628"
+      - type: ConcentricShapes
+        color: "#c8ff00"
+        opacity: 0.15
+        position: right
+        size: lg
+        animate: true
+    content:
+      headline: "Ihr <mark>E-Commerce</mark> Berater.<br/>Für messbare <em>Ergebnisse</em>."
+      subheadline: "Ich unterstütze Online-Händler und D2C-Marken dabei, ihre technische Infrastruktur strategisch aufzustellen – von der ERP-Auswahl über Shopify-Architektur bis zur Prozessoptimierung."
+      primaryCta: "Erstgespräch vereinbaren"
+      primaryCtaHref: "/kontakt"
+      secondaryCta: "Leistungen entdecken"
+      secondaryCtaHref: "#services"
+      image: "/src/images/ecommerce-berater-werner-strauch.png"
+      imageAlt: "Werner Strauch - E-Commerce Berater"
+
+  # About / Intro Section
+  - id: intro
+    enabled: true
+    order: 3
+    component: AboutStory
+    wrapper:
+      variant: dark
+      padding: sm
+      containerSize: 4xl
+      container: true
+    content:
+      badge: "Ihr Partner"
+      badgeIcon: "heroicons:user-16-solid"
+      heading: "Strategische <em>E-Commerce-Beratung</em> für nachhaltiges Wachstum"
+      paragraphs:
+        - "<p>Als <strong>Diplom-Betriebswirt mit Schwerpunkt Wirtschaftsinformatik</strong> und über <strong>20 Jahren Erfahrung</strong> in der Umsetzung von Webprojekten verstehe ich beide Seiten: die technischen Herausforderungen und die strategischen Anforderungen wachsender Online-Händler.</p>"
+        - "<p>Mit <strong>7 Jahren Geschäftsführung</strong> bringe ich die Perspektive mit, die für fundierte E-Commerce-Entscheidungen entscheidend ist. Mein Leistungsspektrum deckt den gesamten E-Commerce-Lebenszyklus ab – von der strategischen Analyse über die Technologieberatung bis zur Umsetzungsbegleitung.</p>"
+        - "<p>Ob ERP-Auswahl, Shopify-Migration oder Prozessoptimierung – ich begleite Sie mit fundierter Fachkompetenz und pragmatischem Ansatz durch alle Herausforderungen. Ihr Erfolg ist mein Maßstab.</p>"
+      valuesTitle: "Meine Leistungsbereiche"
+      values:
+        - icon: "heroicons:magnifying-glass-circle"
+          title: "Analyse & Strategie"
+          description: "E-Commerce Audit, Strategieentwicklung und Technologieberatung – die Grundlage für fundierte Entscheidungen."
+          href: "/leistungen/ecommerce-audit"
+          linkText: "Mehr über E-Commerce Audit"
+        - icon: "heroicons:chat-bubble-left-right"
+          title: "Beratung & Sparring"
+          description: "Strategische Begleitung, regelmäßiges Sparring und fokussierte Workshops für klare Entscheidungen."
+          href: "/leistungen/ecommerce-beratung"
+          linkText: "Mehr über E-Commerce Beratung"
+        - icon: "heroicons:clipboard-document-check"
+          title: "Umsetzung & Führung"
+          description: "Projektleitung, Umsetzungsbegleitung und Interim Management – vom Konzept zur funktionierenden Lösung."
+          href: "/leistungen/ecommerce-projektleitung"
+          linkText: "Mehr über Projektleitung"
+
+  # Trust Bar - Client Logos
+  - id: trust-bar
+    enabled: true
+    order: 2
+    component: TrustBar
+    wrapper:
+      variant: dark
+      padding: xs
+    content:
+      headline: "Erfahrung aus Projekten für führende Marken"
+      logos:
+        - name: "digitalsprung"
+          src: "/src/images/logos/fictional-logo-01.svg"
+        - name: "Kunde 2"
+          src: "/src/images/logos/fictional-logo-02.svg"
+        - name: "Kunde 3"
+          src: "/src/images/logos/fictional-logo-03.svg"
+        - name: "Kunde 4"
+          src: "/src/images/logos/fictional-logo-04.svg"
+        - name: "Kunde 5"
+          src: "/src/images/logos/fictional-logo-05.svg"
+        - name: "Kunde 6"
+          src: "/src/images/logos/fictional-logo-06.svg"
+
+  # Trust Stats
+  - id: trust-stats
+    enabled: true
+    order: 5
+    component: Stats
+    wrapper:
+      variant: dark
+      padding: lg
+      containerSize: 2xl
+    content:
+      badge: "Ergebnisse statt Versprechen"
+      badgeIcon: "heroicons:chart-bar-16-solid"
+      headline: "Zahlen, die <em>überzeugen</em>"
+      stats:
+        - value: "200"
+          suffix: "+"
+          label: "E-Commerce-Projekte"
+          description: "umgesetzt"
+          icon: "heroicons:shopping-cart"
+        - value: "20"
+          suffix: "+"
+          label: "Jahre Erfahrung"
+          description: "im E-Commerce"
+          icon: "heroicons:calendar"
+        - value: "7"
+          label: "Jahre"
+          description: "Geschäftsführung"
+          icon: "heroicons:briefcase"
+        - value: "15"
+          suffix: "+"
+          label: "Jahre"
+          description: "Online-Marketing"
+          icon: "heroicons:chart-bar"
+
+  # Problem Agitation
+  - id: problems
+    enabled: true
+    order: 6
+    component: ProblemGrid
+    wrapper:
+      variant: dark
+      padding: lg
+      containerSize: 2xl
+    background:
+      type: GridBackground
+      color: "#c8ff00"
+      glowColor: "#c8ff00"
+      opacity: 0.06
+      gridSize: 60
+      glowLines: 4
+      vignette: true
+      vignetteColor: "#0a1628"
+    content:
+      badge: "Die unbequeme Wahrheit"
+      badgeIcon: "heroicons:exclamation-triangle-16-solid"
+      headline: "Warum die meisten E-Commerce-Unternehmen weit unter ihrem <em>Potenzial</em> bleiben"
+      subheadline: "Sie wissen, dass Ihr Online-Geschäft mehr erreichen könnte. Viel mehr. Aber zwischen überforderten Teams, trägen Agenturen und gewachsenen Systemen verschenken Sie täglich Potenzial – während die Konkurrenz einen Schritt voraus ist."
+      problems:
+        - icon: "heroicons:puzzle-piece"
+          title: "Systemchaos bremst das Wachstum"
+          description: "Ihr Shop, ERP und Fulfillment sprechen nicht dieselbe Sprache. Jede Bestellung bedeutet manuelle Arbeit, Fehlerquellen und verlorene Zeit. Sie verwalten mehr, als Sie verkaufen."
+        - icon: "heroicons:user-group"
+          title: "Ihr Team ist überfordert"
+          description: "Von Shopify über JTL bis zum Marketing soll Ihr Team Experte in allem sein. Das Ergebnis: Mittelmäßigkeit auf allen Ebenen und Entscheidungen aus dem Bauch statt aus Daten."
+        - icon: "heroicons:clock"
+          title: "Agentur langsam und unfokussiert"
+          description: "Ihre Agentur hat zig andere Kunden und keinen Fokus auf Ihr Business. Träge Kommunikation, verzögerte Umsetzung und ausbleibende Ergebnisse sind die Folge."
+        - icon: "heroicons:banknotes"
+          title: "Fehler verbrennen Ihr Geld"
+          description: "Jede falsche Systementscheidung, jede verpatzte Migration, jeder Prozessbruch kostet Tausende Euros. Dazu kommen die Opportunitätskosten verpassten Wachstums."
+        - icon: "heroicons:arrow-trending-down"
+          title: "Steigende Kosten, sinkende Margen"
+          description: "Ihre Betriebskosten steigen, aber die Effizienz nicht. Immer mehr Budget für Wartung und Flickwerk, statt für echtes Wachstum."
+        - icon: "heroicons:lock-closed"
+          title: "Gefangen im eigenen System"
+          description: "Sie verstehen Ihre eigene Infrastruktur nicht mehr. Bei jeder Kleinigkeit sind Sie auf externe Hilfe angewiesen – und zahlen dafür einen hohen Preis."
+
+  # Services Feature Showcase
+  - id: services
+    enabled: true
+    order: 7
+    component: FeatureShowcase
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      imagePosition: right
+      items:
+        - icon: "heroicons:magnifying-glass-circle-16-solid"
+          title: "E-Commerce Audit"
+          description: "Systematische Analyse Ihres Shops, Ihrer Prozesse und Systeme. Sie bekommen einen klaren Report mit priorisierten Handlungsempfehlungen – keine 100-Seiten-Decks, sondern Substanz."
+          linkText: "Mehr zum Audit"
+          linkHref: "/leistungen/ecommerce-audit"
+          canvasId: "tech-stack-canvas"
+        - icon: "heroicons:circle-stack-16-solid"
+          title: "ERP-Auswahl & Evaluierung"
+          description: "Neutrale, herstellerunabhängige Beratung bei der Wahl des richtigen ERP-Systems. Von der Anforderungsanalyse bis zur Entscheidungsvorlage – objektiv und ohne versteckte Provisionen."
+          linkText: "Mehr zur ERP-Beratung"
+          linkHref: "/leistungen/erp-beratung"
+          canvasId: "shopify-canvas"
+        - icon: "heroicons:arrows-right-left-16-solid"
+          title: "Shopify-Architektur & Migration"
+          description: "Strategische Planung und Begleitung von Shopify-Projekten. Fokus auf skalierbare Strukturen, saubere Datenübernahme und durchdachte Integrationen – für einen reibungslosen Go-Live."
+          linkText: "Mehr zur Migration"
+          linkHref: "/leistungen/shopify-migration"
+          canvasId: "app-development-canvas"
+        - icon: "heroicons:cog-8-tooth-16-solid"
+          title: "Prozessoptimierung"
+          description: "Analyse und Optimierung Ihrer operativen Abläufe – von Bestellabwicklung über Fulfillment bis Kundenservice. Weniger manuelle Arbeit, mehr Zeit für Wachstum."
+          linkText: "Mehr zur Prozessoptimierung"
+          linkHref: "/leistungen/prozessoptimierung"
+          canvasId: "marketing-orbit-canvas"
+        - icon: "heroicons:chat-bubble-left-right-16-solid"
+          title: "Strategisches Sparring"
+          description: "Regelmäßiger Austausch auf Augenhöhe zu technischen und strategischen E-Commerce-Fragen. Ihr externer CTO auf Abruf – für fundierte Entscheidungen ohne internen Overhead."
+          linkText: "Mehr zum Sparring"
+          linkHref: "/leistungen/sparring"
+          canvasId: "marketing-canvas"
+
+  # Principles
+  - id: principles
+    enabled: true
+    order: 8
+    component: Principles
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      headline: "Meine <em>Prinzipien</em>"
+      intro: "So arbeite ich – und so nicht."
+      principles:
+        - title: "Klartext statt Agentur-Sprech"
+          description: "Ich sage, was Sache ist – auch wenn es unbequem ist. Keine Buzzwords, keine versteckten Upsells."
+          contrast: "Statt diplomatischer Floskeln bekommen Sie ehrliche Einschätzungen."
+        - title: "Empowerment statt Abhängigkeit"
+          description: "Mein Ziel ist, dass Sie mich irgendwann nicht mehr brauchen. Ich baue Systeme, die Sie verstehen und selbst steuern können."
+          contrast: "Statt Lock-in bekommen Sie Wissenstransfer und Dokumentation."
+        - title: "Technik mit Business-Verstand"
+          description: "Ich denke nicht in Features, sondern in Wirkung. Jede technische Entscheidung wird an ihrem Geschäftsnutzen gemessen."
+          contrast: "Statt Over-Engineering bekommen Sie die klügste, nicht die komplizierteste Lösung."
+        - title: "Herstellerneutral"
+          description: "Ich bin keinem Vendor verpflichtet. Meine Empfehlungen basieren auf Ihren Anforderungen – nicht auf Provisionen."
+          contrast: "Statt Verkaufsgespräch bekommen Sie objektive Bewertung."
+
+  # Process
+  - id: process
+    enabled: true
+    order: 9
+    component: Process
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "Zusammenarbeit"
+      badgeIcon: "heroicons:arrow-path-16-solid"
+      headline: "So läuft eine <em>Zusammenarbeit</em> ab"
+      description: "Strukturiert, transparent und auf Augenhöhe."
+      steps:
+        - number: "01"
+          icon: "heroicons:chat-bubble-left-right"
+          title: "Erstgespräch"
+          description: "Wir sprechen über Ihre Situation, Ziele und Herausforderungen. Ich höre zu und stelle die richtigen Fragen."
+          details:
+            - "30-45 Min."
+            - "Klarheit, ob und wie ich helfen kann"
+        - number: "02"
+          icon: "heroicons:magnifying-glass"
+          title: "Analyse"
+          description: "Je nach Auftrag schaue ich mir Shop, Prozesse, Systeme und KPIs im Detail an. Strukturiert und dokumentiert."
+          details:
+            - "1-2 Wochen"
+            - "Fundiertes Bild der Ausgangslage"
+        - number: "03"
+          icon: "heroicons:light-bulb"
+          title: "Strategie & Empfehlung"
+          description: "Sie bekommen eine klare Empfehlung mit Optionen, Prioritäten und nächsten Schritten. Keine 100-Seiten-Decks, sondern Substanz."
+          details:
+            - "Präsentation + Dokument"
+            - "Entscheidungsgrundlage"
+        - number: "04"
+          icon: "heroicons:rocket-launch"
+          title: "Begleitung (optional)"
+          description: "Bei Bedarf begleite ich die Umsetzung, steuere Partner oder stehe als Sparringspartner zur Verfügung."
+          details:
+            - "Nach Bedarf"
+            - "Saubere Umsetzung"
+
+  # Quote (moved up - appears after intro section)
+  - id: quote
+    enabled: true
+    order: 4
+    component: Quote
+    wrapper:
+      variant: dark
+      padding: md
+    content:
+      quote: "E-Commerce ist kein Technologie-Problem. Es ist ein Entscheidungs-Problem. Die richtige Technik folgt der richtigen Strategie – nicht umgekehrt."
+      author: "Werner Strauch"
+      role: "E-Commerce Berater"
+
+  # FAQ
+  - id: faq
+    enabled: true
+    order: 13
+    component: Faq
+    wrapper:
+      variant: dark
+      padding: lg
+    content:
+      badge: "FAQs"
+      badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
+      headline: "Häufige <em>Fragen</em>"
+      description: 'Noch Fragen? <a href="/kontakt" class="text-primary hover:text-primary-light font-medium underline transition-colors">Kontaktieren Sie mich</a> für ein unverbindliches Gespräch.'
+      faqs:
+        - question: "Für wen ist Ihre Beratung geeignet?"
+          answer: "Für E-Commerce-Unternehmen im DACH-Raum, die zwischen 500k und 50 Mio. € Jahresumsatz machen und vor technischen oder strategischen Entscheidungen stehen – sei es ERP-Wechsel, Shop-Migration oder Prozessoptimierung."
+        - question: "Sind Sie eine Agentur?"
+          answer: "Nein. Ich berate unabhängig und herstellerneutral. Bei Bedarf kann ich auf mein Netzwerk zurückgreifen oder die Umsetzung über digitalsprung begleiten – aber nur, wenn es für Sie sinnvoll ist."
+        - question: "Was kostet eine Zusammenarbeit?"
+          answer: "Das hängt vom Umfang ab. Ein Audit startet bei X.XXX €, strategisches Sparring gibt es als monatliches Retainer-Modell. Im Erstgespräch klären wir, was für Sie passt."
+        - question: "Wie schnell können Sie starten?"
+          answer: "In der Regel innerhalb von 1-2 Wochen. Bei dringenden Themen finden wir eine Lösung."
+        - question: "Arbeiten Sie remote?"
+          answer: "Ja, primär remote. Für Workshops oder intensive Projektphasen komme ich auch vor Ort."
+
+  # CTA Final
+  - id: cta-final
+    enabled: true
+    order: 14
+    component: CtaCentered
+    wrapper:
+      variant: dark
+      padding: xl
+    background:
+      type: GridBackground
+      color: "#c8ff00"
+      glowColor: "#c8ff00"
+      opacity: 0.06
+      gridSize: 60
+      glowLines: 4
+      vignette: true
+      vignetteColor: "#0a1628"
+    content:
+      headline: "Bereit für <em>Klarheit</em>?"
+      description: "Lassen Sie uns in 30 Minuten herausfinden, wo Sie stehen und was der nächste sinnvolle Schritt ist."
+      buttonText: "Erstgespräch vereinbaren"
+      buttonHref: "/kontakt"
+      emailLabel: "Lieber erstmal schreiben?"
+      email: "kontakt@wernerstrauch.de"

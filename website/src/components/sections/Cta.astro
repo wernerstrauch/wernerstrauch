@@ -1,0 +1,365 @@
+---
+/**
+ * CTA Section Component
+ *
+ * A call-to-action section with badge, headline, description, and contact options.
+ *
+ * @example YAML Usage:
+ * ```yaml
+ * component: Cta
+ * content:
+ *   badge: "Jetzt starten"
+ *   badgeIcon: "heroicons:rocket-launch-16-solid"  # Optional
+ *   headline: "Bereit für <em>Ihr Projekt?</em>"
+ *   description: "Description text"
+ *   benefits:  # Optional list
+ *     - icon: "heroicons:check-circle-16-solid"
+ *       text: "Benefit text"
+ *   ctaText: "Button text"
+ *   ctaIcon: "heroicons:arrow-right-16-solid"  # Optional
+ *   contactEmail: "email@example.com"  # Falls back to domain.contact.email
+ * ```
+ *
+ * All content fields should be provided in YAML. Email falls back to domain config.
+ */
+import Container from "@components/shared/Container.astro";
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+import { getCurrentDomain } from "@config";
+
+const domain = getCurrentDomain();
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badgeText?: string;
+  badge?: string; // Alias for badgeText
+  badgeIcon?: string;
+  headline?: string;
+  description?: string;
+  buttonText?: string;
+  ctaText?: string; // Alias for buttonText
+  ctaIcon?: string;
+  emailLabel?: string;
+  contactEmail?: string;
+}
+
+const {
+  sectionVariant = "primary",
+  badgeText: badgeTextProp,
+  badge,
+  badgeIcon = "heroicons:rocket-launch-16-solid",
+  headline,
+  description,
+  buttonText: buttonTextProp,
+  ctaText,
+  ctaIcon = "heroicons:calendar-days-16-solid",
+  emailLabel,
+  contactEmail = domain.contact.email,
+} = Astro.props;
+
+// Use aliases
+const badgeText = badgeTextProp || badge;
+const buttonText = buttonTextProp || ctaText;
+
+// Determine button style based on variant
+const isDarkVariant = sectionVariant === "dark" || sectionVariant === "primary";
+
+// Process headline: replace <em> tags with styled spans using CSS variable
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = headline
+  ? headline.replace(
+      /<em>(.*?)<\/em>/g,
+      `<span style="${highlightStyle}">$1</span>`,
+    )
+  : "";
+---
+
+<Container class="cta-section" data-variant={sectionVariant}>
+  <div class="relative">
+    {/* Split-Screen Layout */}
+    <div
+      class="relative z-10 grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20"
+    >
+      {/* Left Column - Main Content */}
+      <div class="flex flex-col justify-center">
+        {/* Badge */}
+        {
+          badgeText && (
+            <div class="blur-in mb-6 flex justify-center lg:justify-start">
+              <div class="cta-badge shadow-inner-blur flex items-center rounded-full">
+                <div class="cta-badge-inner flex h-full w-full items-center space-x-2 rounded-full border px-4 py-1.5">
+                  <Icon name={badgeIcon} class="cta-badge-icon h-4 w-4" />
+                  <span class="cta-badge-text text-sm font-medium">
+                    {badgeText}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )
+        }
+
+        {/* Mega Headline */}
+        {
+          headline && (
+            <h2
+              class="cta-headline scale-up text-center text-2xl leading-[1.1] font-bold sm:text-3xl md:text-4xl lg:text-left lg:text-5xl"
+              style="transition-delay: 100ms;"
+              set:html={processedHeadline}
+            />
+          )
+        }
+
+        {/* Description */}
+        {
+          description && (
+            <p
+              class="cta-description fade-up mt-6 text-center text-lg leading-8 sm:text-xl lg:text-left"
+              style="transition-delay: 200ms;"
+            >
+              {description}
+            </p>
+          )
+        }
+      </div>
+
+      {/* Right Column - CTA Button */}
+      <div
+        class="relative flex flex-col items-center justify-center gap-3 lg:items-end"
+      >
+        {/* CTA Button - Enhanced */}
+        {
+          buttonText && (
+            <button
+              data-open-funnel
+              class:list={[
+                "cta-button group relative z-10 inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full px-7 py-4 text-base font-semibold shadow-[0_0_0_0_rgba(255,255,255,0),0_8px_16px_-2px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.03] sm:px-8 sm:py-4.5 sm:text-lg",
+                isDarkVariant ? "cta-button-dark" : "cta-button-light",
+              ]}
+            >
+              <span class="relative z-10 flex items-center gap-2.5">
+                <Icon
+                  name={ctaIcon}
+                  class="h-5 w-5 transition-transform duration-300 group-hover:rotate-12"
+                />
+                <span>{buttonText}</span>
+                <Icon
+                  name="heroicons:arrow-right-16-solid"
+                  class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </span>
+              {/* Ripple effect container */}
+              <span class="ripple-container absolute inset-0" />
+            </button>
+          )
+        }
+
+        {/* Email Fallback - Glassmorphism */}
+        {
+          contactEmail && (
+            <div class="cta-email-box flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm">
+              <Icon
+                name="heroicons:envelope-16-solid"
+                class="cta-email-icon h-4 w-4"
+              />
+              {emailLabel && (
+                <span class="cta-email-text text-sm">{emailLabel}</span>
+              )}
+              <a
+                href={`mailto:${contactEmail}`}
+                class="cta-email-link text-sm font-medium transition-colors"
+              >
+                {contactEmail}
+              </a>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</Container>
+
+<script>
+  // CTA Button Ripple Effect
+  function initButtonRipple(): void {
+    const button = document.querySelector(".cta-button") as HTMLElement;
+
+    if (!button) return;
+
+    button.addEventListener("click", function (event: MouseEvent) {
+      const rippleContainer = this.querySelector(
+        ".ripple-container",
+      ) as HTMLElement;
+      if (!rippleContainer) return;
+
+      const rect = this.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      const ripple = document.createElement("span");
+      ripple.className = "ripple";
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+
+      rippleContainer.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  }
+
+  // Initialize all effects
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      initButtonRipple();
+    });
+  } else {
+    initButtonRipple();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", () => {
+    initButtonRipple();
+  });
+</script>
+
+<style>
+  /* ========================================
+     Uses --section-* variables set by data-section-theme
+     attribute on parent Section component
+     ======================================== */
+
+  /* ========================================
+     Badge styles
+     ======================================== */
+  .cta-badge {
+    background: color-mix(in srgb, var(--section-accent) 15%, transparent);
+  }
+
+  .cta-badge-inner {
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .cta-badge-icon {
+    color: var(--section-accent);
+  }
+
+  .cta-badge-text {
+    color: var(--section-text);
+  }
+
+  /* ========================================
+     Headline styles
+     ======================================== */
+  .cta-headline {
+    color: var(--section-text);
+  }
+
+  .cta-description {
+    color: var(--section-text-muted);
+  }
+
+  /* ========================================
+     Button styles - Light variant
+     ======================================== */
+  .cta-button-light {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  .cta-button-light:hover {
+    box-shadow:
+      0 0 40px 8px color-mix(in srgb, var(--primary) 30%, transparent),
+      0 12px 24px -4px color-mix(in srgb, var(--primary) 40%, transparent);
+  }
+
+  /* ========================================
+     Button styles - Dark variant
+     ======================================== */
+  .cta-button-dark {
+    background: var(--section-accent);
+    color: #1c1c1e; /* Dark text for better contrast on accent backgrounds */
+  }
+
+  .cta-button-dark:hover {
+    box-shadow:
+      0 0 40px 8px color-mix(in srgb, var(--section-accent) 30%, transparent),
+      0 12px 24px -4px
+        color-mix(in srgb, var(--section-accent) 40%, transparent);
+  }
+
+  /* ========================================
+     Email box styles
+     ======================================== */
+  .cta-email-box {
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    border-color: color-mix(in srgb, var(--section-accent) 30%, transparent);
+  }
+
+  .cta-email-icon {
+    color: var(--section-accent);
+  }
+
+  .cta-email-text {
+    color: var(--section-text-muted);
+  }
+
+  .cta-email-link {
+    color: var(--section-text);
+  }
+
+  .cta-email-link:hover {
+    color: var(--section-accent);
+  }
+
+  /* ========================================
+     Animations
+     ======================================== */
+  @keyframes floating {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .floating-shape {
+    animation: floating 6s ease-in-out infinite;
+  }
+
+  /* Ripple effect */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: ripple-animation 0.6s ease-out;
+  }
+
+  @keyframes ripple-animation {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .floating-shape {
+      animation: none !important;
+    }
+
+    .icon-item {
+      animation: none !important;
+    }
+  }
+</style>

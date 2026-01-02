@@ -1,0 +1,820 @@
+---
+import { Icon } from "astro-icon/components";
+import type { SectionVariant } from "../../types";
+
+interface ContactInfo {
+  icon: string;
+  label: string;
+  value: string;
+  href: string;
+}
+
+interface FormField {
+  id: string;
+  name: string;
+  label: string;
+  type: "text" | "email" | "tel" | "textarea" | "select";
+  required?: boolean;
+  placeholder?: string;
+  rows?: number;
+  options?: { value: string; label: string }[];
+  gridCol?: "full" | "half";
+}
+
+interface OfficeHours {
+  days: string;
+  hours: string;
+  closed?: boolean;
+}
+
+interface Props {
+  sectionVariant?: SectionVariant;
+  badge?: string;
+  badgeIcon?: string;
+  heading?: string;
+  description?: string;
+  contactInfo?: ContactInfo[];
+  formFields?: FormField[];
+  privacyText?: string;
+  submitButtonText?: string;
+  successTitle?: string;
+  successMessage?: string;
+  responseTime?: string;
+  responseTimeDetails?: string;
+  officeHoursTitle?: string;
+  officeHours?: OfficeHours[];
+}
+
+const {
+  sectionVariant = "dark",
+  badge = "Kontakt aufnehmen",
+  badgeIcon = "heroicons:chat-bubble-left-right-16-solid",
+  heading = "Lass uns <em>sprechen</em>",
+  description = "Hast du Fragen zu Performance Marketing, E-Mail Marketing oder SEO für deinen Onlineshop? Wir freuen uns auf deine Nachricht.",
+  contactInfo = [
+    {
+      icon: "heroicons:envelope",
+      label: "E-Mail",
+      value: "info@digitalsprung.de",
+      href: "mailto:info@digitalsprung.de",
+    },
+    {
+      icon: "heroicons:phone",
+      label: "Telefon",
+      value: "02435-94989-50",
+      href: "tel:+492435949890",
+    },
+    {
+      icon: "heroicons:map-pin",
+      label: "Adresse",
+      value: "Gladbacher Str. 31A, 52525 Heinsberg",
+      href: "https://maps.google.com/?q=Gladbacher+Str.+31A,+52525+Heinsberg",
+    },
+  ],
+  formFields = [
+    {
+      id: "firstName",
+      name: "firstName",
+      label: "Vorname",
+      type: "text",
+      required: true,
+      placeholder: "Max",
+      gridCol: "half",
+    },
+    {
+      id: "lastName",
+      name: "lastName",
+      label: "Nachname",
+      type: "text",
+      required: true,
+      placeholder: "Mustermann",
+      gridCol: "half",
+    },
+    {
+      id: "email",
+      name: "email",
+      label: "E-Mail",
+      type: "email",
+      required: true,
+      placeholder: "max@unternehmen.de",
+      gridCol: "full",
+    },
+    {
+      id: "company",
+      name: "company",
+      label: "Unternehmen",
+      type: "text",
+      placeholder: "Musterfirma GmbH",
+      gridCol: "full",
+    },
+    {
+      id: "phone",
+      name: "phone",
+      label: "Telefon",
+      type: "tel",
+      placeholder: "+49 123 456789",
+      gridCol: "full",
+    },
+    {
+      id: "interest",
+      name: "interest",
+      label: "Interesse an",
+      type: "select",
+      gridCol: "full",
+      options: [
+        { value: "", label: "Bitte wählen..." },
+        {
+          value: "performance-marketing",
+          label: "Performance Marketing (Google, Meta, etc.)",
+        },
+        { value: "email-marketing", label: "E-Mail Marketing & Klaviyo" },
+        { value: "seo", label: "SEO für Onlineshops" },
+        { value: "conversion-optimierung", label: "Conversion-Optimierung" },
+        { value: "strategie", label: "Marketing-Strategie & Beratung" },
+        { value: "sonstiges", label: "Sonstiges" },
+      ],
+    },
+    {
+      id: "message",
+      name: "message",
+      label: "Deine Nachricht",
+      type: "textarea",
+      required: true,
+      placeholder: "Beschreibe kurz dein Anliegen oder Projekt...",
+      rows: 5,
+      gridCol: "full",
+    },
+  ],
+  privacyText = 'Ich stimme der <a href="/datenschutz" class="privacy-link">Datenschutzerklärung</a> zu und bin mit der Verarbeitung meiner Daten zur Kontaktaufnahme einverstanden.',
+  submitButtonText = "Nachricht senden",
+  successTitle = "Vielen Dank!",
+  successMessage = "Wir haben deine Nachricht erhalten und melden uns innerhalb von 48–72 Stunden bei dir.",
+  responseTime = "Antwort innerhalb von 48–72h",
+  responseTimeDetails = "Wir melden uns schnellstmöglich bei dir",
+  officeHoursTitle = "Bürozeiten",
+  officeHours = [
+    { days: "Montag – Freitag", hours: "09:00 – 18:00 Uhr" },
+    { days: "Samstag – Sonntag", hours: "Geschlossen", closed: true },
+  ],
+} = Astro.props;
+
+// Process headline: replace <em> tags with styled colored spans
+const highlightStyle = `color: var(--section-accent);`;
+const processedHeadline = heading.replace(
+  /<em>(.*?)<\/em>/g,
+  `<span style="${highlightStyle}">$1</span>`,
+);
+---
+
+<div class="contact relative mx-auto max-w-7xl" data-variant={sectionVariant}>
+  <div class="relative z-10">
+    <!-- Header -->
+    <div class="mb-12 text-center lg:mb-16">
+      <p class="contact__eyebrow blur-in mb-4 text-sm font-semibold uppercase tracking-wider">
+        {badge}
+      </p>
+      <h1
+        class="contact__headline scale-up text-3xl font-bold sm:text-4xl lg:text-5xl"
+        set:html={processedHeadline}
+      />
+      <p class="contact__description fade-up mx-auto mt-4 max-w-2xl text-lg">
+        {description}
+      </p>
+    </div>
+
+    <!-- Grid: Form + Contact Info -->
+    <div class="grid gap-12 lg:grid-cols-5 lg:gap-16">
+      <!-- Contact Form -->
+      <div class="lg:col-span-3">
+        <div
+          class="contact__form-card overflow-hidden border p-6 sm:p-8"
+        >
+          <form id="contact-form" class="space-y-6">
+            <div class="grid gap-6 sm:grid-cols-2">
+              {
+                formFields.map((field) => (
+                  <div
+                    class:list={[field.gridCol === "full" && "sm:col-span-2"]}
+                  >
+                    <label
+                      for={field.id}
+                      class="contact__label mb-2 block text-sm font-medium"
+                    >
+                      {field.label}
+                      {field.required && " *"}
+                    </label>
+
+                    {field.type === "textarea" ? (
+                      <textarea
+                        id={field.id}
+                        name={field.name}
+                        rows={field.rows || 5}
+                        required={field.required}
+                        class="contact__input w-full resize-none border px-4 py-3 transition-colors focus:ring-1 focus:outline-none"
+                        placeholder={field.placeholder}
+                      />
+                    ) : field.type === "select" ? (
+                      <select
+                        id={field.id}
+                        name={field.name}
+                        required={field.required}
+                        class="contact__input contact__select w-full border px-4 py-3 transition-colors focus:ring-1 focus:outline-none"
+                      >
+                        {field.options?.map((option) => (
+                          <option value={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        type={field.type}
+                        id={field.id}
+                        name={field.name}
+                        required={field.required}
+                        class="contact__input w-full border px-4 py-3 transition-colors focus:ring-1 focus:outline-none"
+                        placeholder={field.placeholder}
+                      />
+                    )}
+                  </div>
+                ))
+              }
+            </div>
+
+            <div class="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="privacy"
+                name="privacy"
+                required
+                class="contact__checkbox mt-1 h-4 w-4"
+              />
+              <label
+                for="privacy"
+                class="contact__privacy-text privacy-label text-sm"
+                set:html={privacyText + " *"}
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="contact__submit-button inline-flex w-full items-center justify-center gap-2 px-6 py-4 font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <Icon name="heroicons:paper-airplane" class="h-5 w-5" />
+              <span>{submitButtonText}</span>
+            </button>
+          </form>
+
+          <!-- Success Message (hidden by default) -->
+          <div id="success-message" class="hidden py-12 text-center">
+            <div
+              class="contact__success-icon mb-6 inline-flex h-20 w-20 items-center justify-center border"
+            >
+              <Icon name="heroicons:check-circle" class="h-12 w-12" />
+            </div>
+            <h3 class="contact__success-title mb-3 text-2xl font-bold">
+              {successTitle}
+            </h3>
+            <p class="contact__success-message">{successMessage}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info Sidebar -->
+      <div class="lg:col-span-2">
+        <div class="space-y-6">
+          <!-- Contact Cards -->
+          {
+            contactInfo.map((info) => (
+              <a
+                href={info.href}
+                target={info.href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  info.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
+                class="contact__card group flex items-start gap-4 border p-5 transition-all"
+              >
+                <div class="contact__icon flex h-12 w-12 flex-shrink-0 items-center justify-center border transition-transform group-hover:scale-110">
+                  <Icon name={info.icon} class="h-6 w-6" />
+                </div>
+                <div>
+                  <p class="contact__label text-sm font-medium">{info.label}</p>
+                  <p class="contact__value mt-1 font-semibold">{info.value}</p>
+                </div>
+              </a>
+            ))
+          }
+
+          <!-- Response Time -->
+          <div class="contact__response-card border p-5">
+            <div class="flex items-center gap-3">
+              <Icon
+                name="heroicons:clock"
+                class="contact__response-icon h-5 w-5 flex-shrink-0"
+              />
+              <div>
+                <p class="contact__value font-semibold">
+                  {responseTime}
+                </p>
+                <p class="contact__label text-sm">
+                  {responseTimeDetails}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Office Hours -->
+          <div class="contact__office-card border p-5">
+            <h3 class="contact__office-title mb-3 font-semibold">
+              {officeHoursTitle}
+            </h3>
+            <div class="space-y-2 text-sm">
+              {
+                Array.isArray(officeHours) &&
+                  officeHours.map((schedule) => (
+                    <div class="flex justify-between">
+                      <span class="contact__office-days">{schedule.days}</span>
+                      <span
+                        class:list={[
+                          schedule.closed
+                            ? "contact__office-hours--closed"
+                            : "contact__office-hours--open",
+                        ]}
+                      >
+                        {schedule.hours}
+                      </span>
+                    </div>
+                  ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const successMessage = document.getElementById("success-message");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Here you would send the data to your backend
+    console.log("Contact form data:", data);
+
+    // Show success message
+    form.classList.add("hidden");
+    successMessage?.classList.remove("hidden");
+  });
+</script>
+
+<style>
+  @reference "../../styles/styles.css";
+
+  /* CSS Variables for Contact Component */
+  .contact {
+    /* Badge */
+    --badge-bg: color-mix(in srgb, var(--primary) 10%, transparent);
+    --badge-border: color-mix(in srgb, var(--primary) 30%, transparent);
+    --badge-text: var(--color-gray-900);
+    --badge-icon: var(--section-primary);
+
+    /* Text */
+    --headline-color: var(--color-gray-900);
+    --description-color: var(--color-gray-600);
+
+    /* Form Card */
+    --form-card-border: var(--color-gray-200);
+    --form-card-bg: white;
+
+    /* Labels & Inputs */
+    --label-color: var(--color-gray-700);
+    --input-border: var(--color-gray-300);
+    --input-border-focus: var(--section-primary);
+    --input-bg: white;
+    --input-text: var(--color-gray-900);
+    --input-placeholder: var(--color-gray-400);
+    --input-ring: color-mix(in srgb, var(--primary) 30%, transparent);
+
+    /* Checkbox */
+    --checkbox-border: var(--color-gray-300);
+    --checkbox-bg: white;
+    --checkbox-accent: var(--section-primary);
+
+    /* Privacy Text */
+    --privacy-text: var(--color-gray-500);
+
+    /* Submit Button */
+    --submit-bg: var(--section-primary);
+    --submit-bg-hover: var(--primary-light);
+    --submit-text: white;
+
+    /* Contact Cards */
+    --card-border: var(--color-gray-200);
+    --card-border-hover: color-mix(in srgb, var(--primary) 50%, transparent);
+    --card-bg: var(--color-gray-50);
+    --card-bg-hover: white;
+
+    /* Contact Icon */
+    --icon-border: color-mix(in srgb, var(--primary) 30%, transparent);
+    --icon-bg: color-mix(in srgb, var(--primary) 10%, transparent);
+    --icon-color: var(--section-primary);
+
+    /* Contact Label & Value */
+    --contact-label: var(--color-gray-500);
+    --contact-value: var(--color-gray-900);
+
+    /* Response Card */
+    --response-card-border: color-mix(in srgb, var(--primary) 20%, transparent);
+    --response-card-bg: color-mix(in srgb, var(--primary) 5%, transparent);
+    --response-icon: var(--section-primary);
+
+    /* Office Card */
+    --office-card-border: var(--color-gray-200);
+    --office-card-bg: var(--color-gray-50);
+    --office-title: var(--color-gray-900);
+    --office-days: var(--color-gray-500);
+    --office-hours-open: var(--color-gray-700);
+    --office-hours-closed: var(--color-gray-400);
+
+    /* Success */
+    --success-icon-border: color-mix(
+      in srgb,
+      var(--color-green-500) 30%,
+      transparent
+    );
+    --success-icon-bg: color-mix(
+      in srgb,
+      var(--color-green-500) 10%,
+      transparent
+    );
+    --success-icon-color: var(--color-green-600);
+    --success-title: var(--color-gray-900);
+    --success-message: var(--color-gray-600);
+  }
+
+  /* Light Variant */
+  .contact[data-variant="light"] {
+    /* Contact Cards */
+    --card-bg: white;
+    --card-bg-hover: var(--color-gray-50);
+
+    /* Office Card */
+    --office-card-bg: white;
+  }
+
+  /* Dark Variant */
+  .contact[data-variant="dark"] {
+    /* Badge */
+    --badge-bg: color-mix(in srgb, var(--accent) 20%, transparent);
+    --badge-border: color-mix(in srgb, var(--accent) 40%, transparent);
+    --badge-text: var(--color-gray-100);
+    --badge-icon: var(--section-accent);
+
+    /* Text */
+    --headline-color: white;
+    --description-color: var(--color-gray-300);
+
+    /* Form Card */
+    --form-card-border: var(--color-gray-700);
+    --form-card-bg: color-mix(in srgb, var(--color-gray-800) 80%, transparent);
+
+    /* Labels & Inputs */
+    --label-color: var(--color-gray-300);
+    --input-border: var(--color-gray-600);
+    --input-border-focus: var(--section-accent);
+    --input-bg: var(--color-gray-900);
+    --input-text: white;
+    --input-placeholder: var(--color-gray-500);
+    --input-ring: color-mix(in srgb, var(--accent) 30%, transparent);
+
+    /* Checkbox */
+    --checkbox-border: var(--color-gray-600);
+    --checkbox-bg: var(--color-gray-900);
+    --checkbox-accent: var(--section-accent);
+
+    /* Privacy Text */
+    --privacy-text: var(--color-gray-400);
+
+    /* Submit Button */
+    --submit-bg: var(--section-accent);
+    --submit-bg-hover: var(--accent-light);
+    --submit-text: var(--color-gray-900);
+
+    /* Contact Cards */
+    --card-border: color-mix(in srgb, var(--color-gray-700) 50%, transparent);
+    --card-border-hover: color-mix(in srgb, var(--accent) 50%, transparent);
+    --card-bg: color-mix(in srgb, var(--color-gray-800) 50%, transparent);
+    --card-bg-hover: var(--color-gray-800);
+
+    /* Contact Icon */
+    --icon-border: color-mix(in srgb, var(--accent) 30%, transparent);
+    --icon-bg: color-mix(in srgb, var(--accent) 10%, transparent);
+    --icon-color: var(--section-accent);
+
+    /* Contact Label & Value */
+    --contact-label: var(--color-gray-400);
+    --contact-value: white;
+
+    /* Response Card */
+    --response-card-border: color-mix(in srgb, var(--accent) 20%, transparent);
+    --response-card-bg: color-mix(in srgb, var(--accent) 5%, transparent);
+    --response-icon: var(--section-accent);
+
+    /* Office Card */
+    --office-card-border: color-mix(
+      in srgb,
+      var(--color-gray-700) 50%,
+      transparent
+    );
+    --office-card-bg: color-mix(
+      in srgb,
+      var(--color-gray-800) 50%,
+      transparent
+    );
+    --office-title: white;
+    --office-days: var(--color-gray-400);
+    --office-hours-open: var(--color-gray-300);
+    --office-hours-closed: var(--color-gray-500);
+
+    /* Success */
+    --success-icon-border: color-mix(
+      in srgb,
+      var(--color-green-500) 20%,
+      transparent
+    );
+    --success-icon-bg: color-mix(
+      in srgb,
+      var(--color-green-500) 10%,
+      transparent
+    );
+    --success-icon-color: var(--color-green-400);
+    --success-title: white;
+    --success-message: var(--color-gray-400);
+  }
+
+  /* Primary Variant */
+  .contact[data-variant="primary"] {
+    /* Badge */
+    --badge-bg: rgb(255 255 255 / 10%);
+    --badge-border: rgb(255 255 255 / 30%);
+    --badge-text: white;
+    --badge-icon: white;
+
+    /* Text */
+    --headline-color: white;
+    --description-color: rgb(255 255 255 / 80%);
+
+    /* Form Card */
+    --form-card-border: rgb(255 255 255 / 20%);
+    --form-card-bg: rgb(255 255 255 / 10%);
+
+    /* Labels & Inputs */
+    --label-color: rgb(255 255 255 / 90%);
+    --input-border: rgb(255 255 255 / 30%);
+    --input-border-focus: white;
+    --input-bg: rgb(255 255 255 / 10%);
+    --input-text: white;
+    --input-placeholder: rgb(255 255 255 / 50%);
+    --input-ring: rgb(255 255 255 / 30%);
+
+    /* Checkbox */
+    --checkbox-border: rgb(255 255 255 / 30%);
+    --checkbox-bg: rgb(255 255 255 / 10%);
+    --checkbox-accent: white;
+
+    /* Privacy Text */
+    --privacy-text: rgb(255 255 255 / 70%);
+
+    /* Submit Button */
+    --submit-bg: white;
+    --submit-bg-hover: var(--color-gray-100);
+    --submit-text: var(--section-primary);
+
+    /* Contact Cards */
+    --card-border: rgb(255 255 255 / 20%);
+    --card-border-hover: rgb(255 255 255 / 40%);
+    --card-bg: rgb(255 255 255 / 5%);
+    --card-bg-hover: rgb(255 255 255 / 10%);
+
+    /* Contact Icon */
+    --icon-border: rgb(255 255 255 / 30%);
+    --icon-bg: rgb(255 255 255 / 10%);
+    --icon-color: white;
+
+    /* Contact Label & Value */
+    --contact-label: rgb(255 255 255 / 70%);
+    --contact-value: white;
+
+    /* Response Card */
+    --response-card-border: rgb(255 255 255 / 20%);
+    --response-card-bg: rgb(255 255 255 / 5%);
+    --response-icon: white;
+
+    /* Office Card */
+    --office-card-border: rgb(255 255 255 / 20%);
+    --office-card-bg: rgb(255 255 255 / 5%);
+    --office-title: white;
+    --office-days: rgb(255 255 255 / 70%);
+    --office-hours-open: rgb(255 255 255 / 90%);
+    --office-hours-closed: rgb(255 255 255 / 50%);
+
+    /* Success */
+    --success-icon-border: color-mix(
+      in srgb,
+      var(--color-green-400) 30%,
+      transparent
+    );
+    --success-icon-bg: color-mix(
+      in srgb,
+      var(--color-green-400) 10%,
+      transparent
+    );
+    --success-icon-color: var(--color-green-300);
+    --success-title: white;
+    --success-message: rgb(255 255 255 / 70%);
+  }
+
+  /* Eyebrow Styles */
+  .contact__eyebrow {
+    color: var(--section-accent, #c8ff00);
+    letter-spacing: 0.1em;
+  }
+
+  /* Headline & Description */
+  .contact__headline {
+    color: var(--headline-color);
+  }
+
+  .contact[data-variant="dark"] .contact__headline {
+    color: white;
+  }
+
+  .contact__description {
+    color: var(--description-color);
+  }
+
+  /* Form Card */
+  .contact__form-card {
+    border-color: var(--form-card-border);
+    background-color: var(--form-card-bg);
+    backdrop-filter: blur(8px);
+  }
+
+  /* Labels */
+  .contact__label {
+    color: var(--label-color);
+  }
+
+  /* Inputs */
+  .contact__input {
+    border-color: var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+
+    &::placeholder {
+      color: var(--input-placeholder);
+    }
+
+    &:focus {
+      border-color: var(--input-border-focus);
+      --tw-ring-color: var(--input-ring);
+    }
+  }
+
+  /* Select dropdown arrow styling */
+  .contact__select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .contact[data-variant="white"] .contact__select,
+  .contact[data-variant="light"] .contact__select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  }
+
+  /* Checkbox */
+  .contact__checkbox {
+    border-color: var(--checkbox-border);
+    background-color: var(--checkbox-bg);
+    color: var(--checkbox-accent);
+
+    &:focus {
+      --tw-ring-color: var(--checkbox-accent);
+    }
+  }
+
+  /* Privacy Text */
+  .contact__privacy-text {
+    color: var(--privacy-text);
+  }
+
+  /* Privacy link styling based on variant */
+  .contact[data-variant="white"] .privacy-link,
+  .contact[data-variant="light"] .privacy-link {
+    @apply text-primary hover:text-primary-light transition-colors;
+  }
+
+  .contact[data-variant="dark"] .privacy-link {
+    @apply text-accent hover:text-accent-light transition-colors;
+  }
+
+  .contact[data-variant="primary"] .privacy-link {
+    @apply text-white underline transition-colors hover:text-white/80;
+  }
+
+  /* Submit Button */
+  .contact__submit-button {
+    background-color: var(--submit-bg);
+    color: var(--submit-text);
+
+    &:hover {
+      background-color: var(--submit-bg-hover);
+    }
+  }
+
+  /* Contact Cards */
+  .contact__card {
+    border-color: var(--card-border);
+    background-color: var(--card-bg);
+
+    &:hover {
+      border-color: var(--card-border-hover);
+      background-color: var(--card-bg-hover);
+    }
+  }
+
+  /* Contact Icon */
+  .contact__icon {
+    border-color: var(--icon-border);
+    background-color: var(--icon-bg);
+    color: var(--icon-color);
+  }
+
+  /* Contact Label & Value */
+  .contact__label {
+    color: var(--contact-label);
+  }
+
+  .contact__value {
+    color: var(--contact-value);
+  }
+
+  /* Response Card */
+  .contact__response-card {
+    border-color: var(--response-card-border);
+    background-color: var(--response-card-bg);
+  }
+
+  .contact__response-icon {
+    color: var(--response-icon);
+  }
+
+  /* Office Card */
+  .contact__office-card {
+    border-color: var(--office-card-border);
+    background-color: var(--office-card-bg);
+  }
+
+  .contact__office-title {
+    color: var(--office-title);
+  }
+
+  .contact__office-days {
+    color: var(--office-days);
+  }
+
+  .contact__office-hours--open {
+    color: var(--office-hours-open);
+  }
+
+  .contact__office-hours--closed {
+    color: var(--office-hours-closed);
+  }
+
+  /* Success Message */
+  .contact__success-icon {
+    border-color: var(--success-icon-border);
+    background-color: var(--success-icon-bg);
+    color: var(--success-icon-color);
+  }
+
+  .contact__success-title {
+    color: var(--success-title);
+  }
+
+  .contact__success-message {
+    color: var(--success-message);
+  }
+</style>
