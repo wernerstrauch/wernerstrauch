@@ -107,26 +107,26 @@ export const MEGA_MENU_DE: MegaMenuCategory[] = [
 export const MEGA_MENU_EN: MegaMenuCategory[] = [
   {
     title: "Services",
-    href: "/en/services",
+    href: "/services",
     subcategories: [
       {
         title: "Analysis & Strategy",
         links: [
           {
             label: "E-Commerce Audit",
-            href: "/en/ecommerce-audit",
+            href: "/ecommerce-audit",
             icon: "heroicons:magnifying-glass-circle",
             description: "Identify potential, fix weaknesses",
           },
           {
             label: "E-Commerce Strategy",
-            href: "/en/ecommerce-strategy",
+            href: "/ecommerce-strategy",
             icon: "heroicons:map",
             description: "Clear roadmap for sustainable growth",
           },
           {
             label: "Technology Consulting",
-            href: "/en/technology-consulting",
+            href: "/technology-consulting",
             icon: "heroicons:cpu-chip",
             description: "The right tech stack decision",
           },
@@ -137,19 +137,19 @@ export const MEGA_MENU_EN: MegaMenuCategory[] = [
         links: [
           {
             label: "E-Commerce Consulting",
-            href: "/en/ecommerce-consulting",
+            href: "/ecommerce-consulting",
             icon: "heroicons:light-bulb",
             description: "Strategic guidance at eye level",
           },
           {
             label: "E-Commerce Sparring",
-            href: "/en/ecommerce-sparring",
+            href: "/ecommerce-sparring",
             icon: "heroicons:chat-bubble-left-right",
             description: "Your external sparring partner for clear decisions",
           },
           {
             label: "E-Commerce Workshop",
-            href: "/en/ecommerce-workshop",
+            href: "/ecommerce-workshop",
             icon: "heroicons:academic-cap",
             description: "Focused work sessions with results",
           },
@@ -160,19 +160,19 @@ export const MEGA_MENU_EN: MegaMenuCategory[] = [
         links: [
           {
             label: "E-Commerce Project Management",
-            href: "/en/ecommerce-project-management",
+            href: "/ecommerce-project-management",
             icon: "heroicons:clipboard-document-check",
             description: "Leading projects to success on time",
           },
           {
             label: "Implementation Support",
-            href: "/en/implementation-support",
+            href: "/implementation-support",
             icon: "heroicons:arrow-path-rounded-square",
             description: "From concept to working solution",
           },
           {
             label: "Interim Management",
-            href: "/en/interim-management",
+            href: "/interim-management",
             icon: "heroicons:user-circle",
             description: "Leadership for critical phases",
           },
@@ -216,16 +216,17 @@ export const SITE: SiteConfig = {
   ],
 };
 
-// Navigation for English
+// Navigation for English (separate domain: wernerstrauch.com)
 export const SITE_EN: SiteConfig = {
   ...SITE,
+  site: "https://wernerstrauch.com",
   title: "Werner Strauch | E-Commerce Strategy & Technology",
   description:
     "Strategic consulting for e-commerce, Shopify and digital transformation. Pragmatic solutions for sustainable growth.",
   navigation: {
     main: [
-      { label: "Services", href: "/en/services" },
-      { label: "About", href: "/en/about" },
+      { label: "Services", href: "/services" },
+      { label: "About", href: "/about" },
     ],
     megaMenu: MEGA_MENU_EN,
   },

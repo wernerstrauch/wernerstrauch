@@ -10,11 +10,24 @@ export interface LanguageConfig {
   name: string;
   nativeName: string;
   code: string;
+  siteUrl: string;
 }
 
 export const LANGUAGES: Record<SupportedLanguage, LanguageConfig> = {
-  de: { urlPrefix: "", name: "German", nativeName: "Deutsch", code: "DE" },
-  en: { urlPrefix: "/en", name: "English", nativeName: "English", code: "EN" },
+  de: {
+    urlPrefix: "",
+    name: "German",
+    nativeName: "Deutsch",
+    code: "DE",
+    siteUrl: "https://wernerstrauch.de",
+  },
+  en: {
+    urlPrefix: "/en",
+    name: "English",
+    nativeName: "English",
+    code: "EN",
+    siteUrl: "https://wernerstrauch.com",
+  },
 };
 
 /**
@@ -99,19 +112,42 @@ export interface HreflangEntry {
 }
 
 /**
+ * Get the full URL for a page including the correct domain for its language
+ */
+export function getFullPageUrl(page: CollectionEntry<"pages">): string {
+  const lang = (page.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE;
+  const { siteUrl } = LANGUAGES[lang];
+  const slug = page.data.slug;
+
+  // For English on separate domain, no /en prefix needed
+  if (lang === "en") {
+    if (!slug || slug === "index") {
+      return siteUrl;
+    }
+    return `${siteUrl}/${slug}`;
+  }
+
+  // German uses standard getPageUrl
+  return `${siteUrl}${getPageUrl(page)}`;
+}
+
+/**
  * Generate hreflang entries for a page
  */
 export function getPageHreflangEntries(
   pages: CollectionEntry<"pages">[],
   currentPage: CollectionEntry<"pages">,
-  siteUrl: string,
+  _siteUrl?: string, // kept for backwards compatibility, but uses LANGUAGES config
 ): HreflangEntry[] {
   const translations = getPageTranslations(pages, currentPage);
 
-  const entries: HreflangEntry[] = translations.map((p) => ({
-    lang: (p.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE,
-    url: `${siteUrl}${getPageUrl(p)}`,
-  }));
+  const entries: HreflangEntry[] = translations.map((p) => {
+    const lang = (p.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE;
+    return {
+      lang,
+      url: getFullPageUrl(p),
+    };
+  });
 
   // Add x-default pointing to German version (as it's the default)
   const defaultPage = translations.find(
@@ -120,11 +156,27 @@ export function getPageHreflangEntries(
   if (defaultPage) {
     entries.push({
       lang: "x-default",
-      url: `${siteUrl}${getPageUrl(defaultPage)}`,
+      url: getFullPageUrl(defaultPage),
     });
   }
 
   return entries;
+}
+
+/**
+ * Get the full URL for a blog post including the correct domain
+ */
+export function getFullBlogUrl(post: CollectionEntry<"blog">): string {
+  const lang = (post.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE;
+  const { siteUrl } = LANGUAGES[lang];
+  const slug = post.data.slug || post.id.replace(/\.mdx?$/, "");
+
+  // For English on separate domain, no /en prefix needed
+  if (lang === "en") {
+    return `${siteUrl}/blog/${slug}`;
+  }
+
+  return `${siteUrl}${getBlogUrl(post)}`;
 }
 
 /**
@@ -133,14 +185,17 @@ export function getPageHreflangEntries(
 export function getBlogHreflangEntries(
   posts: CollectionEntry<"blog">[],
   currentPost: CollectionEntry<"blog">,
-  siteUrl: string,
+  _siteUrl?: string, // kept for backwards compatibility
 ): HreflangEntry[] {
   const translations = getBlogTranslations(posts, currentPost);
 
-  const entries: HreflangEntry[] = translations.map((p) => ({
-    lang: (p.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE,
-    url: `${siteUrl}${getBlogUrl(p)}`,
-  }));
+  const entries: HreflangEntry[] = translations.map((p) => {
+    const lang = (p.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE;
+    return {
+      lang,
+      url: getFullBlogUrl(p),
+    };
+  });
 
   // Add x-default pointing to German version
   const defaultPost = translations.find(
@@ -149,7 +204,7 @@ export function getBlogHreflangEntries(
   if (defaultPost) {
     entries.push({
       lang: "x-default",
-      url: `${siteUrl}${getBlogUrl(defaultPost)}`,
+      url: getFullBlogUrl(defaultPost),
     });
   }
 

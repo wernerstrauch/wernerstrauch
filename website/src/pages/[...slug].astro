@@ -76,20 +76,34 @@ import LegalPage from "@components/sections/LegalPage.astro";
 import SkillsShowcase from "@components/sections/SkillsShowcase.astro";
 import Credentials from "@components/sections/Credentials.astro";
 
+// Get build language from environment (defaults to building all languages)
+const buildLang = import.meta.env.SITE_LANG as SupportedLanguage | undefined;
+
 // Static Paths for Pre-Rendering
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
 
   // Filter out drafts
-  const filteredPages = pages.filter(
+  let filteredPages = pages.filter(
     (page: CollectionEntry<"pages">) => page.data.settings?.status !== "draft",
   );
+
+  // If SITE_LANG is set, only build pages for that language
+  if (buildLang) {
+    filteredPages = filteredPages.filter(
+      (page: CollectionEntry<"pages">) => page.data.lang === buildLang,
+    );
+  }
 
   // Generate paths for all pages
   return filteredPages.map((page: CollectionEntry<"pages">) => {
     const lang = (page.data.lang as SupportedLanguage) || "de";
-    const prefix = LANGUAGES[lang].urlPrefix;
     const pageSlug = page.data.slug;
+
+    // For language-specific builds on separate domains, no prefix needed
+    // For combined builds (no SITE_LANG), use the standard prefix logic
+    const usePrefix = !buildLang && lang !== "de";
+    const prefix = usePrefix ? LANGUAGES[lang].urlPrefix : "";
 
     // Build the full slug path
     const isHomepage = page.data.pageId === "homepage" || !pageSlug || pageSlug === "index";

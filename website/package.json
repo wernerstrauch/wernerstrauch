@@ -4,8 +4,14 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:de": "SITE_LANG=de astro dev",
+    "dev:en": "SITE_LANG=en astro dev",
     "build": "astro build",
+    "build:de": "SITE_LANG=de astro build",
+    "build:en": "SITE_LANG=en astro build",
     "preview": "astro preview",
+    "preview:de": "SITE_LANG=de astro preview",
+    "preview:en": "SITE_LANG=en astro preview",
     "astro": "astro"
   },
   "dependencies": {
