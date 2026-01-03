@@ -154,9 +154,11 @@ const processedHeadline = headline.replace(
     {/* Cards Section */}
     <div class="grid gap-4 sm:grid-cols-2 sm:items-start">
       {
-        cards.map((card, index) => {
+        resolvedCards.map((card, index) => {
           const cardVariant =
             card.cardVariant || (index === 0 ? "lime" : "dark");
+          const isAstroImage = card.resolvedImage && typeof card.resolvedImage !== "string";
+          const isAstroHoverImage = card.resolvedHoverImage && typeof card.resolvedHoverImage !== "string";
 
           return (
             <div
@@ -189,20 +191,40 @@ const processedHeadline = headline.replace(
                 ) : (
                   /* Default image implementation */
                   <>
-                    <img
-                      src={card.image}
-                      alt={card.imageAlt || card.title}
-                      class="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-0"
-                      loading="lazy"
-                    />
-                    {card.hoverImage && (
+                    {isAstroImage ? (
+                      <Image
+                        src={card.resolvedImage as ImageMetadata}
+                        alt={card.imageAlt || card.title}
+                        class="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                        loading="lazy"
+                        widths={[400, 600, 800]}
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                    ) : card.resolvedImage ? (
                       <img
-                        src={card.hoverImage}
+                        src={card.resolvedImage as string}
+                        alt={card.imageAlt || card.title}
+                        class="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                        loading="lazy"
+                      />
+                    ) : null}
+                    {isAstroHoverImage ? (
+                      <Image
+                        src={card.resolvedHoverImage as ImageMetadata}
+                        alt={card.imageAlt || card.title}
+                        class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        loading="lazy"
+                        widths={[400, 600, 800]}
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                    ) : card.resolvedHoverImage ? (
+                      <img
+                        src={card.resolvedHoverImage as string}
                         alt={card.imageAlt || card.title}
                         class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                         loading="lazy"
                       />
-                    )}
+                    ) : null}
                   </>
                 )}
               </div>
