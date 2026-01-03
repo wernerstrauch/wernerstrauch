@@ -463,21 +463,15 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
 
   /* ============================================
      ANIMATED BURGER MENU
-     Refined morphing animation with lime accent
+     Clean morphing animation
      ============================================ */
   .burger-btn {
     cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-  }
-
-  .burger-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background: transparent;
   }
 
   .burger-btn:focus-visible {
-    outline: 2px solid var(--header-primary);
-    outline-offset: 2px;
+    outline: none;
   }
 
   .burger-icon {
@@ -513,12 +507,6 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
     bottom: 0;
   }
 
-  /* Hover state - lime glow */
-  .burger-btn:hover .burger-line {
-    background-color: var(--header-primary);
-    box-shadow: 0 0 8px var(--header-primary);
-  }
-
   /* Active state - morphs to X */
   .burger-icon.is-active .burger-line--top {
     transform: translateY(8px) rotate(45deg);
@@ -531,10 +519,5 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
 
   .burger-icon.is-active .burger-line--bottom {
     transform: translateY(-8px) rotate(-45deg);
-  }
-
-  /* Active state with accent color */
-  .burger-icon.is-active .burger-line {
-    background-color: var(--header-primary);
   }
 </style>
