@@ -51,19 +51,13 @@ const {
   badge = "Kontakt aufnehmen",
   badgeIcon = "heroicons:chat-bubble-left-right-16-solid",
   heading = "Lass uns <em>sprechen</em>",
-  description = "Hast du Fragen zu Performance Marketing, E-Mail Marketing oder SEO für deinen Onlineshop? Wir freuen uns auf deine Nachricht.",
+  description = "Haben Sie Fragen zu E-Commerce-Strategie, Technologieberatung oder Projektleitung? Ich freue mich auf Ihre Nachricht.",
   contactInfo = [
     {
       icon: "heroicons:envelope",
       label: "E-Mail",
-      value: "info@digitalsprung.de",
-      href: "mailto:info@digitalsprung.de",
-    },
-    {
-      icon: "heroicons:phone",
-      label: "Telefon",
-      value: "02435-94989-50",
-      href: "tel:+492435949890",
+      value: "kontakt@wernerstrauch.de",
+      href: "mailto:kontakt@wernerstrauch.de",
     },
     {
       icon: "heroicons:map-pin",
@@ -124,14 +118,12 @@ const {
       gridCol: "full",
       options: [
         { value: "", label: "Bitte wählen..." },
-        {
-          value: "performance-marketing",
-          label: "Performance Marketing (Google, Meta, etc.)",
-        },
-        { value: "email-marketing", label: "E-Mail Marketing & Klaviyo" },
-        { value: "seo", label: "SEO für Onlineshops" },
-        { value: "conversion-optimierung", label: "Conversion-Optimierung" },
-        { value: "strategie", label: "Marketing-Strategie & Beratung" },
+        { value: "ecommerce-audit", label: "E-Commerce Audit" },
+        { value: "ecommerce-strategie", label: "E-Commerce Strategie" },
+        { value: "ecommerce-beratung", label: "E-Commerce Beratung" },
+        { value: "technologieberatung", label: "Technologieberatung" },
+        { value: "projektleitung", label: "Projektleitung" },
+        { value: "interim-management", label: "Interim Management" },
         { value: "sonstiges", label: "Sonstiges" },
       ],
     },
@@ -149,9 +141,9 @@ const {
   privacyText = 'Ich stimme der <a href="/datenschutz" class="privacy-link">Datenschutzerklärung</a> zu und bin mit der Verarbeitung meiner Daten zur Kontaktaufnahme einverstanden.',
   submitButtonText = "Nachricht senden",
   successTitle = "Vielen Dank!",
-  successMessage = "Wir haben deine Nachricht erhalten und melden uns innerhalb von 48–72 Stunden bei dir.",
+  successMessage = "Ich habe Ihre Nachricht erhalten und melde mich innerhalb von 48–72 Stunden bei Ihnen.",
   responseTime = "Antwort innerhalb von 48–72h",
-  responseTimeDetails = "Wir melden uns schnellstmöglich bei dir",
+  responseTimeDetails = "Ich melde mich schnellstmöglich bei Ihnen",
   officeHoursTitle = "Bürozeiten",
   officeHours = [
     { days: "Montag – Freitag", hours: "09:00 – 18:00 Uhr" },
@@ -360,6 +352,8 @@ const processedHeadline = heading.replace(
 
   const form = document.getElementById("contact-form") as HTMLFormElement;
   const successMessage = document.getElementById("success-message");
+  const submitButton = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const originalButtonText = submitButton?.textContent || "Nachricht senden";
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -367,12 +361,49 @@ const processedHeadline = heading.replace(
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Here you would send the data to your backend
-    console.log("Contact form data:", data);
+    // Disable button and show loading state
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Wird gesendet...";
+    }
 
-    // Show success message
-    form.classList.add("hidden");
-    successMessage?.classList.remove("hidden");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          domain: "wernerstrauch",
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          company: data.company,
+          phone: data.phone,
+          step1: data.interest,
+          message: data.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success message
+        form.classList.add("hidden");
+        successMessage?.classList.remove("hidden");
+      } else {
+        throw new Error(result.error || "Fehler beim Senden");
+      }
+    } catch (error) {
+      console.error("Contact form error:", error);
+      alert("Es gab einen Fehler beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut.");
+
+      // Re-enable button
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    }
   });
 </script>
 
