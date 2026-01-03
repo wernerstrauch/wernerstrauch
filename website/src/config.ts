@@ -188,7 +188,7 @@ export const SITE: SiteConfig = {
   author: "Werner Strauch",
   title: "Werner Strauch | E-Commerce Strategie & Technologie",
   description:
-    "Strategische Beratung für E-Commerce, Shopify und digitale Transformation. Pragmatische Lösungen für nachhaltiges Wachstum.",
+    "Ihr unabhängiger E-Commerce-Berater: Ich bringe Klarheit in komplexe Entscheidungen – mit klaren Roadmaps, technischem Tiefgang und messbaren Ergebnissen.",
   ogImage: "/og-image.png",
   logo: {
     src: "/logo.svg",
@@ -222,7 +222,7 @@ export const SITE_EN: SiteConfig = {
   site: "https://wernerstrauch.com",
   title: "Werner Strauch | E-Commerce Strategy & Technology",
   description:
-    "Strategic consulting for e-commerce, Shopify and digital transformation. Pragmatic solutions for sustainable growth.",
+    "Your independent e-commerce consultant: I bring clarity to complex decisions – with clear roadmaps, technical depth and measurable results.",
   navigation: {
     main: [
       { label: "Services", href: "/services" },

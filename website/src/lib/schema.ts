@@ -92,7 +92,7 @@ export function generateWebSiteSchema() {
     "@type": "WebSite",
     name: "Werner Strauch | E-Commerce Strategie & Technologie",
     url: BASE_URL,
-    description: "Strategische Beratung für E-Commerce, Shopify und digitale Transformation. Pragmatische Lösungen für nachhaltiges Wachstum.",
+    description: "Ihr unabhängiger E-Commerce-Berater: Ich bringe Klarheit in komplexe Entscheidungen – mit klaren Roadmaps, technischem Tiefgang und messbaren Ergebnissen.",
     publisher: {
       "@type": "Person",
       name: PERSON.name,
