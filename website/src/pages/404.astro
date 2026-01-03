@@ -3,12 +3,59 @@ import RootLayout from "@layouts/RootLayout.astro";
 import Button from "@components/shared/Button.astro";
 import { Icon } from "astro-icon/components";
 import GridBackground from "@components/backgrounds/GridBackground.astro";
+import type { SupportedLanguage } from "@lib/i18n";
+
+// Get build language from environment
+const lang = (import.meta.env.SITE_LANG as SupportedLanguage) || "de";
+
+// Localized content
+const content = {
+  de: {
+    title: "404 – Seite nicht gefunden | Werner Strauch",
+    description: "Die angeforderte Seite wurde nicht gefunden.",
+    badge: "SEITE NICHT GEFUNDEN",
+    headline: "Diese Seite existiert",
+    headlineHighlight: "nicht",
+    text: "Die angeforderte URL konnte nicht gefunden werden. Möglicherweise wurde die Seite verschoben, umbenannt oder existiert nicht mehr.",
+    homeButton: "Zur Startseite",
+    contactButton: "Kontakt aufnehmen",
+    orVisit: "Oder besuchen Sie:",
+    links: [
+      { href: "/ecommerce-beratung", icon: "heroicons:light-bulb-16-solid", label: "E-Commerce Beratung" },
+      { href: "/leistungen", icon: "heroicons:briefcase-16-solid", label: "Leistungen" },
+      { href: "/kontakt", icon: "heroicons:envelope-16-solid", label: "Kontakt" },
+    ],
+    homeHref: "/",
+    contactHref: "/kontakt",
+  },
+  en: {
+    title: "404 – Page Not Found | Werner Strauch",
+    description: "The requested page could not be found.",
+    badge: "PAGE NOT FOUND",
+    headline: "This page does",
+    headlineHighlight: "not exist",
+    text: "The requested URL could not be found. The page may have been moved, renamed, or no longer exists.",
+    homeButton: "Go to Homepage",
+    contactButton: "Get in Touch",
+    orVisit: "Or visit:",
+    links: [
+      { href: "/ecommerce-consulting", icon: "heroicons:light-bulb-16-solid", label: "E-Commerce Consulting" },
+      { href: "/services", icon: "heroicons:briefcase-16-solid", label: "Services" },
+      { href: "/contact", icon: "heroicons:envelope-16-solid", label: "Contact" },
+    ],
+    homeHref: "/",
+    contactHref: "/contact",
+  },
+};
+
+const t = content[lang];
 ---
 
 <RootLayout
-  title="404 – Seite nicht gefunden | Werner Strauch"
-  description="Die angeforderte Seite wurde nicht gefunden."
+  title={t.title}
+  description={t.description}
   headerVariant="dark"
+  lang={lang}
 >
   <section class="error-page" data-section-theme="dark">
     <!-- Background -->
@@ -37,47 +84,40 @@ import GridBackground from "@components/backgrounds/GridBackground.astro";
       <!-- Status Badge -->
       <div class="error-badge">
         <Icon name="heroicons:exclamation-triangle-16-solid" class="h-4 w-4" />
-        <span>SEITE NICHT GEFUNDEN</span>
+        <span>{t.badge}</span>
       </div>
 
       <!-- Message -->
       <h1 class="error-headline">
-        Diese Seite existiert <span class="text-accent">nicht</span>
+        {t.headline} <span class="text-accent">{t.headlineHighlight}</span>
       </h1>
 
       <p class="error-description">
-        Die angeforderte URL konnte nicht gefunden werden. Möglicherweise wurde die Seite verschoben,
-        umbenannt oder existiert nicht mehr.
+        {t.text}
       </p>
 
       <!-- Actions -->
       <div class="error-actions">
-        <Button href="/" variant="primary" size="lg">
+        <Button href={t.homeHref} variant="primary" size="lg">
           <Icon name="heroicons:home-16-solid" class="h-4 w-4" />
-          <span>Zur Startseite</span>
+          <span>{t.homeButton}</span>
         </Button>
-        <Button href="/kontakt" variant="secondary-dark" size="lg" showArrow={false}>
-          <span>Kontakt aufnehmen</span>
+        <Button href={t.contactHref} variant="secondary-dark" size="lg" showArrow={false}>
+          <span>{t.contactButton}</span>
           <Icon name="heroicons:arrow-right-16-solid" class="h-4 w-4" />
         </Button>
       </div>
 
       <!-- Quick Links -->
       <div class="error-links">
-        <p class="error-links-label">Oder besuchen Sie:</p>
+        <p class="error-links-label">{t.orVisit}</p>
         <div class="error-links-list">
-          <a href="/ecommerce-beratung" class="error-link">
-            <Icon name="heroicons:light-bulb-16-solid" class="h-4 w-4" />
-            <span>E-Commerce Beratung</span>
-          </a>
-          <a href="/leistungen" class="error-link">
-            <Icon name="heroicons:briefcase-16-solid" class="h-4 w-4" />
-            <span>Leistungen</span>
-          </a>
-          <a href="/kontakt" class="error-link">
-            <Icon name="heroicons:envelope-16-solid" class="h-4 w-4" />
-            <span>Kontakt</span>
-          </a>
+          {t.links.map((link) => (
+            <a href={link.href} class="error-link">
+              <Icon name={link.icon} class="h-4 w-4" />
+              <span>{link.label}</span>
+            </a>
+          ))}
         </div>
       </div>
     </div>

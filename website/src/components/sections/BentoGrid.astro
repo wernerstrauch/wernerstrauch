@@ -128,8 +128,7 @@ const processedHeadline = headline.replace(
             <h3 class="bentogrid-card-title text-2xl font-bold lg:text-3xl">
               {cards[0].title}
             </h3>
-            <p class="bentogrid-card-description mt-4 flex-grow text-lg">
-              {cards[0].description}
+            <p class="bentogrid-card-description mt-4 flex-grow text-lg" set:html={cards[0].description}>
             </p>
 
             {/* Features */}
@@ -176,8 +175,7 @@ const processedHeadline = headline.replace(
                 <h3 class="bentogrid-card-title text-xl font-bold">
                   {card.title}
                 </h3>
-                <p class="bentogrid-card-description mt-3 flex-grow">
-                  {card.description}
+                <p class="bentogrid-card-description mt-3 flex-grow" set:html={card.description}>
                 </p>
 
                 {/* Features */}
