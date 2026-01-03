@@ -8,6 +8,9 @@ slug: ecommerce-sparring
 meta:
   title: "E-Commerce Sparring | Your Sparring Partner as Equals | Werner Strauch"
   description: "E-Commerce Sparring: Regular exchange with an experienced sparring partner. 2-4 calls per month, strategic support in retainer model from €1,500/month."
+  ogImage:
+    headline: "E-Commerce<br><mark>Sparring</mark>"
+    filename: "og-ecommerce-sparring"
 
 settings:
   status: published

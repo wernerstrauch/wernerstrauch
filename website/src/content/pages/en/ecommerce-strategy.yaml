@@ -8,6 +8,9 @@ slug: ecommerce-strategy
 meta:
   title: "E-Commerce Strategy | Strategic Planning & Roadmap | Werner Strauch"
   description: "Develop your E-Commerce Strategy: Business model, channel strategy, technology and KPIs. Strategy document and roadmap in 2-6 weeks. Independent consulting."
+  ogImage:
+    headline: "E-Commerce<br><mark>Strategy</mark>"
+    filename: "og-ecommerce-strategy"
 
 settings:
   status: published

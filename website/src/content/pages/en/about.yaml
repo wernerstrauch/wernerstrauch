@@ -8,6 +8,9 @@ slug: about
 meta:
   title: "About Me | Werner Strauch – E-Commerce Consultant & Strategist"
   description: "20+ years of e-commerce experience. 7 years as managing director. Leading teams of up to 20 people. Business graduate with technical depth and strategic consulting expertise."
+  ogImage:
+    headline: "Werner Strauch<br><mark>About Me</mark>"
+    filename: "og-about-me"
 
 settings:
   status: published

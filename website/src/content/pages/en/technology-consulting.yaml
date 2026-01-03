@@ -8,6 +8,9 @@ slug: technology-consulting
 meta:
   title: "E-Commerce Technology Consulting | System Selection & Integration | Werner Strauch"
   description: "Independent E-Commerce Technology Consulting: Select and integrate shop systems, ERP, PIM, CRM. RFI/RFP process, TCO analysis and modern architectures like Headless Commerce."
+  ogImage:
+    headline: "E-Commerce<br><mark>Technology Consulting</mark>"
+    filename: "og-ecommerce-technology-consulting"
 
 settings:
   status: published

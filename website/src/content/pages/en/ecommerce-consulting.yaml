@@ -8,6 +8,9 @@ slug: ecommerce-consulting
 meta:
   title: "E-Commerce Consulting | Strategy, Processes & Technology | Werner Strauch"
   description: "Holistic E-Commerce Consulting: From strategy to process optimization to technology selection. Independent expertise for sustainable growth."
+  ogImage:
+    headline: "E-Commerce<br><mark>Consulting</mark>"
+    filename: "og-ecommerce-consulting"
 
 settings:
   status: published

@@ -8,6 +8,9 @@ slug: interim-management
 meta:
   title: "E-Commerce Interim Management | Leadership on Demand | Werner Strauch"
   description: "E-Commerce Interim Management: Experienced leadership on demand for vacancy, transformation or growth. Head of E-Commerce, CDO, Digital Sales Director. 3-12 months."
+  ogImage:
+    headline: "E-Commerce<br><mark>Interim Management</mark>"
+    filename: "og-ecommerce-interim-management"
 
 settings:
   status: published

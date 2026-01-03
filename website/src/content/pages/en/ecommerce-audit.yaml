@@ -8,6 +8,9 @@ slug: ecommerce-audit
 meta:
   title: "E-Commerce Audit | Systematic Shop Analysis | Werner Strauch"
   description: "Professional E-Commerce Audit: 500+ checkpoints, 50-100+ page report, prioritized actions. Systematic analysis of shop, SEO, conversion, technology and processes."
+  ogImage:
+    headline: "E-Commerce<br><mark>Audit</mark>"
+    filename: "og-ecommerce-audit"
 
 settings:
   status: published

@@ -8,6 +8,9 @@ slug: implementation-support
 meta:
   title: "E-Commerce Implementation Support | Sparring Partner & QA | Werner Strauch"
   description: "Professional implementation support for e-commerce projects: Sparring partner, QA, vendor management. For shop migration, ERP implementation or system integration. 2-8 days/month."
+  ogImage:
+    headline: "E-Commerce<br><mark>Implementation Support</mark>"
+    filename: "og-ecommerce-implementation-support"
 
 settings:
   status: published

@@ -8,6 +8,9 @@ slug: services
 meta:
   title: "E-Commerce Services | Consulting, Strategy & Implementation | Werner Strauch"
   description: "E-Commerce services from analysis to implementation: Audit, strategy, consulting, workshops, sparring, project management and interim management. Independent expertise."
+  ogImage:
+    headline: "E-Commerce<br><mark>Services</mark>"
+    filename: "og-ecommerce-services"
 
 settings:
   status: published

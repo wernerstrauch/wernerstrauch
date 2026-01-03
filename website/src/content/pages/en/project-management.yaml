@@ -8,6 +8,9 @@ slug: project-management
 meta:
   title: "E-Commerce Project Management | Shop Relaunch, Migration & ERP | Werner Strauch"
   description: "External E-Commerce Project Management: Shop relaunch, system migration, ERP implementation. Experienced project manager with clear methodology. From €4,000/month."
+  ogImage:
+    headline: "E-Commerce<br><mark>Project Management</mark>"
+    filename: "og-ecommerce-project-management"
 
 settings:
   status: published
