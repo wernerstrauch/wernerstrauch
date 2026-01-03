@@ -14,6 +14,11 @@ const siteConfig = getSiteConfig(lang);
 const navigation = siteConfig.navigation.main;
 const megaMenu = siteConfig.navigation.megaMenu || [];
 
+// Determine homepage URL based on build mode
+// When SITE_LANG is set, we're building for a separate domain (no prefix needed)
+const isSeparateDomainBuild = !!import.meta.env.SITE_LANG;
+const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
+
 // Filter out nav items that have megaMenu dropdowns
 const megaMenuHrefs = megaMenu.map((cat) => cat.href);
 const navLinks = navigation.filter((link) => !megaMenuHrefs.includes(link.href));
@@ -58,7 +63,7 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <nav class="relative flex h-20 items-center justify-between">
       {/* Logo - Links */}
-      <a href={lang === "en" ? "/en" : "/"} class="flex items-center shrink-0">
+      <a href={homeUrl} class="flex items-center shrink-0">
         <img
           src="/werner-strauch-logo-weiss.svg"
           alt="Werner Strauch"
