@@ -1,9 +1,18 @@
 import type { CollectionEntry } from "astro:content";
+import { buildSlugMap } from "./slug-map";
 
 export type SupportedLanguage = "de" | "en";
 
 export const DEFAULT_LANGUAGE: SupportedLanguage = "de";
 export const SUPPORTED_LANGUAGES: SupportedLanguage[] = ["de", "en"];
+
+/**
+ * Get the dynamic slug mapping between DE and EN pages
+ * Built at build time by reading all YAML page files
+ */
+export function getPageSlugMap(): Record<string, { de: string; en: string }> {
+  return buildSlugMap();
+}
 
 export interface LanguageConfig {
   urlPrefix: string;
@@ -132,35 +141,71 @@ export function getFullPageUrl(page: CollectionEntry<"pages">): string {
 }
 
 /**
- * Generate hreflang entries for a page
+ * Generate hreflang entries for a page using dynamic slug mapping
+ * This works for separate domain deployments where only one language is built at a time
  */
 export function getPageHreflangEntries(
-  pages: CollectionEntry<"pages">[],
+  _pages: CollectionEntry<"pages">[],
   currentPage: CollectionEntry<"pages">,
-  _siteUrl?: string, // kept for backwards compatibility, but uses LANGUAGES config
+  _siteUrl?: string, // kept for backwards compatibility
 ): HreflangEntry[] {
-  const translations = getPageTranslations(pages, currentPage);
+  const pageId = currentPage.data.pageId;
+  const pageSlugMap = getPageSlugMap();
+  const slugMap = pageSlugMap[pageId];
 
-  const entries: HreflangEntry[] = translations.map((p) => {
-    const lang = (p.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE;
-    return {
-      lang,
-      url: getFullPageUrl(p),
-    };
-  });
-
-  // Add x-default pointing to German version (as it's the default)
-  const defaultPage = translations.find(
-    (p) => p.data.lang === DEFAULT_LANGUAGE,
-  );
-  if (defaultPage) {
-    entries.push({
-      lang: "x-default",
-      url: getFullPageUrl(defaultPage),
-    });
+  // If no mapping exists, only return current page
+  if (!slugMap) {
+    const lang = (currentPage.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE;
+    return [
+      { lang, url: getFullPageUrl(currentPage) },
+      { lang: "x-default", url: getFullPageUrl(currentPage) },
+    ];
   }
 
+  const entries: HreflangEntry[] = [];
+
+  // Generate entries for both languages
+  for (const lang of SUPPORTED_LANGUAGES) {
+    const slug = slugMap[lang];
+    const { siteUrl } = LANGUAGES[lang];
+    const url = slug ? `${siteUrl}/${slug}` : siteUrl;
+    entries.push({ lang, url });
+  }
+
+  // Add x-default pointing to German version
+  const deSlug = slugMap.de;
+  const deUrl = deSlug ? `${LANGUAGES.de.siteUrl}/${deSlug}` : LANGUAGES.de.siteUrl;
+  entries.push({ lang: "x-default", url: deUrl });
+
   return entries;
+}
+
+/**
+ * Get the alternate language URL for language switcher
+ * Uses dynamic slug mapping for separate domain deployments
+ */
+export function getAlternateLanguageUrl(
+  currentPage: CollectionEntry<"pages">,
+): { lang: SupportedLanguage; url: string } | null {
+  const currentLang = (currentPage.data.lang as SupportedLanguage) || DEFAULT_LANGUAGE;
+  const targetLang = currentLang === "de" ? "en" : "de";
+  const pageId = currentPage.data.pageId;
+  const pageSlugMap = getPageSlugMap();
+  const slugMap = pageSlugMap[pageId];
+
+  if (!slugMap) {
+    // Fallback to homepage of target language
+    return {
+      lang: targetLang,
+      url: LANGUAGES[targetLang].siteUrl,
+    };
+  }
+
+  const targetSlug = slugMap[targetLang];
+  const { siteUrl } = LANGUAGES[targetLang];
+  const url = targetSlug ? `${siteUrl}/${targetSlug}` : siteUrl;
+
+  return { lang: targetLang, url };
 }
 
 /**
