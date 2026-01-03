@@ -25,6 +25,7 @@ import Insight from "@components/blog/Insight.astro";
 import Warning from "@components/blog/Warning.astro";
 import Quote from "@components/blog/Quote.astro";
 import BlogImage from "@components/blog/BlogImage.astro";
+import BlogCTA from "@components/blog/BlogCTA.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection(
@@ -325,7 +326,7 @@ const articleSchema = {
           >
             <article class="blog-detail__prose">
               <Content
-                components={{ Tip, Insight, Warning, Quote, BlogImage }}
+                components={{ Tip, Insight, Warning, Quote, BlogImage, BlogCTA }}
               />
             </article>
 

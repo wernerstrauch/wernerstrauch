@@ -24,7 +24,8 @@
       "Bash(node .claude/skills/fal-image-gen/scripts/generate_image.js:*)",
       "Skill(fal-image-gen)",
       "Skill(fal-image-gen:*)",
-      "Bash(node scripts/generate_image.js:*)"
+      "Bash(node scripts/generate_image.js:*)",
+      "Bash(node /Users/werner.strauch/Projekte/wernerstrauch/.claude/skills/fal-image-gen/scripts/generate_image.js:*)"
     ]
   }
 }

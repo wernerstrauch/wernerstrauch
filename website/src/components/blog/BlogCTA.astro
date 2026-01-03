@@ -1,0 +1,372 @@
+---
+/**
+ * BlogCTA Component
+ *
+ * A visually striking inline CTA box for MDX blog articles.
+ * Industrial refined style with lime accents on dark background.
+ * Features corner accents, subtle glow effects, and hover animations.
+ */
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  /** CTA headline */
+  headline?: string;
+  /** Description text */
+  description?: string;
+  /** Button text */
+  buttonText?: string;
+  /** Button link */
+  buttonHref?: string;
+  /** Icon name (heroicons format) */
+  icon?: string;
+}
+
+const {
+  headline = "Bereit für den nächsten Schritt?",
+  description = "Lassen Sie uns gemeinsam herausfinden, wie Sie Ihr E-Commerce-Geschäft auf das nächste Level bringen können.",
+  buttonText = "Beratungsgespräch vereinbaren",
+  buttonHref = "/kontakt",
+  icon = "heroicons:calendar-days-solid",
+} = Astro.props;
+---
+
+<aside class="blog-cta group">
+  {/* Corner Accents */}
+  <div class="blog-cta__corner blog-cta__corner--tl" aria-hidden="true"></div>
+  <div class="blog-cta__corner blog-cta__corner--tr" aria-hidden="true"></div>
+  <div class="blog-cta__corner blog-cta__corner--bl" aria-hidden="true"></div>
+  <div class="blog-cta__corner blog-cta__corner--br" aria-hidden="true"></div>
+
+  {/* Top Accent Line */}
+  <div class="blog-cta__accent-line" aria-hidden="true"></div>
+
+  {/* Hover Glow */}
+  <div class="blog-cta__glow" aria-hidden="true"></div>
+
+  {/* Content Container */}
+  <div class="blog-cta__content">
+    {/* Icon Badge */}
+    <div class="blog-cta__icon-badge">
+      <Icon name={icon} class="blog-cta__icon" />
+    </div>
+
+    {/* Text Content */}
+    <div class="blog-cta__text">
+      <h3 class="blog-cta__headline">{headline}</h3>
+      <p class="blog-cta__description">{description}</p>
+    </div>
+
+    {/* CTA Button */}
+    <a href={buttonHref} class="blog-cta__button group/btn">
+      <span class="blog-cta__button-text">{buttonText}</span>
+      <svg
+        class="blog-cta__button-arrow"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h14m0 0l-6-6m6 6l-6 6"></path>
+      </svg>
+    </a>
+  </div>
+
+  {/* Bottom Accent Bar */}
+  <div class="blog-cta__bottom-bar" aria-hidden="true"></div>
+
+  {/* Diagonal Stripe Pattern (subtle) */}
+  <div class="blog-cta__pattern" aria-hidden="true"></div>
+</aside>
+
+<style>
+  /* ========================================
+     BlogCTA - Industrial Refined Style
+     Navy + Lime, Sharp Lines, No Border-Radius
+     ======================================== */
+
+  .blog-cta {
+    --cta-lime: #c8ff00;
+    --cta-navy: #0a1628;
+    --cta-navy-light: #0f2038;
+    --cta-navy-lighter: #142848;
+
+    position: relative;
+    margin: 2.5rem 0;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(
+      135deg,
+      var(--cta-navy) 0%,
+      var(--cta-navy-light) 50%,
+      var(--cta-navy) 100%
+    );
+    border: 1px solid rgba(200, 255, 0, 0.15);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  @media (min-width: 640px) {
+    .blog-cta {
+      padding: 2.5rem 2rem;
+    }
+  }
+
+  /* ========================================
+     Corner Accents
+     ======================================== */
+  .blog-cta__corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .group:hover .blog-cta__corner {
+    opacity: 1;
+    width: 28px;
+    height: 28px;
+  }
+
+  .blog-cta__corner--tl {
+    top: 0;
+    left: 0;
+    border-top: 2px solid var(--cta-lime);
+    border-left: 2px solid var(--cta-lime);
+  }
+
+  .blog-cta__corner--tr {
+    top: 0;
+    right: 0;
+    border-top: 2px solid var(--cta-lime);
+    border-right: 2px solid var(--cta-lime);
+  }
+
+  .blog-cta__corner--bl {
+    bottom: 0;
+    left: 0;
+    border-bottom: 2px solid var(--cta-lime);
+    border-left: 2px solid var(--cta-lime);
+  }
+
+  .blog-cta__corner--br {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid var(--cta-lime);
+    border-right: 2px solid var(--cta-lime);
+  }
+
+  /* ========================================
+     Top Accent Line
+     ======================================== */
+  .blog-cta__accent-line {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--cta-lime) 20%,
+      var(--cta-lime) 80%,
+      transparent 100%
+    );
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .group:hover .blog-cta__accent-line {
+    opacity: 1;
+  }
+
+  /* ========================================
+     Hover Glow Effect
+     ======================================== */
+  .blog-cta__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      rgba(200, 255, 0, 0.08),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .group:hover .blog-cta__glow {
+    opacity: 1;
+  }
+
+  /* ========================================
+     Content Container
+     ======================================== */
+  .blog-cta__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .blog-cta__content {
+      flex-direction: row;
+      text-align: left;
+      gap: 1.5rem;
+    }
+  }
+
+  /* ========================================
+     Icon Badge
+     ======================================== */
+  .blog-cta__icon-badge {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 255, 0, 0.15) 0%,
+      rgba(200, 255, 0, 0.05) 100%
+    );
+    border: 1px solid rgba(200, 255, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .group:hover .blog-cta__icon-badge {
+    background: linear-gradient(
+      135deg,
+      rgba(200, 255, 0, 0.25) 0%,
+      rgba(200, 255, 0, 0.1) 100%
+    );
+    border-color: rgba(200, 255, 0, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(200, 255, 0, 0.15);
+  }
+
+  .blog-cta__icon {
+    width: 28px;
+    height: 28px;
+    color: var(--cta-lime);
+    transition: transform 0.3s ease;
+  }
+
+  .group:hover .blog-cta__icon {
+    transform: scale(1.1);
+  }
+
+  /* ========================================
+     Text Content
+     ======================================== */
+  .blog-cta__text {
+    flex: 1;
+  }
+
+  .blog-cta__headline {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 640px) {
+    .blog-cta__headline {
+      font-size: 1.375rem;
+    }
+  }
+
+  .blog-cta__description {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ========================================
+     CTA Button
+     ======================================== */
+  .blog-cta__button {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.875rem 1.5rem;
+    background: var(--cta-lime);
+    color: var(--cta-navy);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: 2px solid var(--cta-lime);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+  }
+
+  .blog-cta__button:hover {
+    background: transparent;
+    color: var(--cta-lime);
+    box-shadow: 0 0 30px rgba(200, 255, 0, 0.25);
+  }
+
+  .blog-cta__button-text {
+    position: relative;
+  }
+
+  .blog-cta__button-arrow {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-cta__button:hover .blog-cta__button-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ========================================
+     Bottom Accent Bar
+     ======================================== */
+  .blog-cta__bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--cta-lime);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .group:hover .blog-cta__bottom-bar {
+    width: 70%;
+  }
+
+  /* ========================================
+     Diagonal Pattern (subtle texture)
+     ======================================== */
+  .blog-cta__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--cta-lime),
+      var(--cta-lime) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
