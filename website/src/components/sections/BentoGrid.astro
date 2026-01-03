@@ -105,12 +105,7 @@ const processedHeadline = headline.replace(
         data-variant={sectionVariant}
       >
         {/* Spotlight glow effect */}
-        <div
-          class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300"
-        >
-        </div>
-        {/* Rotating border glow effect */}
-        <div class="border-glow"></div>
+        <div class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300"></div>
         <div
           class="bentogrid-card-inner relative z-30 flex h-full w-full flex-col overflow-hidden"
         >
@@ -160,8 +155,6 @@ const processedHeadline = headline.replace(
           >
             {/* Spotlight glow effect */}
             <div class="card-glow pointer-events-none absolute inset-0 z-40 transition-opacity duration-300" />
-            {/* Rotating border glow effect */}
-            <div class="border-glow" />
             <div class="bentogrid-card-inner relative z-30 h-full w-full overflow-hidden">
               <div class="flex h-full flex-col p-8">
                 {/* Icon */}
@@ -214,10 +207,6 @@ const processedHeadline = headline.replace(
           const rect = card.getBoundingClientRect();
           const x = event.clientX - rect.left;
           const y = event.clientY - rect.top;
-
-          // Set CSS variables for rotating border glow
-          card.style.setProperty("--mouse-x", `${x}px`);
-          card.style.setProperty("--mouse-y", `${y}px`);
 
           // Apply spotlight gradient to card-glow element using CSS variable
           const glowElement = card.querySelector(".card-glow") as HTMLElement;
@@ -337,77 +326,5 @@ const processedHeadline = headline.replace(
 
   .bentogrid-check-icon {
     color: var(--section-accent);
-  }
-
-  /* ========================================
-     Border glow effect - rotating element approach
-     ======================================== */
-  .bento-card .border-glow {
-    position: absolute;
-    inset: 0;
-    z-index: 20;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  .bento-card:hover .border-glow {
-    opacity: 1;
-  }
-
-  /* Rotating glow element - uses CSS variable for accent color */
-  .bento-card .border-glow::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      transparent 30deg,
-      color-mix(in srgb, var(--section-accent) 20%, transparent) 50deg,
-      color-mix(in srgb, var(--section-accent) 40%, transparent) 70deg,
-      color-mix(in srgb, var(--section-accent) 70%, transparent) 85deg,
-      var(--section-accent) 90deg,
-      color-mix(in srgb, var(--section-accent) 70%, transparent) 95deg,
-      color-mix(in srgb, var(--section-accent) 40%, transparent) 110deg,
-      color-mix(in srgb, var(--section-accent) 20%, transparent) 130deg,
-      transparent 150deg,
-      transparent 360deg
-    );
-    transform: translate(-50%, -50%);
-    animation: spinGlow 6s linear infinite;
-    animation-play-state: paused;
-  }
-
-  /* Inner mask to create border effect */
-  .bento-card .border-glow::after {
-    content: "";
-    position: absolute;
-    inset: 3px;
-    background: var(--section-card-bg);
-  }
-
-  .bento-card:hover .border-glow::before {
-    animation-play-state: running;
-  }
-
-  @keyframes spinGlow {
-    0% {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    100% {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
-
-  /* Reduce motion */
-  @media (prefers-reduced-motion: reduce) {
-    .bento-card .border-glow::before {
-      animation: none;
-    }
   }
 </style>
