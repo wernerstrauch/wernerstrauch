@@ -39,11 +39,13 @@
     "vanilla-cookieconsent": "^3.1.0"
   },
   "devDependencies": {
-    "playwright": "^1.57.0"
+    "playwright": "^1.57.0",
+    "puppeteer": "^24.34.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "playwright"
+      "playwright",
+      "puppeteer"
     ]
   }
 }
