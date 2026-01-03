@@ -52,10 +52,10 @@ sections:
         shape: "hexagons"
         hideOnMobile: true
     content:
-      badge: "Leistungen"
+      badge: "E-Commerce Leistungen"
       badgeIcon: "heroicons:briefcase-16-solid"
-      headline: "<mark>E-Commerce</mark> <em>Leistungen</em> für jede Phase"
-      subheadline: "Von der strategischen Analyse über Technologieberatung bis zur Umsetzungsbegleitung – ich unterstütze Sie genau dort, wo Sie Hilfe brauchen. Modular, unabhängig und auf Augenhöhe."
+      headline: "E-Commerce-Lösungen, die <em>Ergebnisse</em> liefern"
+      subheadline: "Von der strategischen Analyse über Technologieberatung bis zur Projektleitung – modulare Unterstützung genau dort, wo Sie sie brauchen. Unabhängig, ohne Provisionen und mit klarem Fokus auf Ihre Ziele."
       image: "/src/images/leistungen-hero.png"
       imageAlt: "E-Commerce Leistungen - Übersicht"
       primaryCta: "Erstgespräch vereinbaren"
