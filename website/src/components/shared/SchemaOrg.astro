@@ -1,15 +1,17 @@
 ---
 /**
  * SchemaOrg Component - Renders JSON-LD structured data
+ * Supports multilingual content (DE/EN)
  *
  * Usage:
- * <SchemaOrg type="person" />
- * <SchemaOrg type="website" />
- * <SchemaOrg type="service" service={{ name, description, url }} />
- * <SchemaOrg type="breadcrumb" items={[{ name, url }]} />
+ * <SchemaOrg type="person" lang={lang} />
+ * <SchemaOrg type="website" lang={lang} />
+ * <SchemaOrg type="service" service={{ name, description, url }} lang={lang} />
+ * <SchemaOrg type="breadcrumb" items={[{ name, url }]} lang={lang} />
  * <SchemaOrg type="faq" faqs={[{ question, answer }]} />
  */
 
+import type { SupportedLanguage } from "@lib/i18n";
 import {
   generatePersonSchema,
   generateWebSiteSchema,
@@ -49,6 +51,8 @@ interface WebPageProps {
 
 interface Props {
   type: "person" | "website" | "professionalService" | "service" | "breadcrumb" | "faq" | "webPage" | "organization" | "serviceBySlug";
+  // Language for multilingual schemas
+  lang?: SupportedLanguage;
   // For service type
   service?: ServiceProps;
   // For serviceBySlug type
@@ -61,33 +65,33 @@ interface Props {
   page?: WebPageProps;
 }
 
-const { type, service, slug, items, faqs, page } = Astro.props;
+const { type, lang = "de", service, slug, items, faqs, page } = Astro.props;
 
 function getSchemaData() {
   switch (type) {
     case "person":
-      return generatePersonSchema();
+      return generatePersonSchema(lang);
     case "website":
-      return generateWebSiteSchema();
+      return generateWebSiteSchema(lang);
     case "professionalService":
-      return generateProfessionalServiceSchema();
+      return generateProfessionalServiceSchema(lang);
     case "service":
       if (!service) return null;
-      return generateServiceSchema(service);
+      return generateServiceSchema({ ...service, lang });
     case "serviceBySlug":
       if (!slug) return null;
-      return getServiceSchemaForPage(slug);
+      return getServiceSchemaForPage(slug, lang);
     case "breadcrumb":
       if (!items || items.length === 0) return null;
-      return generateBreadcrumbSchema(items);
+      return generateBreadcrumbSchema(items, lang);
     case "faq":
       if (!faqs || faqs.length === 0) return null;
       return generateFAQSchema(faqs);
     case "webPage":
       if (!page) return null;
-      return generateWebPageSchema(page);
+      return generateWebPageSchema({ ...page, lang });
     case "organization":
-      return generateOrganizationSchema();
+      return generateOrganizationSchema(lang);
     default:
       return null;
   }

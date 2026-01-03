@@ -110,8 +110,8 @@ const socialImageURL = new URL(ogImage ?? SITE.ogImage, Astro.url.origin).href;
     </script>
 
     {/* Schema.org Structured Data */}
-    <SchemaOrg type="website" />
-    <SchemaOrg type="person" />
+    <SchemaOrg type="website" lang={lang} />
+    <SchemaOrg type="person" lang={lang} />
     <slot name="schema" />
   </head>
   <body

@@ -268,17 +268,17 @@ const backgroundMap: Record<string, any> = {
   <Fragment slot="schema">
     {/* Breadcrumbs for non-homepage */}
     {!isHomepage && breadcrumbItems.length > 1 && (
-      <SchemaOrg type="breadcrumb" items={breadcrumbItems} />
+      <SchemaOrg type="breadcrumb" items={breadcrumbItems} lang={lang} />
     )}
 
     {/* Service schema for individual service pages */}
     {isServicePage && pageSlug && (
-      <SchemaOrg type="serviceBySlug" slug={pageSlug} />
+      <SchemaOrg type="serviceBySlug" slug={pageSlug} lang={lang} />
     )}
 
     {/* ProfessionalService schema for services overview */}
     {isServicesOverview && (
-      <SchemaOrg type="professionalService" />
+      <SchemaOrg type="professionalService" lang={lang} />
     )}
 
     {/* FAQ schema if page has FAQs */}
