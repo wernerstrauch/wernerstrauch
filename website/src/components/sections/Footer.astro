@@ -216,11 +216,11 @@ const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
           </div>
           <div class="mt-4 space-y-3">
             <a
-              href="mailto:kontakt@wernerstrauch.de"
+              href={lang === "en" ? "mailto:contact@wernerstrauch.com" : "mailto:kontakt@wernerstrauch.de"}
               class="footer-email group inline-flex items-center gap-2 text-sm transition-all duration-300"
             >
               <Icon name="heroicons:envelope-16-solid" class="h-4 w-4" />
-              <span>kontakt@wernerstrauch.de</span>
+              <span>{lang === "en" ? "contact@wernerstrauch.com" : "kontakt@wernerstrauch.de"}</span>
             </a>
           </div>
         </div>

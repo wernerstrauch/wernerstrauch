@@ -151,22 +151,30 @@ export const POST: APIRoute = async ({ request }) => {
     // Build sections based on domain
     const sections = [];
 
+    // Resolve the interest/channel label for use in sections and subject
+    let resolvedInterestLabel = channel || "Kontakt";
+    if (isWernerStrauch && channel) {
+      resolvedInterestLabel = labels.interest?.[channel] || channel;
+    } else if (channel) {
+      resolvedInterestLabel = labels.channel?.[channel] || channel;
+    }
+
     // Channel/Service/Interest section
     if (channel) {
       let sectionLabel = "Marketing-Kanal";
-      let sectionValue = labels.channel?.[channel] || channel;
+      let shouldHighlight = true;
 
       if (isKiAgentur) {
         sectionLabel = "KI-Bereich";
       } else if (isWernerStrauch) {
         sectionLabel = "Interesse an";
-        sectionValue = labels.interest?.[channel] || channel;
+        shouldHighlight = false;
       }
 
       sections.push({
         label: sectionLabel,
-        value: sectionValue,
-        highlight: true,
+        value: resolvedInterestLabel,
+        highlight: shouldHighlight,
       });
     }
 
@@ -264,7 +272,7 @@ export const POST: APIRoute = async ({ request }) => {
         <div style="font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 600;">Kontaktdaten</div>
         <div style="font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 4px;">${firstName} ${lastName}</div>
         <div style="font-size: 16px; margin-bottom: 4px;">
-          <a href="mailto:${email}" style="color: ${config.primaryColor}; text-decoration: none; font-weight: 500;">${email}</a>
+          <a href="mailto:${email}" style="color: #111827; text-decoration: none; font-weight: 500;">${email}</a>
         </div>
         ${phone ? `<div style="font-size: 15px; color: #4b5563;">${phone}</div>` : ""}
       </div>
@@ -298,7 +306,7 @@ ${sections.map((s) => `${s.label}: ${s.value}`).join("\n")}
       from: config.fromEmail,
       to: [config.toEmail],
       bcc: [config.bccEmail],
-      subject: `Neue Anfrage: ${firstName} ${lastName} - ${isWernerStrauch ? (labels.interest?.[channel] || channel || "Kontakt") : (labels.channel?.[channel] || channel || "Kontakt")}`,
+      subject: `Neue Anfrage: ${firstName} ${lastName} - ${resolvedInterestLabel}`,
       html: emailHtml,
       text: textContent,
       replyTo: email,

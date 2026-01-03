@@ -43,6 +43,16 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
     mobileMenuOpen: false,
     mobileAccordion: null,
     hoverTimeout: null,
+    init() {
+      const saved = localStorage.getItem('mobileAccordionState');
+      if (saved !== null) {
+        this.mobileAccordion = JSON.parse(saved);
+      }
+    },
+    toggleMobileAccordion(index) {
+      this.mobileAccordion = this.mobileAccordion === index ? null : index;
+      localStorage.setItem('mobileAccordionState', JSON.stringify(this.mobileAccordion));
+    },
     openDropdown(index) {
       if (this.hoverTimeout) {
         clearTimeout(this.hoverTimeout);
@@ -254,7 +264,7 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
           <button
             type="button"
             class="flex w-full items-center justify-between py-3 text-base font-medium text-white/90"
-            @click={`mobileAccordion = mobileAccordion === ${index} ? null : ${index}`}
+            @click={`toggleMobileAccordion(${index})`}
           >
             <span>{category.title}</span>
             <Icon
