@@ -360,15 +360,15 @@ sections:
       sections:
         - title: "More Than an Automated Report"
           content: |
-            <p>Every SEO tool produces an "audit" at the push of a button. But these automated reports only scratch the surface. A professional e-commerce audit goes deeper: it combines technical analysis with business understanding and considers your specific situation.</p>
-            <p>The real work isn't in collecting data – but in interpreting and prioritizing. What does a specific finding mean for <em>your</em> business? How urgent is it? Which measure has the greatest leverage?</p>
+            <p>Any SEO tool can spit out an "audit" with one click. But those automated reports barely scratch the surface. A professional e-commerce audit goes deeper – combining technical analysis with business insight, tailored to your specific situation.</p>
+            <p>The real work isn't collecting data – it's interpreting and prioritizing what you find. What does a specific issue mean for <em>your</em> business? How urgent is it? Which fix will move the needle most?</p>
         - title: "The Six Pillars of a Comprehensive Audit"
           content: |
-            <p><strong>1. Shop & User Experience:</strong> How do real customers experience your shop? Navigation, product presentation, checkout – every touchpoint is examined for conversion killers.</p>
-            <p><strong>2. SEO & Visibility:</strong> Technical SEO, on-page factors, content quality – how well are you found by potential customers?</p>
-            <p><strong>3. Conversion & Performance:</strong> Where in the funnel do you lose customers? Which pages underperform? Data-driven analysis instead of guesswork.</p>
-            <p><strong>4. Technology & Speed:</strong> Loading times, Core Web Vitals, code quality – the technical foundation determines ranking and user experience.</p>
-            <p><strong>5. Security & Compliance:</strong> GDPR, Payment Security, SSL – identify legal and technical risks before they become problems.</p>
+            <p><strong>1. Shop & User Experience:</strong> How do real customers experience your shop? Navigation, product presentation, checkout – every touchpoint gets examined for conversion killers.</p>
+            <p><strong>2. SEO & Visibility:</strong> Technical SEO, on-page factors, content quality – how easily can potential customers find you?</p>
+            <p><strong>3. Conversion & Performance:</strong> Where in the funnel are you losing customers? Which pages underperform? This is data-driven analysis, not guesswork.</p>
+            <p><strong>4. Technology & Speed:</strong> Loading times, Core Web Vitals, code quality – your technical foundation directly impacts rankings and user experience.</p>
+            <p><strong>5. Security & Compliance:</strong> GDPR, payment security, SSL – spot legal and technical risks before they become real problems.</p>
             <p><strong>6. Processes & Systems:</strong> How efficient is your backend? Order processing, integrations, automation – this is where hidden potential often lives.</p>
         - title: "When Is an Audit Worth It?"
           content: |
@@ -414,11 +414,11 @@ sections:
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
         - question: "How long does an e-commerce audit take?"
-          answer: "A comprehensive audit typically takes 2-4 weeks – depending on shop size and complexity. This includes preparation, analysis, report creation and presentation. For urgent cases, an express audit is also possible."
+          answer: "A comprehensive audit typically takes 2-4 weeks, depending on shop size and complexity. That includes prep, analysis, report writing, and the final presentation. Need it faster? Express audits are available for urgent cases."
         - question: "What does an e-commerce audit cost?"
           answer: "A basic audit covering the key areas starts at EUR 2,500. A comprehensive audit with all six areas runs between EUR 4,000 and EUR 6,000, depending on your shop's complexity. We'll figure out the right scope for you in an initial call."
         - question: "What access do you need?"
-          answer: "For a complete audit, I need access to: Google Analytics / Matomo, Google Search Console, Shop Backend (read-only is sufficient), and possibly other systems depending on focus. All access is removed after project completion."
+          answer: "For a complete audit, I'll need access to Google Analytics or Matomo, Google Search Console, and your shop backend (read-only is fine). Depending on focus areas, I may need other systems too. All access is revoked once the project wraps up."
         - question: "How is your audit different from automated tools?"
           answer: "Automated tools give you raw data – I give you insights and priorities. My audit combines tool analysis with hands-on review and real business context. You don't just get a list of problems; you get a roadmap showing exactly what to tackle first."
         - question: "Can you help with implementation too?"
@@ -447,7 +447,7 @@ sections:
         direction: "to bottom"
     content:
       headline: "Ready for <em>Clarity</em>?"
-      description: "Find out where your shop is leaving potential on the table. In a free preliminary call, we clarify your goals and the right audit scope."
+      description: "Find out where your shop is falling short of its potential. In a free discovery call, we'll discuss your goals and determine the right audit scope."
       buttonText: "Request Audit"
       buttonHref: "/contact"
       emailLabel: "Prefer to write first?"

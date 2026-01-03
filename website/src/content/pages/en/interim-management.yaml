@@ -447,8 +447,8 @@ sections:
         to: "transparent"
         direction: "to bottom"
     content:
-      headline: "Close <em>Leadership Gap</em>?"
-      description: "Let's clarify in a short call whether interim management is the right solution for your situation. Non-binding and confidential."
+      headline: "Need to Fill a <em>Leadership Gap</em>?"
+      description: "Let's jump on a quick call to see if interim management is the right move for your situation. No strings attached."
       buttonText: "Check Availability"
       buttonHref: "/contact"
       emailLabel: "Prefer to write first?"

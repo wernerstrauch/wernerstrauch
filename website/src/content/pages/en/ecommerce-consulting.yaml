@@ -7,7 +7,7 @@ slug: ecommerce-consulting
 
 meta:
   title: "E-Commerce Consulting | Strategy, Processes & Technology | Werner Strauch"
-  description: "Holistic E-Commerce Consulting: From strategy to process optimization to technology selection. Independent expertise for sustainable growth."
+  description: "End-to-end e-commerce consulting: from strategy and process optimization to technology selection. Unbiased expertise for lasting growth."
   ogImage:
     headline: "E-Commerce<br><mark>Consulting</mark>"
     filename: "og-ecommerce-consulting"
@@ -51,9 +51,9 @@ sections:
       subheadline: "Strategy, processes, and technology - I look at your online business from every angle. Together, we build solutions that drive real, lasting growth."
       image: "/src/images/ecommerce-beratung-hero.png"
       imageAlt: "E-Commerce Consulting - Strategic Analysis"
-      primaryCta: "Schedule Initial Call"
+      primaryCta: "Book a Discovery Call"
       primaryCtaHref: "/contact"
-      secondaryCta: "Consulting Areas"
+      secondaryCta: "See What I Cover"
       secondaryCtaHref: "#consulting-areas"
 
   # ========================================
@@ -440,8 +440,8 @@ sections:
         direction: "to bottom"
     content:
       headline: "Ready for <em>Clarity</em>?"
-      description: "Let's find out in 30 minutes where the biggest levers for your e-commerce business lie. Non-binding and free of charge."
-      buttonText: "Schedule Initial Call"
+      description: "In 30 minutes, we can figure out where the biggest opportunities are for your e-commerce business. Free and no strings attached."
+      buttonText: "Book a Discovery Call"
       buttonHref: "/contact"
-      emailLabel: "Prefer to write first?"
+      emailLabel: "Rather send an email first?"
       email: "contact@wernerstrauch.com"

@@ -6,8 +6,8 @@ pageId: umsetzungsbegleitung
 slug: implementation-support
 
 meta:
-  title: "E-Commerce Implementation Support | Sparring Partner & QA | Werner Strauch"
-  description: "Professional implementation support for e-commerce projects: Sparring partner, QA, vendor management. For shop migration, ERP implementation or system integration. 2-8 days/month."
+  title: "E-Commerce Implementation Support | Strategic Advisor & QA | Werner Strauch"
+  description: "Independent implementation support for e-commerce projects: strategic advisory, QA, vendor management. Shop migrations, ERP rollouts, system integrations. 2-8 days/month."
   ogImage:
     headline: "E-Commerce<br><mark>Implementation Support</mark>"
     filename: "og-ecommerce-implementation-support"
@@ -50,7 +50,7 @@ sections:
       headline: "<mark>E-Commerce</mark> <em>Implementation Support</em>"
       subheadline: "Your trusted advisor for complex e-commerce projects. I guide you through shop migrations, ERP rollouts, and system integrations - bringing critical thinking, not executive authority."
       image: "/src/images/umsetzungsbegleitung-hero.png"
-      imageAlt: "E-Commerce Implementation Support - Sparring Partner"
+      imageAlt: "E-Commerce Implementation Support - Strategic Advisor"
       primaryCta: "Schedule Initial Call"
       primaryCtaHref: "/contact"
       secondaryCta: "Understand My Role"
@@ -381,16 +381,16 @@ sections:
           answer: "It depends on the project phase. During crunch times (kickoff, go-live), expect 6-8 days per month. During calmer stretches, 2-3 days. We'll define a framework that fits your project."
         - question: "Will you work with our agency?"
           answer: "Absolutely - that's the norm. I'm not competing with your agency; I'm your advocate on the client side. Good agencies actually appreciate this, because clear requirements and fast decisions make their lives easier too."
-        - question: "From what project size does support make sense?"
-          answer: "As a rule of thumb: For projects from €50,000 in volume or from 3 months duration, independent support is worthwhile. For smaller projects, a one-time <a href='/ecommerce-audit'>Audit</a> or <a href='/ecommerce-sparring'>Sparring</a> often makes more sense."
-        - question: "Can I book you only for certain phases?"
-          answer: "Absolutely. Some clients book me only for the concept phase, others only for go-live assurance. We can flexibly focus the support on critical phases."
+        - question: "What's the minimum project size where this makes sense?"
+          answer: "Rule of thumb: for projects over EUR 50,000 or lasting more than 3 months, independent support is worth it. For smaller projects, a one-time <a href='/ecommerce-audit'>Audit</a> or <a href='/ecommerce-sparring'>Sparring session</a> is usually a better fit."
+        - question: "Can I bring you in for specific phases only?"
+          answer: "Absolutely. Some clients bring me in just for the concept phase, others only for go-live assurance. We can focus the engagement on whichever phases are most critical."
         - question: "What does implementation support cost?"
-          answer: "Monthly support starts at €1,500 for 2 days per month and goes up to €4,000 for 8 days per month. For longer projects, package prices are also possible. In the initial call, we clarify what scope makes sense for your project."
+          answer: "Monthly support ranges from EUR 1,500 for 2 days per month up to EUR 4,000 for 8 days. For longer engagements, package pricing is available. We'll figure out the right scope during our initial call."
         - question: "How quickly can you start?"
-          answer: "Usually I can start within 1-2 weeks. For urgent projects, we'll find shorter-term solutions as well. Just reach out to me."
-        - question: "What happens if there are conflicts with the vendor?"
-          answer: "I moderate and mediate – but I'm clearly on your side. In real conflicts, I help to document them, define escalation paths and, if necessary, evaluate alternatives."
+          answer: "Typically within 1-2 weeks. For urgent projects, I can often find a faster solution. Just get in touch."
+        - question: "What if there are conflicts with the vendor?"
+          answer: "I facilitate and mediate - but I'm unambiguously in your corner. When real conflicts arise, I help document issues, define escalation paths, and evaluate alternatives if needed."
 
   # ========================================
   # Section 9: CTA
@@ -408,8 +408,8 @@ sections:
         to: "transparent"
         direction: "to bottom"
     content:
-      headline: "Project in Planning?"
-      description: "Let's discuss how I can support your e-commerce project. 30 minutes – non-binding and free of charge."
+      headline: "Got a Project Coming Up?"
+      description: "Let's talk about how I can support your e-commerce initiative. 30 minutes - no commitment, no charge."
       buttonText: "Schedule Initial Call"
       buttonHref: "/contact"
       emailLabel: "Prefer to write first?"

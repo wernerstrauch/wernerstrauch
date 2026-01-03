@@ -1,35 +1,56 @@
 ---
 import { Icon } from "astro-icon/components";
 import { SITE, getSiteConfig } from "@config";
-import type { SupportedLanguage } from "@lib/i18n";
+import { LANGUAGES, type SupportedLanguage } from "@lib/i18n";
 import deTranslations from "@i18n/de.json";
 import enTranslations from "@i18n/en.json";
 
 interface Props {
   lang?: SupportedLanguage;
+  alternateUrl?: string;
 }
 
-const { lang = "de" } = Astro.props;
+const { lang = "de", alternateUrl } = Astro.props;
 const siteConfig = getSiteConfig(lang);
 const t = lang === "en" ? enTranslations : deTranslations;
 
+// Determine URL prefix based on build mode
+// When SITE_LANG is set, we're building for a separate domain (no prefix needed)
+const isSeparateDomainBuild = !!import.meta.env.SITE_LANG;
+const enPrefix = isSeparateDomainBuild ? "" : "/en";
+
+// Language switcher
+const targetLang = lang === "de" ? "en" : "de";
+const altUrl = alternateUrl || LANGUAGES[targetLang].siteUrl;
+
 const footerNavigation = {
   main: [
-    { name: t.nav.about, href: lang === "en" ? "/en/about" : "/ueber-mich" },
-    { name: t.nav.services, href: lang === "en" ? "/en/services" : "/leistungen" },
-    { name: t.nav.contact, href: lang === "en" ? "/en/contact" : "/kontakt" },
+    { name: t.nav.about, href: lang === "en" ? `${enPrefix}/about` : "/ueber-mich" },
+    { name: t.nav.services, href: lang === "en" ? `${enPrefix}/services` : "/leistungen" },
+    { name: t.nav.contact, href: lang === "en" ? `${enPrefix}/contact` : "/kontakt" },
   ],
   legal: [
-    { name: t.footer.imprint, href: lang === "en" ? "/en/imprint" : "/impressum" },
-    { name: t.footer.privacy, href: lang === "en" ? "/en/privacy" : "/datenschutz" },
+    { name: t.footer.imprint, href: lang === "en" ? `${enPrefix}/imprint` : "/impressum" },
+    { name: t.footer.privacy, href: lang === "en" ? `${enPrefix}/privacy` : "/datenschutz" },
   ],
-  servicesAnalyse: [
+  servicesAnalyse: lang === "en" ? [
+    { name: "E-Commerce Audit", href: `${enPrefix}/ecommerce-audit` },
+    { name: "E-Commerce Strategy", href: `${enPrefix}/ecommerce-strategy` },
+    { name: "E-Commerce Consulting", href: `${enPrefix}/ecommerce-consulting` },
+    { name: "Technology Consulting", href: `${enPrefix}/technology-consulting` },
+  ] : [
     { name: "E-Commerce Audit", href: "/ecommerce-audit" },
     { name: "E-Commerce Strategie", href: "/ecommerce-strategie" },
     { name: "E-Commerce Beratung", href: "/ecommerce-beratung" },
     { name: "Technologieberatung", href: "/technologieberatung" },
   ],
-  servicesUmsetzung: [
+  servicesUmsetzung: lang === "en" ? [
+    { name: "E-Commerce Workshop", href: `${enPrefix}/ecommerce-workshop` },
+    { name: "E-Commerce Sparring", href: `${enPrefix}/ecommerce-sparring` },
+    { name: "Implementation Support", href: `${enPrefix}/implementation-support` },
+    { name: "Project Management", href: `${enPrefix}/project-management` },
+    { name: "Interim Management", href: `${enPrefix}/interim-management` },
+  ] : [
     { name: "E-Commerce Workshop", href: "/ecommerce-workshop" },
     { name: "E-Commerce Sparring", href: "/ecommerce-sparring" },
     { name: "Umsetzungsbegleitung", href: "/umsetzungsbegleitung" },
@@ -37,6 +58,9 @@ const footerNavigation = {
     { name: "Interim Management", href: "/interim-management" },
   ],
 };
+
+// Homepage URL
+const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
 ---
 
 <footer class="footer-section">
@@ -75,7 +99,7 @@ const footerNavigation = {
       <div class="lg:col-span-5">
         {/* Logo */}
         <a
-          href={lang === "en" ? "/en" : "/"}
+          href={homeUrl}
           class="footer-logo group inline-block"
           aria-label="Home"
         >
@@ -209,11 +233,23 @@ const footerNavigation = {
         © {new Date().getFullYear()} {siteConfig.author}. {t.footer.copyright}.
       </p>
 
-      {/* Back to Top */}
-      <a href="#" class="footer-back-to-top group inline-flex items-center gap-2 text-sm">
-        <span>{lang === "en" ? "Back to top" : "Nach oben"}</span>
-        <Icon name="heroicons:arrow-up-16-solid" class="h-4 w-4 transition-transform group-hover:-translate-y-1" />
-      </a>
+      <div class="flex items-center gap-6">
+        {/* Language Switcher */}
+        <a
+          href={altUrl}
+          class="footer-language-switch group inline-flex items-center gap-2 text-sm transition-all duration-300"
+          title={lang === "de" ? "Switch to English" : "Auf Deutsch wechseln"}
+        >
+          <Icon name="heroicons:language-16-solid" class="h-4 w-4" />
+          <span>{lang === "de" ? "English" : "Deutsch"}</span>
+        </a>
+
+        {/* Back to Top */}
+        <a href="#" class="footer-back-to-top group inline-flex items-center gap-2 text-sm">
+          <span>{lang === "en" ? "Back to top" : "Nach oben"}</span>
+          <Icon name="heroicons:arrow-up-16-solid" class="h-4 w-4 transition-transform group-hover:-translate-y-1" />
+        </a>
+      </div>
     </div>
   </div>
 </footer>
@@ -307,23 +343,8 @@ const footerNavigation = {
     transition: opacity 0.3s ease;
   }
 
-  .footer-logo::after {
-    content: "";
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #c8ff00;
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .footer-logo:hover::after {
-    width: 100%;
-  }
-
   .footer-logo:hover {
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
   /* ========================================
@@ -421,5 +442,16 @@ const footerNavigation = {
 
   .footer-back-to-top:hover {
     opacity: 0.8;
+  }
+
+  /* ========================================
+     Language Switcher
+     ======================================== */
+  .footer-language-switch {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .footer-language-switch:hover {
+    color: #c8ff00;
   }
 </style>
