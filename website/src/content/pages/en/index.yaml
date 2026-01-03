@@ -3,7 +3,7 @@ pageId: homepage
 
 meta:
   title: "Werner Strauch | E-Commerce Consulting & Strategy"
-  description: "Your independent e-commerce consultant: I bring clarity to complex decisions – with clear roadmaps, technical depth and measurable results."
+  description: "Independent e-commerce consultant helping brands make smarter technology decisions. Clear roadmaps, deep technical expertise, and results that actually matter."
   ogImage:
     headline: "Werner <mark>Strauch</mark><br><mark>E-Commerce</mark> Consultant"
     filename: "og-ecommerce-consultant"
@@ -546,9 +546,9 @@ sections:
         size: md
         animate: false
     content:
-      headline: "Ready for <em>Clarity</em>?"
-      description: "Let's find out in 30 minutes where you stand and what the next sensible step is."
-      buttonText: "Schedule a Call"
+      headline: "Ready to get <em>Unstuck</em>?"
+      description: "Let's spend 30 minutes figuring out where you are and what the smartest next step looks like."
+      buttonText: "Book a Call"
       buttonHref: "/contact"
-      emailLabel: "Prefer to write first?"
+      emailLabel: "Prefer email?"
       email: "contact@wernerstrauch.com"
