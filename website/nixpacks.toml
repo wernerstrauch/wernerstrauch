@@ -1,3 +1,2 @@
-# Skip Playwright browser download in production
 [variables]
 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
