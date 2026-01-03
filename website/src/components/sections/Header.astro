@@ -106,7 +106,7 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
 
       {/* Right Side - Language + Button */}
       <div class="hidden md:flex items-center gap-4 shrink-0">
-          <a
+        <a
           href={altUrl}
           class:list={[
             "flex items-center gap-1 text-sm transition-colors",
@@ -294,7 +294,6 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
       ))}
 
       <div class="border-t border-white/10 pt-3 mt-2">
-        {/* Language Switcher - temporarily disabled
         <a
           href={altUrl}
           class="flex items-center gap-2 py-2 text-base font-medium text-white/60 hover:text-white"
@@ -302,7 +301,6 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
           <Icon name="heroicons:language-16-solid" class="h-5 w-5" />
           <span>{lang === "de" ? "English" : "Deutsch"}</span>
         </a>
-        */}
         <a
           href={lang === "en" ? "/en/contact" : "/kontakt"}
           class="mt-3 block w-full text-center nav-contact-btn px-5 py-3 text-sm font-semibold rounded-none"

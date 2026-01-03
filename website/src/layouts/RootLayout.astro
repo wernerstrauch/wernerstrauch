@@ -67,13 +67,12 @@ const socialImageURL = new URL(ogImage ?? SITE.ogImage, Astro.url.origin).href;
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    {/* Hreflang tags for SEO - temporarily disabled
+    {/* Hreflang tags for SEO */}
     {
       hreflangEntries.map((entry) => (
         <link rel="alternate" hreflang={entry.lang} href={entry.url} />
       ))
     }
-    */}
 
     {/* Open Graph / Facebook */}
     <meta property="og:type" content="website" />
