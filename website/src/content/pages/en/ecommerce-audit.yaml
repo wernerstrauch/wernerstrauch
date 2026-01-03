@@ -327,10 +327,10 @@ sections:
               description: "Every optimization opportunity ranked by impact and effort. You'll know exactly where to start."
             - icon: "heroicons:bolt"
               title: "Quick Win Overview"
-              description: "Measures that can be implemented quickly and have immediate impact – separately marked."
+              description: "Fast-to-implement changes that deliver immediate results – clearly flagged for easy wins."
             - icon: "heroicons:presentation-chart-line"
               title: "Management Presentation"
-              description: "60-90 minute presentation of the key findings – ideal for stakeholders and decision-makers."
+              description: "A 60-90 minute walkthrough of the key findings – perfect for getting stakeholders and leadership aligned."
         - type: "button"
           text: "Request Audit"
           href: "/contact"
@@ -369,15 +369,15 @@ sections:
             <p><strong>3. Conversion & Performance:</strong> Where in the funnel do you lose customers? Which pages underperform? Data-driven analysis instead of guesswork.</p>
             <p><strong>4. Technology & Speed:</strong> Loading times, Core Web Vitals, code quality – the technical foundation determines ranking and user experience.</p>
             <p><strong>5. Security & Compliance:</strong> GDPR, Payment Security, SSL – identify legal and technical risks before they become problems.</p>
-            <p><strong>6. Processes & Systems:</strong> How efficient is the backend? Order processing, integrations, automation – often there's untapped potential here.</p>
-        - title: "When Is an Audit Worthwhile?"
+            <p><strong>6. Processes & Systems:</strong> How efficient is your backend? Order processing, integrations, automation – this is where hidden potential often lives.</p>
+        - title: "When Is an Audit Worth It?"
           content: |
-            <p>An e-commerce audit is particularly valuable before strategic decisions: Before a shop relaunch, to set the right priorities. Before a marketing offensive, to plug conversion leaks. Or simply when you feel your shop is underperforming its potential.</p>
-            <p>Unlike ongoing consulting, an audit is a one-time project with a clear scope and defined deliverables. You receive a comprehensive status report and a prioritized roadmap – the implementation is then up to you or your agency.</p>
+            <p>An e-commerce audit is especially valuable before major decisions: before a shop relaunch, to get your priorities straight; before a big marketing push, to fix conversion bottlenecks; or simply when you sense your shop isn't reaching its full potential.</p>
+            <p>Unlike ongoing consulting, an audit is a one-time project with a clear scope and defined deliverables. You walk away with a comprehensive status report and a prioritized roadmap – implementation is up to you or your team.</p>
         - title: "What Happens After the Audit?"
           content: |
-            <p>An audit is the first step. Based on the results, you can go directly into implementation – or first develop an <a href="/ecommerce-strategy">E-Commerce Strategy</a> that prioritizes all measures and puts them in a larger context.</p>
-            <p>For ongoing support, <a href="/ecommerce-sparring">E-Commerce Sparring</a> is available, for complex projects <a href="/implementation-support">Implementation Support</a> or <a href="/project-management">Project Management</a>.</p>
+            <p>An audit is just the first step. From there, you can dive straight into implementation – or develop an <a href="/ecommerce-strategy">E-Commerce Strategy</a> that prioritizes everything and ties it into the bigger picture.</p>
+            <p>Need ongoing support? <a href="/ecommerce-sparring">E-Commerce Sparring</a> keeps momentum going. For complex projects, there's <a href="/implementation-support">Implementation Support</a> or full <a href="/project-management">Project Management</a>.</p>
 
   # ========================================
   # Section 8: FAQ
@@ -416,19 +416,19 @@ sections:
         - question: "How long does an e-commerce audit take?"
           answer: "A comprehensive audit typically takes 2-4 weeks – depending on shop size and complexity. This includes preparation, analysis, report creation and presentation. For urgent cases, an express audit is also possible."
         - question: "What does an e-commerce audit cost?"
-          answer: "A basic audit covering the key areas starts at €2,500. A comprehensive audit with all six areas ranges between €4,000 and €6,000, depending on shop complexity. In a preliminary discussion, we clarify which scope makes sense for you."
+          answer: "A basic audit covering the key areas starts at EUR 2,500. A comprehensive audit with all six areas runs between EUR 4,000 and EUR 6,000, depending on your shop's complexity. We'll figure out the right scope for you in an initial call."
         - question: "What access do you need?"
           answer: "For a complete audit, I need access to: Google Analytics / Matomo, Google Search Console, Shop Backend (read-only is sufficient), and possibly other systems depending on focus. All access is removed after project completion."
-        - question: "What distinguishes your audit from automated tools?"
-          answer: "Automated tools deliver raw data – I deliver interpretation and prioritization. My audit combines tool analyses with manual review and business context. You don't just get a list of problems, but a roadmap with clear priorities."
-        - question: "Can you also implement the measures?"
-          answer: "The audit is deliberately designed as a one-time project. Implementation is up to you, your team, or your agency. If desired, I can accompany the implementation as a sparring partner – that's then part of a separate consulting agreement."
-        - question: "Which shop systems do you offer audits for?"
-          answer: "The audit is system-agnostic – whether Shopify, Shopware, WooCommerce, Magento, or a custom solution. The analysis methods are transferable, and technical checks are adapted to your system."
+        - question: "How is your audit different from automated tools?"
+          answer: "Automated tools give you raw data – I give you insights and priorities. My audit combines tool analysis with hands-on review and real business context. You don't just get a list of problems; you get a roadmap showing exactly what to tackle first."
+        - question: "Can you help with implementation too?"
+          answer: "The audit is intentionally a one-time project. Implementation is up to you, your team, or your agency. That said, I can support the rollout as a sparring partner if needed – we'd set that up as a separate engagement."
+        - question: "Which e-commerce platforms do you audit?"
+          answer: "The audit is platform-agnostic – Shopify, Shopware, WooCommerce, Magento, or custom builds. The analysis methods transfer across platforms, and technical checks are tailored to your specific system."
         - question: "What happens after the audit?"
-          answer: "You receive the report and presentation. With that, you have everything you need for the next steps. Many clients implement the measures themselves. If desired, I offer optional implementation support or a follow-up check after 3-6 months."
-        - question: "Is the audit also useful for small shops?"
-          answer: "Yes – smaller shops often benefit the most, because no processes are established yet and a lot of potential lies dormant. For shops with less complexity, I offer a focused basic audit that covers the most important areas."
+          answer: "You get the report and presentation – everything you need to take the next steps. Most clients handle implementation themselves. If you'd like, I also offer optional implementation support or a follow-up check 3-6 months down the road."
+        - question: "Is an audit useful for smaller shops?"
+          answer: "Absolutely – smaller shops often benefit the most. Processes aren't set in stone yet, and there's usually untapped potential waiting to be discovered. For less complex shops, I offer a focused basic audit that covers the essentials."
 
   # ========================================
   # Section 9: CtaCentered

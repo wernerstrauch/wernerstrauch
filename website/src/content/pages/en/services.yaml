@@ -6,8 +6,8 @@ pageId: leistungen
 slug: services
 
 meta:
-  title: "E-Commerce Services | Consulting, Strategy & Implementation | Werner Strauch"
-  description: "E-Commerce services from analysis to implementation: Audit, strategy, consulting, workshops, sparring, project management and interim management. Independent expertise."
+  title: "E-Commerce Services | Strategy, Consulting & Implementation | Werner Strauch"
+  description: "E-commerce services from analysis to execution: Audit, strategy, consulting, workshops, advisory, project management, and interim leadership. Independent expertise you can trust."
   ogImage:
     headline: "E-Commerce<br><mark>Services</mark>"
     filename: "og-ecommerce-services"
@@ -318,85 +318,85 @@ sections:
       services:
         - id: audit
           title: "E-Commerce Audit"
-          description: "Systematic analysis of your shop, processes, and systems with over 500 checkpoints. Clear identification of weaknesses and prioritized action recommendations."
+          description: "Thorough analysis of your store, processes, and systems across 500+ checkpoints. You get clear problem identification and prioritized recommendations."
           deliverables:
             - "Comprehensive audit report (50-100+ pages)"
-            - "Prioritized action recommendations"
-            - "Quick win identification"
-            - "Presentation workshop"
-          idealFor: "Online retailers seeking clarity about optimization potential – or needing an assessment before major investments."
+            - "Prioritized action plan"
+            - "Quick wins identified"
+            - "Findings workshop"
+          idealFor: "Online retailers who want clarity on where to improve, or need an honest assessment before a major investment."
         - id: strategy
           title: "E-Commerce Strategy"
-          description: "Development of your masterplan for sustainable e-commerce growth. From positioning to channel strategy to business case."
+          description: "Building your roadmap for sustainable e-commerce growth. From market positioning and channel mix to a solid business case."
           deliverables:
             - "Strategy document"
             - "Business case with financial model"
             - "Prioritized roadmap"
             - "KPI framework"
-          idealFor: "Companies facing strategic decisions – realignment, scaling, or internationalization."
+          idealFor: "Companies at a strategic crossroads: pivoting, scaling, or expanding internationally."
         - id: consulting
           title: "E-Commerce Consulting"
-          description: "Holistic consulting on strategy, processes, technology, and market. I examine your online business from all perspectives."
+          description: "End-to-end consulting on strategy, operations, technology, and market. I look at your online business from every angle."
           deliverables:
             - "360-degree analysis"
             - "Strategic recommendations"
             - "Process mapping"
             - "Ongoing support"
-          idealFor: "Retailers looking for an experienced partner for all e-commerce questions – occasionally or permanently."
+          idealFor: "Retailers who want a seasoned partner for any e-commerce challenge, whether ad-hoc or long-term."
         - id: technology
           title: "Technology Consulting"
-          description: "Neutral, vendor-independent consulting for system selection. Shop system, ERP, PIM, CRM – objective and without hidden commissions."
+          description: "Vendor-neutral guidance on system selection. E-commerce platform, ERP, PIM, CRM. Objective advice with zero hidden commissions."
           deliverables:
             - "Requirements analysis"
-            - "Market overview & shortlist"
+            - "Market landscape & shortlist"
             - "Vendor evaluation"
-            - "Decision template"
-          idealFor: "Companies facing ERP, PIM, or shop system decisions – who need an independent assessment."
+            - "Decision framework"
+          idealFor: "Companies facing ERP, PIM, or platform decisions who want an unbiased perspective."
         - id: workshop
           title: "E-Commerce Workshop"
-          description: "Intensive workshops on strategic e-commerce topics for your team. Knowledge transfer that sticks – with concrete results."
+          description: "Intensive workshops on strategic e-commerce topics for your team. Learning that sticks, with tangible outcomes you can act on."
           deliverables:
-            - "Customized workshop concept"
-            - "Interactive sessions (1/2-2 days)"
-            - "Documentation & handouts"
+            - "Tailored workshop design"
+            - "Interactive sessions (half to two days)"
+            - "Documentation & materials"
             - "Follow-up support"
-          idealFor: "Teams that want to build knowledge and develop solutions together – from strategy to operations."
+          idealFor: "Teams ready to skill up and co-create solutions, from strategy through execution."
         - id: sparring
           title: "E-Commerce Sparring"
-          description: "Regular exchange as equals in a retainer model. Your sparring partner for better decisions – continuously rather than one-time."
+          description: "Ongoing advisory on retainer. Your trusted sounding board for better decisions, available when you need it."
           deliverables:
             - "2-4 sessions per month"
-            - "Asynchronous support"
+            - "Async support between calls"
             - "Strategic guidance"
-            - "Decision reflection"
-          idealFor: "Decision-makers looking for an experienced sparring partner – without their own agenda, as equals."
+            - "Decision review"
+          idealFor: "Leaders who want an experienced advisor in their corner. No agenda, just honest input."
         - id: implementation
           title: "Implementation Support"
-          description: "Quality assurance and sparring during project implementation. I'm the critical thinker – not the decision-maker."
+          description: "Quality oversight and advisory during project rollouts. I challenge assumptions without owning the final call."
           deliverables:
             - "Regular reviews"
             - "Vendor coordination"
             - "Risk monitoring"
             - "Escalation management"
-          idealFor: "Companies with ongoing e-commerce projects – who need an independent quality guardian."
+          idealFor: "Companies running e-commerce projects who want an independent set of eyes on quality."
         - id: project-management
           title: "Project Management"
-          description: "External management of your e-commerce projects. Clear structures, transparent communication – with an outside perspective."
+          description: "Outsourced project leadership for your e-commerce initiatives. Clear structure, transparent communication, and an outside perspective."
           deliverables:
             - "Project setup & planning"
-            - "Stakeholder management"
+            - "Stakeholder alignment"
             - "Status reporting"
             - "Budget & timeline control"
-          idealFor: "Complex projects without internal project manager capacity – or when an objective outside view is important."
+          idealFor: "Complex projects that lack internal PM capacity, or when you value an objective outside view."
         - id: interim
           title: "Interim Management"
-          description: "E-commerce leadership on a temporary basis in your organization. Operational responsibility, team leadership, decision-making authority."
+          description: "Temporary e-commerce leadership embedded in your organization. Full operational accountability, team management, and decision-making authority."
           deliverables:
             - "Leadership takeover"
             - "Team development"
-            - "Strategic management"
-            - "Handover & documentation"
-          idealFor: "Transition situations, vacancies, or transformation phases – when you need experienced leadership temporarily."
+            - "Strategic oversight"
+            - "Transition & documentation"
+          idealFor: "Transitions, vacancies, or transformation phases where you need experienced leadership to bridge the gap."
 
   # ========================================
   # Section 9: Investment / Price Range
@@ -416,28 +416,28 @@ sections:
     content:
       badge: "Investment"
       badgeIcon: "heroicons:banknotes-16-solid"
-      headline: "Transparent <em>Price Ranges</em>"
+      headline: "Transparent <em>Pricing</em>"
       stats:
         - value: "2,500"
-          prefix: "from "
-          suffix: " €"
-          label: "One-Time Services"
+          prefix: "from EUR "
+          suffix: ""
+          label: "One-Time Engagements"
           description: "Audit, Workshop, Strategy"
         - value: "1,500"
-          prefix: "from "
-          suffix: " €/month"
-          label: "Ongoing Support"
+          prefix: "from EUR "
+          suffix: "/mo"
+          label: "Ongoing Advisory"
           description: "Sparring, Implementation Support"
         - value: "4,000"
-          prefix: "from "
-          suffix: " €/month"
-          label: "Project Management"
+          prefix: "from EUR "
+          suffix: "/mo"
+          label: "Project Leadership"
           description: "External Project Management"
         - value: "1,150"
-          prefix: "from "
-          suffix: " €/day"
-          label: "Interim Management"
-          description: "Leadership on Demand"
+          prefix: "from EUR "
+          suffix: "/day"
+          label: "Interim Leadership"
+          description: "On-Demand Executive Support"
 
   # ========================================
   # Section 10: FAQ
@@ -463,17 +463,17 @@ sections:
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
         - question: "Which service is right for me?"
-          answer: "That depends on your situation. For specific projects (ERP change, shop migration), focused consulting or implementation support often makes sense. For strategic clarity, I recommend an audit or strategy project. For ongoing support, there's the sparring model. In our initial call, we'll figure out together what fits."
+          answer: "It depends on where you are. For discrete projects like an ERP switch or platform migration, focused consulting or implementation support usually makes sense. If you need strategic clarity, an audit or strategy engagement is the right starting point. For ongoing support, the sparring model works well. We can figure out the best fit in a quick intro call."
         - question: "Can I combine multiple services?"
-          answer: "Yes, absolutely. Many clients start with an audit and then move into sparring or implementation support. The services are modular and complement each other. In our initial call, we'll develop the right combination."
-        - question: "What does a collaboration cost?"
-          answer: "Costs vary depending on the service and scope. One-time services like audits start at €2,500, ongoing support from €1,500/month. In our initial call, I'll give you an initial estimate for your specific situation – non-binding and free of charge."
+          answer: "Absolutely. Many clients start with an audit, then move into sparring or implementation support as things progress. The services are designed to work together. We'll map out the right combination during our first conversation."
+        - question: "What does it cost?"
+          answer: "It depends on scope. One-time engagements like audits start at EUR 2,500; ongoing advisory starts at EUR 1,500/month. I'm happy to give you a ballpark for your specific situation on a free intro call. No strings attached."
         - question: "How quickly can we start?"
-          answer: "Usually within 1-2 weeks. For urgent matters, we'll find a solution. After the initial call, I'll create a proposal, and once commissioned, we get started."
-        - question: "Do you also work on-site?"
-          answer: "Primarily remote, but I'm happy to come to you for workshops, kick-offs, or intensive project phases. Most clients appreciate the flexibility of remote sessions – but sometimes an on-site meeting is simply more valuable."
-        - question: "How does the initial call work?"
-          answer: "The initial call is free and takes about 30 minutes. We discuss your current situation, goals, and challenges. I provide initial assessments and we clarify which service would make sense. Non-binding and without hidden costs."
+          answer: "Typically within 1-2 weeks. For urgent situations, I'll find a way. After our intro call I'll send a proposal, and we kick off as soon as you're ready."
+        - question: "Do you work on-site?"
+          answer: "Mostly remote, but I'm happy to travel for workshops, kick-offs, or intensive project phases. Most clients appreciate the flexibility of remote, but sometimes in-person is just better."
+        - question: "How does the intro call work?"
+          answer: "It's free and takes about 30 minutes. We'll talk through your current situation, goals, and challenges. I'll share initial thoughts and we'll figure out which service makes sense. No pressure, no hidden fees."
 
   # ========================================
   # Section 11: Final CTA
@@ -499,7 +499,7 @@ sections:
         fadeDirection: "both"
     content:
       headline: "Ready for <em>Clarity</em>?"
-      description: "Let's find out in 30 minutes which service makes the most sense for your situation. Non-binding and free of charge."
+      description: "In 30 minutes, we'll figure out which service fits your situation best. Free, no strings attached."
       buttonText: "Schedule Initial Call"
       buttonHref: "/contact"
       emailLabel: "Prefer to write first?"

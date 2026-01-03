@@ -7,7 +7,7 @@ slug: ecommerce-strategy
 
 meta:
   title: "E-Commerce Strategy | Strategic Planning & Roadmap | Werner Strauch"
-  description: "Develop your E-Commerce Strategy: Business model, channel strategy, technology and KPIs. Strategy document and roadmap in 2-6 weeks. Independent consulting."
+  description: "Build your E-Commerce strategy: business model, channel strategy, technology, and KPIs. Get a strategy document and roadmap in 2-6 weeks. Vendor-neutral consulting."
   ogImage:
     headline: "E-Commerce<br><mark>Strategy</mark>"
     filename: "og-ecommerce-strategy"
@@ -47,8 +47,8 @@ sections:
     content:
       badge: "E-Commerce Strategy"
       badgeIcon: "heroicons:map-16-solid"
-      headline: "E-Commerce <em>Strategy</em> for <mark>Sustainable</mark> Growth"
-      subheadline: "A clear strategy is the foundation for every successful online business. Together we develop your roadmap – from target audience analysis to measurable success."
+      headline: "E-Commerce <em>Strategy</em> for <mark>Lasting</mark> Growth"
+      subheadline: "A clear strategy is the foundation of every successful online business. Together, we build your roadmap - from audience analysis to measurable results."
       image: "/src/images/ecommerce-strategie-hero.png"
       imageAlt: "E-Commerce Strategy - Strategic Planning"
       primaryCta: "Schedule Strategy Call"
@@ -88,7 +88,7 @@ sections:
     content:
       badge: "The Difference"
       headline: "Without Strategy vs. <em>With Strategy</em>"
-      description: "A well-founded e-commerce strategy makes the difference between reactive action and proactive growth."
+      description: "A solid e-commerce strategy is what separates reactive firefighting from proactive growth."
       problemsTitle: "Without Strategy"
       solutionsTitle: "With Strategy"
       problems:
@@ -97,18 +97,18 @@ sections:
         - icon: "heroicons:question-mark-circle"
           text: "Decisions based on gut feeling instead of data"
         - icon: "heroicons:currency-euro"
-          text: "Marketing budget evaporates without clear ROI"
+          text: "Marketing spend disappears with no clear ROI"
         - icon: "heroicons:puzzle-piece"
           text: "Technology decisions without long-term vision"
         - icon: "heroicons:arrow-path"
-          text: "Constant reacting instead of strategic acting"
+          text: "Always reacting, never leading"
       solutions:
         - icon: "heroicons:flag"
           text: "Clear priorities and focused resource allocation"
         - icon: "heroicons:chart-bar"
           text: "Data-driven decisions with measurable KPIs"
         - icon: "heroicons:banknotes"
-          text: "Efficient budget allocation with traceable ROI"
+          text: "Smart budget allocation with trackable ROI"
         - icon: "heroicons:cube-transparent"
           text: "Technology roadmap aligned with business goals"
         - icon: "heroicons:rocket-launch"
@@ -140,11 +140,11 @@ sections:
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "An e-commerce strategy is your masterplan for digital sales – it defines how you achieve your goals and differentiate yourself from the competition."
+          content: "An e-commerce strategy is your master plan for digital sales - it defines how you hit your goals and stand out from the competition."
         - type: "text"
-          content: "<p>It encompasses far more than just marketing measures: From target audience definition to business model to technology architecture. A good strategy connects all elements into a coherent overall picture and provides clear answers to the question: Why should customers buy from you – and not from the competition?</p>"
+          content: "<p>It goes far beyond marketing tactics. It covers everything from audience definition to business model to technology architecture. A strong strategy ties all the pieces together and answers one critical question: Why should customers buy from you instead of the competition?</p>"
         - type: "text"
-          content: "<p>The result is a strategy document with a concrete roadmap, business case, and KPI framework. Not a PowerPoint presentation for the drawer, but a working document that guides your decisions.</p>"
+          content: "<p>The result? A strategy document with a concrete roadmap, business case, and KPI framework. Not a PowerPoint that gathers dust, but a working document that drives your decisions.</p>"
         - type: "button"
           text: "Develop Strategy"
           href: "/contact"
@@ -175,10 +175,10 @@ sections:
     content:
       badge: "Strategic Theme Fields"
       headline: "The Six Pillars of Your <em>E-Commerce Strategy</em>"
-      description: "A successful strategy considers all relevant dimensions – from market positioning to data-driven management."
+      description: "A winning strategy covers all the key dimensions - from market positioning to data-driven decision-making."
       cards:
         - title: "Business Model & Positioning"
-          description: "What is your value proposition? How do you differentiate yourself? We sharpen your business model and define a clear market positioning."
+          description: "What's your value proposition? How do you stand out? We sharpen your business model and define a clear market position."
           icon: "heroicons:building-storefront"
           large: true
           features:
@@ -187,35 +187,35 @@ sections:
             - "Differentiation Strategy"
             - "Price Positioning"
         - title: "Channel Strategy"
-          description: "Own shop, marketplaces, social commerce – which channels suit your business? We develop an integrated channel strategy."
+          description: "Your own store, marketplaces, social commerce - which channels fit your business? We build an integrated channel strategy."
           icon: "heroicons:squares-plus"
           features:
             - "Omnichannel vs. Multichannel"
             - "Marketplace Strategy"
             - "D2C Concept"
         - title: "Technology & Architecture"
-          description: "Shop system, ERP, PIM, CRM – the right technology architecture is the backbone of your e-commerce. We plan for the future."
+          description: "E-commerce platform, ERP, PIM, CRM - the right tech stack is the backbone of your business. We build for the future."
           icon: "heroicons:cpu-chip"
           features:
             - "System Landscape"
             - "Composable Commerce"
             - "API-First Architecture"
         - title: "Growth & Scaling"
-          description: "How do you reach the next growth stage? From organic growth to internationalization – we identify your levers."
+          description: "How do you reach the next level? From organic growth to international expansion - we find your biggest growth levers."
           icon: "heroicons:arrow-trending-up"
           features:
             - "Growth Levers"
             - "Internationalization"
             - "Scaling Plan"
         - title: "Customer Retention"
-          description: "Acquiring new customers is expensive – retaining existing ones is profitable. We develop strategies for sustainable customer relationships."
+          description: "Acquiring new customers is expensive. Keeping them is profitable. We build strategies for lasting customer relationships."
           icon: "heroicons:heart"
           features:
             - "Customer Lifetime Value"
             - "Loyalty Programs"
             - "CRM Strategy"
         - title: "Data & KPIs"
-          description: "What you don't measure, you can't manage. We define the relevant KPIs and create the foundation for data-driven decisions."
+          description: "You can't improve what you don't measure. We define the right KPIs and lay the groundwork for data-driven decisions."
           icon: "heroicons:chart-bar-square"
           large: true
           features:
@@ -235,7 +235,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "Strategy doesn't mean planning everything. Strategy means knowing what you're doing – and what you're not."
+      quote: "Strategy isn't about planning everything. It's about knowing what you're doing - and what you're not."
       author: "Werner Strauch"
       role: "E-Commerce Strategist"
 
@@ -264,12 +264,12 @@ sections:
     content:
       badge: "The Process"
       headline: "How Your <em>E-Commerce Strategy</em> Is Created"
-      description: "In four phases from analysis to actionable roadmap – structured, transparent and practice-oriented."
+      description: "Four phases from analysis to actionable roadmap - structured, transparent, and hands-on."
       steps:
         - number: "01"
           icon: "heroicons:magnifying-glass"
           title: "Analysis & Discovery"
-          description: "We analyze your business, market, and competitors. Data, interviews, and benchmarks create the knowledge base for strategic decisions."
+          description: "We dig into your business, market, and competitors. Data, interviews, and benchmarks build the foundation for strategic decisions."
           details:
             - "Business Model Analysis"
             - "Competitive Benchmarking"
@@ -277,7 +277,7 @@ sections:
         - number: "02"
           icon: "heroicons:light-bulb"
           title: "Strategy Development"
-          description: "Based on the analysis, we develop your strategy together. Positioning, channel strategy, technology roadmap – all aligned with each other."
+          description: "Building on the analysis, we craft your strategy together. Positioning, channel strategy, technology roadmap - all working in sync."
           details:
             - "Strategic Options"
             - "Decision Workshop"
@@ -285,7 +285,7 @@ sections:
         - number: "03"
           icon: "heroicons:calculator"
           title: "Business Case & Roadmap"
-          description: "Every strategy needs a business case. We calculate scenarios and create a prioritized roadmap with clear milestones."
+          description: "Every strategy needs a business case. We run the numbers on different scenarios and create a prioritized roadmap with clear milestones."
           details:
             - "Financial Model"
             - "Scenario Analysis"
@@ -293,7 +293,7 @@ sections:
         - number: "04"
           icon: "heroicons:document-check"
           title: "Strategy Document"
-          description: "You receive a comprehensive strategy document: Analysis, strategy, business case, roadmap and KPI framework – ready for implementation."
+          description: "You get a comprehensive strategy document covering analysis, strategy, business case, roadmap, and KPI framework - ready to execute."
           details:
             - "Executive Summary"
             - "Detailed Strategy"
@@ -315,8 +315,8 @@ sections:
         opacity: 0.06
         fadeDirection: "both"
     content:
-      badge: "Experience Values"
-      headline: "Strategy Development <em>in Numbers</em>"
+      badge: "Track Record"
+      headline: "Strategy Development <em>by the Numbers</em>"
       stats:
         - value: "2–6"
           label: "Weeks"
@@ -329,7 +329,7 @@ sections:
         - value: "20"
           suffix: "+"
           label: "Years"
-          description: "Experience in the digital economy"
+          description: "in digital commerce"
 
   # ========================================
   # Section 8: ContentEditorial - SEO Text with Trends 2025
@@ -353,24 +353,24 @@ sections:
       badge: "Trends & Developments"
       headline: "E-Commerce Strategy <em>2025</em> – What Matters Now"
       sections:
-        - title: "The Most Important Trends for Your Strategy"
+        - title: "The Key Trends Shaping Your Strategy"
           content: |
-            <p>The e-commerce landscape is changing rapidly. A future-proof strategy must consider current trends – without chasing every hype. These developments should be on your radar:</p>
-            <p><strong>Artificial Intelligence (AI):</strong> From personalized product recommendations to intelligent search to automated customer service – AI is becoming standard. The strategic question is not whether, but how you use AI meaningfully.</p>
-            <p><strong>Direct-to-Consumer (D2C):</strong> More and more brands are focusing on direct customer contact. D2C enables higher margins, direct customer feedback and full control over the customer experience – but also requires new competencies.</p>
+            <p>The e-commerce landscape is evolving fast. A future-proof strategy needs to account for current trends - without chasing every shiny object. Here's what should be on your radar:</p>
+            <p><strong>Artificial Intelligence (AI):</strong> From personalized product recommendations to smart search to automated customer service - AI is becoming table stakes. The strategic question isn't whether to use AI, but how to use it effectively.</p>
+            <p><strong>Direct-to-Consumer (D2C):</strong> More brands are going direct. D2C means higher margins, direct customer feedback, and full control over the customer experience - but it also demands new capabilities.</p>
         - title: "Omnichannel and Composable Commerce"
           content: |
-            <p><strong>Omnichannel Integration:</strong> Customers expect seamless experiences across all channels. The strict separation of online and offline is dissolving. Strategies that still consider channels in isolation fall short.</p>
-            <p><strong>Composable Commerce:</strong> Monolithic systems are giving way to modular architectures. Best-of-breed approaches enable more flexibility – but also require more integration effort. Technology strategy becomes more complex.</p>
-            <p><strong>Social Commerce:</strong> TikTok Shop, Instagram Shopping, live shopping – social media platforms are becoming sales channels. For some target groups, this is already the primary touchpoint.</p>
-        - title: "Strategy Instead of Activism"
+            <p><strong>Omnichannel Integration:</strong> Customers expect seamless experiences across every channel. The hard line between online and offline is blurring. Strategies that treat channels as silos miss the mark.</p>
+            <p><strong>Composable Commerce:</strong> Monolithic systems are giving way to modular architectures. Best-of-breed approaches offer more flexibility - but also require more integration work. Technology strategy is getting more complex.</p>
+            <p><strong>Social Commerce:</strong> TikTok Shop, Instagram Shopping, live shopping - social platforms are becoming sales channels. For some audiences, this is already the main touchpoint.</p>
+        - title: "Strategy Over Hype-Chasing"
           content: |
-            <p>With all the trends, one thing applies: A good strategy doesn't mean doing everything. It means consciously deciding what fits your business – and what doesn't. Not every trend is relevant for every company.</p>
-            <p>A well-founded e-commerce strategy helps you set the right priorities and deploy your resources where they have the greatest leverage. Together we find out which developments are relevant for you.</p>
-        - title: "Strategy Based on Analysis"
+            <p>With all these trends, one thing holds true: A good strategy doesn't mean doing everything. It means making deliberate choices about what fits your business - and what doesn't. Not every trend matters for every company.</p>
+            <p>A solid e-commerce strategy helps you set the right priorities and put your resources where they'll have the biggest impact. Together, we figure out which trends actually matter for you.</p>
+        - title: "Strategy Grounded in Analysis"
           content: |
-            <p>A well-founded strategy is based on clear data. If you haven't done an assessment yet, an <a href="/ecommerce-audit">E-Commerce Audit</a> can provide the foundation for strategic decisions.</p>
-            <p>For detailed planning of your technology landscape, <a href="/technology-consulting">Technology Consulting</a> is available – from system selection to architecture planning.</p>
+            <p>A solid strategy starts with solid data. If you haven't done an assessment yet, an <a href="/ecommerce-audit">E-Commerce Audit</a> can provide the foundation for strategic decisions.</p>
+            <p>For detailed planning of your technology landscape, check out <a href="/technology-consulting">Technology Consulting</a> - from system selection to architecture planning.</p>
 
   # ========================================
   # Section 9: FAQ
@@ -406,22 +406,22 @@ sections:
       headline: "Questions About <em>E-Commerce Strategy</em>"
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
-        - question: "Who benefits from strategy consulting?"
-          answer: "An e-commerce strategy makes sense for online retailers and D2C brands facing important decisions: realignment, scaling, internationalization, or major technology investments. Also if you feel your e-commerce 'somehow works' but lacks clear direction."
-        - question: "What distinguishes your strategy consulting from agencies?"
-          answer: "I don't sell implementation services. My strategy recommendations are independent of software partnerships or agency interests. I'm on your side of the table and help you find the right partners – but I'm not a vendor myself."
+        - question: "Who needs strategy consulting?"
+          answer: "E-commerce strategy is ideal for online retailers and D2C brands at a crossroads: pivoting, scaling, expanding internationally, or making major technology investments. It's also for you if your e-commerce 'kind of works' but you're missing a clear direction."
+        - question: "How is your strategy consulting different from agencies?"
+          answer: "I don't sell implementation. My recommendations are free from software partnerships or agency agendas. I sit on your side of the table and help you find the right partners - but I'm not trying to sell you anything beyond the strategy itself."
         - question: "How long does strategy development take?"
-          answer: "Depending on scope, between 2 and 6 weeks. A focused strategy project (e.g., channel strategy) takes about 2-3 weeks. A comprehensive e-commerce strategy with business case and detailed roadmap 4-6 weeks. In the initial call, we clarify the appropriate scope."
+          answer: "Anywhere from 2 to 6 weeks, depending on scope. A focused project (like channel strategy) takes about 2-3 weeks. A comprehensive e-commerce strategy with business case and detailed roadmap runs 4-6 weeks. We'll nail down the right scope in our initial call."
         - question: "What does an e-commerce strategy cost?"
-          answer: "A focused strategy project starts at €3,500. Comprehensive strategy development with business case, roadmap, and KPI framework typically ranges between €8,000 and €15,000 – depending on complexity and scope. In the initial call, I provide an initial estimate."
-        - question: "What do I get as a result?"
-          answer: "A comprehensive strategy document with: Executive Summary, market and competitive analysis, strategic positioning, channel strategy, technology roadmap, business case with financial model, prioritized action plan, and KPI framework. Not a PowerPoint graveyard, but a working document."
-        - question: "Do you also accompany implementation?"
-          answer: "Yes, if desired. Some clients use the strategy as a basis for their own implementation. Others want continuous support during implementation – as a <a href='/ecommerce-sparring'>sparring partner</a>, <a href='/implementation-support'>implementation supporter</a>, or in an <a href='/interim-management'>interim role</a>. Both are possible."
+          answer: "Focused strategy projects start at EUR 3,500. Comprehensive strategy work with business case, roadmap, and KPI framework typically runs EUR 8,000 to EUR 15,000, depending on complexity and scope. I'll give you a ballpark estimate on our initial call."
+        - question: "What do I get at the end?"
+          answer: "A comprehensive strategy document covering: Executive Summary, market and competitive analysis, strategic positioning, channel strategy, technology roadmap, business case with financial model, prioritized action plan, and KPI framework. Not a PowerPoint graveyard - a working document you'll actually use."
+        - question: "Do you support implementation too?"
+          answer: "Yes, if you want. Some clients take the strategy and run with it themselves. Others want ongoing support during implementation - as a <a href='/ecommerce-sparring'>sparring partner</a>, <a href='/implementation-support'>implementation advisor</a>, or in an <a href='/interim-management'>interim role</a>. Either approach works."
         - question: "How does the initial call work?"
-          answer: "The initial call is free and takes about 30 minutes. We discuss your current situation, goals, and challenges. I provide initial assessments and we clarify whether a collaboration makes sense. Non-binding and without hidden costs."
-        - question: "Can you also help with technology selection?"
-          answer: "Absolutely. Technology strategy is an important part of the overall strategy. Whether shop system, ERP, PIM, or marketing automation – I help you develop the right architecture and, if desired, also accompany the selection process."
+          answer: "The initial call is free and takes about 30 minutes. We talk through your current situation, goals, and challenges. I share my initial take, and we figure out if working together makes sense. No strings attached, no hidden costs."
+        - question: "Can you help with technology selection?"
+          answer: "Absolutely. Technology strategy is a key piece of the overall puzzle. Whether it's your e-commerce platform, ERP, PIM, or marketing automation - I help you design the right architecture and can guide you through the selection process if needed."
 
   # ========================================
   # Section 10: CtaCentered
@@ -440,8 +440,8 @@ sections:
         direction: "to bottom"
     content:
       headline: "Ready for <em>Strategic Clarity</em>?"
-      description: "Let's find out in 30 minutes where the biggest levers for your e-commerce business lie. Non-binding and free of charge."
+      description: "Let's spend 30 minutes finding your biggest growth levers. No commitment, no cost."
       buttonText: "Schedule Strategy Call"
       buttonHref: "/contact"
-      emailLabel: "Prefer to write first?"
+      emailLabel: "Rather email first?"
       email: "contact@wernerstrauch.com"

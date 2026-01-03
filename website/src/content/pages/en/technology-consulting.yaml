@@ -48,7 +48,7 @@ sections:
       badge: "Technology Consulting"
       badgeIcon: "heroicons:cpu-chip-16-solid"
       headline: "The <mark>Right</mark> <em>Technology</em> for Your E-Commerce"
-      subheadline: "Shop systems, ERP, PIM, CRM – the selection is complex. I help you find the right technology architecture and integrate systems sensibly."
+      subheadline: "Shop systems, ERP, PIM, CRM – choosing the right stack is overwhelming. I'll help you build a technology architecture that actually works together."
       image: "/src/images/technologieberatung-hero.png"
       imageAlt: "Technology Consulting - System Architecture and Integration"
       primaryCta: "Schedule Initial Call"
@@ -81,10 +81,10 @@ sections:
     content:
       badge: "Technology Areas"
       headline: "Five Systems That Need to <em>Work Together</em>"
-      description: "Successful e-commerce is based on a well-thought-out system landscape. Each system has its task – but only the integration makes the difference."
+      description: "Successful e-commerce runs on a well-designed tech stack. Each system has its role – but integration is what sets you apart."
       cards:
         - title: "Shop Systems"
-          description: "Shopify, Shopware, Magento, commercetools or WooCommerce? The choice of shop system is fundamental. I help you find the system that fits your business model."
+          description: "Shopify, Shopware, Magento, commercetools, or WooCommerce? Your shop platform is the foundation. I'll help you pick the one that fits your business."
           icon: "heroicons:shopping-cart"
           large: true
           features:
@@ -93,28 +93,28 @@ sections:
             - "B2C vs. B2B Requirements"
             - "International Scaling"
         - title: "ERP Systems"
-          description: "SAP, Microsoft Dynamics, Xentral or Weclapp – the ERP is the backbone of your processes. Inventory, finances and fulfillment centrally managed."
+          description: "SAP, Microsoft Dynamics, Xentral, or Weclapp – your ERP is the backbone of operations. Inventory, finances, and fulfillment, all in one place."
           icon: "heroicons:building-office"
           features:
             - "Inventory Management"
             - "Financial Management"
             - "Order Processing"
         - title: "PIM Systems"
-          description: "Akeneo, Pimcore or inRiver – when product data needs to be maintained across multiple channels, a PIM is indispensable."
+          description: "Akeneo, Pimcore, or inRiver – when you're managing product data across multiple channels, a PIM becomes essential."
           icon: "heroicons:document-text"
           features:
             - "Product Data Hub"
             - "Multi-Channel Capability"
             - "Data Quality"
         - title: "Integrations"
-          description: "APIs, middleware, iPaaS – the connection between systems determines efficiency. Automate data flows, avoid media breaks."
+          description: "APIs, middleware, iPaaS – how your systems talk to each other determines efficiency. Automate data flows and eliminate manual handoffs."
           icon: "heroicons:arrows-right-left"
           features:
             - "API Strategy"
             - "Middleware Selection"
             - "Real-Time Synchronization"
         - title: "Modern Architectures"
-          description: "Headless Commerce, MACH and Composable Commerce – new approaches promise more flexibility. But are they the right choice for you?"
+          description: "Headless Commerce, MACH, and Composable Commerce – these approaches promise more flexibility. But are they right for you?"
           icon: "heroicons:cube-transparent"
           large: true
           features:
@@ -155,20 +155,20 @@ sections:
     content:
       badge: "The Challenge"
       headline: "Legacy Systems vs. Clear <em>Architecture</em>"
-      description: "Technology decisions shape your company for years. The right architecture makes you scalable – the wrong one slows you down."
+      description: "Technology decisions shape your business for years. The right architecture scales with you – the wrong one holds you back."
       problemsTitle: "Legacy Systems"
       solutionsTitle: "Clear Architecture"
       problems:
         - icon: "heroicons:puzzle-piece"
           text: "Silos without real integration"
         - icon: "heroicons:document-duplicate"
-          text: "Data maintained manually in multiple systems"
+          text: "Same data entered manually across systems"
         - icon: "heroicons:clock"
           text: "Workarounds instead of processes"
         - icon: "heroicons:currency-euro"
           text: "Hidden costs through inefficiency"
         - icon: "heroicons:exclamation-triangle"
-          text: "Dependency on individual knowledge"
+          text: "Critical knowledge locked in people's heads"
       solutions:
         - icon: "heroicons:arrows-right-left"
           text: "Seamless data flows between systems"
@@ -206,12 +206,12 @@ sections:
     content:
       badge: "Selection Process"
       headline: "Structured to the <em>Right System</em>"
-      description: "From requirements analysis to decision – a proven process for well-founded technology selection."
+      description: "From requirements to decision – a proven process for making the right technology choice."
       steps:
         - number: "01"
           icon: "heroicons:clipboard-document-list"
           title: "Requirements Analysis"
-          description: "What must the system deliver? We define functional and non-functional requirements, prioritize by must-have and nice-to-have."
+          description: "What does the system need to do? We define functional and non-functional requirements, separating must-haves from nice-to-haves."
           details:
             - "Stakeholder Interviews"
             - "Process Mapping"
@@ -219,7 +219,7 @@ sections:
         - number: "02"
           icon: "heroicons:magnifying-glass"
           title: "Market Screening"
-          description: "Which vendors come into question? I create a longlist, evaluate according to your criteria and develop a qualified shortlist."
+          description: "Which vendors are worth considering? I build a longlist, evaluate against your criteria, and narrow it down to a qualified shortlist."
           details:
             - "Longlist (8-10 Vendors)"
             - "Evaluation Matrix"
@@ -227,7 +227,7 @@ sections:
         - number: "03"
           icon: "heroicons:document-text"
           title: "RFI/RFP Process"
-          description: "Structured inquiries to shortlist vendors. Comparable offers through standardized questionnaires and scenarios."
+          description: "Structured outreach to shortlisted vendors. Standardized questionnaires and scenarios make proposals easy to compare."
           details:
             - "RFI/RFP Creation"
             - "Vendor Communication"
@@ -235,7 +235,7 @@ sections:
         - number: "04"
           icon: "heroicons:beaker"
           title: "Proof of Concept"
-          description: "Optional: Critical use cases in a practical test. A PoC reveals what glossy demos hide."
+          description: "Optional: Test critical use cases in the real world. A PoC reveals what slick demos hide."
           details:
             - "PoC Definition"
             - "Test Support"
@@ -243,7 +243,7 @@ sections:
         - number: "05"
           icon: "heroicons:check-badge"
           title: "Decision & Negotiation"
-          description: "Well-founded decision template for your management. If needed, I also support contract negotiations."
+          description: "A solid decision brief for your leadership team. I can also support contract negotiations if needed."
           details:
             - "Decision Matrix"
             - "TCO Comparison"
@@ -290,17 +290,17 @@ sections:
       imagePosition: "right"
       content:
         - type: "lead"
-          content: "License costs are just the tip of the iceberg. The true costs of a technology decision only become apparent in the overall picture."
+          content: "License fees are just the tip of the iceberg. The true cost of a technology decision only shows up when you look at the full picture."
         - type: "text"
-          content: "<p>Implementation, customization, training, ongoing operations, updates, support – all of this flows into the Total Cost of Ownership. I create transparent TCO comparisons that avoid surprises.</p>"
+          content: "<p>Implementation, customization, training, ongoing operations, updates, support – it all adds up. I create transparent TCO comparisons so there are no surprises down the road.</p>"
         - type: "features"
           items:
             - icon: "heroicons:calculator"
               title: "TCO Analysis"
-              description: "All cost factors over 3-5 years: License, implementation, operations, further development."
+              description: "All cost factors over 3-5 years: licensing, implementation, operations, and ongoing development."
             - icon: "heroicons:scale"
               title: "Functional Evaluation"
-              description: "Systematic matching of requirements and system capabilities. No gut decisions."
+              description: "Systematic matching of requirements to system capabilities. No guesswork."
             - icon: "heroicons:cog-6-tooth"
               title: "Technical Evaluation"
               description: "Architecture, interfaces, performance, security – the technical due diligence."
@@ -333,20 +333,20 @@ sections:
       sections:
         - title: "Headless Commerce"
           content: |
-            <p>In Headless Commerce, the frontend (the "head") is decoupled from the backend. The shop communicates via APIs with the commerce system. This enables maximum flexibility in frontend design and the connection of any touchpoints.</p>
-            <p><strong>Advantages:</strong> Full design freedom, fast frontend development, multi-touchpoint capability. <strong>Disadvantages:</strong> Higher complexity, more development effort, requires strong tech teams.</p>
+            <p>In Headless Commerce, the frontend (the "head") is decoupled from the backend. The shop talks to the commerce system through APIs. This gives you maximum flexibility in frontend design and lets you connect any touchpoint.</p>
+            <p><strong>Pros:</strong> Complete design freedom, faster frontend development, multi-touchpoint ready. <strong>Cons:</strong> More complexity, more development work, requires a strong tech team.</p>
         - title: "MACH Architecture"
           content: |
-            <p>MACH stands for Microservices, API-first, Cloud-native and Headless. These principles describe a modern, flexible e-commerce architecture that relies on best-of-breed components.</p>
-            <p>Instead of a monolithic system, you choose specialized services for each area: Commerce, Search, CMS, Payments. The challenge lies in orchestration and increased operational effort.</p>
+            <p>MACH stands for Microservices, API-first, Cloud-native, and Headless. These principles describe a modern, flexible e-commerce architecture built on best-of-breed components.</p>
+            <p>Instead of one monolithic system, you pick specialized services for each function: Commerce, Search, CMS, Payments. The challenge? Orchestrating them all and managing increased operational complexity.</p>
         - title: "Composable Commerce"
           content: |
-            <p>Composable Commerce goes one step further: The entire e-commerce platform is assembled from interchangeable components. Each component can be independently replaced or extended.</p>
-            <p>This approach offers maximum flexibility, but also requires considerable technical competence and clear governance. It's not the right path for every company.</p>
+            <p>Composable Commerce takes it even further: your entire e-commerce platform is assembled from swappable components. Each piece can be replaced or extended independently.</p>
+            <p>This approach offers maximum flexibility, but it also demands serious technical expertise and clear governance. It's not the right fit for every business.</p>
         - title: "Making the Right Decision"
           content: |
-            <p>Whether classic monolith, Headless or Composable – there's no universally correct answer. The best architecture depends on your business model, technical competence and growth goals. The answer lies in your <a href="/ecommerce-strategy">E-Commerce Strategy</a>.</p>
-            <p>After the technology decision, I support you if desired with <a href="/project-management">Project Management</a> or <a href="/implementation-support">Implementation Support</a> – so the implementation runs as smoothly as the selection.</p>
+            <p>Classic monolith, Headless, or Composable – there's no one-size-fits-all answer. The best architecture depends on your business model, technical capabilities, and growth goals. The answer lives in your <a href="/ecommerce-strategy">E-Commerce Strategy</a>.</p>
+            <p>Once you've made the technology decision, I can support you with <a href="/project-management">Project Management</a> or <a href="/implementation-support">Implementation Support</a> – so execution goes as smoothly as the selection process.</p>
 
   # ========================================
   # Section 8: Stats - Experience Values
@@ -415,21 +415,21 @@ sections:
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
         - question: "At what company size does technology consulting make sense?"
-          answer: "Structured technology consulting typically pays off from an annual revenue of 2-3 million euros or when you're facing a major system decision. For smaller retailers, a strategy discussion is often sufficient to set the right course."
+          answer: "Structured technology consulting typically pays off once you hit 2-3 million euros in annual revenue, or when you're facing a major system decision. For smaller retailers, a strategy session is often enough to point you in the right direction."
         - question: "Do you recommend specific systems or vendors?"
-          answer: "I'm independent and don't receive commissions from software vendors. My recommendations are based solely on your requirements. This also means: Sometimes I recommend keeping and optimizing the existing system."
+          answer: "I'm completely independent – no commissions from software vendors. My recommendations are based on your requirements alone. And sometimes that means I'll recommend sticking with your current system and optimizing it instead."
         - question: "How long does a typical selection process take?"
-          answer: "A complete selection process with RFP and PoC typically takes 3-6 months. A faster screening with shortlist recommendation is possible in 4-6 weeks. Duration depends on complexity and your internal decision speed."
-        - question: "Do you also accompany implementation?"
-          answer: "Yes, as owner on the client side. I don't implement myself, but I ensure the implementation meets your requirements, accompany workshops, review milestones and coordinate vendor management as needed."
+          answer: "A full selection process with RFP and PoC typically takes 3-6 months. A quicker screening with shortlist recommendation can be done in 4-6 weeks. Timeline depends on complexity and how fast your organization can make decisions."
+        - question: "Do you support implementation too?"
+          answer: "Yes, as your owner-side representative. I don't write code myself, but I make sure the implementation meets your requirements, join workshops, review milestones, and handle vendor coordination when needed."
         - question: "What's the difference between RFI and RFP?"
-          answer: "An RFI (Request for Information) is an initial information request to get to know vendors. An RFP (Request for Proposal) is a detailed tender with specific requirements and the request for a binding offer. I use both instruments – depending on the phase in the selection process."
+          answer: "An RFI (Request for Information) is an initial inquiry to learn about vendors and their offerings. An RFP (Request for Proposal) is a detailed tender with specific requirements, asking for a binding proposal. I use both – depending on where you are in the selection process."
         - question: "Do I really need a PIM system?"
-          answer: "Not necessarily. A PIM is worthwhile if you have more than 500-1000 products, serve multiple sales channels, or maintain complex product data. For smaller shops, the shop system is often sufficient. I help you make the right decision."
+          answer: "Not always. A PIM makes sense if you have 500-1000+ products, sell through multiple channels, or manage complex product data. For smaller shops, your e-commerce platform often handles it just fine. I'll help you figure out what's right for you."
         - question: "What does technology consulting cost?"
-          answer: "An initial architecture assessment starts at €3,500. A complete selection process with RFP and decision template typically costs between €8,000 and €15,000 – depending on complexity and number of systems to evaluate."
+          answer: "An initial architecture assessment starts at EUR 3,500. A full selection process with RFP and decision brief typically runs between EUR 8,000 and EUR 15,000 – depending on complexity and the number of systems being evaluated."
         - question: "Is Headless Commerce the future?"
-          answer: "Headless is a powerful approach, but not for everyone. For retailers with standardized requirements, modern monoliths like Shopify Plus or Shopware are often the better choice. Headless makes sense with complex frontend requirements, multi-touchpoint strategies, or if you have a strong tech team."
+          answer: "Headless is powerful, but it's not for everyone. For retailers with straightforward needs, modern platforms like Shopify Plus or Shopware are often the smarter choice. Headless shines when you have complex frontend requirements, multi-touchpoint strategies, or a strong in-house tech team."
 
   # ========================================
   # Section 10: CTA
@@ -448,7 +448,7 @@ sections:
         direction: "to bottom"
     content:
       headline: "Technology Decision <em>Coming Up</em>?"
-      description: "Let's discuss in 30 minutes which systems fit your business model. Independent, structured and without sales pitch."
+      description: "Let's talk for 30 minutes about which systems fit your business. Independent advice, structured approach, no sales pitch."
       buttonText: "Schedule Initial Call"
       buttonHref: "/contact"
       emailLabel: "Prefer to write first?"

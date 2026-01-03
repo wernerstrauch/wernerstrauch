@@ -208,21 +208,21 @@ sections:
             - "Interface Review"
             - "Test Support"
         - title: "System Integration"
-          description: "PIM, OMS, WMS, marketing automation – I accompany the integration of new systems into your existing landscape."
+          description: "PIM, OMS, WMS, marketing automation - I guide you through connecting new systems to your existing tech stack."
           icon: "heroicons:puzzle-piece"
           features:
             - "Architecture Review"
             - "API Specification"
             - "Integration Testing"
         - title: "Agency Management"
-          description: "When multiple vendors need to work together, I keep everyone on track and ensure quality."
+          description: "When multiple vendors need to collaborate, I keep everyone rowing in the same direction and hold them to quality standards."
           icon: "heroicons:user-group"
           features:
             - "Vendor Coordination"
             - "Deliverable Review"
             - "Escalation Management"
         - title: "Relaunch & Redesign"
-          description: "For shop relaunches, I accompany UX reviews, performance checks and technical implementation."
+          description: "For shop relaunches, I run UX reviews, performance audits, and oversee the technical execution."
           icon: "heroicons:sparkles"
           large: true
           features:
@@ -256,12 +256,12 @@ sections:
     content:
       badge: "The Process"
       headline: "How <em>Support</em> Works"
-      description: "Structured and flexible – from project start to successful sign-off."
+      description: "Structured yet flexible - from project kickoff to successful sign-off."
       steps:
         - number: "01"
           icon: "heroicons:rocket-launch"
-          title: "Kick-off & Onboarding"
-          description: "I familiarize myself with your project: Goals, stakeholders, timeline, critical paths. Together we define my role and focus topics."
+          title: "Kickoff & Onboarding"
+          description: "I get up to speed on your project: goals, stakeholders, timeline, critical paths. Together we define my role and where to focus."
           details:
             - "Project Briefing"
             - "Stakeholder Mapping"
@@ -269,15 +269,15 @@ sections:
         - number: "02"
           icon: "heroicons:chat-bubble-left-right"
           title: "Ongoing Support"
-          description: "I attend regular meetings, review deliverables, answer questions and am your sparring partner for all important decisions."
+          description: "I join your regular meetings, review deliverables, field questions, and serve as your sounding board for key decisions."
           details:
             - "Weekly Check-ins"
             - "Deliverable Reviews"
-            - "Ad-hoc Sparring"
+            - "On-Demand Consultation"
         - number: "03"
           icon: "heroicons:clipboard-document-check"
           title: "Reviews & QA"
-          description: "At important milestones, I thoroughly review results: Concepts, prototypes, test cases, staging environments."
+          description: "At key milestones, I dig deep into the results: concepts, prototypes, test cases, staging environments."
           details:
             - "Milestone Reviews"
             - "Test Support"
@@ -285,7 +285,7 @@ sections:
         - number: "04"
           icon: "heroicons:check-badge"
           title: "Sign-off & Handover"
-          description: "I accompany the final sign-off, document open items and ensure a clean transition to operations."
+          description: "I support the final sign-off, document outstanding items, and make sure the handover to operations is clean."
           details:
             - "Sign-off Support"
             - "Punch List"
@@ -337,7 +337,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "My job is not to make decisions – but to ensure the right questions are asked before decisions are made."
+      quote: "My job isn't to make decisions - it's to make sure the right questions get asked before you do."
       author: "Werner Strauch"
       role: "E-Commerce Consultant"
 
@@ -375,12 +375,12 @@ sections:
       headline: "Questions About <em>Implementation Support</em>"
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
-        - question: "What distinguishes you from a project manager?"
-          answer: "A project manager is part of the project and makes operational decisions. I deliberately take a step back: I question, review and advise – but you make the decisions. This allows me to remain critical without getting into conflicts of interest."
-        - question: "How much time should I plan for?"
-          answer: "Effort varies by project phase: During peak times (kick-off, go-live), it can be 6-8 days per month, during quieter phases 2-3 days. We define a framework together that fits your project."
-        - question: "Do you also work with our agency?"
-          answer: "Yes, that's the normal case. I'm not a competitor to your agency, but your representative on the client side. Good agencies appreciate this – because clear requirements and quick decisions help them too."
+        - question: "How are you different from a project manager?"
+          answer: "A project manager is embedded in the project and makes day-to-day decisions. I deliberately stay a step removed: I question, review, and advise - but you call the shots. That distance lets me stay critical without any conflicts of interest."
+        - question: "How much of your time will I need?"
+          answer: "It depends on the project phase. During crunch times (kickoff, go-live), expect 6-8 days per month. During calmer stretches, 2-3 days. We'll define a framework that fits your project."
+        - question: "Will you work with our agency?"
+          answer: "Absolutely - that's the norm. I'm not competing with your agency; I'm your advocate on the client side. Good agencies actually appreciate this, because clear requirements and fast decisions make their lives easier too."
         - question: "From what project size does support make sense?"
           answer: "As a rule of thumb: For projects from €50,000 in volume or from 3 months duration, independent support is worthwhile. For smaller projects, a one-time <a href='/ecommerce-audit'>Audit</a> or <a href='/ecommerce-sparring'>Sparring</a> often makes more sense."
         - question: "Can I book you only for certain phases?"

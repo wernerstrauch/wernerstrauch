@@ -7,7 +7,7 @@ slug: project-management
 
 meta:
   title: "E-Commerce Project Management | Shop Relaunch, Migration & ERP | Werner Strauch"
-  description: "External E-Commerce Project Management: Shop relaunch, system migration, ERP implementation. Experienced project manager with clear methodology. From €4,000/month."
+  description: "External E-Commerce Project Management: Store relaunch, system migration, ERP implementation. Experienced project manager with proven methodology. From €4,000/month."
   ogImage:
     headline: "E-Commerce<br><mark>Project Management</mark>"
     filename: "og-ecommerce-project-management"
@@ -48,7 +48,7 @@ sections:
       badge: "E-Commerce Project Management"
       badgeIcon: "heroicons:clipboard-document-check-16-solid"
       headline: "<mark>E-Commerce</mark> Projects <em>Successfully</em> Delivered"
-      subheadline: "Shop relaunch, system migration or ERP implementation – complex e-commerce projects need experienced management. As an external project manager, I bring structure, experience and an objective outside perspective."
+      subheadline: "Store relaunch, system migration, or ERP implementation – complex e-commerce projects demand experienced leadership. As an external project manager, I bring structure, hands-on expertise, and the unbiased perspective that only an outsider can provide."
       image: "/src/images/projektleitung-hero.png"
       imageAlt: "E-Commerce Project Management - Project Control"
       primaryCta: "Discuss Project"
@@ -124,10 +124,10 @@ sections:
     content:
       badge: "Project Types"
       headline: "What <em>Project</em> Is Coming Up?"
-      description: "From shop migration to ERP implementation – I take on project management for complex e-commerce initiatives with many stakeholders and interfaces."
+      description: "From platform migrations to ERP rollouts – I lead complex e-commerce initiatives involving multiple stakeholders and system integrations."
       cards:
-        - title: "Shop Relaunch"
-          description: "Your shop needs a comprehensive update – new design, new technology, new features. A relaunch is more than a facelift: it touches all areas of your e-commerce."
+        - title: "Store Relaunch"
+          description: "Your store needs a comprehensive overhaul – new design, new technology, new features. A relaunch goes far beyond a facelift: it impacts every aspect of your e-commerce operation."
           icon: "heroicons:arrow-path-rounded-square"
           large: true
           features:
@@ -135,29 +135,29 @@ sections:
             - "Design Refresh"
             - "Feature Expansion"
             - "Data Migration"
-        - title: "System Migration"
-          description: "Switching from one shop system to another. Whether from Magento to Shopware, WooCommerce to Shopify or vice versa – migration without data loss and revenue drop."
+        - title: "Platform Migration"
+          description: "Moving from one e-commerce platform to another. Whether it's Magento to Shopware, WooCommerce to Shopify, or any other combination – I ensure seamless migration without data loss or revenue disruption."
           icon: "heroicons:arrows-right-left"
           features:
             - "Data Migration"
             - "URL Handling"
             - "Parallel Operation"
         - title: "ERP Implementation"
-          description: "A new ERP system changes all processes. From requirements analysis to vendor selection to go-live – I manage the project on your side."
+          description: "A new ERP system transforms every process in your business. From requirements gathering to vendor selection to go-live – I manage the project as your advocate."
           icon: "heroicons:circle-stack"
           features:
             - "Requirements Analysis"
             - "Vendor Selection"
             - "Implementation"
         - title: "System Integration"
-          description: "Shop, ERP, PIM, CRM, Fulfillment – the systems must communicate with each other. I coordinate the integration and ensure smooth interfaces."
+          description: "Store, ERP, PIM, CRM, fulfillment – your systems need to talk to each other. I coordinate the integration and make sure the connections actually work."
           icon: "heroicons:puzzle-piece"
           features:
             - "Interface Design"
             - "API Integration"
             - "Data Synchronization"
         - title: "E-Commerce Setup"
-          description: "You're starting fresh in e-commerce or building a channel from scratch. From strategy to system selection to launch – I accompany the entire setup."
+          description: "Starting fresh in e-commerce or building a new sales channel from the ground up? From strategy to platform selection to launch – I guide you through the entire process."
           icon: "heroicons:building-storefront"
           large: true
           features:
@@ -198,31 +198,31 @@ sections:
     content:
       badge: "The Difference"
       headline: "Projects With and Without <em>Project Management</em>"
-      description: "E-commerce projects rarely fail because of technology – but because of communication, unclear responsibilities and lack of focus."
+      description: "E-commerce projects rarely fail because of technology. They fail because of poor communication, unclear ownership, and lack of focus."
       problemsTitle: "Without Project Management"
       solutionsTitle: "With Project Management"
       problems:
         - icon: "heroicons:exclamation-triangle"
-          text: "Unclear responsibilities between agency and internal team"
+          text: "Finger-pointing between agency and internal teams"
         - icon: "heroicons:clock"
-          text: "Constant delays and budget overruns"
+          text: "Endless delays and blown budgets"
         - icon: "heroicons:chat-bubble-left-right"
-          text: "Communication chaos between many stakeholders"
+          text: "Communication chaos with too many cooks"
         - icon: "heroicons:document-minus"
-          text: "Important requirements get lost during the project"
+          text: "Critical requirements falling through the cracks"
         - icon: "heroicons:fire"
-          text: "Permanent crisis management instead of structured approach"
+          text: "Constant firefighting instead of steady progress"
       solutions:
         - icon: "heroicons:clipboard-document-check"
-          text: "Clear roles, responsibilities and decision paths"
+          text: "Clear roles, ownership, and decision-making authority"
         - icon: "heroicons:calendar-days"
-          text: "Realistic timeline with milestones and buffers"
+          text: "Realistic timelines with built-in buffers"
         - icon: "heroicons:megaphone"
-          text: "Structured communication with all stakeholders"
+          text: "Structured updates that keep everyone aligned"
         - icon: "heroicons:document-check"
-          text: "Complete requirements tracking to sign-off"
+          text: "Requirements tracked from kickoff to sign-off"
         - icon: "heroicons:shield-check"
-          text: "Proactive risk management instead of firefighting"
+          text: "Proactive risk management that prevents fires"
 
   # ========================================
   # Section 5: Process (Project Flow)
@@ -242,12 +242,12 @@ sections:
     content:
       badge: "The Process"
       headline: "How I Manage <em>Your Project</em>"
-      description: "Structured from analysis to go-live – with clear milestones and continuous communication."
+      description: "A structured approach from initial analysis to go-live – with clear milestones and ongoing communication at every step."
       steps:
         - number: "01"
           icon: "heroicons:magnifying-glass"
           title: "Project Audit"
-          description: "I analyze the current state: goals, stakeholders, risks, timeline. For ongoing projects, I identify problems and need for action."
+          description: "I assess where things stand: goals, stakeholders, risks, timeline. For projects already in motion, I pinpoint what's broken and what needs to change."
           details:
             - "Stakeholder Analysis"
             - "Risk Identification"
@@ -255,7 +255,7 @@ sections:
         - number: "02"
           icon: "heroicons:document-text"
           title: "Project Planning"
-          description: "Together we define scope, milestones and responsibilities. I create a realistic project plan with buffers for the unexpected."
+          description: "Together, we lock in scope, milestones, and ownership. I build a realistic project plan with contingency time built in for the inevitable surprises."
           details:
             - "Scope Definition"
             - "Milestone Planning"
@@ -263,7 +263,7 @@ sections:
         - number: "03"
           icon: "heroicons:play"
           title: "Execution"
-          description: "I coordinate all participants, moderate discussions, track progress and escalate when needed. Regular status updates keep everyone on track."
+          description: "I coordinate all parties, facilitate key discussions, track progress, and escalate issues when necessary. Regular status updates keep everyone aligned and accountable."
           details:
             - "Stakeholder Coordination"
             - "Progress Tracking"
@@ -271,7 +271,7 @@ sections:
         - number: "04"
           icon: "heroicons:rocket-launch"
           title: "Go-Live & Handover"
-          description: "I manage the launch, coordinate the hypercare period and ensure a clean handover to your team – including documentation and lessons learned."
+          description: "I orchestrate the launch, manage the hypercare period, and ensure a smooth handover to your team – complete with documentation and lessons learned."
           details:
             - "Launch Coordination"
             - "Hypercare Phase"
@@ -297,31 +297,31 @@ sections:
         vignetteColor: "#0a1628"
     content:
       badge: "Why External?"
-      headline: "The Advantages of an <em>External Project Manager</em>"
+      headline: "Why Bring in an <em>Outside Project Manager</em>?"
       image: "/src/images/projektleitung-extern.png"
       imageAlt: "External Project Management - Strategic Control"
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "An external project manager brings not only experience – but also the unbiased perspective that internal resources often lack."
+          content: "An external project manager brings more than experience – they bring the objectivity that internal teams simply can't have."
         - type: "text"
-          content: "<p>Internal project managers are often involved in day-to-day tasks, politically burdened, or too deep in detail. An external project manager can focus 100% on the project – and speak uncomfortable truths without career risks.</p>"
+          content: "<p>Internal project managers are often pulled into day-to-day operations, caught up in office politics, or too close to the details. An external project manager can dedicate 100% of their focus to your project – and tell you the hard truths without worrying about their next promotion.</p>"
         - type: "text"
-          content: "<p>If you also need operational leadership responsibility for a team, <a href='/interim-management'>Interim Management</a> is the right solution.</p>"
+          content: "<p>Need someone who can also lead a team operationally? <a href='/interim-management'>Interim Management</a> might be the better fit.</p>"
         - type: "features"
           items:
             - icon: "heroicons:eye"
-              title: "Objective View"
-              description: "No internal entanglements, no political considerations. I see what is – not what should be."
+              title: "Objective Perspective"
+              description: "No internal politics, no hidden agendas. I call it like I see it – not how people want it to be."
             - icon: "heroicons:academic-cap"
-              title: "Project Experience"
-              description: "I've seen many similar projects and know where typical pitfalls lurk."
+              title: "Battle-Tested Experience"
+              description: "I've been through dozens of similar projects and know exactly where things typically go wrong."
             - icon: "heroicons:clock"
-              title: "Full Focus"
-              description: "No distraction from daily business. The project has my undivided attention."
+              title: "Undivided Focus"
+              description: "No distractions from day-to-day operations. Your project gets my complete attention."
             - icon: "heroicons:arrow-right-start-on-rectangle"
-              title: "Temporarily Available"
-              description: "After the project, I'm gone – no need to build internal structures."
+              title: "Built-In Exit"
+              description: "When the project's done, I'm gone – no need to create a permanent role."
         - type: "button"
           text: "Discuss Project"
           href: "/contact"
@@ -338,7 +338,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "A good project manager is like a conductor: He doesn't make a sound himself, but without him the orchestra doesn't sound right."
+      quote: "A good project manager is like a conductor: they don't make a sound themselves, but without them, the orchestra falls apart."
       author: "Werner Strauch"
       role: "E-Commerce Project Manager"
 
@@ -364,18 +364,18 @@ sections:
       badge: "Methodology"
       headline: "Methods and <em>Success Factors</em>"
       sections:
-        - title: "Agile, Waterfall or Hybrid?"
+        - title: "Agile, Waterfall, or Hybrid?"
           content: |
-            <p>There is no single right project methodology. The choice depends on project, team and conditions. For shop relaunches with clear scope, a classic waterfall approach often works well. With agile development teams, I adapt to Scrum or Kanban. Often a hybrid approach makes sense: Fixed milestones and budget, but agile implementation in sprints.</p>
-            <p>More important than the methodology is consistent application: Clear rituals, transparent communication, regular reviews. I bring the structure – and adapt it to your organization.</p>
+            <p>There's no one-size-fits-all methodology. The right approach depends on your project, team, and constraints. For store relaunches with a well-defined scope, classic waterfall often works best. With agile dev teams, I adapt to Scrum or Kanban. Often, a hybrid approach makes the most sense: fixed milestones and budget, with agile execution in sprints.</p>
+            <p>But here's the thing – the methodology matters less than consistency. Clear rituals, transparent communication, regular check-ins. I bring the discipline and tailor it to how your organization actually works.</p>
         - title: "The Three Success Factors"
           content: |
-            <p><strong>1. Clear Responsibilities:</strong> Who decides what? Who delivers what? Who signs off? Unclear responsibilities are the most common reason for project delays. I ensure a RACI matrix that everyone understands.</p>
-            <p><strong>2. Data Quality:</strong> For migrations and ERP implementations, data quality is critical. Poor master data, incomplete product information or inconsistent customer histories become problems at the latest at go-live. I initiate data cleanup early.</p>
-            <p><strong>3. Communication:</strong> Projects fail due to misunderstandings, not technology. I establish clear communication channels: Who informs whom, how often, through which channel? Regular status updates keep all stakeholders informed.</p>
+            <p><strong>1. Clear Ownership:</strong> Who makes which decisions? Who delivers what? Who has final sign-off? Fuzzy accountability is the number one reason projects drag on. I establish a RACI matrix that everyone actually understands and follows.</p>
+            <p><strong>2. Data Quality:</strong> For migrations and ERP implementations, your data quality will make or break you. Messy master data, incomplete product information, inconsistent customer records – these all blow up at go-live. I start the cleanup process early.</p>
+            <p><strong>3. Communication:</strong> Projects fail because of misunderstandings, not technology. I set up clear communication channels: who updates whom, how often, and through what medium. Regular status updates keep everyone on the same page.</p>
         - title: "Typical Project Risks"
           content: |
-            <p>After dozens of e-commerce projects, I know the typical traps: Scope creep (scope grows uncontrolled), unrealistic timelines, underestimated integration effort, missing test phases, insufficient stakeholder involvement. As an experienced project manager, I recognize these risks early and steer against them – before they become problems.</p>
+            <p>After dozens of e-commerce projects, I've seen the same traps over and over: scope creep, unrealistic timelines, underestimated integration complexity, skipped testing phases, stakeholders who aren't looped in early enough. The difference an experienced project manager makes? Spotting these risks before they derail your timeline – and course-correcting while there's still time.</p>
 
   # ========================================
   # Section 9: FAQ
@@ -404,22 +404,22 @@ sections:
       headline: "Questions About <em>Project Management</em>"
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
-        - question: "From what project size does external project management make sense?"
-          answer: "As soon as more than three parties are involved (e.g., internal team, agency, software vendor) or the project budget exceeds €50,000. For smaller projects, occasional <a href='/ecommerce-sparring'>Sparring</a> or <a href='/implementation-support'>Implementation Support</a> is often sufficient. In the initial call, we clarify what makes sense for your project."
-        - question: "Do you also take on technical implementation?"
-          answer: "No, I don't develop myself. My role is management: I coordinate agency, developers and internal teams, check quality and keep the schedule. This keeps me independent and able to evaluate objectively."
-        - question: "How much time do you invest per week?"
-          answer: "That depends on the project phase. In intensive phases (kickoff, go-live), it can be full-time. In regular project progress, typically 1-2 days per week. We agree on a monthly quota with flexibility up and down."
-        - question: "Can you also take over ongoing projects?"
-          answer: "Yes, that's actually often the case. When projects run off track, I take over management: assessment, identify problems, correct course. A 'project turnaround' is often more effective than starting from scratch."
+        - question: "At what point does external project management make sense?"
+          answer: "Once you have more than three parties involved (internal team, agency, software vendor, for example) or your project budget exceeds €50,000. For smaller initiatives, occasional <a href='/ecommerce-sparring'>Sparring</a> or <a href='/implementation-support'>Implementation Support</a> often does the trick. We'll figure out what's right for your situation in our initial call."
+        - question: "Do you handle technical implementation yourself?"
+          answer: "No, I don't write code. My role is pure project management: coordinating agencies, developers, and internal teams, checking quality, and keeping things on schedule. Staying out of the technical weeds means I can remain objective and hold everyone accountable."
+        - question: "How much time do you typically dedicate per week?"
+          answer: "It depends on where we are in the project. During intensive phases like kickoff and go-live, it might be full-time. During steady-state execution, typically 1-2 days per week. We agree on a monthly commitment with built-in flexibility to scale up or down as needed."
+        - question: "Can you step into a project that's already underway?"
+          answer: "Absolutely – that's actually a common scenario. When projects go sideways, I come in, assess the situation, identify what's broken, and get things back on track. A project turnaround is often more effective (and cheaper) than starting over."
         - question: "What does external project management cost?"
-          answer: "From €4,000 per month, depending on project scope and required intensity. For full-time engagements or particularly complex projects, correspondingly more. Compared to project delays and budget overruns, professional project management is an investment that pays off."
-        - question: "Do you work on-site or remote?"
-          answer: "Both are possible. I'm happy to be on-site for kickoff workshops and critical discussions. Ongoing coordination often works more efficiently remote. A mix of both has proven itself – we find the right model for your project."
+          answer: "Starting at €4,000 per month, depending on scope and how hands-on you need me to be. Full-time engagements or highly complex projects run higher. But compare that to the cost of delays and budget blowouts – professional project management pays for itself."
+        - question: "Do you work on-site or remotely?"
+          answer: "Both. I'm happy to be on-site for kickoff workshops and critical decision points. Day-to-day coordination often works more efficiently remotely. Most clients find a hybrid model works best – we'll figure out the right balance for your project."
         - question: "What tools do you use?"
-          answer: "I adapt to your tool landscape. Whether Jira, Asana, Monday, Notion or classic Excel and PowerPoint – more important than the tool is consistent use. If you don't have a project management tool yet, I recommend a suitable setup."
+          answer: "I adapt to your existing stack. Whether it's Jira, Asana, Monday, Notion, or good old Excel and PowerPoint – the tool matters less than using it consistently. If you don't have a project management tool in place yet, I can recommend what fits your needs."
         - question: "How quickly can you start?"
-          answer: "Usually within 2-4 weeks. For urgent projects or crisis situations, even faster. In the initial call, we clarify your timeline and my availability."
+          answer: "Usually within 2-4 weeks. For urgent situations or projects in crisis, I can often move faster. Let's discuss your timeline and my availability in our initial call."
 
   # ========================================
   # Section 10: CTA
@@ -438,7 +438,7 @@ sections:
         direction: "to bottom"
     content:
       headline: "Project in <em>Good Hands</em>"
-      description: "Let's discuss in 30 minutes how I can lead your e-commerce project to success. Free and non-binding."
+      description: "Let's spend 30 minutes talking through how I can get your e-commerce project across the finish line. No cost, no commitment."
       buttonText: "Discuss Project"
       buttonHref: "/contact"
       emailLabel: "Prefer to write first?"

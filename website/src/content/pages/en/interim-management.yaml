@@ -252,10 +252,10 @@ sections:
           description: "typical mandate duration"
         - value: "2–5"
           label: "Days/Week"
-          description: "flexible engagement"
+          description: "flexible commitment"
         - value: "2–4"
           label: "Weeks"
-          description: "until start"
+          description: "to get started"
         - value: "1,150–1,500"
           prefix: "€"
           label: "Daily Rate"
@@ -293,40 +293,40 @@ sections:
     content:
       badge: "The Process"
       headline: "How a <em>Mandate</em> Works"
-      description: "Structured and transparent – from first inquiry to successful handover."
+      description: "Structured and transparent – from first conversation to successful handover."
       steps:
         - number: "01"
           icon: "heroicons:phone"
-          title: "Initial Call & Briefing"
-          description: "We discuss your situation, requirements and expectations. I give an initial assessment of feasibility, duration and costs."
+          title: "Discovery Call"
+          description: "We talk through your situation, requirements, and expectations. I'll give you a candid assessment of fit, timeline, and investment."
           details:
-            - "Situation Analysis"
-            - "Requirements Profile"
-            - "Effort Estimate"
+            - "Situation Deep-Dive"
+            - "Scope Definition"
+            - "Ballpark Estimate"
         - number: "02"
           icon: "heroicons:document-check"
-          title: "Proposal & Contract"
-          description: "You receive a concrete proposal with scope, goals, timeframe and conditions. After commissioning, I start within 2-4 weeks."
+          title: "Proposal & Agreement"
+          description: "You get a clear proposal covering scope, objectives, timeline, and terms. Once signed, I can start within 2-4 weeks."
           details:
-            - "Clear Scope"
-            - "Defined Goals"
-            - "Transparent Conditions"
+            - "Defined Scope"
+            - "Clear Objectives"
+            - "Transparent Pricing"
         - number: "03"
           icon: "heroicons:rocket-launch"
           title: "Onboarding & Execution"
-          description: "Fast onboarding, then full operational responsibility. Regular status updates keep you informed."
+          description: "Quick ramp-up, then full operational ownership. Regular check-ins keep you in the loop without micromanaging."
           details:
-            - "Fast Start"
-            - "Operational Leadership"
-            - "Ongoing Reporting"
+            - "Fast Ramp-Up"
+            - "Hands-On Leadership"
+            - "Progress Updates"
         - number: "04"
           icon: "heroicons:arrow-right-circle"
           title: "Handover & Exit"
-          description: "Structured handover to your new permanent manager or team. Documentation ensures knowledge transfer."
+          description: "Structured transition to your new permanent leader or existing team. Documentation ensures nothing gets lost."
           details:
             - "Knowledge Transfer"
             - "Documentation"
-            - "Optional: Coaching"
+            - "Optional Coaching"
 
   # ========================================
   # Section 7: Quote - Leadership Quote
@@ -339,7 +339,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "A good interim manager makes himself obsolete. The goal is not dependency, but successful transition to a permanent solution."
+      quote: "A good interim manager works to make themselves obsolete. The goal isn't creating dependency – it's a smooth handoff to a permanent solution."
       author: "Werner Strauch"
       role: "E-Commerce Interim Manager"
 
@@ -367,18 +367,18 @@ sections:
       sections:
         - title: "Definition and Differentiation"
           content: |
-            <p>Interim management means temporarily taking over a leadership position with full operational responsibility. Unlike a consultant who recommends from outside, an interim manager works within the company – with authority, budget responsibility and clear result targets.</p>
-            <p>Typical mandate duration is between 3 and 12 months. Engagement can be full-time (5 days/week) or part-time (2-3 days/week) – depending on situation and requirements.</p>
+            <p>Interim management means stepping into a leadership role temporarily with full operational accountability. Unlike a consultant who advises from the outside, an interim manager operates within your organization – with decision-making authority, budget ownership, and clear performance targets.</p>
+            <p>Typical engagements run 3 to 12 months. Commitment can be full-time (5 days/week) or part-time (2-3 days/week) – whatever the situation calls for.</p>
         - title: "Typical Roles in E-Commerce"
           content: |
-            <p><strong>Head of E-Commerce / E-Commerce Director:</strong> Responsibility for all online sales, leadership of the e-commerce team, management of shop, marketing and operations.</p>
-            <p><strong>Chief Digital Officer (CDO):</strong> Strategic responsibility for the company's digital transformation, often at C-level.</p>
-            <p><strong>Digital Sales Director:</strong> Focus on digital sales channels, marketplaces and online growth.</p>
-            <p><strong>Project/Program Manager:</strong> Responsibility for large transformation projects like shop relaunch, ERP implementation or internationalization.</p>
-        - title: "Advantages Over Permanent Hire"
+            <p><strong>Head of E-Commerce / E-Commerce Director:</strong> Owns all online revenue, leads the e-commerce team, and manages the platform, marketing, and operations.</p>
+            <p><strong>Chief Digital Officer (CDO):</strong> Drives the company's digital transformation at the executive level.</p>
+            <p><strong>Digital Sales Director:</strong> Focuses on digital channels, marketplaces, and online growth strategy.</p>
+            <p><strong>Project/Program Manager:</strong> Leads major transformation initiatives like platform relaunches, ERP implementations, or international expansion.</p>
+        - title: "Why Interim Beats a Lengthy Hiring Process"
           content: |
-            <p>An interim manager brings immediately available experience without lengthy recruiting. He has a fresh outside perspective, is unburdened by internal sensitivities and brings best practices from other companies.</p>
-            <p>The time limit creates flexibility: You only pay as long as you need the expertise. And an experienced interim manager works results-oriented from day 1 – he knows his success is measured by measurable results.</p>
+            <p>An interim manager brings ready-to-deploy experience without the months-long recruiting cycle. They offer a fresh outside perspective, aren't weighed down by internal politics, and bring proven playbooks from other organizations.</p>
+            <p>The fixed timeline creates flexibility: you pay only for as long as you need the expertise. And a seasoned interim manager is laser-focused on results from day one – they know their success is measured by what they deliver, not how long they stick around.</p>
 
   # ========================================
   # Section 9: FAQ
@@ -415,21 +415,21 @@ sections:
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
         - question: "How quickly can you start?"
-          answer: "Usually within 2-4 weeks after commissioning. In acute crisis situations, a faster start is also possible. In the initial call, we clarify exact availability."
+          answer: "Typically within 2-4 weeks of signing. In urgent situations, faster starts are possible. We'll nail down exact availability on our first call."
         - question: "What does interim management cost?"
-          answer: "Daily rate is between €1,150 and €1,500, depending on role, complexity and engagement model. For full-time mandates over several months, flat-rate models are also possible. Travel costs are billed separately."
-        - question: "Full-time or part-time – what makes sense?"
-          answer: "That depends on the situation. In a crisis or with a leadership vacancy, full-time (5 days/week) usually makes sense. For transformation support or project oversight, 2-3 days/week is often enough. We find the right model."
-        - question: "How is this different from an agency?"
-          answer: "An agency delivers services (design, development, marketing). An interim manager takes on leadership responsibility within your company. I manage agencies when needed – but as part of your team, not as an external service provider."
-        - question: "What happens after the mandate?"
-          answer: "The goal is always a clean handover. Either to a new permanent manager, whom I support during onboarding, or to your existing team with documented processes and structures. On request, I remain available in the background as a sparring partner or advisor."
-        - question: "Do you also take on employee leadership?"
-          answer: "Yes, that's an essential part of interim management. I lead your team, hold one-on-ones, set goals and develop employees – like an internal manager. This is the central difference from pure consulting."
-        - question: "Do you also work remote?"
-          answer: "A mix of on-site and remote is usually sensible. Especially in the initial phase, on-site presence is important for team leadership and stakeholder management. After that, the remote portion can increase. Pure remote mandates are possible in exceptions."
-        - question: "What industry experience do you have?"
-          answer: "My focus is on B2C e-commerce, D2C brands and omnichannel retail. I have experience in fashion, consumer electronics, FMCG and B2B. In the initial call, we clarify whether my expertise fits your situation."
+          answer: "Day rates range from EUR 1,150 to EUR 1,500, depending on role, complexity, and engagement model. For longer full-time engagements, monthly retainers are an option. Travel is billed separately."
+        - question: "Full-time or part-time – which makes sense?"
+          answer: "It depends. For a crisis or leadership vacancy, full-time (5 days/week) usually makes sense. For transformation support or project oversight, 2-3 days often does the job. We'll figure out the right fit together."
+        - question: "How is this different from working with an agency?"
+          answer: "An agency delivers services – design, development, marketing. An interim manager takes on leadership responsibility inside your company. I'll manage agencies when needed, but I'm embedded in your team, not an outside vendor."
+        - question: "What happens when the engagement ends?"
+          answer: "The goal is always a clean handover – either to your new permanent hire (whom I'll help onboard) or to your existing team with documented processes. If helpful, I can stay available as a sounding board or advisor."
+        - question: "Do you actually manage people?"
+          answer: "Absolutely – that's core to interim management. I lead your team, run one-on-ones, set goals, and develop people. Just like an internal executive. That's the fundamental difference from pure consulting."
+        - question: "Can you work remotely?"
+          answer: "Usually a hybrid approach works best. On-site presence matters early on for building relationships and gaining context. Once things are running, the remote share can increase. Fully remote is possible in some cases."
+        - question: "What industries do you cover?"
+          answer: "My sweet spot is B2C e-commerce, D2C brands, and omnichannel retail. I've worked across fashion, consumer electronics, FMCG, and B2B. We can talk through fit on our first call."
 
   # ========================================
   # Section 10: CtaCentered

@@ -283,26 +283,26 @@ sections:
         vignetteColor: "#0a1628"
     content:
       badge: "My Approach"
-      headline: "Independent <em>Consulting</em> with Foresight"
+      headline: "Independent <em>Consulting</em> with a Long-Term View"
       image: "/src/images/ecommerce-beratung-ansatz.png"
       imageAlt: "Strategic E-Commerce Consulting"
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "I don't sell software, implementation services or agency packages. My only product is independent expertise."
+          content: "I do not sell software, implementation services, or agency packages. My only product is unbiased expertise."
         - type: "text"
-          content: "<p>After over 20 years in the digital economy – including 7 years as managing director – I know: Good consulting means asking the right questions. Not every challenge needs a new tool. Sometimes an optimized process is the better solution.</p>"
+          content: "<p>After 20+ years in the digital economy - including 7 years as CEO - I have learned that good consulting means asking the right questions. Not every challenge needs a new tool. Sometimes a smarter process is the better answer.</p>"
         - type: "features"
           items:
             - icon: "heroicons:scale"
-              title: "Independent"
-              description: "No commissions from software vendors. My recommendations are based solely on your needs."
+              title: "Unbiased"
+              description: "No kickbacks from software vendors. My recommendations are based on what you actually need."
             - icon: "heroicons:eye"
               title: "Holistic"
-              description: "I consider strategy, processes and technology in context – not in isolation."
+              description: "I look at strategy, processes, and technology together - never in isolation."
             - icon: "heroicons:academic-cap"
               title: "Experienced"
-              description: "Business graduate with focus on business informatics. Theory and practice combined."
+              description: "Business degree with a focus on information systems. Theory meets real-world practice."
         - type: "button"
           text: "More About Me"
           href: "/about"
@@ -332,18 +332,18 @@ sections:
       sections:
         - title: "More Than Just Marketing"
           content: |
-            <p>Many understand e-commerce consulting primarily as optimizing ads, SEO or conversion rates. That's important – but it's only part of the picture. Sustainable e-commerce success happens when strategy, processes and technology work together.</p>
-            <p>A shop with perfect marketing but inefficient fulfillment processes doesn't scale. A technically brilliant shop without clear positioning struggles for every customer. That's why I always look at e-commerce holistically.</p>
+            <p>Many people think e-commerce consulting is mainly about ads, SEO, or conversion rates. That matters - but it is only part of the story. Real, lasting e-commerce success happens when strategy, processes, and technology all work together.</p>
+            <p>A store with great marketing but broken fulfillment will not scale. A technically brilliant store with no clear positioning will fight for every sale. That is why I always take a holistic view of e-commerce.</p>
         - title: "The Four Pillars of Successful Online Retailers"
           content: |
-            <p><strong>1. Strategy & Business Model:</strong> Who are your customers? What's your positioning? What growth levers do you have? A clear strategy is the foundation for all operational decisions.</p>
-            <p><strong>2. Processes & Operations:</strong> From order receipt to returns – efficient processes are the backbone of scalable e-commerce. Automation where sensible, human expertise where necessary.</p>
-            <p><strong>3. Technology & Systems:</strong> Shop system, ERP, PIM, CRM, marketing automation – the right technology architecture makes the difference. Not the most expensive tool wins, but the right fit.</p>
-            <p><strong>4. Market & Competition:</strong> Who are your competitors? How is your market developing? Which trends are relevant? Sound market knowledge enables strategic decisions.</p>
-        - title: "Typical Consulting Occasions"
+            <p><strong>1. Strategy & Business Model:</strong> Who are your customers? What is your positioning? What are your growth levers? A clear strategy is the foundation for every operational decision.</p>
+            <p><strong>2. Processes & Operations:</strong> From order intake to returns - efficient processes are the backbone of scalable e-commerce. Automate where it makes sense, keep human expertise where it counts.</p>
+            <p><strong>3. Technology & Systems:</strong> Shop platform, ERP, PIM, CRM, marketing automation - the right tech architecture makes all the difference. It is not about the most expensive tool, but the right fit.</p>
+            <p><strong>4. Market & Competition:</strong> Who are your competitors? Where is your market heading? Which trends matter? Solid market knowledge is the basis for smart strategic moves.</p>
+        - title: "When Do Retailers Seek Consulting?"
           content: |
-            <p>Online retailers seek consulting in various situations: Before a shop migration or ERP implementation, with stagnating growth, before internationalization, when preparing for investors or sale, or simply to get an external perspective on their own business.</p>
-            <p>Many clients start with an <a href="/ecommerce-audit">E-Commerce Audit</a> to get clarity about the status quo. For strategic decisions, I recommend an <a href="/ecommerce-strategy">E-Commerce Strategy</a> – a document that puts all decisions in a larger context.</p>
+            <p>Online retailers bring in consultants at different stages: before a platform migration or ERP rollout, when growth stalls, before expanding internationally, when preparing for investors or an exit, or simply to get an outside perspective on their business.</p>
+            <p>Many clients start with an <a href="/ecommerce-audit">E-Commerce Audit</a> to get a clear picture of where they stand. For bigger strategic moves, I recommend an <a href="/ecommerce-strategy">E-Commerce Strategy</a> - a document that puts every decision into a broader context.</p>
 
   # ========================================
   # Section 8: Compact Stats
@@ -370,11 +370,11 @@ sections:
           description: "in the digital economy"
         - value: "7"
           label: "Years"
-          description: "Managing Director"
+          description: "as CEO"
         - value: "50"
           suffix: "+"
           label: "Projects"
-          description: "successfully supported"
+          description: "successfully delivered"
 
   # ========================================
   # Section 9: FAQ
@@ -410,18 +410,18 @@ sections:
       headline: "Questions About <em>Consulting</em>"
       description: 'Still have questions? <a href="/contact" class="faq__link">Contact me</a> directly.'
       faqs:
-        - question: "Who is the consulting suitable for?"
-          answer: "My consulting is aimed at established online retailers and D2C brands facing strategic decisions – whether it's a system migration, process optimization or realignment. Ideally, you already have a functioning shop and are looking for the next growth step."
-        - question: "What distinguishes you from an agency?"
-          answer: "I don't sell implementation services. My recommendations are independent of software partnerships or commissions. If you need an agency, I'll help you find the right one – but I stay on your side of the table."
-        - question: "Do you also consult on ERP or shop selection?"
-          answer: "Yes, that's one of my specialties. I accompany the entire selection process: From requirements analysis to market overview to vendor selection. I focus on fit with the business model, not feature lists."
-        - question: "How does the initial call work?"
-          answer: "The initial call is free and takes about 30 minutes. We discuss your current situation, your goals and whether a collaboration makes sense. I provide initial assessments – non-binding and without hidden costs."
-        - question: "Do you also work operationally?"
-          answer: "Depending on your needs. The spectrum ranges from pure strategic consulting to project coaching to interim project management. During system implementations, I often accompany as owner on the client side."
+        - question: "Who is this consulting for?"
+          answer: "I work with established online retailers and D2C brands facing strategic decisions - whether that is a platform migration, process optimization, or a broader realignment. Ideally, you already have a working store and are looking to take the next step."
+        - question: "What makes you different from an agency?"
+          answer: "I do not sell implementation services. My recommendations are not tied to software partnerships or commissions. If you need an agency, I will help you find the right one - but I stay on your side of the table."
+        - question: "Do you advise on ERP or platform selection?"
+          answer: "Yes, it is one of my specialties. I guide you through the entire selection process: from requirements analysis to market overview to final vendor decision. I focus on fit with your business model, not feature checklists."
+        - question: "How does the discovery call work?"
+          answer: "The discovery call is free and takes about 30 minutes. We talk through your current situation, your goals, and whether working together makes sense. I share my initial thoughts - no strings attached and no hidden fees."
+        - question: "Do you get hands-on with execution?"
+          answer: "It depends on what you need. The range goes from pure strategic advice to project coaching to interim project leadership. During system rollouts, I often step in as the owner-side project lead."
         - question: "What does e-commerce consulting cost?"
-          answer: "Costs depend on scope. A one-time audit starts at €2,500, ongoing support from €1,500/month. For larger projects like ERP selection, I create individual proposals. In the initial call, we clarify what makes sense for you."
+          answer: "It depends on scope. A one-time audit starts at 2,500 euros, ongoing support from 1,500 euros per month. For larger projects like ERP selection, I put together a custom proposal. We can figure out what makes sense for you on the discovery call."
 
   # ========================================
   # Section 10: CTA

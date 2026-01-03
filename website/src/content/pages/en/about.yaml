@@ -210,7 +210,7 @@ sections:
           description: "System selection, integration, and optimization – from inventory management to fulfillment and logistics."
         - icon: "heroicons:code-bracket"
           title: "Technical Architecture"
-          description: "API design, microservices, cloud infrastructure, and scalable system landscapes."
+          description: "API design, microservices, cloud infrastructure, and systems built to scale."
 
   # CTA
   - id: cta
@@ -231,8 +231,8 @@ sections:
       vignetteColor: "#0a1628"
     content:
       headline: "Let's <em>Talk</em>"
-      description: "Do you have an e-commerce project that needs strategic support? I look forward to the exchange."
+      description: "Have an e-commerce project that could use strategic guidance? I'd love to hear about it."
       buttonText: "Get in Touch"
       buttonHref: "/contact"
-      emailLabel: "Or directly via email"
+      emailLabel: "Or email me directly"
       email: "contact@wernerstrauch.com"
