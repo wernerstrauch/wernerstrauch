@@ -181,14 +181,28 @@ function generateHtmlTemplate(headline) {
 }
 
 async function generateOGImages() {
-  const pagesDir = path.join(__dirname, '../src/content/pages/de');
-  const outputDir = path.join(__dirname, '../public/og');
+  const contentDir = path.join(__dirname, '../src/content/pages');
+  const outputBaseDir = path.join(__dirname, '../public/og');
   const imagePath = path.join(__dirname, '../src/images/ecommerce-berater-werner-strauch.png');
   const signetPath = path.join(__dirname, '../public/signet-full.svg');
 
-  // Ensure output directory exists
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
+  // Supported languages
+  const LANGUAGES = ['de', 'en'];
+
+  // Check for --lang argument to filter specific language
+  const langArg = process.argv.find(arg => arg.startsWith('--lang='));
+  const specificLang = langArg ? langArg.split('=')[1] : null;
+
+  // Check for --page argument
+  const pageArg = process.argv.find(arg => arg.startsWith('--page='));
+  const specificPage = pageArg ? pageArg.split('=')[1] : null;
+
+  // Determine which languages to process
+  const languagesToProcess = specificLang ? [specificLang] : LANGUAGES;
+
+  // Ensure base output directory exists
+  if (!fs.existsSync(outputBaseDir)) {
+    fs.mkdirSync(outputBaseDir, { recursive: true });
   }
 
   // Read portrait and signet once
@@ -198,33 +212,46 @@ async function generateOGImages() {
   const signetBuffer = fs.readFileSync(signetPath);
   const base64Signet = `data:image/svg+xml;base64,${signetBuffer.toString('base64')}`;
 
-  // Find all YAML files
-  const yamlFiles = await glob('*.yaml', { cwd: pagesDir });
-
-  // Check for --page argument
-  const pageArg = process.argv.find(arg => arg.startsWith('--page='));
-  const specificPage = pageArg ? pageArg.split('=')[1] : null;
-
-  // Filter pages to process
+  // Collect pages from all languages
   const pagesToProcess = [];
 
-  for (const file of yamlFiles) {
-    const filePath = path.join(pagesDir, file);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const data = parseYaml(content);
+  for (const lang of languagesToProcess) {
+    const pagesDir = path.join(contentDir, lang);
 
-    if (data.meta?.ogImage?.headline && data.meta?.ogImage?.filename) {
-      const pageName = file.replace('.yaml', '');
+    if (!fs.existsSync(pagesDir)) {
+      console.log(`Language directory not found: ${pagesDir}`);
+      continue;
+    }
 
-      if (specificPage && pageName !== specificPage) {
-        continue;
+    // Ensure language-specific output directory exists
+    const langOutputDir = path.join(outputBaseDir, lang);
+    if (!fs.existsSync(langOutputDir)) {
+      fs.mkdirSync(langOutputDir, { recursive: true });
+    }
+
+    // Find all YAML files for this language
+    const yamlFiles = await glob('*.yaml', { cwd: pagesDir });
+
+    for (const file of yamlFiles) {
+      const filePath = path.join(pagesDir, file);
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const data = parseYaml(content);
+
+      if (data.meta?.ogImage?.headline && data.meta?.ogImage?.filename) {
+        const pageName = file.replace('.yaml', '');
+
+        if (specificPage && pageName !== specificPage) {
+          continue;
+        }
+
+        pagesToProcess.push({
+          lang,
+          name: pageName,
+          headline: data.meta.ogImage.headline,
+          filename: data.meta.ogImage.filename,
+          outputDir: langOutputDir
+        });
       }
-
-      pagesToProcess.push({
-        name: pageName,
-        headline: data.meta.ogImage.headline,
-        filename: data.meta.ogImage.filename
-      });
     }
   }
 
@@ -254,7 +281,7 @@ meta:
 
   // Generate each image
   for (const pageConfig of pagesToProcess) {
-    console.log(`Generating: ${pageConfig.filename}.png`);
+    console.log(`Generating [${pageConfig.lang}]: ${pageConfig.filename}.png`);
 
     const htmlContent = generateHtmlTemplate(pageConfig.headline);
     const finalHtml = htmlContent
@@ -268,7 +295,7 @@ meta:
     await page.waitForFunction(() => document.fonts.ready);
     await page.waitForTimeout(300);
 
-    const outputPath = path.join(outputDir, `${pageConfig.filename}.png`);
+    const outputPath = path.join(pageConfig.outputDir, `${pageConfig.filename}.png`);
 
     await page.screenshot({
       path: outputPath,

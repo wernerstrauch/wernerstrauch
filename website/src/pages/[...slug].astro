@@ -151,9 +151,9 @@ const activeSections = sections
   .filter((s: any) => s.enabled && s.component !== "Footer")
   .sort((a: any, b: any) => a.order - b.order);
 
-// OG Image path from YAML or fallback
+// OG Image path from YAML or fallback (language-specific)
 const ogImagePath = meta.ogImage?.filename
-  ? `/og/${meta.ogImage.filename}.png`
+  ? `/og/${lang}/${meta.ogImage.filename}.png`
   : undefined;
 
 // Schema.org Data Extraction
