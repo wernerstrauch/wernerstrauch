@@ -3,7 +3,9 @@
     "blog": "Blog",
     "about": "About",
     "services": "Services",
-    "contact": "Contact"
+    "contact": "Contact",
+    "navigation": "Navigation",
+    "legal": "Legal"
   },
   "blog": {
     "title": "Blog",
@@ -25,7 +27,10 @@
   "footer": {
     "copyright": "All rights reserved",
     "imprint": "Imprint",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "servicesAnalyse": "Analysis & Strategy",
+    "servicesUmsetzung": "Implementation & Leadership",
+    "backToTop": "Back to top"
   },
   "contact": {
     "title": "Contact",
