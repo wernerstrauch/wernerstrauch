@@ -51,9 +51,9 @@ sections:
       subheadline: "Ongoing strategic support, not one-off consulting. We tackle challenges together, pressure-test ideas, and sharpen your decision-making – with an experienced partner in your corner."
       image: "/src/images/ecommerce-sparring-hero.png"
       imageAlt: "E-Commerce Sparring - Strategic Exchange"
-      primaryCta: "Request Sparring"
+      primaryCta: "Start a Conversation"
       primaryCtaHref: "/contact"
-      secondaryCta: "How It Works"
+      secondaryCta: "See How It Works"
       secondaryCtaHref: "#process"
 
   # ========================================

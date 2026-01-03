@@ -4,7 +4,7 @@ slug: contact
 
 meta:
   title: "Contact | Werner Strauch – E-Commerce Consulting"
-  description: "Schedule a free initial consultation. I look forward to your message about e-commerce strategy, ERP selection, or Shopify projects."
+  description: "Book a free discovery call. Let's discuss your e-commerce strategy, ERP selection, or Shopify project."
 
 settings:
   status: published
@@ -32,7 +32,7 @@ sections:
       badge: "Contact"
       badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
       heading: "Let's <em>talk</em>"
-      description: "Have questions about e-commerce strategy, ERP selection, or Shopify projects? I look forward to hearing from you."
+      description: "Got questions about e-commerce strategy, ERP selection, or Shopify projects? Drop me a line."
       contactInfo:
         - icon: "heroicons:envelope"
           label: "Email"
@@ -72,7 +72,7 @@ sections:
           gridCol: "full"
         - id: "interest"
           name: "interest"
-          label: "Interest in"
+          label: "I'm interested in"
           type: "select"
           gridCol: "full"
           options:

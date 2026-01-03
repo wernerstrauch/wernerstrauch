@@ -55,7 +55,7 @@ sections:
       badge: "Services"
       badgeIcon: "heroicons:briefcase-16-solid"
       headline: "<mark>E-Commerce</mark> <em>Services</em> for Every Phase"
-      subheadline: "From strategic analysis to technology consulting and implementation support – I help you exactly where you need it. Modular, independent and as equal partners."
+      subheadline: "From strategic analysis to technology consulting and hands-on implementation support. I meet you where you are. Modular, independent, and always in your corner."
       image: "/src/images/leistungen-hero.png"
       imageAlt: "E-Commerce Services - Overview"
       primaryCta: "Schedule Initial Call"
@@ -80,26 +80,26 @@ sections:
         fadeDirection: "left"
     content:
       badge: "My Approach"
-      headline: "One Partner for the <em>Entire E-Commerce Lifecycle</em>"
+      headline: "One Partner Across Your <em>Entire E-Commerce Journey</em>"
       image: "/src/images/leistungen-ansatz.png"
       imageAlt: "Modular E-Commerce Consulting Approach"
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "Not every problem requires the same solution. My service portfolio is modular – you choose what you need."
+          content: "Different challenges call for different solutions. My services are modular by design. Pick what you need."
         - type: "text"
-          content: "<p>Whether it's a one-time audit, long-term sparring, or intensive project support: I adapt to your situation. All services can be booked independently or combined – without hidden commissions or sales interests.</p>"
+          content: "<p>Whether you need a one-time audit, ongoing advisory support, or intensive project guidance, I adapt to your situation. Every service works standalone or combines with others. No hidden fees, no vendor kickbacks.</p>"
         - type: "features"
           items:
             - icon: "heroicons:puzzle-piece"
               title: "Modular"
-              description: "Individual services or tailored combinations"
+              description: "Standalone services or custom packages"
             - icon: "heroicons:scale"
               title: "Independent"
-              description: "No commissions, no vendor lock-in"
+              description: "Zero commissions, zero vendor lock-in"
             - icon: "heroicons:arrow-path"
               title: "Flexible"
-              description: "From one-time projects to ongoing support"
+              description: "One-off projects or ongoing partnerships"
 
   # ========================================
   # Section 3: Core Services (ServicesShowcase)

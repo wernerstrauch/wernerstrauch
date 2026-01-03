@@ -48,7 +48,7 @@ sections:
       badge: "E-Commerce Audit"
       badgeIcon: "heroicons:magnifying-glass-circle-16-solid"
       headline: "<mark>E-Commerce</mark> <em>Audit</em> – Your Shop Under the Microscope"
-      subheadline: "Where are you losing customers? Where is revenue being left on the table? A systematic audit with 500+ checkpoints uncovers weaknesses and reveals concrete optimization potential."
+      subheadline: "Where are you losing customers? What revenue opportunities are slipping through the cracks? A systematic audit with 500+ checkpoints exposes hidden weaknesses and pinpoints exactly where to improve."
       image: "/src/images/ecommerce-audit-hero.png"
       imageAlt: "E-Commerce Audit - Systematic Shop Analysis"
       primaryCta: "Request Audit"
@@ -76,7 +76,7 @@ sections:
         vignetteColor: "#0a1628"
     content:
       badge: "Audit Facts"
-      headline: "Numbers That Speak for <em>Clarity</em>"
+      headline: "The <em>Facts</em> Speak for Themselves"
       stats:
         - value: "500"
           suffix: "+"
@@ -126,7 +126,7 @@ sections:
     content:
       badge: "The Problem"
       headline: "When Your Shop <em>Underperforms</em>"
-      description: "You're investing in marketing, but conversion rates don't match. Loading times are okay, but customers still bounce. An audit provides clarity."
+      description: "You're pouring money into marketing, but conversions aren't keeping pace. Page speed looks fine, yet visitors still leave. An audit cuts through the guesswork."
       problemsTitle: "Typical Symptoms"
       solutionsTitle: "After the Audit"
       problems:

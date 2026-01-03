@@ -95,9 +95,9 @@ sections:
         - type: "lead"
           content: "I'm not a project manager calling the shots. I'm the advisor who asks the tough questions and spots what everyone else misses."
         - type: "text"
-          content: "<p>For complex e-commerce projects, you need someone who thinks independently – without their own agenda. Someone who questions technical concepts, puts vendor proposals in context and translates business requirements into developer language.</p>"
+          content: "<p>Complex e-commerce projects need an independent voice - someone with no agenda beyond your success. I challenge technical concepts, cut through vendor jargon, and bridge the gap between business goals and technical execution.</p>"
         - type: "text"
-          content: "<p>If you need more than support – actual management and decision-making authority – <a href='/project-management'>Project Management</a> or <a href='/interim-management'>Interim Management</a> is the right choice.</p>"
+          content: "<p>Need someone with actual decision-making power? Check out <a href='/project-management'>Project Management</a> or <a href='/interim-management'>Interim Management</a> instead.</p>"
         - type: "features"
           items:
             - icon: "heroicons:chat-bubble-left-right"

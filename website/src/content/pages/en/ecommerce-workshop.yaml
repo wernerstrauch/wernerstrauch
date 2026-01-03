@@ -113,7 +113,7 @@ sections:
       description: "We tailor the workshop to your specific challenges – pick individual modules or combine all four for a comprehensive strategy day."
       cards:
         - title: "Strategy & Positioning"
-          description: "Where does your e-commerce stand today? Where should it go? Together we analyze your business model, competitive position and develop a clear strategy."
+          description: "Where is your e-commerce today – and where should it be? We'll dig into your business model and competitive landscape to develop a clear, actionable strategy."
           icon: "heroicons:map"
           large: true
           features:
@@ -122,7 +122,7 @@ sections:
             - "Goal Definition & KPIs"
             - "Strategic Decision-Making"
         - title: "Processes & Operations"
-          description: "From order receipt to returns: We analyze your workflows, identify bottlenecks and develop optimization measures."
+          description: "From order intake to returns: We map your workflows, pinpoint bottlenecks, and identify quick wins for optimization."
           icon: "heroicons:cog-6-tooth"
           features:
             - "Process Mapping"

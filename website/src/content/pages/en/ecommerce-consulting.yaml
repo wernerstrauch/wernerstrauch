@@ -48,7 +48,7 @@ sections:
       badge: "E-Commerce Consulting"
       badgeIcon: "heroicons:light-bulb-16-solid"
       headline: "<mark>Holistic</mark> E-Commerce <em>Consulting</em>"
-      subheadline: "Strategy, processes and technology – I examine your online business from all perspectives. Together we develop solutions that sustainably advance your business."
+      subheadline: "Strategy, processes, and technology - I look at your online business from every angle. Together, we build solutions that drive real, lasting growth."
       image: "/src/images/ecommerce-beratung-hero.png"
       imageAlt: "E-Commerce Consulting - Strategic Analysis"
       primaryCta: "Schedule Initial Call"
@@ -88,7 +88,7 @@ sections:
     content:
       badge: "The Challenge"
       headline: "When <em>Growth</em> Becomes a Burden"
-      description: "Online retailers face complex challenges – technical, organizational and strategic."
+      description: "Online retailers face complex challenges - technical, organizational, and strategic."
       problemsTitle: "Typical Symptoms"
       solutionsTitle: "With Consulting"
       problems:
@@ -97,9 +97,9 @@ sections:
         - icon: "heroicons:circle-stack"
           text: "Systems don't communicate with each other"
         - icon: "heroicons:cursor-arrow-ripple"
-          text: "Decisions based on gut feeling"
+          text: "Decisions made on gut instinct alone"
         - icon: "heroicons:puzzle-piece"
-          text: "Technology stack has grown historically"
+          text: "Tech stack built by accident, not design"
         - icon: "heroicons:map"
           text: "No clear roadmap for the future"
       solutions:

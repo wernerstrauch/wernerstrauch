@@ -7,7 +7,7 @@ slug: about
 
 meta:
   title: "About Me | Werner Strauch – E-Commerce Consultant & Strategist"
-  description: "20+ years of e-commerce experience. 7 years as managing director. Leading teams of up to 20 people. Business graduate with technical depth and strategic consulting expertise."
+  description: "20+ years in e-commerce. 7 years as CEO. Led teams of up to 20 people. Business graduate who bridges technical depth with strategic vision."
   ogImage:
     headline: "Werner Strauch<br><mark>About Me</mark>"
     filename: "og-about-me"
@@ -46,7 +46,7 @@ sections:
       badge: "About Me"
       badgeIcon: "heroicons:user-16-solid"
       headline: "I Speak Code and <em><mark>Strategy</mark></em>"
-      subheadline: "Started as a developer, now managing director and consultant. 20 years in e-commerce have taught me: The best solutions emerge when technology and business speak the same language."
+      subheadline: "I started writing code. Now I run companies and advise them. Two decades in e-commerce taught me this: the best solutions happen when tech and business truly understand each other."
       image: "/src/images/werner-strauch-konferenz.jpg"
       imageAlt: "Werner Strauch at a Conference"
       primaryCta: "Get in Touch"
@@ -67,8 +67,8 @@ sections:
       badgeIcon: "heroicons:academic-cap-16-solid"
       heading: "From Developer to <em>Strategist</em>"
       paragraphs:
-        - "<p>My career began where technology and business meet: in code. Over 20 years of experience implementing web projects has given me a deep understanding of what needs to work under the hood for e-commerce systems to scale.</p>"
-        - "<p>As a managing director, I've learned over the last <strong>7 years</strong> what it means to make strategic decisions and lead a company. In a previous role, I led a <strong>20-person team</strong> – today I lead a <strong>15-person agency team</strong> at digitalsprung.</p>"
+        - "<p>My career started where technology meets business: in the code itself. Twenty years of building web projects gave me a deep understanding of what actually needs to work under the hood for e-commerce to scale.</p>"
+        - "<p>As CEO, I've spent the last <strong>7 years</strong> learning what it really takes to make strategic decisions and run a company. Previously, I led a <strong>20-person team</strong> – today I lead a <strong>15-person agency</strong> at digitalsprung.</p>"
         - "<p>In parallel, I worked 7 years in online marketing in the financial industry – a school in performance, conversion, and data-driven decisions. This combination of <strong>technical depth, leadership experience, and strategic vision</strong> shapes my consulting today.</p>"
         - "<p>As a business graduate specializing in business informatics, I connect all worlds: I understand developers' language, know the challenges of team leadership, and the requirements of executive management. This makes me a translator between IT, team, and business.</p>"
       valuesTitle: "What Drives Me"
