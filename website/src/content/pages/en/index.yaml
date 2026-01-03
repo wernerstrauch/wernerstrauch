@@ -411,7 +411,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "E-commerce is not a technology problem. It's a decision problem. The right technology follows the right strategy – not the other way around."
+      quote: "E-commerce isn't a technology problem – it's a decision problem. The right technology follows the right strategy, not the other way around."
       author: "Werner Strauch"
       role: "E-Commerce Consultant"
 
