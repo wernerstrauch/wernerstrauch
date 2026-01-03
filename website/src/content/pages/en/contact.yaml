@@ -63,7 +63,13 @@ sections:
           type: "email"
           required: true
           placeholder: "john@company.com"
-          gridCol: "full"
+          gridCol: "half"
+        - id: "phone"
+          name: "phone"
+          label: "Phone (optional)"
+          type: "tel"
+          placeholder: "+1 123 456 7890"
+          gridCol: "half"
         - id: "company"
           name: "company"
           label: "Company"
@@ -98,7 +104,7 @@ sections:
           placeholder: "Tell me about your project or what you're looking for..."
           rows: 5
           gridCol: "full"
-      privacyText: 'I agree to the <a href="/privacy-policy" class="privacy-link">Privacy Policy</a> and consent to the processing of my data for contact purposes.'
+      privacyText: 'I agree to the <a href="/privacy" class="privacy-link">Privacy Policy</a> and consent to the processing of my data for contact purposes.'
       submitButtonText: "Send message"
       successTitle: "Thanks!"
       successMessage: "Got it! I'll be in touch within 24-48 hours."

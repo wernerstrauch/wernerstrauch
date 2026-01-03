@@ -21,7 +21,10 @@
       "Bash(pnpm run build:*)",
       "Bash(pnpm run dev)",
       "Bash(git diff:*)",
-      "Bash(node .claude/skills/fal-image-gen/scripts/generate_image.js:*)"
+      "Bash(node .claude/skills/fal-image-gen/scripts/generate_image.js:*)",
+      "Skill(fal-image-gen)",
+      "Skill(fal-image-gen:*)",
+      "Bash(node scripts/generate_image.js:*)"
     ]
   }
 }

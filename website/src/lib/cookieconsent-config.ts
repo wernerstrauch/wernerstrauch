@@ -91,7 +91,7 @@ export const cookieConsentConfig: CookieConsentConfig = {
           acceptAllBtn: "Accept all",
           acceptNecessaryBtn: "Necessary only",
           showPreferencesBtn: "Manage preferences",
-          footer: '<a href="/privacy-policy">Privacy Policy</a>',
+          footer: '<a href="/privacy">Privacy Policy</a>',
         },
         preferencesModal: {
           title: "Cookie Preferences",
