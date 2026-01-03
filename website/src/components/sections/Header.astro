@@ -106,8 +106,7 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
 
       {/* Right Side - Language + Button */}
       <div class="hidden md:flex items-center gap-4 shrink-0">
-        {/* Language Switcher - temporarily disabled
-        <a
+          <a
           href={altUrl}
           class:list={[
             "flex items-center gap-1 text-sm transition-colors",
@@ -117,7 +116,6 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
         >
           <span>{LANGUAGES[targetLang].code}</span>
         </a>
-        */}
 
         {/* Contact Button */}
         <a

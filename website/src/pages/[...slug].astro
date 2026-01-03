@@ -8,6 +8,7 @@ import {
   type SupportedLanguage,
   LANGUAGES,
   getPageHreflangEntries,
+  getAlternateLanguageUrl,
 } from "@lib/i18n";
 import { SITE } from "@config";
 
@@ -142,6 +143,8 @@ const headerVariant = settings?.headerVariant || "light";
 // i18n setup
 const lang = (page.data.lang as SupportedLanguage) || "de";
 const hreflangEntries = getPageHreflangEntries(allPages, page, SITE.site);
+const alternateLanguage = getAlternateLanguageUrl(page);
+const alternateUrl = alternateLanguage?.url;
 
 // Filter & Sort sections
 const activeSections = sections
@@ -259,6 +262,7 @@ const backgroundMap: Record<string, any> = {
   lang={lang}
   hreflangEntries={hreflangEntries}
   headerVariant={headerVariant}
+  alternateUrl={alternateUrl}
 >
   {/* Schema.org Structured Data */}
   <Fragment slot="schema">
