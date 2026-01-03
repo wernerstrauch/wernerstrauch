@@ -203,7 +203,7 @@ sections:
             - "A/B Testing Potential"
             - "Cart Abandonment"
         - title: "Technology & Performance"
-          description: "Loading times, Core Web Vitals, technical debt – how fit is your technical foundation for growth?"
+          description: "Loading times, Core Web Vitals, technical debt – is your tech stack ready to scale?"
           icon: "heroicons:cpu-chip"
           features:
             - "Page Speed & Core Web Vitals"
@@ -258,12 +258,12 @@ sections:
     content:
       badge: "The Process"
       headline: "How an <em>Audit</em> Works"
-      description: "Structured and transparent – from preparation to presentation of results."
+      description: "Clear, structured, and fully transparent – from kickoff to final presentation."
       steps:
         - number: "01"
           icon: "heroicons:clipboard-document-list"
           title: "Preparation & Briefing"
-          description: "You provide access to analytics, shop backend and relevant systems. In a kick-off call, we clarify focus topics and your goals."
+          description: "You grant access to analytics, your shop backend, and relevant systems. During our kickoff call, we'll align on focus areas and your specific goals."
           details:
             - "Set up access"
             - "Kick-off call"
@@ -271,7 +271,7 @@ sections:
         - number: "02"
           icon: "heroicons:magnifying-glass-circle"
           title: "Systematic Analysis"
-          description: "I work through all audit areas with over 500 checkpoints. Automated tools and manual review complement each other."
+          description: "I run through all audit areas using 500+ checkpoints. Automated tools and hands-on manual review work together for complete coverage."
           details:
             - "500+ checkpoints"
             - "Tool analysis"
@@ -279,7 +279,7 @@ sections:
         - number: "03"
           icon: "heroicons:document-text"
           title: "Report & Prioritization"
-          description: "You receive a comprehensive report (50-100+ pages) with all findings, prioritized by impact and effort."
+          description: "You get a comprehensive report (50-100+ pages) with every finding, prioritized by impact and implementation effort."
           details:
             - "Detailed report"
             - "Prioritized measures"
@@ -287,7 +287,7 @@ sections:
         - number: "04"
           icon: "heroicons:presentation-chart-bar"
           title: "Presentation & Handover"
-          description: "In a 60-90 minute presentation, I present the key findings and answer your questions."
+          description: "In a 60-90 minute presentation, I walk you through the key findings and answer all your questions."
           details:
             - "Management presentation"
             - "Q&A session"
@@ -316,15 +316,15 @@ sections:
       imagePosition: "right"
       content:
         - type: "lead"
-          content: "Not a superficial check, but a well-founded analysis with concrete action recommendations – documented and presented."
+          content: "This isn't a surface-level checkup. It's a thorough analysis with actionable recommendations – fully documented and professionally presented."
         - type: "features"
           items:
             - icon: "heroicons:document-text"
               title: "Comprehensive Audit Report"
-              description: "50-100+ pages with all findings, screenshots and explanations. No copy-paste from tools, but individual analysis."
+              description: "50-100+ pages covering all findings, with screenshots and clear explanations. No raw tool dumps – everything is custom-analyzed for your business."
             - icon: "heroicons:clipboard-document-check"
               title: "Prioritized Action List"
-              description: "All optimization measures rated by impact and effort. You immediately know where to start."
+              description: "Every optimization opportunity ranked by impact and effort. You'll know exactly where to start."
             - icon: "heroicons:bolt"
               title: "Quick Win Overview"
               description: "Measures that can be implemented quickly and have immediate impact – separately marked."

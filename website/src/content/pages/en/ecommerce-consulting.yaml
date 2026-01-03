@@ -139,10 +139,10 @@ sections:
     content:
       badge: "Consulting Areas"
       headline: "Four Perspectives for <em>Sustainable Success</em>"
-      description: "E-commerce success doesn't come from individual measures, but from the interplay of strategy, processes, technology and market understanding."
+      description: "E-commerce success is not about isolated tactics - it comes from getting strategy, processes, technology, and market insight working together."
       cards:
         - title: "Strategy & Positioning"
-          description: "Where do you stand today? Where do you want to go? Together we develop a clear e-commerce strategy that fits your company and defines realistic growth targets."
+          description: "Where are you today? Where do you want to be? Together, we craft a clear e-commerce strategy that fits your business and sets achievable growth goals."
           icon: "heroicons:map"
           large: true
           features:
@@ -151,35 +151,35 @@ sections:
             - "Growth Strategy"
             - "Roadmap Development"
         - title: "Processes & Operations"
-          description: "Efficient processes are the backbone of scalable e-commerce. I analyze your processes and identify automation potential."
+          description: "Efficient processes are the backbone of scalable e-commerce. I dig into your workflows and pinpoint where automation can make a real difference."
           icon: "heroicons:cog-6-tooth"
           features:
             - "Process Analysis"
             - "Automation"
             - "Fulfillment Optimization"
         - title: "Technology & Systems"
-          description: "Shop system, ERP, PIM, CRM – I help you develop the right technology architecture and integrate systems sensibly. More about <a href='/technology-consulting'>Technology Consulting</a>."
+          description: "Shop platform, ERP, PIM, CRM - I help you design the right technology architecture and connect your systems the smart way. Learn more about <a href='/technology-consulting'>Technology Consulting</a>."
           icon: "heroicons:cpu-chip"
           features:
             - "System Selection"
             - "Architecture Design"
             - "Integration Consulting"
         - title: "Market & Competition"
-          description: "Who are your competitors? How is the market developing? Well-founded analyses provide the basis for strategic decisions."
+          description: "Who are your competitors? Where is the market headed? Solid analysis gives you the foundation you need for smart strategic decisions."
           icon: "heroicons:globe-alt"
           features:
             - "Market Analysis"
-            - "Competitive Monitoring"
+            - "Competitive Intelligence"
             - "Trend Monitoring"
         - title: "Sales & Growth"
-          description: "From organic growth to performance marketing to marketplace strategies – I support you in developing the right channels."
+          description: "From organic growth to performance marketing to marketplace strategies - I help you find and develop the right channels for your business."
           icon: "heroicons:arrow-trending-up"
           large: true
           features:
             - "Channel Strategy"
             - "Performance Analysis"
             - "Marketplace Consulting"
-            - "Internationalization"
+            - "International Expansion"
 
   # ========================================
   # Section 4: Quote
@@ -192,7 +192,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "Sustainable e-commerce success doesn't come from individual measures, but from the interplay of strategy, processes and technology."
+      quote: "Lasting e-commerce success is not about quick fixes - it comes from getting strategy, processes, and technology working in sync."
       author: "Werner Strauch"
       role: "E-Commerce Consultant"
 
@@ -228,40 +228,40 @@ sections:
     content:
       badge: "The Process"
       headline: "How <em>Consulting</em> Works"
-      description: "Structured, transparent and targeted – from initial analysis to strategic implementation."
+      description: "Structured, transparent, and focused - from first analysis to strategic execution."
       steps:
         - number: "01"
           icon: "heroicons:phone"
-          title: "Initial Call"
-          description: "In a free 30-minute call, we get to know each other. You describe your challenges, I provide initial assessments."
+          title: "Discovery Call"
+          description: "A free 30-minute call where we get to know each other. You share your challenges, I offer my initial take."
           details:
             - "Free"
             - "30 Minutes"
-            - "Non-binding"
+            - "No Strings Attached"
         - number: "02"
           icon: "heroicons:document-magnifying-glass"
           title: "Analysis & Assessment"
-          description: "I analyze your current situation: business model, processes, technology, market position. You receive a comprehensive status report."
+          description: "I take a close look at where you are: business model, processes, technology, market position. You get a full status report."
           details:
-            - "360° Analysis"
+            - "360 Degree Analysis"
             - "Process Mapping"
             - "Status Report"
         - number: "03"
           icon: "heroicons:presentation-chart-line"
           title: "Strategy & Roadmap"
-          description: "Together we develop a prioritized roadmap. What are the strategic levers? What quick wins are there?"
+          description: "Together, we build a prioritized roadmap. What are the key levers? Where can you get quick wins?"
           details:
             - "Strategy Development"
             - "Prioritization"
             - "Action Plan"
         - number: "04"
           icon: "heroicons:rocket-launch"
-          title: "Implementation & Support"
-          description: "Depending on your needs, I accompany the implementation – as a sparring partner, project manager or with hands-on support for system selection and implementation."
+          title: "Execution & Support"
+          description: "Depending on what you need, I stay involved through execution - as a sounding board, project lead, or with hands-on help during system selection and rollout."
           details:
             - "Project Support"
             - "Vendor Management"
-            - "Success Monitoring"
+            - "Performance Tracking"
 
   # ========================================
   # Section 6: Deeper Positioning (ContentSplitImage)

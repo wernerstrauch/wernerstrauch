@@ -136,7 +136,7 @@ sections:
             - "Channel Performance"
             - "Conversion Analysis"
         - title: "Scaling & Systems"
-          description: "Is your technology architecture ready for growth? We evaluate your system landscape and develop a roadmap for the future."
+          description: "Is your tech stack ready to scale? We evaluate your current systems and build a roadmap for future growth."
           icon: "heroicons:cpu-chip"
           large: true
           features:
@@ -170,12 +170,12 @@ sections:
     content:
       badge: "The Process"
       headline: "How a <em>Workshop</em> Works"
-      description: "From preparation to follow-up – a structured process for maximum value."
+      description: "From prep to follow-up – a structured process designed to maximize your ROI."
       steps:
         - number: "01"
           icon: "heroicons:clipboard-document-list"
           title: "Preparation"
-          description: "You fill out a questionnaire, I analyze your data and systems in advance. This way we don't start from scratch on workshop day."
+          description: "You complete a brief questionnaire while I analyze your data and systems. This way, we hit the ground running on workshop day."
           details:
             - "Questionnaire"
             - "Data Analysis"
@@ -183,7 +183,7 @@ sections:
         - number: "02"
           icon: "heroicons:presentation-chart-bar"
           title: "Workshop Day"
-          description: "Intensive working session with your team. Analysis, discussion, strategy development and concrete action planning."
+          description: "A focused, intensive session with your team. We analyze, discuss, develop strategy, and map out concrete action plans."
           details:
             - "Current State Analysis"
             - "Strategy Session"
@@ -199,7 +199,7 @@ sections:
         - number: "04"
           icon: "heroicons:arrow-path"
           title: "Follow-up"
-          description: "Optional: After 4-6 weeks, a review call on implementation. What was achieved? Where are the sticking points? What's next?"
+          description: "Optional: 4-6 weeks later, we jump on a call to review progress. What's been accomplished? Where are you stuck? What comes next?"
           details:
             - "Review Call"
             - "Progress Check"
@@ -218,31 +218,31 @@ sections:
     content:
       badge: "The Difference"
       headline: "From <em>Day-to-Day</em> to Strategy"
-      description: "A workshop creates the space that daily business doesn't offer – for focused work on your business, not just in it."
+      description: "A workshop carves out space that day-to-day operations never allow – time to work on your business, not just in it."
       problemsTitle: "Without Workshop"
       solutionsTitle: "After the Workshop"
       problems:
         - icon: "heroicons:question-mark-circle"
-          text: "Unclear priorities and many open issues"
+          text: "Unclear priorities and too many open questions"
         - icon: "heroicons:users"
-          text: "Different ideas within the team"
+          text: "Team members pulling in different directions"
         - icon: "heroicons:clock"
-          text: "No time for strategic thinking"
+          text: "No bandwidth for strategic thinking"
         - icon: "heroicons:document-text"
-          text: "Decisions without common basis"
+          text: "Decisions made without a shared foundation"
         - icon: "heroicons:arrows-pointing-out"
-          text: "Silo thinking between departments"
+          text: "Silos between departments"
       solutions:
         - icon: "heroicons:check-circle"
-          text: "Clear roadmap with prioritized measures"
+          text: "Clear roadmap with prioritized action items"
         - icon: "heroicons:user-group"
-          text: "Shared understanding and team alignment"
+          text: "Shared understanding and full team alignment"
         - icon: "heroicons:calendar"
-          text: "Focused time for the important topics"
+          text: "Dedicated time for what actually matters"
         - icon: "heroicons:document-check"
-          text: "Well-founded decision bases"
+          text: "Data-driven decisions with buy-in"
         - icon: "heroicons:puzzle-piece"
-          text: "Cross-departmental collaboration"
+          text: "True cross-functional collaboration"
 
   # ========================================
   # Section 6: ContentSplitImage (For Whom?)
@@ -270,7 +270,7 @@ sections:
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "From high-growth startups to established brands – the workshop is for everyone who wants to strategically develop their e-commerce."
+          content: "From fast-growing startups to established brands – this workshop is for anyone serious about taking their e-commerce to the next level."
         - type: "features"
           items:
             - icon: "heroicons:rocket-launch"

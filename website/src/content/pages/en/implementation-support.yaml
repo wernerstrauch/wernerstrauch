@@ -105,13 +105,13 @@ sections:
               description: "I stress-test your concepts, walk through scenarios, and bring fresh perspectives."
             - icon: "heroicons:clipboard-document-check"
               title: "Quality Assurance"
-              description: "I review deliverables, test critical functions and secure sign-offs."
+              description: "I review deliverables, test critical functionality, and validate before sign-off."
             - icon: "heroicons:users"
               title: "Vendor Management"
-              description: "I accompany coordination with vendors and keep agencies on track."
+              description: "I sit in on vendor calls, hold agencies accountable, and keep everyone aligned."
             - icon: "heroicons:language"
-              title: "Translator"
-              description: "I translate between business and tech – in both directions."
+              title: "Business-Tech Translator"
+              description: "I bridge the gap between business stakeholders and developers - both ways."
 
   # ========================================
   # Section 3: ProblemSolution
@@ -145,31 +145,31 @@ sections:
     content:
       badge: "The Difference"
       headline: "Projects <em>with Support</em>"
-      description: "E-commerce projects rarely fail because of technology – but because of communication, expectations and lack of oversight."
+      description: "E-commerce projects rarely fail because of technology. They fail because of miscommunication, misaligned expectations, and gaps in oversight."
       problemsTitle: "Without Support"
       solutionsTitle: "With Support"
       problems:
         - icon: "heroicons:question-mark-circle"
-          text: "Nobody critically questions vendor proposals"
+          text: "No one pushes back on vendor proposals"
         - icon: "heroicons:document-text"
-          text: "Specifications are interpreted differently"
+          text: "Everyone reads the specs differently"
         - icon: "heroicons:exclamation-triangle"
-          text: "Problems are recognized too late"
+          text: "Problems surface too late to fix cheaply"
         - icon: "heroicons:banknotes"
-          text: "Budget and timeline run out of control"
+          text: "Budget and timeline spiral out of control"
         - icon: "heroicons:arrows-pointing-out"
-          text: "Business and IT talk past each other"
+          text: "Business and IT keep talking past each other"
       solutions:
         - icon: "heroicons:eye"
-          text: "Independent review of all concepts and proposals"
+          text: "Independent review of every concept and proposal"
         - icon: "heroicons:document-check"
-          text: "Clear specifications with unified understanding"
+          text: "Crystal-clear specs everyone interprets the same way"
         - icon: "heroicons:shield-check"
-          text: "Early QA and regular reviews"
+          text: "Early QA catches issues while they're still cheap to fix"
         - icon: "heroicons:chart-bar"
-          text: "Transparent progress monitoring"
+          text: "Transparent progress tracking you can trust"
         - icon: "heroicons:arrows-right-left"
-          text: "Translation between all parties"
+          text: "Someone who speaks both business and tech fluently"
 
   # ========================================
   # Section 4: BentoGrid (Use Cases)
@@ -189,19 +189,19 @@ sections:
     content:
       badge: "Use Cases"
       headline: "Where I <em>Support</em> You"
-      description: "Implementation support makes sense for complex projects where external vendors are involved and a lot is at stake."
+      description: "Implementation support pays off on high-stakes projects with external vendors - where getting it wrong is expensive."
       cards:
         - title: "Shop Migration"
-          description: "Changing shop systems is one of the riskiest moments in e-commerce. I accompany the process from requirements to go-live."
+          description: "Replatforming is one of the riskiest moves in e-commerce. I'm with you from requirements gathering through go-live."
           icon: "heroicons:arrow-path"
           large: true
           features:
             - "Requirements Review"
-            - "Data Migration Control"
+            - "Data Migration QA"
             - "UAT Support"
-            - "Go-Live Assurance"
+            - "Go-Live Readiness"
         - title: "ERP Implementation"
-          description: "ERP projects are complex and lengthy. I ensure that e-commerce requirements don't get lost."
+          description: "ERP rollouts are complex, long-running beasts. I make sure your e-commerce needs don't get buried in the process."
           icon: "heroicons:circle-stack"
           features:
             - "Process Mapping"

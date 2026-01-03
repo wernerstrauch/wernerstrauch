@@ -70,21 +70,21 @@ sections:
         - "<p>My career started where technology meets business: in the code itself. Twenty years of building web projects gave me a deep understanding of what actually needs to work under the hood for e-commerce to scale.</p>"
         - "<p>As CEO, I've spent the last <strong>7 years</strong> learning what it really takes to make strategic decisions and run a company. Previously, I led a <strong>20-person team</strong> – today I lead a <strong>15-person agency</strong> at digitalsprung.</p>"
         - "<p>Alongside that, I spent 7 years in online marketing for financial services – a masterclass in performance, conversion, and data-driven thinking. This blend of <strong>technical depth, leadership experience, and strategic vision</strong> is what I bring to every engagement.</p>"
-        - "<p>As a business graduate specializing in business informatics, I connect all worlds: I understand developers' language, know the challenges of team leadership, and the requirements of executive management. This makes me a translator between IT, team, and business.</p>"
+        - "<p>With a business degree focused on IT, I bridge all these worlds: I speak developers' language, I know what it takes to lead teams, and I understand what executives need. That makes me the translator between tech, people, and the business.</p>"
       valuesTitle: "What Drives Me"
       values:
         - icon: "heroicons:light-bulb"
           title: "Creating Clarity"
-          description: "Making complex systems understandable and maintaining overview – even when it gets technical."
+          description: "Making complex systems understandable and keeping the big picture in focus – even when things get technical."
         - icon: "heroicons:arrow-trending-up"
           title: "Achieving Impact"
           description: "No theory without practice. Every recommendation must deliver measurable results."
         - icon: "heroicons:users"
           title: "Developing Teams"
-          description: "Enabling people to work independently and grow beyond themselves."
+          description: "Helping people work independently and exceed their own expectations."
         - icon: "heroicons:hand-raised"
-          title: "Empower, Not Bind"
-          description: "My goal is your independence. I build systems that you can control yourself."
+          title: "Empower, Don't Create Dependency"
+          description: "My goal is your independence. I build systems you can own and run yourself."
 
   # Expertise Section
   - id: expertise
@@ -111,7 +111,7 @@ sections:
           icon: "heroicons:calendar"
         - value: "7"
           label: "Years"
-          description: "as Managing Director"
+          description: "as CEO"
           icon: "heroicons:briefcase"
         - value: "15"
           suffix: "+"
@@ -129,17 +129,17 @@ sections:
       padding: lg
     content:
       badge: "Hands-on Expertise"
-      headline: "From Practice, <em>For Practice</em>"
+      headline: "Built in the <em>Trenches</em>"
       image: "/src/images/werner-strauch-shop-experte.jpg"
       imageAlt: "Werner Strauch - E-Commerce & Shop Expert"
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "I know e-commerce not just from PowerPoint presentations – I've built, migrated, and scaled shops myself."
+          content: "I don't just know e-commerce from slide decks – I've built shops, migrated them, and scaled them myself."
         - type: "text"
-          content: "<p>From the first line of code to strategic management: My journey through the e-commerce world now gives me the ability to speak at eye level with developers, project managers, and executives.</p>"
+          content: "<p>From writing my first line of code to running companies: my journey through e-commerce means I can hold my own in conversations with developers, project managers, and executives alike.</p>"
         - type: "text"
-          content: "<p>This practical experience flows into every consultation – whether selecting the right shop system, optimizing processes, or strategically realigning your online business.</p>"
+          content: "<p>That hands-on experience shapes every engagement – whether we're choosing the right platform, streamlining operations, or reimagining your online strategy.</p>"
 
   # Qualifications
   - id: qualifications
@@ -204,10 +204,10 @@ sections:
           description: "Shop architecture, platform selection, migration planning, and technical scaling for sustainable growth."
         - icon: "heroicons:briefcase"
           title: "Management & Leadership"
-          description: "7 years of experience in corporate management. Building and leading teams of up to 20 people."
+          description: "7 years running companies. Built and led teams of up to 20 people."
         - icon: "heroicons:circle-stack"
           title: "ERP & Processes"
-          description: "System selection, integration, and optimization of inventory management, fulfillment, and logistics."
+          description: "System selection, integration, and optimization – from inventory management to fulfillment and logistics."
         - icon: "heroicons:code-bracket"
           title: "Technical Architecture"
           description: "API design, microservices, cloud infrastructure, and scalable system landscapes."

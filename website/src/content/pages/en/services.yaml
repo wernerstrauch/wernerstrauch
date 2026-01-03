@@ -137,31 +137,31 @@ sections:
       items:
         - icon: "heroicons:magnifying-glass-circle-16-solid"
           title: "E-Commerce Audit"
-          description: "Systematic analysis of your shop with 500+ checkpoints. Clear report with prioritized recommendations and quick wins."
+          description: "Deep-dive analysis of your store across 500+ checkpoints. Walk away with a clear report, prioritized actions, and quick wins."
           linkText: "Learn more"
           linkHref: "/ecommerce-audit"
           image: "/src/images/ecommerce-audit-hero.png"
         - icon: "heroicons:map-16-solid"
           title: "E-Commerce Strategy"
-          description: "Your masterplan for sustainable growth. Strategy document with roadmap, business case and KPI framework."
+          description: "Your roadmap for sustainable growth. A complete strategy document with business case, milestones, and KPI framework."
           linkText: "Learn more"
           linkHref: "/ecommerce-strategy"
           image: "/src/images/ecommerce-strategie-hero.png"
         - icon: "heroicons:light-bulb-16-solid"
           title: "E-Commerce Consulting"
-          description: "Holistic consulting: Strategy, processes, technology and market – viewed from all perspectives."
+          description: "End-to-end consulting covering strategy, operations, technology, and market positioning. The full picture."
           linkText: "Learn more"
           linkHref: "/ecommerce-consulting"
           image: "/src/images/ecommerce-beratung-hero.png"
         - icon: "heroicons:cpu-chip-16-solid"
           title: "Technology Consulting"
-          description: "Neutral system selection: ERP, PIM, shop system. Objective and without commissions – I'm on your side."
+          description: "Vendor-neutral system selection for ERP, PIM, and e-commerce platforms. Objective advice with zero kickbacks."
           linkText: "Learn more"
           linkHref: "/technology-consulting"
           image: "/src/images/technologieberatung-hero.png"
         - icon: "heroicons:chat-bubble-left-right-16-solid"
           title: "E-Commerce Sparring"
-          description: "Regular exchange as equals. Your external sparring partner in a retainer model for better decisions."
+          description: "Your go-to sounding board on retainer. Regular check-ins with someone who gets it. Better decisions, faster."
           linkText: "Learn more"
           linkHref: "/ecommerce-sparring"
           image: "/src/images/ecommerce-sparring-hero.png"
@@ -177,8 +177,8 @@ sections:
       variant: dark
       padding: md
     content:
-      headline: "Not Sure <em>What Fits</em>?"
-      description: "In a free 30-minute call, we'll figure out together which service makes sense for your situation."
+      headline: "Not Sure <em>Where to Start</em>?"
+      description: "Let's figure it out together. Book a free 30-minute call and I'll help you find the right fit."
       buttonText: "Schedule Initial Call"
       buttonHref: "/contact"
 
@@ -205,20 +205,20 @@ sections:
         shape: "diamonds"
         hideOnMobile: true
     content:
-      headline: "<em>Transfer</em> Knowledge"
-      description: "Strengthen your team – with intensive workshops or ongoing sparring. Two paths that can also be combined."
+      headline: "Build <em>Team Capability</em>"
+      description: "Level up your team with intensive workshops or ongoing advisory support. Two paths that work even better together."
       ctaText: "Get in Touch"
       ctaHref: "/contact"
       ctaIcon: "heroicons:arrow-right-16-solid"
       cards:
         - title: "E-Commerce Workshop"
-          description: "Intensive team workshops on strategic e-commerce topics. Half a day to two days of focused knowledge transfer with concrete results."
+          description: "Intensive team sessions on strategic e-commerce topics. Half a day to two full days of hands-on learning with actionable outcomes."
           linkText: "Request Workshop"
           linkHref: "/ecommerce-workshop"
           cardVariant: "lime"
           image: "/src/images/ecommerce-workshop-hero.png"
         - title: "E-Commerce Sparring"
-          description: "Regular exchange in a retainer model. 2-4 sessions per month plus asynchronous support – your sparring partner for better decisions."
+          description: "Ongoing advisory on retainer. 2-4 sessions per month plus async support. Your trusted sounding board for smarter decisions."
           linkText: "Request Sparring"
           linkHref: "/ecommerce-sparring"
           cardVariant: "dark"
@@ -235,7 +235,7 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "The right service doesn't depend on the budget, but on the question: What do you really need right now?"
+      quote: "The right service isn't about budget. It's about one question: What do you actually need right now?"
       author: "Werner Strauch"
       role: "E-Commerce Consultant"
 
@@ -272,31 +272,31 @@ sections:
       badge: "Implementation & Leadership"
       badgeIcon: "heroicons:rocket-launch-16-solid"
       headline: "From Plan to <em>Reality</em>"
-      description: "When you need support with implementation – from quality assurance to operational leadership."
+      description: "When you need boots on the ground. From quality oversight to hands-on leadership."
       cards:
         - title: "Implementation Support"
-          description: "Quality assurance and sparring during implementation. I ensure your projects are executed properly – as a critical thinker without my own agenda."
+          description: "QA and advisory during rollouts. I keep your projects on track as an objective critical friend with no hidden agenda."
           icon: "heroicons:clipboard-document-check"
           large: true
           features:
             - "Quality Assurance & Reviews"
             - "Vendor Management"
-            - "Milestone Control"
-            - "From €1,500/month"
+            - "Milestone Tracking"
+            - "From EUR 1,500/month"
         - title: "Project Management"
-          description: "External management of your e-commerce projects. Clear structures, transparent communication, results in focus."
+          description: "Outsourced project leadership for your e-commerce initiatives. Clear structure, transparent updates, results-driven."
           icon: "heroicons:flag"
           features:
-            - "Project Management"
-            - "Stakeholder Management"
-            - "From €4,000/month"
+            - "Project Leadership"
+            - "Stakeholder Alignment"
+            - "From EUR 4,000/month"
         - title: "Interim Management"
-          description: "E-commerce leadership on a temporary basis. When you need an experienced leader with operational responsibility."
+          description: "Temporary e-commerce leadership. When you need a seasoned operator to step in and own the outcomes."
           icon: "heroicons:briefcase"
           features:
-            - "Leadership Role"
-            - "Team Responsibility"
-            - "€1,150-1,500/day"
+            - "Executive Role"
+            - "Team Leadership"
+            - "EUR 1,150-1,500/day"
 
   # ========================================
   # Section 8: All Services in Detail (Accordion)

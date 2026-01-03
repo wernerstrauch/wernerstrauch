@@ -93,24 +93,24 @@ sections:
       imagePosition: "left"
       content:
         - type: "lead"
-          content: "Sparring is more than consulting and more than coaching – it's a continuous dialogue as equals."
+          content: "Sparring goes beyond consulting or coaching – it's an ongoing, peer-to-peer dialogue."
         - type: "text"
-          content: "<p>In sports, a sparring partner is someone who helps you improve – not by fighting for you, but by training with you. That's exactly what e-commerce sparring is: A regular exchange where we think through your challenges together, test ideas and reflect on decisions.</p>"
+          content: "<p>In sports, a sparring partner helps you improve – not by fighting for you, but by training alongside you. E-commerce sparring works the same way: regular sessions where we work through your challenges together, stress-test ideas, and think through decisions before you make them.</p>"
         - type: "text"
-          content: "<p>Unlike a one-time audit or workshop, as a sparring partner I'm permanently at your side. I know your business, your history, your goals – and can therefore provide faster and more targeted support when new questions arise.</p>"
+          content: "<p>Unlike a one-off audit or workshop, I stay in your corner. I get to know your business, your backstory, your goals – which means I can jump in faster and more effectively when new questions come up.</p>"
         - type: "text"
-          content: "<p>For an intensive start, an <a href='/ecommerce-workshop'>E-Commerce Workshop</a> is a great option – afterwards you transition seamlessly into sparring.</p>"
+          content: "<p>Want to kick things off with a deep dive? An <a href='/ecommerce-workshop'>E-Commerce Workshop</a> is perfect for that – then we transition seamlessly into ongoing sparring.</p>"
         - type: "features"
           items:
             - icon: "heroicons:arrows-right-left"
-              title: "Dialogue Instead of Lecture"
-              description: "Finding solutions together through structured exchange."
+              title: "Conversation, Not Lectures"
+              description: "We find solutions together through structured dialogue."
             - icon: "heroicons:calendar-days"
-              title: "Continuous Instead of One-Time"
-              description: "Regular appointments create commitment and depth."
+              title: "Ongoing, Not One-Off"
+              description: "Regular sessions build momentum and depth."
             - icon: "heroicons:user-group"
-              title: "As Equals"
-              description: "You know your business, I bring external perspective."
+              title: "True Partnership"
+              description: "You know your business; I bring the outside perspective."
 
   # ========================================
   # Section 3: BentoGrid (Typical Topics)
@@ -136,48 +136,48 @@ sections:
         hideOnMobile: true
     content:
       badge: "Typical Topics"
-      headline: "What We <em>Discuss</em>"
-      description: "Sparring covers all areas that currently concern you. From fundamental strategic questions to concrete operational decisions."
+      headline: "What We <em>Talk About</em>"
+      description: "Sparring covers whatever's on your plate right now – from big-picture strategy to hands-on operational decisions."
       cards:
         - title: "Strategy & Direction"
-          description: "Where is your e-commerce heading? What decisions are coming up? Together we reflect on strategic options and their consequences."
+          description: "Where should your e-commerce business go next? What big decisions are on the horizon? We think through your options and their trade-offs."
           icon: "heroicons:map"
           features:
             - "Business Model Development"
             - "Market Positioning"
             - "Growth Strategy"
         - title: "Technology & Systems"
-          description: "Shop system, ERP, PIM – before every decision, we can discuss the options. As an independent partner without sales interests."
+          description: "E-commerce platform, ERP, PIM – before you commit, let's talk through the options. I'm vendor-neutral, so you get unbiased advice."
           icon: "heroicons:cpu-chip"
           features:
             - "System Selection"
-            - "Architecture Questions"
+            - "Architecture Decisions"
             - "Vendor Evaluation"
         - title: "Operations & Processes"
-          description: "Fulfillment, customer service, returns management – where are the bottlenecks? We analyze pain points and develop solution approaches."
+          description: "Fulfillment, customer service, returns – where are the bottlenecks? We dig into the pain points and map out solutions."
           icon: "heroicons:cog-6-tooth"
           large: true
           features:
             - "Process Optimization"
             - "Automation"
-            - "Scaling Planning"
+            - "Scaling Roadmaps"
             - "Team Structures"
         - title: "Marketing & Growth"
-          description: "Which channels work? Where should you invest your budget? We discuss marketing strategies and performance data."
+          description: "Which channels are actually working? Where should your budget go? We review your marketing strategy and dig into the numbers."
           icon: "heroicons:arrow-trending-up"
           features:
             - "Channel Strategy"
             - "Budget Allocation"
             - "Performance Review"
         - title: "Team & Organization"
-          description: "Recruiting, team building, agency management – the human side of e-commerce. Often underestimated, but crucial for success. For larger projects, <a href='/project-management'>Project Management</a> is available."
+          description: "Hiring, team building, agency management – the people side of e-commerce. Often overlooked, always critical. For bigger initiatives, check out <a href='/project-management'>Project Management</a>."
           icon: "heroicons:user-group"
           large: true
           features:
             - "Team Development"
-            - "Recruiting Strategy"
+            - "Hiring Strategy"
             - "Vendor Management"
-            - "Organization Design"
+            - "Org Design"
 
   # ========================================
   # Section 4: Quote
@@ -190,9 +190,9 @@ sections:
       variant: dark
       padding: md
     content:
-      quote: "The best decisions aren't made in isolation, but in dialogue. A good sparring partner asks the right questions – and listens."
+      quote: "The best decisions don't happen in a vacuum – they come from real conversation. A good thinking partner asks the right questions, then actually listens."
       author: "Werner Strauch"
-      role: "E-Commerce Sparring Partner"
+      role: "E-Commerce Advisor"
 
   # ========================================
   # Section 5: Stats (Sparring Facts)
@@ -210,18 +210,18 @@ sections:
         opacity: 0.06
         fadeDirection: "left"
     content:
-      badge: "Sparring Facts"
-      headline: "Clear Framework for <em>Real Partnership</em>"
+      badge: "How It Works"
+      headline: "A Clear Framework for <em>Real Partnership</em>"
       stats:
-        - value: "2–4"
+        - value: "2-4"
           label: "Calls per Month"
-          description: "as needed"
-        - value: "60–90"
+          description: "based on your needs"
+        - value: "60-90"
           label: "Minutes"
           description: "per session"
         - value: "3"
           label: "Months"
-          description: "minimum term"
+          description: "minimum commitment"
         - value: "from 1,500"
           prefix: "€"
           label: "per Month"
