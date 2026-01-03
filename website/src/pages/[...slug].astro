@@ -148,6 +148,11 @@ const activeSections = sections
   .filter((s: any) => s.enabled && s.component !== "Footer")
   .sort((a: any, b: any) => a.order - b.order);
 
+// OG Image path from YAML or fallback
+const ogImagePath = meta.ogImage?.filename
+  ? `/og/${meta.ogImage.filename}.png`
+  : undefined;
+
 // Schema.org Data Extraction
 const pageSlug = page.data.slug;
 const isServicePage = pageSlug && pageSlug in SERVICE_SCHEMAS;
@@ -250,6 +255,7 @@ const backgroundMap: Record<string, any> = {
 <RootLayout
   title={meta.title}
   description={meta.description}
+  ogImage={ogImagePath}
   lang={lang}
   hreflangEntries={hreflangEntries}
   headerVariant={headerVariant}

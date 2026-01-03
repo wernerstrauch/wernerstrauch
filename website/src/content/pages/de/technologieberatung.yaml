@@ -8,6 +8,9 @@ slug: technologieberatung
 meta:
   title: "E-Commerce Technologieberatung | Systemauswahl & Integration | Werner Strauch"
   description: "Unabhängige E-Commerce Technologieberatung: Shopsysteme, ERP, PIM, CRM auswählen und integrieren. RFI/RFP-Prozess, TCO-Analyse und moderne Architekturen wie Headless Commerce."
+  ogImage:
+    headline: "E-Commerce<br><mark>Technologieberatung</mark>"
+    filename: "og-ecommerce-technologieberatung"
 
 settings:
   status: published

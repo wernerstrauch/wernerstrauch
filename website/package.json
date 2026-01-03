@@ -38,5 +38,8 @@
     "three": "^0.182.0",
     "vanilla-cookieconsent": "^3.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "glob": "^13.0.0",
+    "yaml": "^2.8.2"
+  }
 }

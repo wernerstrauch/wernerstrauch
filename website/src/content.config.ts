@@ -47,9 +47,15 @@ const blog = defineCollection({
   }),
 });
 
+// Get build language from environment - load only that language's pages
+const buildLang = import.meta.env.SITE_LANG || undefined;
+const pagesPattern = buildLang
+  ? `${buildLang}/*.{yaml,yml}`  // Only load pages for specific language
+  : "**/*.{yaml,yml}";           // Load all pages for combined builds
+
 // Pages Schema (YAML-driven page content)
 const pages = defineCollection({
-  loader: glob({ pattern: "**/*.{yaml,yml}", base: "src/content/pages" }),
+  loader: glob({ pattern: pagesPattern, base: "src/content/pages" }),
   schema: z.object({
     // i18n fields
     lang: langSchema,
@@ -58,6 +64,10 @@ const pages = defineCollection({
     meta: z.object({
       title: z.string(),
       description: z.string(),
+      ogImage: z.object({
+        headline: z.string(),
+        filename: z.string(),
+      }).optional(),
     }),
     // URL Configuration - Optional for homepage (pageId: "homepage"), required for other pages
     slug: z

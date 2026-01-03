@@ -8,6 +8,9 @@ slug: projektleitung
 meta:
   title: "E-Commerce Projektleitung | Shop-Relaunch, Migration & ERP | Werner Strauch"
   description: "Externe E-Commerce Projektleitung: Shop-Relaunch, System-Migration, ERP-Einführung. Erfahrener Projektleiter mit klarer Methodik. Ab 4.000 Euro/Monat."
+  ogImage:
+    headline: "E-Commerce<br><mark>Projektleitung</mark>"
+    filename: "og-ecommerce-projektleitung"
 
 settings:
   status: published

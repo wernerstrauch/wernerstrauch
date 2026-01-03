@@ -8,6 +8,9 @@ slug: umsetzungsbegleitung
 meta:
   title: "E-Commerce Umsetzungsbegleitung | Sparringspartner & QA | Werner Strauch"
   description: "Professionelle Umsetzungsbegleitung für E-Commerce-Projekte: Sparringspartner, QA, Vendor-Management. Bei Shop-Migration, ERP-Einführung oder Systemintegration. 2-8 Tage/Monat."
+  ogImage:
+    headline: "E-Commerce<br><mark>Umsetzungsbegleitung</mark>"
+    filename: "og-ecommerce-umsetzungsbegleitung"
 
 settings:
   status: published

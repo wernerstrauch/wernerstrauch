@@ -8,6 +8,9 @@ slug: ecommerce-strategie
 meta:
   title: "E-Commerce Strategie | Strategische Planung & Roadmap | Werner Strauch"
   description: "E-Commerce Strategie entwickeln: Geschäftsmodell, Kanalstrategie, Technologie und KPIs. Strategiedokument und Roadmap in 2-6 Wochen. Unabhängige Beratung."
+  ogImage:
+    headline: "E-Commerce<br><mark>Strategie</mark>"
+    filename: "og-ecommerce-strategie"
 
 settings:
   status: published

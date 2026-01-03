@@ -5,6 +5,9 @@ slug: ueber-mich
 meta:
   title: "Über mich | Werner Strauch – E-Commerce Berater & Stratege"
   description: "20+ Jahre E-Commerce-Erfahrung. 7 Jahre Geschäftsführung. Führung von Teams bis 20 Personen. Diplom-Betriebswirt mit technischem Tiefgang und strategischer Beratungskompetenz."
+  ogImage:
+    headline: "Werner Strauch<br><mark>Über mich</mark>"
+    filename: "og-ueber-mich"
 
 settings:
   status: published

@@ -8,6 +8,9 @@ slug: ecommerce-beratung
 meta:
   title: "E-Commerce Beratung | Strategie, Prozesse & Technologie | Werner Strauch"
   description: "Ganzheitliche E-Commerce-Beratung: Von der Strategie über Prozessoptimierung bis zur Technologieauswahl. Unabhängige Expertise für nachhaltiges Wachstum."
+  ogImage:
+    headline: "E-Commerce<br><mark>Beratung</mark>"
+    filename: "og-ecommerce-beratung"
 
 settings:
   status: published

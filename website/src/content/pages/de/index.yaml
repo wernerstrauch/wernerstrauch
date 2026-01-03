@@ -4,6 +4,9 @@ pageId: homepage
 meta:
   title: "E-Commerce Strategie- & Technologieberatung | Werner Strauch"
   description: "Wir machen E-Commerce planbar: klare Roadmaps, sichere Entscheidungen und messbare Ergebnisse. Unabhängige E-Commerce Beratung für Strategie & Technologie."
+  ogImage:
+    headline: "Werner <mark>Strauch</mark><br><mark>E-Commerce</mark> Berater"
+    filename: "og-ecommerce-berater"
 
 settings:
   status: published

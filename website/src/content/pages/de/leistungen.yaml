@@ -8,6 +8,9 @@ slug: leistungen
 meta:
   title: "E-Commerce Leistungen | Beratung, Strategie & Umsetzung | Werner Strauch"
   description: "E-Commerce Leistungen von der Analyse bis zur Umsetzung: Audit, Strategie, Beratung, Workshops, Sparring, Projektleitung und Interim Management. Unabhängige Expertise."
+  ogImage:
+    headline: "E-Commerce<br><mark>Leistungen</mark>"
+    filename: "og-ecommerce-leistungen"
 
 settings:
   status: published

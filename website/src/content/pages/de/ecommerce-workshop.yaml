@@ -8,6 +8,9 @@ slug: ecommerce-workshop
 meta:
   title: "E-Commerce Workshop | Strategie, Prozesse & Wachstum | Werner Strauch"
   description: "E-Commerce Workshop für Ihr Team: Strategie entwickeln, Prozesse optimieren, Wachstum planen. Flexibles Format von Halbtag bis 2 Tage. Vor-Ort oder Remote."
+  ogImage:
+    headline: "E-Commerce<br><mark>Workshop</mark>"
+    filename: "og-ecommerce-workshop"
 
 settings:
   status: published
