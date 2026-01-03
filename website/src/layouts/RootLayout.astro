@@ -124,7 +124,7 @@ const socialImageURL = new URL(ogImage ?? SITE.ogImage, Astro.url.origin).href;
     <main>
       <slot />
     </main>
-    <Footer lang={lang} />
+    <Footer lang={lang} alternateUrl={alternateUrl} />
     <CookieConsent lang={lang} />
   </body>
 </html>
