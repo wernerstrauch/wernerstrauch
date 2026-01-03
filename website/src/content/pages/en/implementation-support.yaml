@@ -101,8 +101,8 @@ sections:
         - type: "features"
           items:
             - icon: "heroicons:chat-bubble-left-right"
-              title: "Sparring Partner"
-              description: "I question concepts, run through scenarios and bring new perspectives."
+              title: "Strategic Sounding Board"
+              description: "I stress-test your concepts, walk through scenarios, and bring fresh perspectives."
             - icon: "heroicons:clipboard-document-check"
               title: "Quality Assurance"
               description: "I review deliverables, test critical functions and secure sign-offs."

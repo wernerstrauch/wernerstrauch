@@ -87,7 +87,7 @@ sections:
             - value: "process"
               label: "Process Optimization"
             - value: "sparring"
-              label: "Strategic Sparring"
+              label: "Strategy Advisory"
             - value: "other"
               label: "Other"
         - id: "message"

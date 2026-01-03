@@ -129,7 +129,7 @@ sections:
             - "Automation Potential"
             - "Fulfillment Analysis"
         - title: "Growth & Marketing"
-          description: "Which channels work? Where is untapped potential? We analyze your customer journey and develop growth levers."
+          description: "Which channels are delivering? Where's the untapped potential? We analyze your customer journey and uncover your biggest growth levers."
           icon: "heroicons:arrow-trending-up"
           features:
             - "Customer Journey Mapping"

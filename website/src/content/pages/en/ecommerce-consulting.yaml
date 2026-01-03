@@ -104,15 +104,15 @@ sections:
           text: "No clear roadmap for the future"
       solutions:
         - icon: "heroicons:bolt"
-          text: "Automation creates capacity"
+          text: "Automation frees up your team"
         - icon: "heroicons:arrows-right-left"
-          text: "Integrated system landscape with clear interfaces"
+          text: "Connected systems with clean integrations"
         - icon: "heroicons:chart-bar"
-          text: "Data-driven decision foundations"
+          text: "Data-driven decision making"
         - icon: "heroicons:cube-transparent"
-          text: "Well-thought-out architecture for scaling"
+          text: "Architecture built to scale"
         - icon: "heroicons:flag"
-          text: "Strategic roadmap with priorities"
+          text: "Prioritized strategic roadmap"
 
   # ========================================
   # Section 3: Consulting Areas (BentoGrid - holistic)
