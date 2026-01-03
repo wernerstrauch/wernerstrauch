@@ -45,8 +45,8 @@ sections:
         size: lg
         animate: true
     content:
-      headline: "Your <mark>E-Commerce</mark> Consultant.<br/>For measurable <em>Results</em>."
-      subheadline: "I help online retailers and D2C brands strategically position their technical infrastructure – from ERP selection to Shopify architecture to process optimization."
+      headline: "Your <mark>E-Commerce</mark> Consultant.<br/>Results that <em>actually move the needle</em>."
+      subheadline: "I help e-commerce brands make smarter technology decisions – from ERP selection to Shopify architecture to streamlining operations."
       primaryCta: "Schedule a Call"
       primaryCtaHref: "/contact"
       secondaryCta: "All Services"
@@ -70,9 +70,9 @@ sections:
       badgeIcon: "heroicons:user-16-solid"
       heading: "Strategic <em>E-Commerce Consulting</em> for Sustainable Growth"
       paragraphs:
-        - "<p>As a <strong>graduate in Business Administration with focus on Business Informatics</strong> and over <strong>20 years of experience</strong> implementing web projects, I understand both sides: the technical challenges and the strategic requirements of growing online retailers.</p>"
-        - "<p>With <strong>7 years as Managing Director</strong>, I bring the perspective that's crucial for sound e-commerce decisions. My service portfolio covers the entire e-commerce lifecycle – from strategic analysis to technology consulting to implementation support.</p>"
-        - "<p>Whether ERP selection, Shopify migration or process optimization – I guide you through all challenges with solid expertise and a pragmatic approach. Your success is my benchmark.</p>"
+        - "<p>With a <strong>business degree focused on information systems</strong> and over <strong>20 years of hands-on experience</strong> building web projects, I get both sides: the technical challenges and what it takes for growing e-commerce businesses to succeed.</p>"
+        - "<p>Having spent <strong>7 years as CEO</strong> of a digital agency, I bring the business perspective that's essential for making sound e-commerce decisions. My services cover the full e-commerce lifecycle – from strategic analysis to technology consulting to implementation support.</p>"
+        - "<p>Whether it's ERP selection, Shopify migration, or process optimization – I'll guide you through with deep expertise and a no-nonsense approach. I'm only successful when you are.</p>"
       valuesTitle: "My Service Areas"
       values:
         - icon: "heroicons:magnifying-glass-circle"
@@ -82,7 +82,7 @@ sections:
           linkText: "More about E-Commerce Audit"
         - icon: "heroicons:chat-bubble-left-right"
           title: "Consulting & Sparring"
-          description: "Strategic guidance, regular sparring and focused workshops for clear decisions."
+          description: "Strategic guidance, regular check-ins, and focused workshops to help you make confident decisions."
           href: "/ecommerce-consulting"
           linkText: "More about E-Commerce Consulting"
         - icon: "heroicons:clipboard-document-check"
@@ -100,7 +100,7 @@ sections:
       variant: dark
       padding: xs
     content:
-      headline: "Experience from projects for leading brands"
+      headline: "Trusted by leading brands"
       logos:
         - name: "LGI"
           src: "/src/images/logos/logo-7.png"
