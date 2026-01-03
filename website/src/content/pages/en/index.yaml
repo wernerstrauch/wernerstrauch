@@ -433,40 +433,40 @@ sections:
         vignetteColor: "#0a1628"
     content:
       eyebrow: "Expertise"
-      headline: "E-Commerce <em>Consulting</em> with System"
-      leadParagraph: "Between technology hype and day-to-day business, growing online retailers need a clear head. Someone who asks the right questions – and understands the answers."
-      pullQuote: "The best technology is the one your team understands and your business moves forward."
+      headline: "E-Commerce <em>Consulting</em> That Makes Sense"
+      leadParagraph: "Between technology hype and the chaos of day-to-day operations, growing e-commerce businesses need a clear head. Someone who asks the right questions – and actually understands the answers."
+      pullQuote: "The best technology is the one your team can master and your business can grow with."
       pullQuoteAuthor: "Werner Strauch"
       showDropCap: true
       showSectionNumbers: false
       leftColumn:
         - type: text
-          content: "As an <strong>independent e-commerce consultant</strong>, I guide companies through the decisions that determine their growth: Which ERP system really fits? How do I migrate cleanly to Shopify? Where are the hidden inefficiencies in my processes?"
+          content: "As an <strong>independent e-commerce consultant</strong>, I help companies navigate the decisions that shape their growth: Which ERP system is actually the right fit? How do you migrate to Shopify without breaking everything? Where are the hidden bottlenecks in your operations?"
         - type: text
-          content: "My approach is always vendor-neutral. I don't receive commissions from software vendors. My recommendations are based solely on your requirements – not on hidden interests."
+          content: "I'm completely vendor-neutral. I don't take commissions from software companies. My recommendations are based on what you need – not on what earns me a kickback."
         - type: headline
-          content: "What sets me apart from agencies"
+          content: "How I'm different from agencies"
         - type: text
-          content: "Agencies have a business model based on volume. The more projects, the more hours, the better. My model is different: I work intensively with few clients. Quality over quantity."
+          content: "Agencies run on volume. More projects, more billable hours, more revenue. My model is different: I work closely with a handful of clients at a time. Quality over quantity."
         - type: highlight
-          content: "My goal is to make myself redundant – not to lead you into dependency."
+          content: "My goal is to work myself out of a job – not to create dependency."
         - type: text
-          content: "That means: knowledge transfer instead of black box. Documentation instead of proprietary knowledge. Systems that your team understands and can control themselves."
+          content: "That means: knowledge transfer, not black boxes. Documentation, not tribal knowledge. Systems your team can actually understand and manage on their own."
       rightColumn:
         - type: headline
           content: "Who I work with"
         - type: text
-          content: "My clients are <strong>online retailers and D2C brands in the DACH region</strong>, typically generating between €500,000 and €50 million in annual revenue."
+          content: "My clients are <strong>e-commerce businesses and D2C brands across Europe</strong>, typically doing between €500k and €50M in annual revenue."
         - type: bullets
           content:
             - "Facing an <a href='/technology-consulting'>ERP change</a> or system consolidation"
-            - "Want to <a href='/technology-consulting'>migrate to Shopify</a> from WooCommerce, Magento or a legacy system"
-            - "Need to professionalize their <a href='/implementation-support'>operational processes</a>"
-            - "Looking for a neutral <a href='/ecommerce-sparring'>sparring partner</a> for technical decisions"
+            - "Want to <a href='/technology-consulting'>migrate to Shopify</a> from WooCommerce, Magento, or a legacy system"
+            - "Need to professionalize their <a href='/implementation-support'>operations</a>"
+            - "Looking for a neutral <a href='/ecommerce-sparring'>sounding board</a> for technical decisions"
         - type: headline
-          content: "My experience"
+          content: "My background"
         - type: text
-          content: "Over 20 years in web project implementation. 7 years as Managing Director of a digital agency. 200+ e-commerce projects supported – from startups to mid-sized hidden champions."
+          content: "20+ years building web projects. 7 years running a digital agency as CEO. 200+ e-commerce projects under my belt – from scrappy startups to established mid-market players."
 
   # FAQ
   - id: faq
@@ -503,18 +503,18 @@ sections:
       badge: "FAQs"
       badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
       headline: "Frequently Asked <em>Questions</em>"
-      description: 'Still have questions? <a href="/contact" class="text-primary hover:text-primary-light font-medium underline transition-colors">Contact me</a> for a non-binding conversation.'
+      description: 'Still have questions? <a href="/contact" class="text-primary hover:text-primary-light font-medium underline transition-colors">Reach out</a> – no strings attached.'
       faqs:
-        - question: "Who is your consulting suitable for?"
-          answer: "For e-commerce companies in the DACH region generating between €500k and €50 million in annual revenue, facing technical or strategic decisions – whether ERP change, shop migration or process optimization."
+        - question: "Who do you typically work with?"
+          answer: "E-commerce companies across Europe doing between €500k and €50M in annual revenue, facing technical or strategic decisions – whether that's an ERP switch, shop migration, or operational overhaul."
         - question: "Are you an agency?"
-          answer: "No. I consult independently and vendor-neutral. If needed, I can draw on my network or support implementation through digitalsprung – but only if it makes sense for you."
-        - question: "What does a collaboration cost?"
-          answer: "That depends on the scope. An audit is calculated project-based, strategic sparring is available as a monthly retainer model. In the initial call, we clarify what fits you and you'll receive a transparent offer."
-        - question: "How quickly can you start?"
-          answer: "Usually within 1-2 weeks. For urgent matters, we'll find a solution."
+          answer: "No. I'm an independent consultant with no vendor ties. When implementation support is needed, I can tap into my network or bring in my agency digitalsprung – but only if it genuinely makes sense for you."
+        - question: "What does it cost to work with you?"
+          answer: "It depends on the scope. Audits are priced on a project basis; ongoing sparring is available as a monthly retainer. We'll figure out what fits during our first call, and you'll get a transparent proposal."
+        - question: "How soon can we get started?"
+          answer: "Usually within 1-2 weeks. If it's urgent, we'll make it work."
         - question: "Do you work remotely?"
-          answer: "Yes, primarily remote. For workshops or intensive project phases, I also come on-site."
+          answer: "Yes, mostly remote. For workshops or intensive project phases, I'm happy to come on-site."
 
   # CTA Final
   - id: cta-final
