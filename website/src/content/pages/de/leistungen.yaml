@@ -54,7 +54,7 @@ sections:
     content:
       badge: "E-Commerce Leistungen"
       badgeIcon: "heroicons:briefcase-16-solid"
-      headline: "E-Commerce-Lösungen, die <em>Ergebnisse</em> liefern"
+      headline: "E-Commerce-<mark>Lösungen</mark>, die <em>Ergebnisse</em> liefern"
       subheadline: "Von der strategischen Analyse über Technologieberatung bis zur Projektleitung – modulare Unterstützung genau dort, wo Sie sie brauchen. Unabhängig, ohne Provisionen und mit klarem Fokus auf Ihre Ziele."
       image: "/src/images/leistungen-hero.png"
       imageAlt: "E-Commerce Leistungen - Übersicht"

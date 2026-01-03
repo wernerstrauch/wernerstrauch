@@ -52,10 +52,10 @@ sections:
         shape: "hexagons"
         hideOnMobile: true
     content:
-      badge: "Services"
+      badge: "E-Commerce Services"
       badgeIcon: "heroicons:briefcase-16-solid"
-      headline: "<mark>E-Commerce</mark> <em>Services</em> for Every Phase"
-      subheadline: "From strategic analysis to technology consulting and hands-on implementation support. I meet you where you are. Modular, independent, and always in your corner."
+      headline: "E-Commerce <mark>Solutions</mark> that Deliver <em>Results</em>"
+      subheadline: "From strategic analysis to technology consulting and project leadership – modular support exactly where you need it. Independent, commission-free, and focused on your goals."
       image: "/src/images/leistungen-hero.png"
       imageAlt: "E-Commerce Services - Overview"
       primaryCta: "Schedule Initial Call"
