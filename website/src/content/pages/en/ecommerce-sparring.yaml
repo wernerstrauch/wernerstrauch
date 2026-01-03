@@ -1,13 +1,13 @@
 # E-Commerce Sparring Page
-# Continuous exchange as equals in retainer model
+# Ongoing strategic partnership on retainer
 
 lang: en
 pageId: ecommerce-sparring
 slug: ecommerce-sparring
 
 meta:
-  title: "E-Commerce Sparring | Your Sparring Partner as Equals | Werner Strauch"
-  description: "E-Commerce Sparring: Regular exchange with an experienced sparring partner. 2-4 calls per month, strategic support in retainer model from €1,500/month."
+  title: "E-Commerce Sparring | Your Strategic Thinking Partner | Werner Strauch"
+  description: "E-Commerce Sparring: Regular strategy sessions with an experienced e-commerce advisor. 2-4 calls per month, ongoing support on retainer from €1,500/month."
   ogImage:
     headline: "E-Commerce<br><mark>Sparring</mark>"
     filename: "og-ecommerce-sparring"
@@ -47,8 +47,8 @@ sections:
     content:
       badge: "E-Commerce Sparring"
       badgeIcon: "heroicons:chat-bubble-left-right-16-solid"
-      headline: "Your <em>Sparring Partner</em> for <mark>E-Commerce</mark>"
-      subheadline: "Regular exchange as equals. Together we reflect on challenges, test ideas and make better decisions – with an experienced partner at your side."
+      headline: "Your <em>Thinking Partner</em> for <mark>E-Commerce</mark>"
+      subheadline: "Ongoing strategic support, not one-off consulting. We tackle challenges together, pressure-test ideas, and sharpen your decision-making – with an experienced partner in your corner."
       image: "/src/images/ecommerce-sparring-hero.png"
       imageAlt: "E-Commerce Sparring - Strategic Exchange"
       primaryCta: "Request Sparring"

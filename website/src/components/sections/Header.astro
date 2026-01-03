@@ -18,6 +18,9 @@ const megaMenu = siteConfig.navigation.megaMenu || [];
 // When SITE_LANG is set, we're building for a separate domain (no prefix needed)
 const isSeparateDomainBuild = !!import.meta.env.SITE_LANG;
 const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
+const contactUrl = isSeparateDomainBuild
+  ? (lang === "en" ? "/contact" : "/kontakt")
+  : (lang === "en" ? "/en/contact" : "/kontakt");
 
 // Filter out nav items that have megaMenu dropdowns
 const megaMenuHrefs = megaMenu.map((cat) => cat.href);
@@ -124,7 +127,7 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
 
         {/* Contact Button */}
         <a
-          href={lang === "en" ? "/en/contact" : "/kontakt"}
+          href={contactUrl}
           class="nav-contact-btn inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-none transition-all duration-300"
         >
           {lang === "en" ? "Contact" : "Kontakt"}
@@ -307,7 +310,7 @@ const altUrl = getAlternateUrl(lang, alternateUrl);
           <span>{lang === "de" ? "English" : "Deutsch"}</span>
         </a>
         <a
-          href={lang === "en" ? "/en/contact" : "/kontakt"}
+          href={contactUrl}
           class="mt-3 block w-full text-center nav-contact-btn px-5 py-3 text-sm font-semibold rounded-none"
           @click="mobileMenuOpen = false"
         >

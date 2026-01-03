@@ -48,7 +48,7 @@ sections:
       badge: "Implementation Support"
       badgeIcon: "heroicons:shield-check-16-solid"
       headline: "<mark>E-Commerce</mark> <em>Implementation Support</em>"
-      subheadline: "Your sparring partner for complex e-commerce projects. I accompany shop migrations, ERP implementations and system integrations – as a critical thinker, not a decision-maker."
+      subheadline: "Your trusted advisor for complex e-commerce projects. I guide you through shop migrations, ERP rollouts, and system integrations - bringing critical thinking, not executive authority."
       image: "/src/images/umsetzungsbegleitung-hero.png"
       imageAlt: "E-Commerce Implementation Support - Sparring Partner"
       primaryCta: "Schedule Initial Call"
@@ -87,13 +87,13 @@ sections:
         hideOnMobile: true
     content:
       badge: "My Role"
-      headline: "Advisory, Not <em>Deciding</em>"
+      headline: "I Advise. <em>You Decide.</em>"
       image: "/src/images/umsetzungsbegleitung-beratung.png"
       imageAlt: "Consulting and sparring on e-commerce projects"
       imagePosition: "right"
       content:
         - type: "lead"
-          content: "I'm not a project manager who makes decisions. I'm the sparring partner who asks the right questions and uncovers blind spots."
+          content: "I'm not a project manager calling the shots. I'm the advisor who asks the tough questions and spots what everyone else misses."
         - type: "text"
           content: "<p>For complex e-commerce projects, you need someone who thinks independently – without their own agenda. Someone who questions technical concepts, puts vendor proposals in context and translates business requirements into developer language.</p>"
         - type: "text"

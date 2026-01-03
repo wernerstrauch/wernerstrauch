@@ -48,7 +48,7 @@ sections:
       badge: "E-Commerce Workshop"
       badgeIcon: "heroicons:academic-cap-solid"
       headline: "E-Commerce <em>Workshop</em> for <mark>Your Team</mark>"
-      subheadline: "Strategy, processes and growth – distilled together in an intensive workshop. With a clear roadmap and concrete action items."
+      subheadline: "Strategy, operations, and growth – all in one intensive workshop. Walk away with a clear roadmap and actionable next steps."
       image: "/src/images/ecommerce-workshop.png"
       imageAlt: "E-Commerce Workshop - Team Session"
       primaryCta: "Request Workshop"
@@ -68,7 +68,7 @@ sections:
       padding: lg
     content:
       badge: "Workshop Facts"
-      headline: "Flexibly Tailored to <em>Your Needs</em>"
+      headline: "Fully Customized to <em>Your Needs</em>"
       stats:
         - value: "½–2"
           label: "Days"
@@ -110,7 +110,7 @@ sections:
     content:
       badge: "Workshop Focus Areas"
       headline: "Four Modules for <em>Sustainable Success</em>"
-      description: "Depending on your challenges, we compose the workshop from these focus areas – or combine all four for a comprehensive strategy day."
+      description: "We tailor the workshop to your specific challenges – pick individual modules or combine all four for a comprehensive strategy day."
       cards:
         - title: "Strategy & Positioning"
           description: "Where does your e-commerce stand today? Where should it go? Together we analyze your business model, competitive position and develop a clear strategy."
