@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { SITE, getSiteConfig } from "@config";
+import { getSiteConfig } from "@config";
 import { LANGUAGES, type SupportedLanguage } from "@lib/i18n";
 import deTranslations from "@i18n/de.json";
 import enTranslations from "@i18n/en.json";
@@ -136,7 +136,7 @@ const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
         {/* Services: Analyse & Strategie */}
         <div>
           <div class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
-            Analyse & Strategie
+            {t.footer.servicesAnalyse}
           </div>
           <ul class="mt-4 space-y-2.5">
             {footerNavigation.servicesAnalyse.map((item) => (
@@ -156,7 +156,7 @@ const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
         {/* Services: Umsetzung & Führung */}
         <div>
           <div class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
-            Umsetzung & Führung
+            {t.footer.servicesUmsetzung}
           </div>
           <ul class="mt-4 space-y-2.5">
             {footerNavigation.servicesUmsetzung.map((item) => (
@@ -176,7 +176,7 @@ const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
         {/* Main Navigation + Legal */}
         <div>
           <div class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
-            Navigation
+            {t.nav.navigation}
           </div>
           <ul class="mt-4 space-y-2.5">
             {footerNavigation.main.map((item) => (
@@ -192,7 +192,7 @@ const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
             ))}
           </ul>
           <div class="footer-nav-label mt-6 text-xs font-semibold uppercase tracking-wider">
-            Legal
+            {t.nav.legal}
           </div>
           <ul class="mt-4 space-y-2.5">
             {footerNavigation.legal.map((item) => (
@@ -212,7 +212,7 @@ const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
         {/* Contact Column */}
         <div class="col-span-2 sm:col-span-1">
           <div class="footer-nav-label text-xs font-semibold uppercase tracking-wider">
-            {lang === "en" ? "Contact" : "Kontakt"}
+            {t.nav.contact}
           </div>
           <div class="mt-4 space-y-3">
             <a
@@ -246,7 +246,7 @@ const homeUrl = isSeparateDomainBuild ? "/" : (lang === "en" ? "/en" : "/");
 
         {/* Back to Top */}
         <a href="#" class="footer-back-to-top group inline-flex items-center gap-2 text-sm">
-          <span>{lang === "en" ? "Back to top" : "Nach oben"}</span>
+          <span>{t.footer.backToTop}</span>
           <Icon name="heroicons:arrow-up-16-solid" class="h-4 w-4 transition-transform group-hover:-translate-y-1" />
         </a>
       </div>
